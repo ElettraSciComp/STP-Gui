@@ -1,0 +1,198 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SYRMEPTomoProject.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PythonExe" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">WinPython-64bit-2.7.10.3\python-2.7.10.amd64\python.exe</Value>
+    </Setting>
+    <Setting Name="TimeOutWaitForLogInSeconds" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">120</Value>
+    </Setting>
+    <Setting Name="PhaseRetrievalJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">exec_phaseretrieval.py</Value>
+    </Setting>
+    <Setting Name="PythonPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">stp-core</Value>
+    </Setting>
+    <Setting Name="ProgramName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SYRMEP Tomo Project</Value>
+    </Setting>
+    <Setting Name="TIFFFileFormatExtension" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.tif</Value>
+    </Setting>
+    <Setting Name="EstimatedRemaingTimeThresh" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">0.03</Value>
+    </Setting>
+    <Setting Name="ReconstructionJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">exec_reconstruct.py</Value>
+    </Setting>
+    <Setting Name="TomoDataFormatExtension" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.tdf</Value>
+    </Setting>
+    <Setting Name="RecAlgsXmlFile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">recalgs.xml</Value>
+    </Setting>
+    <Setting Name="PhrtAlgsXmlFile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">phrtalgs.xml</Value>
+    </Setting>
+    <Setting Name="GuessCenterJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">tools_guesscenter.py</Value>
+    </Setting>
+    <Setting Name="RingRemAlgsXmlFile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">remring.xml</Value>
+    </Setting>
+    <Setting Name="FlatFieldAlgsXmlFile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">flatfield.xml</Value>
+    </Setting>
+    <Setting Name="ConvertToTDFJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">exec_tiff2tdf.py</Value>
+    </Setting>
+    <Setting Name="PreProcessingJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">exec_preprocessing.py</Value>
+    </Setting>
+    <Setting Name="Version" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">1.1.22</Value>
+    </Setting>
+    <Setting Name="GuessOverlapJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">tools_guessoverlap.py</Value>
+    </Setting>
+    <Setting Name="FbpFiltersXmlFile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">fbpfilters.xml</Value>
+    </Setting>
+    <Setting Name="ConvertToTIFFJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">exec_tdf2tiff.py</Value>
+    </Setting>
+    <Setting Name="ExtractImage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">tools_extractdata.py</Value>
+    </Setting>
+    <Setting Name="DegradationMethodsXmlFile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">degradecrop.xml</Value>
+    </Setting>
+    <Setting Name="FormSettings_WorkingPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">S:\STP</Value>
+    </Setting>
+    <Setting Name="FormSettings_TemporaryPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">R:\STP</Value>
+    </Setting>
+    <Setting Name="FormSettings_OutputPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">S:\STP</Value>
+    </Setting>
+    <Setting Name="FormSettings_OutputPrefix" Type="System.String" Scope="User">
+      <Value Profile="(Default)">slice</Value>
+    </Setting>
+    <Setting Name="PostProcessJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">exec_postprocessing.py</Value>
+    </Setting>
+    <Setting Name="HISFileFormatExtension" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.his</Value>
+    </Setting>
+    <Setting Name="ConvertHIS2TDFJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">exec_his2tdf.py</Value>
+    </Setting>
+    <Setting Name="DependenciesPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">depend</Value>
+    </Setting>
+    <Setting Name="VC2010Redistributable_x64" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">vcredist_x64.exe</Value>
+    </Setting>
+    <Setting Name="HISToTDF_CropTop" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="HISToTDF_CropBottom" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="HISToTDF_CropLeft" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="HISToTDF_CropRight" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="HISToTDF_gZipCompression" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="TIFF2TDF_CropTop" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="TIFF2TDF_CropBottom" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="TIFF2TDF_CropLeft" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="TIFF2TDF_CropRight" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="TIFF2TDF_gZipCompression" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="TIFF2TDF_TiffProjectionChecked" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TIFF2TDF_FilePrefixProjection" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tomo</Value>
+    </Setting>
+    <Setting Name="TIFF2TDF_FilePrefixFlat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">flat</Value>
+    </Setting>
+    <Setting Name="TIFF2TDF_FilePrefixDark" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dark</Value>
+    </Setting>
+    <Setting Name="TDF2TIFF_FilePrefixProjection" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tomo</Value>
+    </Setting>
+    <Setting Name="TDF2TIFF_FilePrefixFlat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">flat</Value>
+    </Setting>
+    <Setting Name="TDF2TIFF_FilePrefixDark" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dark</Value>
+    </Setting>
+    <Setting Name="TDF2TIFF_FormatTIFFChecked" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TDF2TIFF_ProjectionOrderChecked" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TDF2TIFF_DatasetToExportTomo" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TDF2TIFF_DatasetToExportFlat" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TDF2TIFF_DatasetToExportDark" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FormSettings_SinoPrefix" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sino</Value>
+    </Setting>
+    <Setting Name="FormSettings_ProjectionPrefix" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tomo</Value>
+    </Setting>
+    <Setting Name="FormSettings_NrOfProcesses" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="PerformGPUCheck" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="PhaseRetrievalPreviewJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">preview_phaseretrieval.py</Value>
+    </Setting>
+    <Setting Name="PreProcessingPreviewJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">preview_preprocessing.py</Value>
+    </Setting>
+    <Setting Name="FormSettings_ChunkSize" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">32</Value>
+    </Setting>
+    <Setting Name="ReconstructPreviewJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">preview_reconstruct.py</Value>
+    </Setting>
+    <Setting Name="SessionID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PostProcessingPreviewJob" Type="System.String" Scope="User">
+      <Value Profile="(Default)">preview_postprocessing.py</Value>
+    </Setting>
+    <Setting Name="AutoLimitJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">tools_autolimit.py</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

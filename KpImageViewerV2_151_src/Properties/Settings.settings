@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="KaiwaProjects.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PythonExe" Type="System.String" Scope="User">
+      <Value Profile="(Default)">WinPython-64bit-2.7.10.3\python-2.7.10.amd64\python.exe</Value>
+    </Setting>
+    <Setting Name="ConvertToTIFF32" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tools_raw2tiff32.py</Value>
+    </Setting>
+    <Setting Name="PythonPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pystp</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

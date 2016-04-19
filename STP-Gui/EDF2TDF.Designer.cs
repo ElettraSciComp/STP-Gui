@@ -40,7 +40,7 @@
 
 namespace SYRMEPTomoProject
 {
-    partial class TIFFToTDF
+    partial class EDFToTDF
     {
         /// <summary>
         /// Required designer variable.
@@ -79,7 +79,6 @@ namespace SYRMEPTomoProject
             this.nudConvertToTDF_CropTop = new System.Windows.Forms.NumericUpDown();
             this.label50 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.btnBrowseTIFFs = new System.Windows.Forms.Button();
             this.zProject_InputPathTxb = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -171,7 +170,7 @@ namespace SYRMEPTomoProject
             this.gbxCrop.Controls.Add(this.nudConvertToTDF_CropTop);
             this.gbxCrop.Controls.Add(this.label50);
             this.gbxCrop.Enabled = false;
-            this.gbxCrop.Location = new System.Drawing.Point(210, 167);
+            this.gbxCrop.Location = new System.Drawing.Point(210, 146);
             this.gbxCrop.Name = "gbxCrop";
             this.gbxCrop.Size = new System.Drawing.Size(211, 76);
             this.gbxCrop.TabIndex = 36;
@@ -242,26 +241,15 @@ namespace SYRMEPTomoProject
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.btnBrowseTIFFs);
             this.groupBox3.Controls.Add(this.zProject_InputPathTxb);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Location = new System.Drawing.Point(16, 20);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(405, 81);
+            this.groupBox3.Size = new System.Drawing.Size(405, 62);
             this.groupBox3.TabIndex = 37;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Input";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 53);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(381, 13);
-            this.label2.TabIndex = 22;
-            this.label2.Text = "All filenames should include 4 digits starting with 1 before .tif (e.g. tomo_0001" +
-    ".tif)";
             // 
             // btnBrowseTIFFs
             // 
@@ -271,7 +259,7 @@ namespace SYRMEPTomoProject
             this.btnBrowseTIFFs.TabIndex = 1;
             this.btnBrowseTIFFs.Text = "Browse...";
             this.btnBrowseTIFFs.UseVisualStyleBackColor = true;
-            this.btnBrowseTIFFs.Click += new System.EventHandler(this.btnBrowseTIFFs_Click);
+            this.btnBrowseTIFFs.Click += new System.EventHandler(this.btnBrowseEDFs_Click);
             // 
             // zProject_InputPathTxb
             // 
@@ -286,9 +274,9 @@ namespace SYRMEPTomoProject
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(12, 27);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(70, 13);
+            this.label12.Size = new System.Drawing.Size(69, 13);
             this.label12.TabIndex = 21;
-            this.label12.Text = "Input (TIFFs):";
+            this.label12.Text = "Input (EDFs):";
             // 
             // groupBox1
             // 
@@ -298,12 +286,12 @@ namespace SYRMEPTomoProject
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.tbxProjectionPrefix);
             this.groupBox1.Controls.Add(this.lblProjections);
-            this.groupBox1.Location = new System.Drawing.Point(17, 250);
+            this.groupBox1.Location = new System.Drawing.Point(17, 229);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(187, 109);
             this.groupBox1.TabIndex = 38;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "TIFF files prefixes";
+            this.groupBox1.Text = "EDF files prefixes";
             // 
             // tbxFlatPrefix
             // 
@@ -311,7 +299,7 @@ namespace SYRMEPTomoProject
             this.tbxFlatPrefix.Name = "tbxFlatPrefix";
             this.tbxFlatPrefix.Size = new System.Drawing.Size(94, 20);
             this.tbxFlatPrefix.TabIndex = 26;
-            this.tbxFlatPrefix.Text = "flat";
+            this.tbxFlatPrefix.Text = "ref";
             // 
             // label19
             // 
@@ -345,7 +333,6 @@ namespace SYRMEPTomoProject
             this.tbxProjectionPrefix.Name = "tbxProjectionPrefix";
             this.tbxProjectionPrefix.Size = new System.Drawing.Size(94, 20);
             this.tbxProjectionPrefix.TabIndex = 24;
-            this.tbxProjectionPrefix.Text = "tomo";
             this.tbxProjectionPrefix.TextChanged += new System.EventHandler(this.tbxProjectionPrefix_TextChanged);
             // 
             // lblProjections
@@ -359,7 +346,7 @@ namespace SYRMEPTomoProject
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(347, 490);
+            this.btnClose.Location = new System.Drawing.Point(347, 467);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(74, 23);
             this.btnClose.TabIndex = 26;
@@ -370,7 +357,7 @@ namespace SYRMEPTomoProject
             // btnConvert
             // 
             this.btnConvert.Enabled = false;
-            this.btnConvert.Location = new System.Drawing.Point(269, 490);
+            this.btnConvert.Location = new System.Drawing.Point(269, 467);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(74, 23);
             this.btnConvert.TabIndex = 25;
@@ -380,15 +367,16 @@ namespace SYRMEPTomoProject
             // 
             // gbxFormat
             // 
+            this.gbxFormat.BackColor = System.Drawing.SystemColors.Control;
             this.gbxFormat.Controls.Add(this.rbtInputSinograms);
             this.gbxFormat.Controls.Add(this.rbtInputProjections);
             this.gbxFormat.Enabled = false;
-            this.gbxFormat.Location = new System.Drawing.Point(17, 167);
+            this.gbxFormat.Location = new System.Drawing.Point(17, 146);
             this.gbxFormat.Name = "gbxFormat";
             this.gbxFormat.Size = new System.Drawing.Size(187, 76);
             this.gbxFormat.TabIndex = 37;
             this.gbxFormat.TabStop = false;
-            this.gbxFormat.Text = "Input TIFF format";
+            this.gbxFormat.Text = "Input EDF image";
             // 
             // rbtInputSinograms
             // 
@@ -475,7 +463,7 @@ namespace SYRMEPTomoProject
             this.gbxSubset.Controls.Add(this.label57);
             this.gbxSubset.Controls.Add(this.label1);
             this.gbxSubset.Enabled = false;
-            this.gbxSubset.Location = new System.Drawing.Point(210, 250);
+            this.gbxSubset.Location = new System.Drawing.Point(210, 229);
             this.gbxSubset.Name = "gbxSubset";
             this.gbxSubset.Size = new System.Drawing.Size(211, 109);
             this.gbxSubset.TabIndex = 5;
@@ -505,7 +493,7 @@ namespace SYRMEPTomoProject
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.zLogTxb);
-            this.groupBox6.Location = new System.Drawing.Point(17, 365);
+            this.groupBox6.Location = new System.Drawing.Point(17, 344);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(404, 113);
             this.groupBox6.TabIndex = 39;
@@ -545,7 +533,7 @@ namespace SYRMEPTomoProject
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.mStatusBarProgressBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 522);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 498);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(436, 22);
             this.statusStrip1.TabIndex = 40;
@@ -580,7 +568,7 @@ namespace SYRMEPTomoProject
             this.gbxOutput.Controls.Add(this.label3);
             this.gbxOutput.Controls.Add(this.label13);
             this.gbxOutput.Enabled = false;
-            this.gbxOutput.Location = new System.Drawing.Point(16, 107);
+            this.gbxOutput.Location = new System.Drawing.Point(16, 86);
             this.gbxOutput.Name = "gbxOutput";
             this.gbxOutput.Size = new System.Drawing.Size(405, 55);
             this.gbxOutput.TabIndex = 42;
@@ -626,11 +614,11 @@ namespace SYRMEPTomoProject
             this.label13.TabIndex = 32;
             this.label13.Text = "Output (TDF):";
             // 
-            // TIFFToTDF
+            // EDFToTDF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(436, 544);
+            this.ClientSize = new System.Drawing.Size(436, 520);
             this.Controls.Add(this.gbxOutput);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.gbxSubset);
@@ -644,11 +632,11 @@ namespace SYRMEPTomoProject
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "TIFFToTDF";
+            this.Name = "EDFToTDF";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Convert TIFFs to TDF";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TIFFToTDF_FormClosing);
-            this.Load += new System.EventHandler(this.TIFFToTDF_Load);
+            this.Text = "Convert EDFs (ESRF Data Format) to TDF";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EDFToTDF_FormClosing);
+            this.Load += new System.EventHandler(this.EDFToTDF_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudConvertToTDF_CropRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudConvertToTDF_CropLeft)).EndInit();
             this.gbxCrop.ResumeLayout(false);
@@ -725,6 +713,5 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripProgressBar mStatusBarProgressBar;
-        private System.Windows.Forms.Label label2;
     }
 }

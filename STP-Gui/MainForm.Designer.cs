@@ -83,6 +83,7 @@ namespace SYRMEPTomoProject
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuTIFF2TDF = new System.Windows.Forms.ToolStripMenuItem();
             this.convertHISToTDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.convertEDFsToEDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuTDF2TIFF = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -409,8 +410,8 @@ namespace SYRMEPTomoProject
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.settingsToolStripMenuItem.Text = "Settings...";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
@@ -430,6 +431,7 @@ namespace SYRMEPTomoProject
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuTIFF2TDF,
             this.convertHISToTDFToolStripMenuItem,
+            this.convertEDFsToEDFToolStripMenuItem,
             this.toolStripMenuItem3,
             this.menuTDF2TIFF});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
@@ -439,27 +441,34 @@ namespace SYRMEPTomoProject
             // menuTIFF2TDF
             // 
             this.menuTIFF2TDF.Name = "menuTIFF2TDF";
-            this.menuTIFF2TDF.Size = new System.Drawing.Size(188, 22);
-            this.menuTIFF2TDF.Text = "Convert TIFF to TDF...";
+            this.menuTIFF2TDF.Size = new System.Drawing.Size(229, 22);
+            this.menuTIFF2TDF.Text = "Convert TIFFs to TDF...";
             this.menuTIFF2TDF.Click += new System.EventHandler(this.menuTIFF2TDF_Click);
             // 
             // convertHISToTDFToolStripMenuItem
             // 
             this.convertHISToTDFToolStripMenuItem.Name = "convertHISToTDFToolStripMenuItem";
-            this.convertHISToTDFToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.convertHISToTDFToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.convertHISToTDFToolStripMenuItem.Text = "Convert HIS to TDF...";
             this.convertHISToTDFToolStripMenuItem.Click += new System.EventHandler(this.convertHISToTDFToolStripMenuItem_Click);
+            // 
+            // convertEDFsToEDFToolStripMenuItem
+            // 
+            this.convertEDFsToEDFToolStripMenuItem.Name = "convertEDFsToEDFToolStripMenuItem";
+            this.convertEDFsToEDFToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.convertEDFsToEDFToolStripMenuItem.Text = "Convert EDFs to TDF...";
+            this.convertEDFsToEDFToolStripMenuItem.Click += new System.EventHandler(this.convertEDFsToEDFToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(185, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(226, 6);
             // 
             // menuTDF2TIFF
             // 
             this.menuTDF2TIFF.Name = "menuTDF2TIFF";
-            this.menuTDF2TIFF.Size = new System.Drawing.Size(188, 22);
-            this.menuTDF2TIFF.Text = "Convert TDF to TIFF...";
+            this.menuTDF2TIFF.Size = new System.Drawing.Size(229, 22);
+            this.menuTDF2TIFF.Text = "Convert TDF to TIFFs/RAWs...";
             this.menuTDF2TIFF.Click += new System.EventHandler(this.menuTDF2TIFF_Click);
             // 
             // toolStripMenuItem1
@@ -543,11 +552,11 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem1.ItemPanel.Controls.Add(this.gbxDatasetInfo_Metadata);
             this.vNavPaneItem1.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem1.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem1.ItemPanel.Size = new System.Drawing.Size(452, 0);
+            this.vNavPaneItem1.ItemPanel.Size = new System.Drawing.Size(452, 536);
             this.vNavPaneItem1.ItemPanel.TabIndex = 1;
             this.vNavPaneItem1.Location = new System.Drawing.Point(0, 0);
             this.vNavPaneItem1.Name = "vNavPaneItem1";
-            this.vNavPaneItem1.Size = new System.Drawing.Size(454, 30);
+            this.vNavPaneItem1.Size = new System.Drawing.Size(454, 567);
             this.vNavPaneItem1.TabIndex = 0;
             this.vNavPaneItem1.Text = "vProjectPaneItem";
             this.vNavPaneItem1.TooltipText = "Dataset";
@@ -843,7 +852,7 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem3.ItemPanel.Name = "ItemPanel";
             this.vNavPaneItem3.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem3.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem3.Location = new System.Drawing.Point(0, 30);
+            this.vNavPaneItem3.Location = new System.Drawing.Point(0, 567);
             this.vNavPaneItem3.Name = "vNavPaneItem3";
             this.vNavPaneItem3.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem3.TabIndex = 2;
@@ -1271,7 +1280,7 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem7.ItemPanel.Name = "ItemPanel";
             this.vNavPaneItem7.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem7.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem7.Location = new System.Drawing.Point(0, 60);
+            this.vNavPaneItem7.Location = new System.Drawing.Point(0, 597);
             this.vNavPaneItem7.Name = "vNavPaneItem7";
             this.vNavPaneItem7.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem7.TabIndex = 5;
@@ -1723,11 +1732,11 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem4.ItemPanel.Controls.Add(this.groupBox11);
             this.vNavPaneItem4.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem4.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem4.ItemPanel.Size = new System.Drawing.Size(452, 536);
+            this.vNavPaneItem4.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem4.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem4.Location = new System.Drawing.Point(0, 90);
+            this.vNavPaneItem4.Location = new System.Drawing.Point(0, 627);
             this.vNavPaneItem4.Name = "vNavPaneItem4";
-            this.vNavPaneItem4.Size = new System.Drawing.Size(454, 567);
+            this.vNavPaneItem4.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem4.TabIndex = 3;
             this.vNavPaneItem4.Text = "vReconstructionPaneItem";
             this.vNavPaneItem4.TooltipText = "Reconstruction";
@@ -3362,6 +3371,7 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.NumericUpDown nudDatasetTab_Flat;
         private System.Windows.Forms.Label lblDatasetTab_Flat;
         private System.Windows.Forms.Button btnDatasetTabPreviewFlat;
+        private System.Windows.Forms.ToolStripMenuItem convertEDFsToEDFToolStripMenuItem;
     }
 }
 

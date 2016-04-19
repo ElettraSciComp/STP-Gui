@@ -1906,7 +1906,13 @@ namespace SYRMEPTomoProject
             // Modify the UI:
             this.Invoke((MethodInvoker)delegate
             {
-                this.PreviewImageFromTemporaryFile(zTempFile);
+                try
+                {
+                    this.PreviewImageFromTemporaryFile(zTempFile);
+                }
+                catch (Exception)
+                {
+                }
             });
 
             // Delete temporary file:
@@ -2450,6 +2456,12 @@ namespace SYRMEPTomoProject
 
             // Re-apply cropping windows:
             RefreshPostprocessingPreviewBitmap();
+        }
+
+        private void convertEDFsToEDFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EDFToTDF zFormSettings = new EDFToTDF();
+            zFormSettings.ShowDialog(this);
         }
 
     }

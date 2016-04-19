@@ -60,7 +60,7 @@ using KaiwaProjects;
 
 namespace SYRMEPTomoProject
 {
-    public partial class TIFFToTDF : Form
+    public partial class EDFToTDF : Form
     {
         private DateTime mDt;
 
@@ -72,7 +72,7 @@ namespace SYRMEPTomoProject
         private string mTempOutputName = string.Empty;
         private int mNrOfProjections = 0;
 
-        public TIFFToTDF()
+        public EDFToTDF()
         {
             InitializeComponent();
 
@@ -92,6 +92,7 @@ namespace SYRMEPTomoProject
 
         void mJobMonitor_JobStep(object sender, JobEventArgs e)
         {
+
             TimeSpan zElapsedTime, zRemainingTime;
 
             // Thread safe (it runs on UI thread):
@@ -122,6 +123,7 @@ namespace SYRMEPTomoProject
                     }
                 });
             }
+
         }
 
         void mJobMonitor_JobError(object sender, JobEventArgs e)
@@ -162,8 +164,9 @@ namespace SYRMEPTomoProject
         {
             mRunning = false;
 
+
             // Thread safe (it runs on UI thread):           
-            this.Invoke((MethodInvoker)delegate
+            this.Invoke((MethodInvoker)delegate            
             {
                 try
                 {
@@ -178,7 +181,6 @@ namespace SYRMEPTomoProject
                     btnConvert.Enabled = true;
                     btnClose.Enabled = true;
 
-
                     // Rename file:
                     if (File.Exists(this.mTempOutputName))
                     {
@@ -191,7 +193,6 @@ namespace SYRMEPTomoProject
                 catch (Exception)
                 {
                 }
-
             });
         }
 
@@ -235,15 +236,23 @@ namespace SYRMEPTomoProject
         /// <summary>
         /// To be called by the tbxProjectionPrefix_TextChanged and zProject_InputPathTxb_TextChanged events.
         /// </summary>
-        private void UpdateValues()
+        private void UpdateValues(bool flagPrefix)
         {
             if (Directory.Exists(mInputPath))
             {
                 // Get the number of projection files:
                 string zFilter;
 
+                // Set the default name for the dataset as folder name:
+                if (flagPrefix)
+                {
+                    string fullPath = Path.GetFullPath(mInputPath).TrimEnd(Path.DirectorySeparatorChar);
+                    string projectName = Path.GetFileName(fullPath);
+                    this.tbxProjectionPrefix.Text = projectName;
+                }
+
                 // Get the number of projection files:
-                zFilter = tbxProjectionPrefix.Text + "*" + Properties.Settings.Default.TIFFFileFormatExtension + "*";
+                zFilter = tbxProjectionPrefix.Text + "*" + Properties.Settings.Default.EDFFileFormatExtension + "*";
                 mNrOfProjections = (int)(Directory.GetFiles(mInputPath, zFilter, SearchOption.TopDirectoryOnly).Length);
 
                 if ((mNrOfProjections > 0) && (tbxProjectionPrefix.Text != string.Empty))
@@ -296,7 +305,7 @@ namespace SYRMEPTomoProject
             this.Close();
         }
 
-        private void btnBrowseTIFFs_Click(object sender, EventArgs e)
+        private void btnBrowseEDFs_Click(object sender, EventArgs e)
         {
             if (zInputTIFFsBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -312,7 +321,7 @@ namespace SYRMEPTomoProject
             mTempOutputName = Properties.Settings.Default.FormSettings_WorkingPath + Path.DirectorySeparatorChar + "_" + Program.GetTimestamp(DateTime.Now) + ".tmp";
 
             // Create an instance for the phase retrieval job:
-            zJob = new TIFF2TDFJob(
+            zJob = new EDF2TDFJob(
                     mInputPath,
                     mTempOutputName,
                     (this.chkConsiderSubset.Checked) ? Convert.ToInt32(this.nudConvertToTDFFrom.Value) : 0,
@@ -343,9 +352,10 @@ namespace SYRMEPTomoProject
             this.toolStripStatusLabel1.Text = string.Empty;
         }
 
-        private void TIFFToTDF_Load(object sender, EventArgs e)
+        private void EDFToTDF_Load(object sender, EventArgs e)
         {
             // Load settings:
+            /*
             this.nudConvertToTDF_CropTop.Value = Properties.Settings.Default.TIFF2TDF_CropTop;
             this.nudConvertToTDF_CropBottom.Value = Properties.Settings.Default.TIFF2TDF_CropBottom;
             this.nudConvertToTDF_CropLeft.Value = Properties.Settings.Default.TIFF2TDF_CropLeft;
@@ -357,10 +367,11 @@ namespace SYRMEPTomoProject
             this.tbxFlatPrefix.Text = Properties.Settings.Default.TIFF2TDF_FilePrefixFlat;
 
             this.rbtInputProjections.Checked = Properties.Settings.Default.TIFF2TDF_TiffProjectionChecked;
-            this.rbtInputSinograms.Checked = !Properties.Settings.Default.TIFF2TDF_TiffProjectionChecked;
+            this.rbtInputSinograms.Checked = ! Properties.Settings.Default.TIFF2TDF_TiffProjectionChecked;
+            */
         }
 
-        private void TIFFToTDF_FormClosing(object sender, FormClosingEventArgs e)
+        private void EDFToTDF_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (mRunning)
             {
@@ -371,7 +382,7 @@ namespace SYRMEPTomoProject
             // Serialize settings:
             if (!e.Cancel)
             {
-                Properties.Settings.Default["TIFF2TDF_CropTop"] = this.nudConvertToTDF_CropTop.Value;
+                /*Properties.Settings.Default["TIFF2TDF_CropTop"] = this.nudConvertToTDF_CropTop.Value;
                 Properties.Settings.Default["TIFF2TDF_CropBottom"] = this.nudConvertToTDF_CropBottom.Value;
                 Properties.Settings.Default["TIFF2TDF_CropLeft"] = this.nudConvertToTDF_CropLeft.Value;
                 Properties.Settings.Default["TIFF2TDF_CropRight"] = this.nudConvertToTDF_CropRight.Value;
@@ -381,7 +392,7 @@ namespace SYRMEPTomoProject
                 Properties.Settings.Default["TIFF2TDF_FilePrefixDark"] = this.tbxDarkPrefix.Text;
                 Properties.Settings.Default["TIFF2TDF_FilePrefixFlat"] = this.tbxFlatPrefix.Text;
                 Properties.Settings.Default["TIFF2TDF_TiffProjectionChecked"] = this.rbtInputProjections.Checked;
-
+                */
                 Properties.Settings.Default.Save();
             }
         }
@@ -436,18 +447,17 @@ namespace SYRMEPTomoProject
                 this.nudConvertToTDFFrom.Enabled = false;
                 this.nudConvertToTDFTo.Enabled = false;
             }
-
         }
 
         private void tbxProjectionPrefix_TextChanged(object sender, EventArgs e)
         {
-            UpdateValues();
+            UpdateValues(false);
         }
 
         private void zProject_InputPathTxb_TextChanged(object sender, EventArgs e)
         {
             mInputPath = zProject_InputPathTxb.Text;
-            UpdateValues();
+            UpdateValues(true);
         }
     }
 }

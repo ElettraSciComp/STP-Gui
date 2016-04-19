@@ -9,7 +9,7 @@
       <Value Profile="(Default)">tools_raw2tiff32.py</Value>
     </Setting>
     <Setting Name="PythonPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">pystp</Value>
+      <Value Profile="(Default)">stp-core</Value>
     </Setting>
   </Settings>
 </SettingsFile>

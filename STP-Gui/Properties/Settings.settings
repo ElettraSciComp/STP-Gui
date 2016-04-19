@@ -51,7 +51,7 @@
       <Value Profile="(Default)">exec_preprocessing.py</Value>
     </Setting>
     <Setting Name="Version" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">1.1.22</Value>
+      <Value Profile="(Default)">1.1.25</Value>
     </Setting>
     <Setting Name="GuessOverlapJob" Type="System.String" Scope="Application">
       <Value Profile="(Default)">tools_guessoverlap.py</Value>
@@ -193,6 +193,12 @@
     </Setting>
     <Setting Name="AutoLimitJob" Type="System.String" Scope="Application">
       <Value Profile="(Default)">tools_autolimit.py</Value>
+    </Setting>
+    <Setting Name="ConvertEDFToTDF" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">exec_edf2tdf.py</Value>
+    </Setting>
+    <Setting Name="EDFFileFormatExtension" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.edf</Value>
     </Setting>
   </Settings>
 </SettingsFile>

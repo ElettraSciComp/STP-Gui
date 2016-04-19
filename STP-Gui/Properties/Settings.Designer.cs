@@ -694,5 +694,23 @@ namespace SYRMEPTomoProject.Properties {
                 return ((string)(this["AutoLimitJob"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("exec_edf2tdf.py")]
+        public string ConvertEDFToTDF {
+            get {
+                return ((string)(this["ConvertEDFToTDF"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".edf")]
+        public string EDFFileFormatExtension {
+            get {
+                return ((string)(this["EDFFileFormatExtension"]));
+            }
+        }
     }
 }

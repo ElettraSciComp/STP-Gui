@@ -40,13 +40,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -118,6 +119,12 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EDF2TDF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EDF2TDF.Designer.cs">
+      <DependentUpon>EDF2TDF.cs</DependentUpon>
+    </Compile>
     <Compile Include="HIS2TDF.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +136,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Jobs\GuessLimitJob.cs" />
+    <Compile Include="Jobs\MonitoredJobs\EDF2TDFJob.cs" />
     <Compile Include="Jobs\MonitoredJobs\HIS2TDFJob.cs" />
     <Compile Include="Jobs\MonitoredJobs\IMonitoredJob.cs" />
     <Compile Include="Jobs\MonitoredJobs\PostProcessingJob.cs" />
@@ -188,6 +196,10 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="EDF2TDF.resx">
+      <DependentUpon>EDF2TDF.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="HIS2TDF.resx">
       <DependentUpon>HIS2TDF.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -225,7 +237,6 @@
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

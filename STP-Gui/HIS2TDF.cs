@@ -98,21 +98,27 @@ namespace SYRMEPTomoProject
             {
                 this.Invoke((MethodInvoker)delegate
                 {
-                    // Append line to log textbox:
-                    zLogTxb.AppendText(e.Line);// runs on UI thread
-
-                    // Update status bar:
-                    zElapsedTime = DateTime.Now - mDt;
-                    if (e.Step > 0.0)
+                    try
                     {
-                        zRemainingTime = TimeSpan.FromSeconds(zElapsedTime.TotalSeconds * (1.0 - e.Step) / e.Step);
-                        if (e.Step > Properties.Settings.Default.EstimatedRemaingTimeThresh)
-                            zTiming_ToolStripLbl.Text = "Elapsed time: " + zElapsedTime.ToString(@"hh\:mm\:ss") + ". Estimated remaining time: " + zRemainingTime.ToString(@"hh\:mm\:ss") + ".";
-                        else
-                            zTiming_ToolStripLbl.Text = "Elapsed time: " + zElapsedTime.ToString(@"hh\:mm\:ss") + ".";
-                    }
+                        // Append line to log textbox:
+                        zLogTxb.AppendText(e.Line);// runs on UI thread
 
-                    mStatusBarProgressBar.Value = Math.Min((int)(Math.Round(e.Step * 100.0)), 100);
+                        // Update status bar:
+                        zElapsedTime = DateTime.Now - mDt;
+                        if (e.Step > 0.0)
+                        {
+                            zRemainingTime = TimeSpan.FromSeconds(zElapsedTime.TotalSeconds * (1.0 - e.Step) / e.Step);
+                            if (e.Step > Properties.Settings.Default.EstimatedRemaingTimeThresh)
+                                zTiming_ToolStripLbl.Text = "Elapsed time: " + zElapsedTime.ToString(@"hh\:mm\:ss") + ". Estimated remaining time: " + zRemainingTime.ToString(@"hh\:mm\:ss") + ".";
+                            else
+                                zTiming_ToolStripLbl.Text = "Elapsed time: " + zElapsedTime.ToString(@"hh\:mm\:ss") + ".";
+                        }
+
+                        mStatusBarProgressBar.Value = Math.Min((int)(Math.Round(e.Step * 100.0)), 100);
+                    }
+                    catch (Exception)
+                    {
+                    }
                 });
             }
         }
@@ -124,23 +130,29 @@ namespace SYRMEPTomoProject
             // Thread safe (it runs on UI thread):
             this.Invoke((MethodInvoker)delegate
             {
-                zLogTxb.AppendText(e.Line);// runs on UI thread           
-
-                // Update status bar:
-                zTiming_ToolStripLbl.Text = String.Empty;
-
-                // Update progress bar:
-                mStatusBarProgressBar.Value = 0;
-
-                btnConvert.Enabled = true;
-                btnClose.Enabled = true;
-
-                // Rename file:
-                if (File.Exists(this.mTempOutputName))
+                try
                 {
-                    FileStream zFS = Program.WaitForFile(this.mTempOutputName);
-                    zFS.Close();
-                    File.Delete(this.mTempOutputName);
+                    zLogTxb.AppendText(e.Line);// runs on UI thread           
+
+                    // Update status bar:
+                    zTiming_ToolStripLbl.Text = String.Empty;
+
+                    // Update progress bar:
+                    mStatusBarProgressBar.Value = 0;
+
+                    btnConvert.Enabled = true;
+                    btnClose.Enabled = true;
+
+                    // Rename file:
+                    if (File.Exists(this.mTempOutputName))
+                    {
+                        FileStream zFS = Program.WaitForFile(this.mTempOutputName);
+                        zFS.Close();
+                        File.Delete(this.mTempOutputName);
+                    }
+                }
+                catch (Exception)
+                {
                 }
             });
         }
@@ -153,27 +165,33 @@ namespace SYRMEPTomoProject
             // Thread safe (it runs on UI thread):           
             this.Invoke((MethodInvoker)delegate
             {
-                zLogTxb.AppendText(e.Line);
-
-                // Update status bar:
-                zTiming_ToolStripLbl.Text = String.Empty;
-
-                // Update progress bar:
-                mStatusBarProgressBar.Value = 0;
-
-                btnConvert.Enabled = true;
-                btnClose.Enabled = true;
-
-
-                // Rename file:
-                if (File.Exists(this.mTempOutputName))
+                try
                 {
-                    FileStream zFS = Program.WaitForFile(this.mTempOutputName);
-                    zFS.Close();
-                    File.Move(this.mTempOutputName, Properties.Settings.Default.FormSettings_WorkingPath + Path.DirectorySeparatorChar +
-                        Path.GetFileNameWithoutExtension(txbOutputTDF.Text) + Properties.Settings.Default.TomoDataFormatExtension);
-                }
 
+                    zLogTxb.AppendText(e.Line);
+
+                    // Update status bar:
+                    zTiming_ToolStripLbl.Text = String.Empty;
+
+                    // Update progress bar:
+                    mStatusBarProgressBar.Value = 0;
+
+                    btnConvert.Enabled = true;
+                    btnClose.Enabled = true;
+
+
+                    // Rename file:
+                    if (File.Exists(this.mTempOutputName))
+                    {
+                        FileStream zFS = Program.WaitForFile(this.mTempOutputName);
+                        zFS.Close();
+                        File.Move(this.mTempOutputName, Properties.Settings.Default.FormSettings_WorkingPath + Path.DirectorySeparatorChar +
+                            Path.GetFileNameWithoutExtension(txbOutputTDF.Text) + Properties.Settings.Default.TomoDataFormatExtension);
+                    }
+                }
+                catch (Exception)
+                {
+                }
             });
         }
 
@@ -195,9 +213,15 @@ namespace SYRMEPTomoProject
             mDt = DateTime.Now;
             this.Invoke((MethodInvoker)delegate
             {
-                zLogTxb.AppendText(zString);
-                btnConvert.Enabled = false;
-                btnClose.Enabled = false;
+                try
+                {
+                    zLogTxb.AppendText(zString);
+                    btnConvert.Enabled = false;
+                    btnClose.Enabled = false;
+                }
+                catch (Exception)
+                {
+                }
             });
         }
 

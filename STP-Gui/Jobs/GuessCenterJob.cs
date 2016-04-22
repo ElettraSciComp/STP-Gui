@@ -40,7 +40,7 @@
 
 //
 // Author: Francesco Brun
-// Last modified: April, 11th 2016
+// Last modified: April, 22th 2016 (bug fixed in path with spaces)
 //
 
 

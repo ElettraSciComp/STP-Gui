@@ -74,6 +74,7 @@ namespace SYRMEPTomoProject
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TDFToTIFF));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnInfo = new System.Windows.Forms.Button();
             this.cbxInput = new System.Windows.Forms.ComboBox();
@@ -149,6 +150,7 @@ namespace SYRMEPTomoProject
             this.btnInfo.TabIndex = 26;
             this.btnInfo.Text = "Info...";
             this.btnInfo.UseVisualStyleBackColor = true;
+            this.btnInfo.Visible = false;
             // 
             // cbxInput
             // 
@@ -505,7 +507,7 @@ namespace SYRMEPTomoProject
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(289, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(320, 17);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.Text = " ";
             // 
@@ -568,9 +570,10 @@ namespace SYRMEPTomoProject
             this.Controls.Add(this.btnConvert);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "TDFToTIFF";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Convert TDF to TIFFs/RAWs";

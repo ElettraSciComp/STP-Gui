@@ -69,6 +69,7 @@ namespace SYRMEPTomoProject
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EDFToTDF));
             this.nudConvertToTDF_CropRight = new System.Windows.Forms.NumericUpDown();
             this.nudConvertToTDF_CropLeft = new System.Windows.Forms.NumericUpDown();
             this.gbxCrop = new System.Windows.Forms.GroupBox();
@@ -629,9 +630,10 @@ namespace SYRMEPTomoProject
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.gbxCrop);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "EDFToTDF";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Convert EDFs (ESRF Data Format) to TDF";

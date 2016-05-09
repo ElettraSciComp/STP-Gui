@@ -78,6 +78,8 @@ namespace SYRMEPTomoProject
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.nudSettings_ChunkSize = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             this.nudSettings_Processes = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -101,18 +103,15 @@ namespace SYRMEPTomoProject
             this.mButtonCancel = new System.Windows.Forms.Button();
             this.zWorkingPathBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.zTestPathBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.button1 = new System.Windows.Forms.Button();
             this.zOutputPathBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.mToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.nudSettings_ChunkSize = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSettings_ChunkSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSettings_Processes)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSettings_ChunkSize)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -149,6 +148,38 @@ namespace SYRMEPTomoProject
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Performances";
+            // 
+            // nudSettings_ChunkSize
+            // 
+            this.nudSettings_ChunkSize.Location = new System.Drawing.Point(73, 48);
+            this.nudSettings_ChunkSize.Maximum = new decimal(new int[] {
+            128,
+            0,
+            0,
+            0});
+            this.nudSettings_ChunkSize.Minimum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.nudSettings_ChunkSize.Name = "nudSettings_ChunkSize";
+            this.nudSettings_ChunkSize.Size = new System.Drawing.Size(38, 20);
+            this.nudSettings_ChunkSize.TabIndex = 14;
+            this.nudSettings_ChunkSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudSettings_ChunkSize.Value = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(10, 51);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(62, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Chunk size:";
             // 
             // nudSettings_Processes
             // 
@@ -282,7 +313,7 @@ namespace SYRMEPTomoProject
             this.txbOutputPath.Size = new System.Drawing.Size(221, 20);
             this.txbOutputPath.TabIndex = 25;
             this.mToolTip.SetToolTip(this.txbOutputPath, "Reconstructed images will be written here. Usually this refers to user\'s external" +
-                    " hard drive (USB3 or eSATA suggested).");
+        " hard drive (USB3 or eSATA suggested).");
             // 
             // label13
             // 
@@ -293,7 +324,7 @@ namespace SYRMEPTomoProject
             this.label13.TabIndex = 27;
             this.label13.Text = "Output path:";
             this.mToolTip.SetToolTip(this.label13, "Reconstructed images will be written here. Usually this refers to user\'s external" +
-                    " hard drive (USB3 or eSATA suggested).");
+        " hard drive (USB3 or eSATA suggested).");
             // 
             // btnTemporaryPath
             // 
@@ -379,50 +410,9 @@ namespace SYRMEPTomoProject
             // 
             this.zTestPathBrowserDialog.Description = "Select temporary folder:";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 288);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Restore to Default";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // zOutputPathBrowserDialog
             // 
             this.zOutputPathBrowserDialog.Description = "Select output folder:";
-            // 
-            // nudSettings_ChunkSize
-            // 
-            this.nudSettings_ChunkSize.Location = new System.Drawing.Point(73, 48);
-            this.nudSettings_ChunkSize.Maximum = new decimal(new int[] {
-            128,
-            0,
-            0,
-            0});
-            this.nudSettings_ChunkSize.Minimum = new decimal(new int[] {
-            16,
-            0,
-            0,
-            0});
-            this.nudSettings_ChunkSize.Name = "nudSettings_ChunkSize";
-            this.nudSettings_ChunkSize.Size = new System.Drawing.Size(38, 20);
-            this.nudSettings_ChunkSize.TabIndex = 14;
-            this.nudSettings_ChunkSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudSettings_ChunkSize.Value = new decimal(new int[] {
-            32,
-            0,
-            0,
-            0});
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 51);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 13);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Chunk size:";
             // 
             // FormSettings
             // 
@@ -431,7 +421,6 @@ namespace SYRMEPTomoProject
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.mButtonCancel;
             this.ClientSize = new System.Drawing.Size(464, 323);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.mButtonOk);
             this.Controls.Add(this.mButtonCancel);
             this.Controls.Add(this.tabControl1);
@@ -449,12 +438,12 @@ namespace SYRMEPTomoProject
             this.tabPage1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSettings_ChunkSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSettings_Processes)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSettings_ChunkSize)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -474,7 +463,6 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.Button mButtonCancel;
         private System.Windows.Forms.FolderBrowserDialog zWorkingPathBrowserDialog;
         private System.Windows.Forms.FolderBrowserDialog zTestPathBrowserDialog;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnOutputPath;
         private System.Windows.Forms.TextBox txbOutputPath;
         private System.Windows.Forms.Label label13;

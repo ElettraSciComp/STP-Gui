@@ -361,5 +361,28 @@ namespace SYRMEPTomoProject
                 if (zFile != null) H5F.close(zFile);
             }
         }
+
+        public static T GetMetadata<T>(string filename, string path)
+        {
+            H5FileId zFile = null;
+
+            if (!File.Exists(filename))
+                throw new Exception("File not found.");
+
+            try
+            {
+                zFile = H5F.open(filename, H5F.OpenMode.ACC_RDONLY);
+
+                return (T)HDFExtensions.ReadScalar<T>(zFile, path);
+            }
+            catch             
+            {
+                throw new Exception("Path not found");
+            }
+            finally
+            {
+                if (zFile != null) H5F.close(zFile);
+            }
+        }
     }
 }

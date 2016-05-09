@@ -51,7 +51,7 @@
       <Value Profile="(Default)">exec_preprocessing.py</Value>
     </Setting>
     <Setting Name="Version" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">1.1.25</Value>
+      <Value Profile="(Default)">1.1.29</Value>
     </Setting>
     <Setting Name="GuessOverlapJob" Type="System.String" Scope="Application">
       <Value Profile="(Default)">tools_guessoverlap.py</Value>
@@ -95,19 +95,19 @@
     <Setting Name="VC2010Redistributable_x64" Type="System.String" Scope="Application">
       <Value Profile="(Default)">vcredist_x64.exe</Value>
     </Setting>
-    <Setting Name="HISToTDF_CropTop" Type="System.Decimal" Scope="User">
+    <Setting Name="HIS2TDF_CropTop" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="HISToTDF_CropBottom" Type="System.Decimal" Scope="User">
+    <Setting Name="HIS2TDF_CropBottom" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="HISToTDF_CropLeft" Type="System.Decimal" Scope="User">
+    <Setting Name="HIS2TDF_CropLeft" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="HISToTDF_CropRight" Type="System.Decimal" Scope="User">
+    <Setting Name="HIS2TDF_CropRight" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="HISToTDF_gZipCompression" Type="System.Decimal" Scope="User">
+    <Setting Name="HIS2TDF_gZipCompression" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="TIFF2TDF_CropTop" Type="System.Decimal" Scope="User">
@@ -199,6 +199,60 @@
     </Setting>
     <Setting Name="EDFFileFormatExtension" Type="System.String" Scope="Application">
       <Value Profile="(Default)">.edf</Value>
+    </Setting>
+    <Setting Name="EDF2TDF_CropTop" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="EDF2TDF_CropBottom" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="EDF2TDF_CropLeft" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="EDF2TDF_CropRight" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="EDF2TDF_gZipCompression" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="EDF2TDF_FilePrefixDark" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dark</Value>
+    </Setting>
+    <Setting Name="EDF2TDF_FilePrefixFlat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ref</Value>
+    </Setting>
+    <Setting Name="EDF2TDF_InputProjectionsChecked" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="PhaseRetrievalTab_Delta" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="PhaseRetrievalTab_DeltaExp" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">-7</Value>
+    </Setting>
+    <Setting Name="PhaseRetrievalTab_Beta" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="PhaseRetrievalTab_BetaExp" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">-10</Value>
+    </Setting>
+    <Setting Name="PhaseRetrievalTab_PixelSize" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">9</Value>
+    </Setting>
+    <Setting Name="PhaseRetrievalTab_Energy" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">22</Value>
+    </Setting>
+    <Setting Name="PhaseRetrievalTab_Distance" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="PhaseRetrievalTab_OverpadChecked" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PhaseRetrievalTab_MethodIndex" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MultiOffsetJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">tools_multioffset.py</Value>
     </Setting>
   </Settings>
 </SettingsFile>

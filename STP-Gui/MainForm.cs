@@ -368,13 +368,13 @@ namespace SYRMEPTomoProject
                     zDict.Add(zKeys[ct++].InnerText, zValue.InnerText);
                 }
 
-                cbxPhrtAlgorithms.DataSource = new BindingSource(zDict, null);
-                cbxPhrtAlgorithms.DisplayMember = "Value";
-                cbxPhrtAlgorithms.ValueMember = "Key";
+                cbxPhaseRetrievalTab_Algorithms.DataSource = new BindingSource(zDict, null);
+                cbxPhaseRetrievalTab_Algorithms.DisplayMember = "Value";
+                cbxPhaseRetrievalTab_Algorithms.ValueMember = "Key";
 
-                if (cbxPhrtAlgorithms.Items.Count > 0)
+                if (cbxPhaseRetrievalTab_Algorithms.Items.Count > 0)
                 {
-                    cbxPhrtAlgorithms.SelectedIndex = 0;
+                    cbxPhaseRetrievalTab_Algorithms.SelectedIndex = 0;
                 }
             }
 
@@ -458,6 +458,24 @@ namespace SYRMEPTomoProject
             this.ResumeLayout();
         }
 
+        private void LoadPreviousValues()
+        {
+            // Phase Retrieval Tab:
+            this.nudPhaseRetrievalTab_Beta.Value = Properties.Settings.Default.PhaseRetrievalTab_Beta;
+            this.nudPhaseRetrievalTab_BetaExp.Value = Properties.Settings.Default.PhaseRetrievalTab_BetaExp;
+            this.nudPhaseRetrievalTab_Delta.Value = Properties.Settings.Default.PhaseRetrievalTab_Delta;
+            this.nudPhaseRetrievalTab_DeltaExp.Value = Properties.Settings.Default.PhaseRetrievalTab_DeltaExp;
+            this.nudPhaseRetrievalTab_Distance.Value = Properties.Settings.Default.PhaseRetrievalTab_Distance;
+            this.nudPhaseRetrievalTab_PixelSize.Value = Properties.Settings.Default.PhaseRetrievalTab_PixelSize;
+            this.nudPhaseRetrievalTab_Energy.Value = Properties.Settings.Default.PhaseRetrievalTab_Energy;
+            this.chkPhaseRetrievalTab_OverPadding.Checked = Properties.Settings.Default.PhaseRetrievalTab_OverpadChecked;
+
+            if (Properties.Settings.Default.PhaseRetrievalTab_MethodIndex < cbxPhaseRetrievalTab_Algorithms.Items.Count)
+            {
+                this.cbxPhaseRetrievalTab_Algorithms.SelectedIndex = Properties.Settings.Default.PhaseRetrievalTab_MethodIndex;
+            }      
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Text = Properties.Settings.Default.ProgramName + " v. " + Properties.Settings.Default.Version;
@@ -466,6 +484,9 @@ namespace SYRMEPTomoProject
             InitializeNormalizationMethodsDropDown();
             InitializeRingRemovalMethodsDropDown();
             InitializeDegradationMethodsDropDown();
+
+            // Load previously available values:
+            LoadPreviousValues();
 
             UpdateDeltaBetaLbl();
 
@@ -628,6 +649,19 @@ namespace SYRMEPTomoProject
                 // Delete the temp folder
                 Directory.Delete(Properties.Settings.Default.FormSettings_TemporaryPath
                     + Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID);
+
+                // Serialize settings:
+                Properties.Settings.Default["PhaseRetrievalTab_Beta"] = this.nudPhaseRetrievalTab_Beta.Value;
+                Properties.Settings.Default["PhaseRetrievalTab_BetaExp"] = this.nudPhaseRetrievalTab_BetaExp.Value;
+                Properties.Settings.Default["PhaseRetrievalTab_Delta"] = this.nudPhaseRetrievalTab_Delta.Value;
+                Properties.Settings.Default["PhaseRetrievalTab_DeltaExp"] = this.nudPhaseRetrievalTab_DeltaExp.Value;
+                Properties.Settings.Default["PhaseRetrievalTab_Distance"] = this.nudPhaseRetrievalTab_Distance.Value;
+                Properties.Settings.Default["PhaseRetrievalTab_Energy"] = this.nudPhaseRetrievalTab_Energy.Value;
+                Properties.Settings.Default["PhaseRetrievalTab_PixelSize"] = this.nudPhaseRetrievalTab_PixelSize.Value;
+                Properties.Settings.Default["PhaseRetrievalTab_OverpadChecked"] = this.chkPhaseRetrievalTab_OverPadding.Checked;
+                Properties.Settings.Default["PhaseRetrievalTab_MethodIndex"] = this.cbxPhaseRetrievalTab_Algorithms.SelectedIndex;
+
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -922,14 +956,14 @@ namespace SYRMEPTomoProject
 
         private void cbxPhrtAlgorithms_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.cbxPhrtAlgorithms.SelectedIndex == 0)
+            if (this.cbxPhaseRetrievalTab_Algorithms.SelectedIndex == 0)
             {
                 // Disable items:
                 //zProjections_OptionsBetaNud.Enabled = false;
-                zProjections_OptionsDeltaNud.Enabled = false;
-                zProjections_OptionsVoxelsizeNud.Enabled = false;
-                zProjections_OptionsDistanceNud.Enabled = false;
-                zProjections_OptionsEnergyNud.Enabled = false;                
+                nudPhaseRetrievalTab_Delta.Enabled = false;
+                nudPhaseRetrievalTab_PixelSize.Enabled = false;
+                nudPhaseRetrievalTab_Distance.Enabled = false;
+                nudPhaseRetrievalTab_Energy.Enabled = false;                
 
                 // Also delta/beta batch:
                 // TO DO:
@@ -938,10 +972,10 @@ namespace SYRMEPTomoProject
             {
                 // Enable items:
                 //zProjections_OptionsBetaNud.Enabled = true;
-                zProjections_OptionsDeltaNud.Enabled = true;
-                zProjections_OptionsVoxelsizeNud.Enabled = true;
-                zProjections_OptionsDistanceNud.Enabled = true;
-                zProjections_OptionsEnergyNud.Enabled = true;               
+                nudPhaseRetrievalTab_Delta.Enabled = true;
+                nudPhaseRetrievalTab_PixelSize.Enabled = true;
+                nudPhaseRetrievalTab_Distance.Enabled = true;
+                nudPhaseRetrievalTab_Energy.Enabled = true;               
 
                 // Also delta/beta batch:
                 // TO DO:
@@ -1127,11 +1161,11 @@ namespace SYRMEPTomoProject
                    this.lblPhaseRetrieval_Output.Text,
                    0,
                    TDFReader.GetNumberOfProjections(((KeyValuePair<string, string>)this.cbxPhaseRetrieval_Input.SelectedItem).Key) - 1,
-                   Convert.ToDouble(this.zProjections_OptionsBetaNud.Value) * Math.Pow(10, Convert.ToDouble(this.nudExpBeta.Value)),
-                   Convert.ToDouble(this.zProjections_OptionsDeltaNud.Value) * Math.Pow(10, Convert.ToDouble(this.nudExpDelta.Value)),
-                   Convert.ToDouble(this.zProjections_OptionsDistanceNud.Value),
-                   Convert.ToDouble(this.zProjections_OptionsEnergyNud.Value),                   
-                   Convert.ToDouble(this.zProjections_OptionsVoxelsizeNud.Value),
+                   Convert.ToDouble(this.nudPhaseRetrievalTab_Beta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_BetaExp.Value)),
+                   Convert.ToDouble(this.nudPhaseRetrievalTab_Delta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_DeltaExp.Value)),
+                   Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
+                   Convert.ToDouble(this.nudPhaseRetrievalTab_Energy.Value),                   
+                   Convert.ToDouble(this.nudPhaseRetrievalTab_PixelSize.Value),
                    this.chkPhaseRetrievalTab_OverPadding.Checked,
                    Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses)
             );
@@ -1250,14 +1284,14 @@ namespace SYRMEPTomoProject
 
         private void menuTIFF2TDF_Click(object sender, EventArgs e)
         {
-            TIFFToTDF zFormSettings = new TIFFToTDF();
-            zFormSettings.ShowDialog(this);
+            TIFFToTDF zForm = new TIFFToTDF();
+            zForm.Show();
         }
 
         private void menuTDF2TIFF_Click(object sender, EventArgs e)
         {
-            TDFToTIFF zFormSettings = new TDFToTIFF();
-            zFormSettings.ShowDialog(this);
+            TDFToTIFF zForm = new TDFToTIFF();
+            zForm.Show();
         }
 
         private void chkApplyPreProcessing_CheckedChanged(object sender, EventArgs e)
@@ -1503,9 +1537,19 @@ namespace SYRMEPTomoProject
                 // Preview by default the central projection:
                 //PreviewImageFromTDF(zString, (int)(this.nudDatasetTab_Projection.Value), true);
                 //PreviewImageFromTDF(zString, (int) (this.nudDatasetTab_Sinogram.Value), false);
-                this.lblMetadataFOV.Text = "FOV: " + TDFReader.GetDetectorSize(zString).ToString() + " x " + TDFReader.GetNumberOfSlices(zString).ToString();
-                this.lblNrProjections.Text = "Nr. of projections: " + TDFReader.GetNumberOfProjections(zString).ToString();
+                this.lblMetadata_FOV.Text = "FOV: " + TDFReader.GetDetectorSize(zString).ToString() + " x " + TDFReader.GetNumberOfSlices(zString).ToString();
+                this.lblMetadata_NrProjections.Text = "Nr. of projections: " + TDFReader.GetNumberOfProjections(zString).ToString();
+                try
+                {
+                    this.lblMetadata_Energy.Text = "Energy: " + (TDFReader.GetMetadata<float>(zString, "/measurement/instrument/monochromator/energy")) + " keV";
+                    this.lblMetadata_Distance.Text = "Distance: " + (TDFReader.GetMetadata<float>(zString, "/measurement/instrument/detector/distance")) + " mm";
+                    this.lblMetadata_PixelSize.Text = "Pixel size: " + (TDFReader.GetMetadata<float>(zString, "/measurement/instrument/detector/pixel_size")) + " μm";
+                    //this.lblMetadata_Experiment.Text = "Experiment: " + (TDFReader.GetMetadata<string>(zString, "/measurement/instrument/name"));
+                }
+                catch (Exception ex)
+                {
 
+                }
                 // Modify UI in dataset tab:
                 this.gbxDatasetInfo_Preview.Enabled = true;
                 this.gbxDatasetInfo_Metadata.Enabled = true;
@@ -1760,11 +1804,11 @@ namespace SYRMEPTomoProject
                     // Get combobox selection (in handler)
                    ((KeyValuePair<string, string>)this.cbxPhaseRetrieval_Input.SelectedItem).Key,
                    zTempFile,                   
-                   Convert.ToDouble(this.zProjections_OptionsBetaNud.Value) * Math.Pow(10, Convert.ToDouble(this.nudExpBeta.Value)),
-                   Convert.ToDouble(this.zProjections_OptionsDeltaNud.Value) * Math.Pow(10, Convert.ToDouble(this.nudExpDelta.Value)),
-                   Convert.ToDouble(this.zProjections_OptionsDistanceNud.Value),
-                   Convert.ToDouble(this.zProjections_OptionsEnergyNud.Value),
-                   Convert.ToDouble(this.zProjections_OptionsVoxelsizeNud.Value),
+                   Convert.ToDouble(this.nudPhaseRetrievalTab_Beta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_BetaExp.Value)),
+                   Convert.ToDouble(this.nudPhaseRetrievalTab_Delta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_DeltaExp.Value)),
+                   Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
+                   Convert.ToDouble(this.nudPhaseRetrievalTab_Energy.Value),
+                   Convert.ToDouble(this.nudPhaseRetrievalTab_PixelSize.Value),
                    this.chkPhaseRetrievalTab_OverPadding.Checked
             );
 
@@ -1866,11 +1910,11 @@ namespace SYRMEPTomoProject
                 zConvertTo8String,
                 zCropString, 
                 this.chkPhrtOnTheFly.Checked,
-                Convert.ToDouble(this.zProjections_OptionsBetaNud.Value) * Math.Pow(10, Convert.ToDouble(this.nudExpBeta.Value)),
-                Convert.ToDouble(this.zProjections_OptionsDeltaNud.Value) * Math.Pow(10, Convert.ToDouble(this.nudExpDelta.Value)),
-                Convert.ToDouble(this.zProjections_OptionsDistanceNud.Value),
-                Convert.ToDouble(this.zProjections_OptionsEnergyNud.Value),                   
-                Convert.ToDouble(this.zProjections_OptionsVoxelsizeNud.Value),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Beta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_BetaExp.Value)),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Delta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_DeltaExp.Value)),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Energy.Value),                   
+                Convert.ToDouble(this.nudPhaseRetrievalTab_PixelSize.Value),
                 this.chkPhaseRetrievalTab_OverPadding.Checked
             );    
 
@@ -2352,16 +2396,16 @@ namespace SYRMEPTomoProject
 
         private void convertHISToTDFToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HISToTDF zFormSettings = new HISToTDF();
-            zFormSettings.ShowDialog(this);
+            HISToTDF zForm = new HISToTDF();
+            zForm.Show();
         }
 
         private void UpdateDeltaBetaLbl()
         {
             double zVal, zDelta, zBeta;
 
-            zDelta = ((double) (this.zProjections_OptionsDeltaNud.Value)) * Math.Pow(10.0, (double) (this.nudExpDelta.Value));
-            zBeta = ((double) (this.zProjections_OptionsBetaNud.Value)) * Math.Pow(10.0, (double) (this.nudExpBeta.Value));
+            zDelta = ((double) (this.nudPhaseRetrievalTab_Delta.Value)) * Math.Pow(10.0, (double) (this.nudPhaseRetrievalTab_DeltaExp.Value));
+            zBeta = ((double) (this.nudPhaseRetrievalTab_Beta.Value)) * Math.Pow(10.0, (double) (this.nudPhaseRetrievalTab_BetaExp.Value));
             
             zVal = (int) (Math.Round(zDelta / zBeta));
 
@@ -2460,8 +2504,8 @@ namespace SYRMEPTomoProject
 
         private void convertEDFsToEDFToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            EDFToTDF zFormSettings = new EDFToTDF();
-            zFormSettings.ShowDialog(this);
+            EDFToTDF zForm = new EDFToTDF();
+            zForm.Show();
         }
 
     }

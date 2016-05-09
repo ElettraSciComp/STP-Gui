@@ -355,20 +355,18 @@ namespace SYRMEPTomoProject
         private void EDFToTDF_Load(object sender, EventArgs e)
         {
             // Load settings:
-            /*
-            this.nudConvertToTDF_CropTop.Value = Properties.Settings.Default.TIFF2TDF_CropTop;
-            this.nudConvertToTDF_CropBottom.Value = Properties.Settings.Default.TIFF2TDF_CropBottom;
-            this.nudConvertToTDF_CropLeft.Value = Properties.Settings.Default.TIFF2TDF_CropLeft;
-            this.nudConvertToTDF_CropRight.Value = Properties.Settings.Default.TIFF2TDF_CropRight;
-            this.nudOutputCompression.Value = Properties.Settings.Default.TIFF2TDF_gZipCompression;
+            
+            this.nudConvertToTDF_CropTop.Value = Properties.Settings.Default.EDF2TDF_CropTop;
+            this.nudConvertToTDF_CropBottom.Value = Properties.Settings.Default.EDF2TDF_CropBottom;
+            this.nudConvertToTDF_CropLeft.Value = Properties.Settings.Default.EDF2TDF_CropLeft;
+            this.nudConvertToTDF_CropRight.Value = Properties.Settings.Default.EDF2TDF_CropRight;
+            this.nudOutputCompression.Value = Properties.Settings.Default.EDF2TDF_gZipCompression;
 
-            this.tbxProjectionPrefix.Text = Properties.Settings.Default.TIFF2TDF_FilePrefixProjection;
-            this.tbxDarkPrefix.Text = Properties.Settings.Default.TIFF2TDF_FilePrefixDark;
-            this.tbxFlatPrefix.Text = Properties.Settings.Default.TIFF2TDF_FilePrefixFlat;
+            this.tbxDarkPrefix.Text = Properties.Settings.Default.EDF2TDF_FilePrefixDark;
+            this.tbxFlatPrefix.Text = Properties.Settings.Default.EDF2TDF_FilePrefixFlat;
 
-            this.rbtInputProjections.Checked = Properties.Settings.Default.TIFF2TDF_TiffProjectionChecked;
-            this.rbtInputSinograms.Checked = ! Properties.Settings.Default.TIFF2TDF_TiffProjectionChecked;
-            */
+            this.rbtInputProjections.Checked = Properties.Settings.Default.EDF2TDF_InputProjectionsChecked;
+            this.rbtInputSinograms.Checked = !Properties.Settings.Default.EDF2TDF_InputProjectionsChecked;            
         }
 
         private void EDFToTDF_FormClosing(object sender, FormClosingEventArgs e)
@@ -382,17 +380,16 @@ namespace SYRMEPTomoProject
             // Serialize settings:
             if (!e.Cancel)
             {
-                /*Properties.Settings.Default["TIFF2TDF_CropTop"] = this.nudConvertToTDF_CropTop.Value;
-                Properties.Settings.Default["TIFF2TDF_CropBottom"] = this.nudConvertToTDF_CropBottom.Value;
-                Properties.Settings.Default["TIFF2TDF_CropLeft"] = this.nudConvertToTDF_CropLeft.Value;
-                Properties.Settings.Default["TIFF2TDF_CropRight"] = this.nudConvertToTDF_CropRight.Value;
-                Properties.Settings.Default["TIFF2TDF_gZipCompression"] = this.nudOutputCompression.Value;
-
-                Properties.Settings.Default["TIFF2TDF_FilePrefixProjection"] = this.tbxProjectionPrefix.Text;
-                Properties.Settings.Default["TIFF2TDF_FilePrefixDark"] = this.tbxDarkPrefix.Text;
-                Properties.Settings.Default["TIFF2TDF_FilePrefixFlat"] = this.tbxFlatPrefix.Text;
-                Properties.Settings.Default["TIFF2TDF_TiffProjectionChecked"] = this.rbtInputProjections.Checked;
-                */
+                Properties.Settings.Default["EDF2TDF_CropTop"] = this.nudConvertToTDF_CropTop.Value;
+                Properties.Settings.Default["EDF2TDF_CropBottom"] = this.nudConvertToTDF_CropBottom.Value;
+                Properties.Settings.Default["EDF2TDF_CropLeft"] = this.nudConvertToTDF_CropLeft.Value;
+                Properties.Settings.Default["EDF2TDF_CropRight"] = this.nudConvertToTDF_CropRight.Value;
+                Properties.Settings.Default["EDF2TDF_gZipCompression"] = this.nudOutputCompression.Value;
+                                
+                Properties.Settings.Default["EDF2TDF_FilePrefixDark"] = this.tbxDarkPrefix.Text;
+                Properties.Settings.Default["EDF2TDF_FilePrefixFlat"] = this.tbxFlatPrefix.Text;
+                Properties.Settings.Default["EDF2TDF_InputProjectionsChecked"] = this.rbtInputProjections.Checked;
+                
                 Properties.Settings.Default.Save();
             }
         }

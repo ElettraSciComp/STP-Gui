@@ -40,7 +40,7 @@
 
 //
 // Author: Francesco Brun
-// Last modified: April, 11th 2016
+// Last modified: May, 4th 2016
 //
 
 
@@ -318,11 +318,11 @@ namespace SYRMEPTomoProject
         private void HISToTDF_Load(object sender, EventArgs e)
         {
             // Load settings:
-            this.nudConvertToTDF_CropTop.Value = Properties.Settings.Default.HISToTDF_CropTop;
-            this.nudConvertToTDF_CropBottom.Value = Properties.Settings.Default.HISToTDF_CropBottom;
-            this.nudConvertToTDF_CropLeft.Value = Properties.Settings.Default.HISToTDF_CropLeft;
-            this.nudConvertToTDF_CropRight.Value = Properties.Settings.Default.HISToTDF_CropRight;
-            this.nudOutputCompression.Value = Properties.Settings.Default.HISToTDF_gZipCompression;
+            this.nudConvertToTDF_CropTop.Value = Properties.Settings.Default.HIS2TDF_CropTop;
+            this.nudConvertToTDF_CropBottom.Value = Properties.Settings.Default.HIS2TDF_CropBottom;
+            this.nudConvertToTDF_CropLeft.Value = Properties.Settings.Default.HIS2TDF_CropLeft;
+            this.nudConvertToTDF_CropRight.Value = Properties.Settings.Default.HIS2TDF_CropRight;
+            this.nudOutputCompression.Value = Properties.Settings.Default.HIS2TDF_gZipCompression;
         }
 
         private void HIS2TDF_FormClosing(object sender, FormClosingEventArgs e)
@@ -336,11 +336,11 @@ namespace SYRMEPTomoProject
             // Serialize settings:
             if (!e.Cancel)
             {
-                Properties.Settings.Default["HISToTDF_CropTop"]    = this.nudConvertToTDF_CropTop.Value;
-                Properties.Settings.Default["HISToTDF_CropBottom"] = this.nudConvertToTDF_CropBottom.Value;
-                Properties.Settings.Default["HISToTDF_CropLeft"]   = this.nudConvertToTDF_CropLeft.Value;
-                Properties.Settings.Default["HISToTDF_CropRight"]  = this.nudConvertToTDF_CropRight.Value;
-                Properties.Settings.Default["HISToTDF_gZipCompression"] = this.nudOutputCompression.Value;
+                Properties.Settings.Default["HIS2TDF_CropTop"]    = this.nudConvertToTDF_CropTop.Value;
+                Properties.Settings.Default["HIS2TDF_CropBottom"] = this.nudConvertToTDF_CropBottom.Value;
+                Properties.Settings.Default["HIS2TDF_CropLeft"]   = this.nudConvertToTDF_CropLeft.Value;
+                Properties.Settings.Default["HIS2TDF_CropRight"]  = this.nudConvertToTDF_CropRight.Value;
+                Properties.Settings.Default["HIS2TDF_gZipCompression"] = this.nudOutputCompression.Value;
 
                 Properties.Settings.Default.Save();
             }

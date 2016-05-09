@@ -660,9 +660,10 @@ namespace SYRMEPTomoProject
             this.Controls.Add(this.btnConvert);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox25);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "HISToTDF";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Convert HIS to TDF";

@@ -111,6 +111,19 @@ namespace SYRMEPTomoProject
                 return cp;
             }
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // PerPixelAlphaForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "PerPixelAlphaForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.ResumeLayout(false);
+
+        }
     }
 
     // class that exposes needed win32 gdi functions.

@@ -169,7 +169,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.1.22")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.1.29")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -317,60 +317,60 @@ namespace SYRMEPTomoProject.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public decimal HISToTDF_CropTop {
+        public decimal HIS2TDF_CropTop {
             get {
-                return ((decimal)(this["HISToTDF_CropTop"]));
+                return ((decimal)(this["HIS2TDF_CropTop"]));
             }
             set {
-                this["HISToTDF_CropTop"] = value;
+                this["HIS2TDF_CropTop"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public decimal HISToTDF_CropBottom {
+        public decimal HIS2TDF_CropBottom {
             get {
-                return ((decimal)(this["HISToTDF_CropBottom"]));
+                return ((decimal)(this["HIS2TDF_CropBottom"]));
             }
             set {
-                this["HISToTDF_CropBottom"] = value;
+                this["HIS2TDF_CropBottom"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public decimal HISToTDF_CropLeft {
+        public decimal HIS2TDF_CropLeft {
             get {
-                return ((decimal)(this["HISToTDF_CropLeft"]));
+                return ((decimal)(this["HIS2TDF_CropLeft"]));
             }
             set {
-                this["HISToTDF_CropLeft"] = value;
+                this["HIS2TDF_CropLeft"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public decimal HISToTDF_CropRight {
+        public decimal HIS2TDF_CropRight {
             get {
-                return ((decimal)(this["HISToTDF_CropRight"]));
+                return ((decimal)(this["HIS2TDF_CropRight"]));
             }
             set {
-                this["HISToTDF_CropRight"] = value;
+                this["HIS2TDF_CropRight"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public decimal HISToTDF_gZipCompression {
+        public decimal HIS2TDF_gZipCompression {
             get {
-                return ((decimal)(this["HISToTDF_gZipCompression"]));
+                return ((decimal)(this["HIS2TDF_gZipCompression"]));
             }
             set {
-                this["HISToTDF_gZipCompression"] = value;
+                this["HIS2TDF_gZipCompression"] = value;
             }
         }
         
@@ -710,6 +710,219 @@ namespace SYRMEPTomoProject.Properties {
         public string EDFFileFormatExtension {
             get {
                 return ((string)(this["EDFFileFormatExtension"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal EDF2TDF_CropTop {
+            get {
+                return ((decimal)(this["EDF2TDF_CropTop"]));
+            }
+            set {
+                this["EDF2TDF_CropTop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal EDF2TDF_CropBottom {
+            get {
+                return ((decimal)(this["EDF2TDF_CropBottom"]));
+            }
+            set {
+                this["EDF2TDF_CropBottom"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal EDF2TDF_CropLeft {
+            get {
+                return ((decimal)(this["EDF2TDF_CropLeft"]));
+            }
+            set {
+                this["EDF2TDF_CropLeft"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal EDF2TDF_CropRight {
+            get {
+                return ((decimal)(this["EDF2TDF_CropRight"]));
+            }
+            set {
+                this["EDF2TDF_CropRight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal EDF2TDF_gZipCompression {
+            get {
+                return ((decimal)(this["EDF2TDF_gZipCompression"]));
+            }
+            set {
+                this["EDF2TDF_gZipCompression"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("dark")]
+        public string EDF2TDF_FilePrefixDark {
+            get {
+                return ((string)(this["EDF2TDF_FilePrefixDark"]));
+            }
+            set {
+                this["EDF2TDF_FilePrefixDark"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ref")]
+        public string EDF2TDF_FilePrefixFlat {
+            get {
+                return ((string)(this["EDF2TDF_FilePrefixFlat"]));
+            }
+            set {
+                this["EDF2TDF_FilePrefixFlat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EDF2TDF_InputProjectionsChecked {
+            get {
+                return ((bool)(this["EDF2TDF_InputProjectionsChecked"]));
+            }
+            set {
+                this["EDF2TDF_InputProjectionsChecked"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal PhaseRetrievalTab_Delta {
+            get {
+                return ((decimal)(this["PhaseRetrievalTab_Delta"]));
+            }
+            set {
+                this["PhaseRetrievalTab_Delta"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-7")]
+        public decimal PhaseRetrievalTab_DeltaExp {
+            get {
+                return ((decimal)(this["PhaseRetrievalTab_DeltaExp"]));
+            }
+            set {
+                this["PhaseRetrievalTab_DeltaExp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal PhaseRetrievalTab_Beta {
+            get {
+                return ((decimal)(this["PhaseRetrievalTab_Beta"]));
+            }
+            set {
+                this["PhaseRetrievalTab_Beta"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-10")]
+        public decimal PhaseRetrievalTab_BetaExp {
+            get {
+                return ((decimal)(this["PhaseRetrievalTab_BetaExp"]));
+            }
+            set {
+                this["PhaseRetrievalTab_BetaExp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9")]
+        public decimal PhaseRetrievalTab_PixelSize {
+            get {
+                return ((decimal)(this["PhaseRetrievalTab_PixelSize"]));
+            }
+            set {
+                this["PhaseRetrievalTab_PixelSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("22")]
+        public decimal PhaseRetrievalTab_Energy {
+            get {
+                return ((decimal)(this["PhaseRetrievalTab_Energy"]));
+            }
+            set {
+                this["PhaseRetrievalTab_Energy"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public decimal PhaseRetrievalTab_Distance {
+            get {
+                return ((decimal)(this["PhaseRetrievalTab_Distance"]));
+            }
+            set {
+                this["PhaseRetrievalTab_Distance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PhaseRetrievalTab_OverpadChecked {
+            get {
+                return ((bool)(this["PhaseRetrievalTab_OverpadChecked"]));
+            }
+            set {
+                this["PhaseRetrievalTab_OverpadChecked"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int PhaseRetrievalTab_MethodIndex {
+            get {
+                return ((int)(this["PhaseRetrievalTab_MethodIndex"]));
+            }
+            set {
+                this["PhaseRetrievalTab_MethodIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("tools_multioffset.py")]
+        public string MultiOffsetJob {
+            get {
+                return ((string)(this["MultiOffsetJob"]));
             }
         }
     }

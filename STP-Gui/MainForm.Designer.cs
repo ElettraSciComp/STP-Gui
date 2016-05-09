@@ -111,13 +111,13 @@ namespace SYRMEPTomoProject
             this.cbxDatasetInfo_Input = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
             this.gbxDatasetInfo_Metadata = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lblNrProjections = new System.Windows.Forms.Label();
-            this.lblMetadataFOV = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label46 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblMetadata_PixelSize = new System.Windows.Forms.Label();
+            this.lblMetadata_NrProjections = new System.Windows.Forms.Label();
+            this.lblMetadata_FOV = new System.Windows.Forms.Label();
+            this.lblMetadata_Dataset = new System.Windows.Forms.Label();
+            this.lblMetadata_Experiment = new System.Windows.Forms.Label();
+            this.lblMetadata_Distance = new System.Windows.Forms.Label();
+            this.lblMetadata_Energy = new System.Windows.Forms.Label();
             this.vNavPaneItem3 = new VIBlend.WinForms.Controls.vNavPaneItem();
             this.gbxPreProcessing_Execute = new System.Windows.Forms.GroupBox();
             this.lblPreProcessing_Output = new System.Windows.Forms.Label();
@@ -170,21 +170,21 @@ namespace SYRMEPTomoProject
             this.chkPhaseRetrievalTab_OverPadding = new System.Windows.Forms.CheckBox();
             this.lblDeltaBetaRatio = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.nudExpBeta = new System.Windows.Forms.NumericUpDown();
-            this.nudExpDelta = new System.Windows.Forms.NumericUpDown();
-            this.zProjections_OptionsBetaNud = new System.Windows.Forms.NumericUpDown();
+            this.nudPhaseRetrievalTab_BetaExp = new System.Windows.Forms.NumericUpDown();
+            this.nudPhaseRetrievalTab_DeltaExp = new System.Windows.Forms.NumericUpDown();
+            this.nudPhaseRetrievalTab_Beta = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
-            this.zProjections_OptionsDeltaNud = new System.Windows.Forms.NumericUpDown();
-            this.zProjections_OptionsVoxelsizeNud = new System.Windows.Forms.NumericUpDown();
+            this.nudPhaseRetrievalTab_Delta = new System.Windows.Forms.NumericUpDown();
+            this.nudPhaseRetrievalTab_PixelSize = new System.Windows.Forms.NumericUpDown();
             this.label20 = new System.Windows.Forms.Label();
-            this.cbxPhrtAlgorithms = new System.Windows.Forms.ComboBox();
+            this.cbxPhaseRetrievalTab_Algorithms = new System.Windows.Forms.ComboBox();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this.zProjections_OptionsDistanceNud = new System.Windows.Forms.NumericUpDown();
+            this.nudPhaseRetrievalTab_Distance = new System.Windows.Forms.NumericUpDown();
             this.label27 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
-            this.zProjections_OptionsEnergyNud = new System.Windows.Forms.NumericUpDown();
+            this.nudPhaseRetrievalTab_Energy = new System.Windows.Forms.NumericUpDown();
             this.label24 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -202,6 +202,7 @@ namespace SYRMEPTomoProject
             this.groupBox23 = new System.Windows.Forms.GroupBox();
             this.chkReconstructionTab_PostProcess = new System.Windows.Forms.CheckBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.btnMultipleCenters = new System.Windows.Forms.Button();
             this.btnReconstructionGuess = new System.Windows.Forms.Button();
             this.label58 = new System.Windows.Forms.Label();
             this.nudCenter_Middle = new System.Windows.Forms.NumericUpDown();
@@ -329,13 +330,13 @@ namespace SYRMEPTomoProject
             this.groupBox15.SuspendLayout();
             this.gbxPhaseRetrieval_Execution.SuspendLayout();
             this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudExpBeta)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudExpDelta)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zProjections_OptionsBetaNud)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zProjections_OptionsDeltaNud)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zProjections_OptionsVoxelsizeNud)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zProjections_OptionsDistanceNud)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zProjections_OptionsEnergyNud)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_BetaExp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_DeltaExp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_Beta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_Delta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_PixelSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_Distance)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_Energy)).BeginInit();
             this.vNavPaneItem4.ItemPanel.SuspendLayout();
             this.vNavPaneItem4.SuspendLayout();
             this.groupBox35.SuspendLayout();
@@ -410,19 +411,19 @@ namespace SYRMEPTomoProject
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.settingsToolStripMenuItem.Text = "Settings...";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(113, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(122, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -552,11 +553,11 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem1.ItemPanel.Controls.Add(this.gbxDatasetInfo_Metadata);
             this.vNavPaneItem1.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem1.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem1.ItemPanel.Size = new System.Drawing.Size(452, 536);
+            this.vNavPaneItem1.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem1.ItemPanel.TabIndex = 1;
             this.vNavPaneItem1.Location = new System.Drawing.Point(0, 0);
             this.vNavPaneItem1.Name = "vNavPaneItem1";
-            this.vNavPaneItem1.Size = new System.Drawing.Size(454, 567);
+            this.vNavPaneItem1.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem1.TabIndex = 0;
             this.vNavPaneItem1.Text = "vProjectPaneItem";
             this.vNavPaneItem1.TooltipText = "Dataset";
@@ -756,13 +757,13 @@ namespace SYRMEPTomoProject
             // 
             // gbxDatasetInfo_Metadata
             // 
-            this.gbxDatasetInfo_Metadata.Controls.Add(this.label7);
-            this.gbxDatasetInfo_Metadata.Controls.Add(this.lblNrProjections);
-            this.gbxDatasetInfo_Metadata.Controls.Add(this.lblMetadataFOV);
-            this.gbxDatasetInfo_Metadata.Controls.Add(this.label1);
-            this.gbxDatasetInfo_Metadata.Controls.Add(this.label46);
-            this.gbxDatasetInfo_Metadata.Controls.Add(this.label5);
-            this.gbxDatasetInfo_Metadata.Controls.Add(this.label6);
+            this.gbxDatasetInfo_Metadata.Controls.Add(this.lblMetadata_PixelSize);
+            this.gbxDatasetInfo_Metadata.Controls.Add(this.lblMetadata_NrProjections);
+            this.gbxDatasetInfo_Metadata.Controls.Add(this.lblMetadata_FOV);
+            this.gbxDatasetInfo_Metadata.Controls.Add(this.lblMetadata_Dataset);
+            this.gbxDatasetInfo_Metadata.Controls.Add(this.lblMetadata_Experiment);
+            this.gbxDatasetInfo_Metadata.Controls.Add(this.lblMetadata_Distance);
+            this.gbxDatasetInfo_Metadata.Controls.Add(this.lblMetadata_Energy);
             this.gbxDatasetInfo_Metadata.Enabled = false;
             this.gbxDatasetInfo_Metadata.Location = new System.Drawing.Point(23, 174);
             this.gbxDatasetInfo_Metadata.Name = "gbxDatasetInfo_Metadata";
@@ -771,68 +772,68 @@ namespace SYRMEPTomoProject
             this.gbxDatasetInfo_Metadata.TabStop = false;
             this.gbxDatasetInfo_Metadata.Text = "Metadata";
             // 
-            // label7
+            // lblMetadata_PixelSize
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(36, 158);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(57, 13);
-            this.label7.TabIndex = 31;
-            this.label7.Text = "Voxel size:";
+            this.lblMetadata_PixelSize.AutoSize = true;
+            this.lblMetadata_PixelSize.Location = new System.Drawing.Point(40, 158);
+            this.lblMetadata_PixelSize.Name = "lblMetadata_PixelSize";
+            this.lblMetadata_PixelSize.Size = new System.Drawing.Size(53, 13);
+            this.lblMetadata_PixelSize.TabIndex = 31;
+            this.lblMetadata_PixelSize.Text = "Pixel size:";
             // 
-            // lblNrProjections
+            // lblMetadata_NrProjections
             // 
-            this.lblNrProjections.AutoSize = true;
-            this.lblNrProjections.Location = new System.Drawing.Point(4, 93);
-            this.lblNrProjections.Name = "lblNrProjections";
-            this.lblNrProjections.Size = new System.Drawing.Size(90, 13);
-            this.lblNrProjections.TabIndex = 30;
-            this.lblNrProjections.Text = "Nr. of projections:";
+            this.lblMetadata_NrProjections.AutoSize = true;
+            this.lblMetadata_NrProjections.Location = new System.Drawing.Point(4, 93);
+            this.lblMetadata_NrProjections.Name = "lblMetadata_NrProjections";
+            this.lblMetadata_NrProjections.Size = new System.Drawing.Size(90, 13);
+            this.lblMetadata_NrProjections.TabIndex = 30;
+            this.lblMetadata_NrProjections.Text = "Nr. of projections:";
             // 
-            // lblMetadataFOV
+            // lblMetadata_FOV
             // 
-            this.lblMetadataFOV.AutoSize = true;
-            this.lblMetadataFOV.Location = new System.Drawing.Point(62, 71);
-            this.lblMetadataFOV.Name = "lblMetadataFOV";
-            this.lblMetadataFOV.Size = new System.Drawing.Size(31, 13);
-            this.lblMetadataFOV.TabIndex = 29;
-            this.lblMetadataFOV.Text = "FOV:";
+            this.lblMetadata_FOV.AutoSize = true;
+            this.lblMetadata_FOV.Location = new System.Drawing.Point(62, 71);
+            this.lblMetadata_FOV.Name = "lblMetadata_FOV";
+            this.lblMetadata_FOV.Size = new System.Drawing.Size(31, 13);
+            this.lblMetadata_FOV.TabIndex = 29;
+            this.lblMetadata_FOV.Text = "FOV:";
             // 
-            // label1
+            // lblMetadata_Dataset
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(47, 47);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 28;
-            this.label1.Text = "Dataset:";
+            this.lblMetadata_Dataset.AutoSize = true;
+            this.lblMetadata_Dataset.Location = new System.Drawing.Point(47, 47);
+            this.lblMetadata_Dataset.Name = "lblMetadata_Dataset";
+            this.lblMetadata_Dataset.Size = new System.Drawing.Size(47, 13);
+            this.lblMetadata_Dataset.TabIndex = 28;
+            this.lblMetadata_Dataset.Text = "Dataset:";
             // 
-            // label46
+            // lblMetadata_Experiment
             // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(33, 25);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(62, 13);
-            this.label46.TabIndex = 27;
-            this.label46.Text = "Experiment:";
+            this.lblMetadata_Experiment.AutoSize = true;
+            this.lblMetadata_Experiment.Location = new System.Drawing.Point(33, 25);
+            this.lblMetadata_Experiment.Name = "lblMetadata_Experiment";
+            this.lblMetadata_Experiment.Size = new System.Drawing.Size(62, 13);
+            this.lblMetadata_Experiment.TabIndex = 27;
+            this.lblMetadata_Experiment.Text = "Experiment:";
             // 
-            // label5
+            // lblMetadata_Distance
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(41, 136);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 13);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Distance:";
+            this.lblMetadata_Distance.AutoSize = true;
+            this.lblMetadata_Distance.Location = new System.Drawing.Point(41, 136);
+            this.lblMetadata_Distance.Name = "lblMetadata_Distance";
+            this.lblMetadata_Distance.Size = new System.Drawing.Size(52, 13);
+            this.lblMetadata_Distance.TabIndex = 9;
+            this.lblMetadata_Distance.Text = "Distance:";
             // 
-            // label6
+            // lblMetadata_Energy
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(50, 115);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(43, 13);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Energy:";
+            this.lblMetadata_Energy.AutoSize = true;
+            this.lblMetadata_Energy.Location = new System.Drawing.Point(50, 115);
+            this.lblMetadata_Energy.Name = "lblMetadata_Energy";
+            this.lblMetadata_Energy.Size = new System.Drawing.Size(43, 13);
+            this.lblMetadata_Energy.TabIndex = 7;
+            this.lblMetadata_Energy.Text = "Energy:";
             // 
             // vNavPaneItem3
             // 
@@ -852,7 +853,7 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem3.ItemPanel.Name = "ItemPanel";
             this.vNavPaneItem3.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem3.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem3.Location = new System.Drawing.Point(0, 567);
+            this.vNavPaneItem3.Location = new System.Drawing.Point(0, 30);
             this.vNavPaneItem3.Name = "vNavPaneItem3";
             this.vNavPaneItem3.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem3.TabIndex = 2;
@@ -1155,11 +1156,6 @@ namespace SYRMEPTomoProject
             this.nudNormSx.Size = new System.Drawing.Size(50, 20);
             this.nudNormSx.TabIndex = 14;
             this.nudNormSx.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudNormSx.Value = new decimal(new int[] {
-            11,
-            0,
-            0,
-            0});
             this.nudNormSx.ValueChanged += new System.EventHandler(this.nudNormSx_ValueChanged);
             // 
             // label52
@@ -1192,11 +1188,6 @@ namespace SYRMEPTomoProject
             this.nudNormDx.Size = new System.Drawing.Size(50, 20);
             this.nudNormDx.TabIndex = 15;
             this.nudNormDx.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudNormDx.Value = new decimal(new int[] {
-            11,
-            0,
-            0,
-            0});
             this.nudNormDx.ValueChanged += new System.EventHandler(this.nudNormDx_ValueChanged);
             // 
             // cbxFlatField
@@ -1280,7 +1271,7 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem7.ItemPanel.Name = "ItemPanel";
             this.vNavPaneItem7.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem7.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem7.Location = new System.Drawing.Point(0, 597);
+            this.vNavPaneItem7.Location = new System.Drawing.Point(0, 60);
             this.vNavPaneItem7.Name = "vNavPaneItem7";
             this.vNavPaneItem7.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem7.TabIndex = 5;
@@ -1407,21 +1398,21 @@ namespace SYRMEPTomoProject
             this.groupBox7.Controls.Add(this.chkPhaseRetrievalTab_OverPadding);
             this.groupBox7.Controls.Add(this.lblDeltaBetaRatio);
             this.groupBox7.Controls.Add(this.label3);
-            this.groupBox7.Controls.Add(this.nudExpBeta);
-            this.groupBox7.Controls.Add(this.nudExpDelta);
-            this.groupBox7.Controls.Add(this.zProjections_OptionsBetaNud);
+            this.groupBox7.Controls.Add(this.nudPhaseRetrievalTab_BetaExp);
+            this.groupBox7.Controls.Add(this.nudPhaseRetrievalTab_DeltaExp);
+            this.groupBox7.Controls.Add(this.nudPhaseRetrievalTab_Beta);
             this.groupBox7.Controls.Add(this.label15);
-            this.groupBox7.Controls.Add(this.zProjections_OptionsDeltaNud);
-            this.groupBox7.Controls.Add(this.zProjections_OptionsVoxelsizeNud);
+            this.groupBox7.Controls.Add(this.nudPhaseRetrievalTab_Delta);
+            this.groupBox7.Controls.Add(this.nudPhaseRetrievalTab_PixelSize);
             this.groupBox7.Controls.Add(this.label20);
-            this.groupBox7.Controls.Add(this.cbxPhrtAlgorithms);
+            this.groupBox7.Controls.Add(this.cbxPhaseRetrievalTab_Algorithms);
             this.groupBox7.Controls.Add(this.label28);
             this.groupBox7.Controls.Add(this.label29);
             this.groupBox7.Controls.Add(this.label26);
-            this.groupBox7.Controls.Add(this.zProjections_OptionsDistanceNud);
+            this.groupBox7.Controls.Add(this.nudPhaseRetrievalTab_Distance);
             this.groupBox7.Controls.Add(this.label27);
             this.groupBox7.Controls.Add(this.label25);
-            this.groupBox7.Controls.Add(this.zProjections_OptionsEnergyNud);
+            this.groupBox7.Controls.Add(this.nudPhaseRetrievalTab_Energy);
             this.groupBox7.Controls.Add(this.label24);
             this.groupBox7.Controls.Add(this.label9);
             this.groupBox7.Controls.Add(this.label10);
@@ -1460,68 +1451,68 @@ namespace SYRMEPTomoProject
             this.label3.TabIndex = 28;
             this.label3.Text = "δ:";
             // 
-            // nudExpBeta
+            // nudPhaseRetrievalTab_BetaExp
             // 
-            this.nudExpBeta.Location = new System.Drawing.Point(165, 75);
-            this.nudExpBeta.Minimum = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_BetaExp.Location = new System.Drawing.Point(165, 75);
+            this.nudPhaseRetrievalTab_BetaExp.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.nudExpBeta.Name = "nudExpBeta";
-            this.nudExpBeta.Size = new System.Drawing.Size(38, 20);
-            this.nudExpBeta.TabIndex = 31;
-            this.nudExpBeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudExpBeta.Value = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_BetaExp.Name = "nudPhaseRetrievalTab_BetaExp";
+            this.nudPhaseRetrievalTab_BetaExp.Size = new System.Drawing.Size(38, 20);
+            this.nudPhaseRetrievalTab_BetaExp.TabIndex = 31;
+            this.nudPhaseRetrievalTab_BetaExp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudPhaseRetrievalTab_BetaExp.Value = new decimal(new int[] {
             10,
             0,
             0,
             -2147483648});
-            this.nudExpBeta.ValueChanged += new System.EventHandler(this.nudExpBeta_ValueChanged);
+            this.nudPhaseRetrievalTab_BetaExp.ValueChanged += new System.EventHandler(this.nudExpBeta_ValueChanged);
             // 
-            // nudExpDelta
+            // nudPhaseRetrievalTab_DeltaExp
             // 
-            this.nudExpDelta.Location = new System.Drawing.Point(165, 49);
-            this.nudExpDelta.Minimum = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_DeltaExp.Location = new System.Drawing.Point(165, 49);
+            this.nudPhaseRetrievalTab_DeltaExp.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.nudExpDelta.Name = "nudExpDelta";
-            this.nudExpDelta.Size = new System.Drawing.Size(38, 20);
-            this.nudExpDelta.TabIndex = 29;
-            this.nudExpDelta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudExpDelta.Value = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_DeltaExp.Name = "nudPhaseRetrievalTab_DeltaExp";
+            this.nudPhaseRetrievalTab_DeltaExp.Size = new System.Drawing.Size(38, 20);
+            this.nudPhaseRetrievalTab_DeltaExp.TabIndex = 29;
+            this.nudPhaseRetrievalTab_DeltaExp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudPhaseRetrievalTab_DeltaExp.Value = new decimal(new int[] {
             7,
             0,
             0,
             -2147483648});
-            this.nudExpDelta.ValueChanged += new System.EventHandler(this.nudExpDelta_ValueChanged);
+            this.nudPhaseRetrievalTab_DeltaExp.ValueChanged += new System.EventHandler(this.nudExpDelta_ValueChanged);
             // 
-            // zProjections_OptionsBetaNud
+            // nudPhaseRetrievalTab_Beta
             // 
-            this.zProjections_OptionsBetaNud.DecimalPlaces = 5;
-            this.zProjections_OptionsBetaNud.Location = new System.Drawing.Point(68, 75);
-            this.zProjections_OptionsBetaNud.Maximum = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_Beta.DecimalPlaces = 5;
+            this.nudPhaseRetrievalTab_Beta.Location = new System.Drawing.Point(68, 75);
+            this.nudPhaseRetrievalTab_Beta.Maximum = new decimal(new int[] {
             9999999,
             0,
             0,
             65536});
-            this.zProjections_OptionsBetaNud.Minimum = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_Beta.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             262144});
-            this.zProjections_OptionsBetaNud.Name = "zProjections_OptionsBetaNud";
-            this.zProjections_OptionsBetaNud.Size = new System.Drawing.Size(66, 20);
-            this.zProjections_OptionsBetaNud.TabIndex = 30;
-            this.zProjections_OptionsBetaNud.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.zProjections_OptionsBetaNud.Value = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_Beta.Name = "nudPhaseRetrievalTab_Beta";
+            this.nudPhaseRetrievalTab_Beta.Size = new System.Drawing.Size(66, 20);
+            this.nudPhaseRetrievalTab_Beta.TabIndex = 30;
+            this.nudPhaseRetrievalTab_Beta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudPhaseRetrievalTab_Beta.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.zProjections_OptionsBetaNud.ValueChanged += new System.EventHandler(this.zProjections_OptionsBetaNud_ValueChanged);
+            this.nudPhaseRetrievalTab_Beta.ValueChanged += new System.EventHandler(this.zProjections_OptionsBetaNud_ValueChanged);
             // 
             // label15
             // 
@@ -1532,55 +1523,55 @@ namespace SYRMEPTomoProject
             this.label15.TabIndex = 24;
             this.label15.Text = "β:";
             // 
-            // zProjections_OptionsDeltaNud
+            // nudPhaseRetrievalTab_Delta
             // 
-            this.zProjections_OptionsDeltaNud.DecimalPlaces = 5;
-            this.zProjections_OptionsDeltaNud.Location = new System.Drawing.Point(68, 49);
-            this.zProjections_OptionsDeltaNud.Maximum = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_Delta.DecimalPlaces = 5;
+            this.nudPhaseRetrievalTab_Delta.Location = new System.Drawing.Point(68, 49);
+            this.nudPhaseRetrievalTab_Delta.Maximum = new decimal(new int[] {
             9999999,
             0,
             0,
             65536});
-            this.zProjections_OptionsDeltaNud.Minimum = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_Delta.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             262144});
-            this.zProjections_OptionsDeltaNud.Name = "zProjections_OptionsDeltaNud";
-            this.zProjections_OptionsDeltaNud.Size = new System.Drawing.Size(66, 20);
-            this.zProjections_OptionsDeltaNud.TabIndex = 28;
-            this.zProjections_OptionsDeltaNud.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.zProjections_OptionsDeltaNud.Value = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_Delta.Name = "nudPhaseRetrievalTab_Delta";
+            this.nudPhaseRetrievalTab_Delta.Size = new System.Drawing.Size(66, 20);
+            this.nudPhaseRetrievalTab_Delta.TabIndex = 28;
+            this.nudPhaseRetrievalTab_Delta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudPhaseRetrievalTab_Delta.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.zProjections_OptionsDeltaNud.ValueChanged += new System.EventHandler(this.zProjections_OptionsDeltaNud_ValueChanged);
+            this.nudPhaseRetrievalTab_Delta.ValueChanged += new System.EventHandler(this.zProjections_OptionsDeltaNud_ValueChanged);
             // 
-            // zProjections_OptionsVoxelsizeNud
+            // nudPhaseRetrievalTab_PixelSize
             // 
-            this.zProjections_OptionsVoxelsizeNud.DecimalPlaces = 3;
-            this.zProjections_OptionsVoxelsizeNud.Increment = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_PixelSize.DecimalPlaces = 3;
+            this.nudPhaseRetrievalTab_PixelSize.Increment = new decimal(new int[] {
             500,
             0,
             0,
             196608});
-            this.zProjections_OptionsVoxelsizeNud.Location = new System.Drawing.Point(276, 49);
-            this.zProjections_OptionsVoxelsizeNud.Maximum = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_PixelSize.Location = new System.Drawing.Point(276, 49);
+            this.nudPhaseRetrievalTab_PixelSize.Maximum = new decimal(new int[] {
             9999999,
             0,
             0,
             196608});
-            this.zProjections_OptionsVoxelsizeNud.Minimum = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_PixelSize.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             196608});
-            this.zProjections_OptionsVoxelsizeNud.Name = "zProjections_OptionsVoxelsizeNud";
-            this.zProjections_OptionsVoxelsizeNud.Size = new System.Drawing.Size(66, 20);
-            this.zProjections_OptionsVoxelsizeNud.TabIndex = 32;
-            this.zProjections_OptionsVoxelsizeNud.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.zProjections_OptionsVoxelsizeNud.Value = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_PixelSize.Name = "nudPhaseRetrievalTab_PixelSize";
+            this.nudPhaseRetrievalTab_PixelSize.Size = new System.Drawing.Size(66, 20);
+            this.nudPhaseRetrievalTab_PixelSize.TabIndex = 32;
+            this.nudPhaseRetrievalTab_PixelSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudPhaseRetrievalTab_PixelSize.Value = new decimal(new int[] {
             9,
             0,
             0,
@@ -1595,14 +1586,14 @@ namespace SYRMEPTomoProject
             this.label20.TabIndex = 0;
             this.label20.Text = "Method:";
             // 
-            // cbxPhrtAlgorithms
+            // cbxPhaseRetrievalTab_Algorithms
             // 
-            this.cbxPhrtAlgorithms.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxPhrtAlgorithms.FormattingEnabled = true;
-            this.cbxPhrtAlgorithms.Location = new System.Drawing.Point(68, 22);
-            this.cbxPhrtAlgorithms.Name = "cbxPhrtAlgorithms";
-            this.cbxPhrtAlgorithms.Size = new System.Drawing.Size(274, 21);
-            this.cbxPhrtAlgorithms.TabIndex = 27;
+            this.cbxPhaseRetrievalTab_Algorithms.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxPhaseRetrievalTab_Algorithms.FormattingEnabled = true;
+            this.cbxPhaseRetrievalTab_Algorithms.Location = new System.Drawing.Point(68, 22);
+            this.cbxPhaseRetrievalTab_Algorithms.Name = "cbxPhaseRetrievalTab_Algorithms";
+            this.cbxPhaseRetrievalTab_Algorithms.Size = new System.Drawing.Size(274, 21);
+            this.cbxPhaseRetrievalTab_Algorithms.TabIndex = 27;
             // 
             // label28
             // 
@@ -1616,11 +1607,11 @@ namespace SYRMEPTomoProject
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(219, 52);
+            this.label29.Location = new System.Drawing.Point(223, 52);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(57, 13);
+            this.label29.Size = new System.Drawing.Size(53, 13);
             this.label29.TabIndex = 8;
-            this.label29.Text = "Voxel size:";
+            this.label29.Text = "Pixel size:";
             // 
             // label26
             // 
@@ -1631,25 +1622,25 @@ namespace SYRMEPTomoProject
             this.label26.TabIndex = 7;
             this.label26.Text = "mm";
             // 
-            // zProjections_OptionsDistanceNud
+            // nudPhaseRetrievalTab_Distance
             // 
-            this.zProjections_OptionsDistanceNud.DecimalPlaces = 1;
-            this.zProjections_OptionsDistanceNud.Location = new System.Drawing.Point(276, 75);
-            this.zProjections_OptionsDistanceNud.Maximum = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_Distance.DecimalPlaces = 1;
+            this.nudPhaseRetrievalTab_Distance.Location = new System.Drawing.Point(276, 75);
+            this.nudPhaseRetrievalTab_Distance.Maximum = new decimal(new int[] {
             9999999,
             0,
             0,
             0});
-            this.zProjections_OptionsDistanceNud.Minimum = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_Distance.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.zProjections_OptionsDistanceNud.Name = "zProjections_OptionsDistanceNud";
-            this.zProjections_OptionsDistanceNud.Size = new System.Drawing.Size(66, 20);
-            this.zProjections_OptionsDistanceNud.TabIndex = 33;
-            this.zProjections_OptionsDistanceNud.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.zProjections_OptionsDistanceNud.Value = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_Distance.Name = "nudPhaseRetrievalTab_Distance";
+            this.nudPhaseRetrievalTab_Distance.Size = new System.Drawing.Size(66, 20);
+            this.nudPhaseRetrievalTab_Distance.TabIndex = 33;
+            this.nudPhaseRetrievalTab_Distance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudPhaseRetrievalTab_Distance.Value = new decimal(new int[] {
             50,
             0,
             0,
@@ -1673,15 +1664,15 @@ namespace SYRMEPTomoProject
             this.label25.TabIndex = 4;
             this.label25.Text = "keV";
             // 
-            // zProjections_OptionsEnergyNud
+            // nudPhaseRetrievalTab_Energy
             // 
-            this.zProjections_OptionsEnergyNud.DecimalPlaces = 1;
-            this.zProjections_OptionsEnergyNud.Location = new System.Drawing.Point(276, 101);
-            this.zProjections_OptionsEnergyNud.Name = "zProjections_OptionsEnergyNud";
-            this.zProjections_OptionsEnergyNud.Size = new System.Drawing.Size(66, 20);
-            this.zProjections_OptionsEnergyNud.TabIndex = 34;
-            this.zProjections_OptionsEnergyNud.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.zProjections_OptionsEnergyNud.Value = new decimal(new int[] {
+            this.nudPhaseRetrievalTab_Energy.DecimalPlaces = 1;
+            this.nudPhaseRetrievalTab_Energy.Location = new System.Drawing.Point(276, 101);
+            this.nudPhaseRetrievalTab_Energy.Name = "nudPhaseRetrievalTab_Energy";
+            this.nudPhaseRetrievalTab_Energy.Size = new System.Drawing.Size(66, 20);
+            this.nudPhaseRetrievalTab_Energy.TabIndex = 34;
+            this.nudPhaseRetrievalTab_Energy.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudPhaseRetrievalTab_Energy.Value = new decimal(new int[] {
             20,
             0,
             0,
@@ -1732,11 +1723,11 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem4.ItemPanel.Controls.Add(this.groupBox11);
             this.vNavPaneItem4.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem4.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem4.ItemPanel.Size = new System.Drawing.Size(452, 0);
+            this.vNavPaneItem4.ItemPanel.Size = new System.Drawing.Size(452, 536);
             this.vNavPaneItem4.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem4.Location = new System.Drawing.Point(0, 627);
+            this.vNavPaneItem4.Location = new System.Drawing.Point(0, 90);
             this.vNavPaneItem4.Name = "vNavPaneItem4";
-            this.vNavPaneItem4.Size = new System.Drawing.Size(454, 30);
+            this.vNavPaneItem4.Size = new System.Drawing.Size(454, 567);
             this.vNavPaneItem4.TabIndex = 3;
             this.vNavPaneItem4.Text = "vReconstructionPaneItem";
             this.vNavPaneItem4.TooltipText = "Reconstruction";
@@ -1888,6 +1879,7 @@ namespace SYRMEPTomoProject
             // 
             // groupBox13
             // 
+            this.groupBox13.Controls.Add(this.btnMultipleCenters);
             this.groupBox13.Controls.Add(this.btnReconstructionGuess);
             this.groupBox13.Controls.Add(this.label58);
             this.groupBox13.Controls.Add(this.nudCenter_Middle);
@@ -1899,10 +1891,20 @@ namespace SYRMEPTomoProject
             this.groupBox13.Text = "Center of rotation";
             this.groupBox13.UseCompatibleTextRendering = true;
             // 
+            // btnMultipleCenters
+            // 
+            this.btnMultipleCenters.Enabled = false;
+            this.btnMultipleCenters.Location = new System.Drawing.Point(112, 45);
+            this.btnMultipleCenters.Name = "btnMultipleCenters";
+            this.btnMultipleCenters.Size = new System.Drawing.Size(75, 23);
+            this.btnMultipleCenters.TabIndex = 44;
+            this.btnMultipleCenters.Text = "Test...";
+            this.btnMultipleCenters.UseVisualStyleBackColor = true;
+            // 
             // btnReconstructionGuess
             // 
             this.btnReconstructionGuess.Enabled = false;
-            this.btnReconstructionGuess.Location = new System.Drawing.Point(112, 20);
+            this.btnReconstructionGuess.Location = new System.Drawing.Point(112, 19);
             this.btnReconstructionGuess.Name = "btnReconstructionGuess";
             this.btnReconstructionGuess.Size = new System.Drawing.Size(75, 23);
             this.btnReconstructionGuess.TabIndex = 43;
@@ -1913,7 +1915,7 @@ namespace SYRMEPTomoProject
             // label58
             // 
             this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(20, 26);
+            this.label58.Location = new System.Drawing.Point(16, 37);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(38, 13);
             this.label58.TabIndex = 26;
@@ -1921,7 +1923,7 @@ namespace SYRMEPTomoProject
             // 
             // nudCenter_Middle
             // 
-            this.nudCenter_Middle.Location = new System.Drawing.Point(58, 22);
+            this.nudCenter_Middle.Location = new System.Drawing.Point(54, 33);
             this.nudCenter_Middle.Maximum = new decimal(new int[] {
             500,
             0,
@@ -3077,13 +3079,13 @@ namespace SYRMEPTomoProject
             this.gbxPhaseRetrieval_Execution.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudExpBeta)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudExpDelta)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zProjections_OptionsBetaNud)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zProjections_OptionsDeltaNud)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zProjections_OptionsVoxelsizeNud)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zProjections_OptionsDistanceNud)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zProjections_OptionsEnergyNud)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_BetaExp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_DeltaExp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_Beta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_Delta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_PixelSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_Distance)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_Energy)).EndInit();
             this.vNavPaneItem4.ItemPanel.ResumeLayout(false);
             this.vNavPaneItem4.ResumeLayout(false);
             this.groupBox35.ResumeLayout(false);
@@ -3168,15 +3170,15 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.GroupBox gbxDatasetInfo_Metadata;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblMetadata_Distance;
+        private System.Windows.Forms.Label lblMetadata_Energy;
         private System.Windows.Forms.GroupBox gbxPreProcessing_Preview;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.ComboBox cbxAlgorithm;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.Button btnReconstructionTab_ExecuteRunSubset;
-        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.Label lblMetadata_Experiment;
         private System.Windows.Forms.Label lblReconstructionTab_ExecuteTo;
         private System.Windows.Forms.NumericUpDown nudReconstructionTab_ExecuteTo;
         private System.Windows.Forms.NumericUpDown nudReconstructionTab_ExecuteFrom;
@@ -3215,17 +3217,17 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.Button btnPhaseRetrieval_ExecuteRun;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.NumericUpDown zProjections_OptionsDeltaNud;
-        private System.Windows.Forms.NumericUpDown zProjections_OptionsVoxelsizeNud;
+        private System.Windows.Forms.NumericUpDown nudPhaseRetrievalTab_Delta;
+        private System.Windows.Forms.NumericUpDown nudPhaseRetrievalTab_PixelSize;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.ComboBox cbxPhrtAlgorithms;
+        private System.Windows.Forms.ComboBox cbxPhaseRetrievalTab_Algorithms;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.NumericUpDown zProjections_OptionsDistanceNud;
+        private System.Windows.Forms.NumericUpDown nudPhaseRetrievalTab_Distance;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.NumericUpDown zProjections_OptionsEnergyNud;
+        private System.Windows.Forms.NumericUpDown nudPhaseRetrievalTab_Energy;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.GroupBox groupBox21;
@@ -3342,24 +3344,24 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.Label lblPostProcessingTab_LinearRescaleMax;
         private System.Windows.Forms.TextBox txbPostProcessingTab_LinearRescaleMax;
         private System.Windows.Forms.TextBox txbPostProcessingTab_LinearRescaleMin;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblMetadata_Dataset;
         private System.Windows.Forms.ComboBox cbxPreProcessing_Input;
         private System.Windows.Forms.TextBox txbReconstructionLambda;
         private System.Windows.Forms.Button btnPostProcessingTab_AutoLimit;
         private System.Windows.Forms.NumericUpDown nudCorrectionOffset;
         private System.Windows.Forms.CheckBox chkCorrectionOffset;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown nudExpBeta;
-        private System.Windows.Forms.NumericUpDown nudExpDelta;
-        private System.Windows.Forms.NumericUpDown zProjections_OptionsBetaNud;
+        private System.Windows.Forms.NumericUpDown nudPhaseRetrievalTab_BetaExp;
+        private System.Windows.Forms.NumericUpDown nudPhaseRetrievalTab_DeltaExp;
+        private System.Windows.Forms.NumericUpDown nudPhaseRetrievalTab_Beta;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ToolStripMenuItem convertHISToTDFToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.Label lblDeltaBetaRatio;
-        private System.Windows.Forms.Label lblNrProjections;
-        private System.Windows.Forms.Label lblMetadataFOV;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblMetadata_NrProjections;
+        private System.Windows.Forms.Label lblMetadata_FOV;
+        private System.Windows.Forms.Label lblMetadata_PixelSize;
         private System.Windows.Forms.CheckBox chkPhrtOnTheFly;
         private System.Windows.Forms.NumericUpDown nudGridRec;
         private System.ComponentModel.BackgroundWorker bgwAutoLimit;
@@ -3372,6 +3374,7 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.Label lblDatasetTab_Flat;
         private System.Windows.Forms.Button btnDatasetTabPreviewFlat;
         private System.Windows.Forms.ToolStripMenuItem convertEDFsToEDFToolStripMenuItem;
+        private System.Windows.Forms.Button btnMultipleCenters;
     }
 }
 

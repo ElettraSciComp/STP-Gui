@@ -76,12 +76,13 @@ namespace SYRMEPTomoProject
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MultiOffset));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblInputTDF = new System.Windows.Forms.Label();
             this.btnOutputTIFFs = new System.Windows.Forms.Button();
             this.zOutputPathTxb = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
-            this.btnConvert = new System.Windows.Forms.Button();
+            this.btnReconstruct = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.zLogTxb = new System.Windows.Forms.TextBox();
             this.zOutputTIFFsBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -90,34 +91,35 @@ namespace SYRMEPTomoProject
             this.zTiming_ToolStripLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.mStatusBarProgressBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.nudTDFToTIFFTo = new System.Windows.Forms.NumericUpDown();
-            this.nudTDFToTIFFFrom = new System.Windows.Forms.NumericUpDown();
+            this.nudMultiOffset_From = new System.Windows.Forms.NumericUpDown();
+            this.nudMultiOffset_To = new System.Windows.Forms.NumericUpDown();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.lblInputTDF = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.lblSliceNr = new System.Windows.Forms.Label();
-            this.lblDecimationFactor = new System.Windows.Forms.Label();
-            this.lblDownscalingFactor = new System.Windows.Forms.Label();
-            this.lblAngles = new System.Windows.Forms.Label();
-            this.lblPreProcessing = new System.Windows.Forms.Label();
-            this.lblPhaseRetrieval = new System.Windows.Forms.Label();
-            this.lblPostProcessing = new System.Windows.Forms.Label();
+            this.lblNrProjections = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.lblAlgorithm = new System.Windows.Forms.Label();
+            this.lblPostProcessing = new System.Windows.Forms.Label();
+            this.lblPhaseRetrieval = new System.Windows.Forms.Label();
+            this.lblPreProcessing = new System.Windows.Forms.Label();
+            this.lblAngles = new System.Windows.Forms.Label();
+            this.lblDownscalingFactor = new System.Windows.Forms.Label();
+            this.lblDecimationFactor = new System.Windows.Forms.Label();
+            this.lblSliceNr = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTDFToTIFFTo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTDFToTIFFFrom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMultiOffset_From)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMultiOffset_To)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.SuspendLayout();
@@ -136,6 +138,15 @@ namespace SYRMEPTomoProject
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Input/Output";
             // 
+            // lblInputTDF
+            // 
+            this.lblInputTDF.AutoSize = true;
+            this.lblInputTDF.Location = new System.Drawing.Point(81, 27);
+            this.lblInputTDF.Name = "lblInputTDF";
+            this.lblInputTDF.Size = new System.Drawing.Size(10, 13);
+            this.lblInputTDF.TabIndex = 25;
+            this.lblInputTDF.Text = "-";
+            // 
             // btnOutputTIFFs
             // 
             this.btnOutputTIFFs.Location = new System.Drawing.Point(311, 49);
@@ -152,6 +163,7 @@ namespace SYRMEPTomoProject
             this.zOutputPathTxb.Name = "zOutputPathTxb";
             this.zOutputPathTxb.Size = new System.Drawing.Size(223, 20);
             this.zOutputPathTxb.TabIndex = 2;
+            this.zOutputPathTxb.TextChanged += new System.EventHandler(this.zOutputPathTxb_TextChanged);
             // 
             // label13
             // 
@@ -181,16 +193,16 @@ namespace SYRMEPTomoProject
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // btnConvert
+            // btnReconstruct
             // 
-            this.btnConvert.Enabled = false;
-            this.btnConvert.Location = new System.Drawing.Point(270, 424);
-            this.btnConvert.Name = "btnConvert";
-            this.btnConvert.Size = new System.Drawing.Size(74, 23);
-            this.btnConvert.TabIndex = 25;
-            this.btnConvert.Text = "Reconstruct";
-            this.btnConvert.UseVisualStyleBackColor = true;
-            this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
+            this.btnReconstruct.Enabled = false;
+            this.btnReconstruct.Location = new System.Drawing.Point(270, 424);
+            this.btnReconstruct.Name = "btnReconstruct";
+            this.btnReconstruct.Size = new System.Drawing.Size(74, 23);
+            this.btnReconstruct.TabIndex = 25;
+            this.btnReconstruct.Text = "Reconstruct";
+            this.btnReconstruct.UseVisualStyleBackColor = true;
+            this.btnReconstruct.Click += new System.EventHandler(this.btnConvert_Click);
             // 
             // groupBox6
             // 
@@ -243,58 +255,59 @@ namespace SYRMEPTomoProject
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(320, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(289, 17);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.Text = " ";
+            this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // mStatusBarProgressBar
             // 
             this.mStatusBarProgressBar.Name = "mStatusBarProgressBar";
             this.mStatusBarProgressBar.Size = new System.Drawing.Size(100, 16);
             // 
-            // nudTDFToTIFFTo
+            // nudMultiOffset_From
             // 
-            this.nudTDFToTIFFTo.Enabled = false;
-            this.nudTDFToTIFFTo.Location = new System.Drawing.Point(252, 19);
-            this.nudTDFToTIFFTo.Maximum = new decimal(new int[] {
+            this.nudMultiOffset_From.Enabled = false;
+            this.nudMultiOffset_From.Location = new System.Drawing.Point(252, 19);
+            this.nudMultiOffset_From.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
-            this.nudTDFToTIFFTo.Minimum = new decimal(new int[] {
+            this.nudMultiOffset_From.Minimum = new decimal(new int[] {
             9999,
             0,
             0,
             -2147483648});
-            this.nudTDFToTIFFTo.Name = "nudTDFToTIFFTo";
-            this.nudTDFToTIFFTo.Size = new System.Drawing.Size(50, 20);
-            this.nudTDFToTIFFTo.TabIndex = 17;
-            this.nudTDFToTIFFTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudTDFToTIFFTo.Value = new decimal(new int[] {
+            this.nudMultiOffset_From.Name = "nudMultiOffset_From";
+            this.nudMultiOffset_From.Size = new System.Drawing.Size(50, 20);
+            this.nudMultiOffset_From.TabIndex = 17;
+            this.nudMultiOffset_From.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudMultiOffset_From.Value = new decimal(new int[] {
             40,
             0,
             0,
             -2147483648});
             // 
-            // nudTDFToTIFFFrom
+            // nudMultiOffset_To
             // 
-            this.nudTDFToTIFFFrom.Enabled = false;
-            this.nudTDFToTIFFFrom.Location = new System.Drawing.Point(333, 19);
-            this.nudTDFToTIFFFrom.Maximum = new decimal(new int[] {
+            this.nudMultiOffset_To.Enabled = false;
+            this.nudMultiOffset_To.Location = new System.Drawing.Point(333, 19);
+            this.nudMultiOffset_To.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
-            this.nudTDFToTIFFFrom.Minimum = new decimal(new int[] {
+            this.nudMultiOffset_To.Minimum = new decimal(new int[] {
             9999,
             0,
             0,
             -2147483648});
-            this.nudTDFToTIFFFrom.Name = "nudTDFToTIFFFrom";
-            this.nudTDFToTIFFFrom.Size = new System.Drawing.Size(50, 20);
-            this.nudTDFToTIFFFrom.TabIndex = 16;
-            this.nudTDFToTIFFFrom.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudTDFToTIFFFrom.Value = new decimal(new int[] {
+            this.nudMultiOffset_To.Name = "nudMultiOffset_To";
+            this.nudMultiOffset_To.Size = new System.Drawing.Size(50, 20);
+            this.nudMultiOffset_To.TabIndex = 16;
+            this.nudMultiOffset_To.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudMultiOffset_To.Value = new decimal(new int[] {
             40,
             0,
             0,
@@ -304,23 +317,14 @@ namespace SYRMEPTomoProject
             // 
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.label1);
-            this.groupBox5.Controls.Add(this.nudTDFToTIFFFrom);
-            this.groupBox5.Controls.Add(this.nudTDFToTIFFTo);
+            this.groupBox5.Controls.Add(this.nudMultiOffset_To);
+            this.groupBox5.Controls.Add(this.nudMultiOffset_From);
             this.groupBox5.Location = new System.Drawing.Point(17, 245);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(405, 51);
             this.groupBox5.TabIndex = 5;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Range";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(237, 13);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "Reconstruct with offset for center of rotation from";
             // 
             // label2
             // 
@@ -331,17 +335,19 @@ namespace SYRMEPTomoProject
             this.label2.TabIndex = 19;
             this.label2.Text = "to";
             // 
-            // lblInputTDF
+            // label1
             // 
-            this.lblInputTDF.AutoSize = true;
-            this.lblInputTDF.Location = new System.Drawing.Point(81, 27);
-            this.lblInputTDF.Name = "lblInputTDF";
-            this.lblInputTDF.Size = new System.Drawing.Size(10, 13);
-            this.lblInputTDF.TabIndex = 25;
-            this.lblInputTDF.Text = "-";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(237, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Reconstruct with offset for center of rotation from";
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.lblNrProjections);
+            this.groupBox7.Controls.Add(this.label14);
             this.groupBox7.Controls.Add(this.lblAlgorithm);
             this.groupBox7.Controls.Add(this.lblPostProcessing);
             this.groupBox7.Controls.Add(this.lblPhaseRetrieval);
@@ -365,131 +371,32 @@ namespace SYRMEPTomoProject
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Significant settings (from Reconstruction tab)";
             // 
-            // label3
+            // lblNrProjections
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 25);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 13);
-            this.label3.TabIndex = 22;
-            this.label3.Text = "Slice nr:";
+            this.lblNrProjections.AutoSize = true;
+            this.lblNrProjections.Location = new System.Drawing.Point(311, 85);
+            this.lblNrProjections.Name = "lblNrProjections";
+            this.lblNrProjections.Size = new System.Drawing.Size(10, 13);
+            this.lblNrProjections.TabIndex = 39;
+            this.lblNrProjections.Text = "-";
             // 
-            // label4
+            // label14
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 45);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 13);
-            this.label4.TabIndex = 23;
-            this.label4.Text = "Decimation:";
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(219, 85);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(90, 13);
+            this.label14.TabIndex = 38;
+            this.label14.Text = "Nr. of projections:";
             // 
-            // label5
+            // lblAlgorithm
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 65);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(71, 13);
-            this.label5.TabIndex = 24;
-            this.label5.Text = "Downscaling:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(177, 25);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(132, 13);
-            this.label6.TabIndex = 25;
-            this.label6.Text = "Pre-processing (on-the-fly):";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(177, 45);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(132, 13);
-            this.label7.TabIndex = 26;
-            this.label7.Text = "Phase-retrieval (on-the-fly):";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(172, 65);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(137, 13);
-            this.label8.TabIndex = 27;
-            this.label8.Text = "Post-processing (on-the-fly):";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(40, 85);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(42, 13);
-            this.label9.TabIndex = 28;
-            this.label9.Text = "Angles:";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(30, 105);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(53, 13);
-            this.label10.TabIndex = 29;
-            this.label10.Text = "Algorithm:";
-            // 
-            // lblSliceNr
-            // 
-            this.lblSliceNr.AutoSize = true;
-            this.lblSliceNr.Location = new System.Drawing.Point(84, 25);
-            this.lblSliceNr.Name = "lblSliceNr";
-            this.lblSliceNr.Size = new System.Drawing.Size(10, 13);
-            this.lblSliceNr.TabIndex = 30;
-            this.lblSliceNr.Text = "-";
-            // 
-            // lblDecimationFactor
-            // 
-            this.lblDecimationFactor.AutoSize = true;
-            this.lblDecimationFactor.Location = new System.Drawing.Point(84, 45);
-            this.lblDecimationFactor.Name = "lblDecimationFactor";
-            this.lblDecimationFactor.Size = new System.Drawing.Size(10, 13);
-            this.lblDecimationFactor.TabIndex = 31;
-            this.lblDecimationFactor.Text = "-";
-            // 
-            // lblDownscalingFactor
-            // 
-            this.lblDownscalingFactor.AutoSize = true;
-            this.lblDownscalingFactor.Location = new System.Drawing.Point(84, 65);
-            this.lblDownscalingFactor.Name = "lblDownscalingFactor";
-            this.lblDownscalingFactor.Size = new System.Drawing.Size(10, 13);
-            this.lblDownscalingFactor.TabIndex = 32;
-            this.lblDownscalingFactor.Text = "-";
-            // 
-            // lblAngles
-            // 
-            this.lblAngles.AutoSize = true;
-            this.lblAngles.Location = new System.Drawing.Point(84, 85);
-            this.lblAngles.Name = "lblAngles";
-            this.lblAngles.Size = new System.Drawing.Size(10, 13);
-            this.lblAngles.TabIndex = 33;
-            this.lblAngles.Text = "-";
-            // 
-            // lblPreProcessing
-            // 
-            this.lblPreProcessing.AutoSize = true;
-            this.lblPreProcessing.Location = new System.Drawing.Point(310, 25);
-            this.lblPreProcessing.Name = "lblPreProcessing";
-            this.lblPreProcessing.Size = new System.Drawing.Size(10, 13);
-            this.lblPreProcessing.TabIndex = 34;
-            this.lblPreProcessing.Text = "-";
-            // 
-            // lblPhaseRetrieval
-            // 
-            this.lblPhaseRetrieval.AutoSize = true;
-            this.lblPhaseRetrieval.Location = new System.Drawing.Point(310, 45);
-            this.lblPhaseRetrieval.Name = "lblPhaseRetrieval";
-            this.lblPhaseRetrieval.Size = new System.Drawing.Size(10, 13);
-            this.lblPhaseRetrieval.TabIndex = 35;
-            this.lblPhaseRetrieval.Text = "-";
+            this.lblAlgorithm.AutoSize = true;
+            this.lblAlgorithm.Location = new System.Drawing.Point(84, 105);
+            this.lblAlgorithm.Name = "lblAlgorithm";
+            this.lblAlgorithm.Size = new System.Drawing.Size(10, 13);
+            this.lblAlgorithm.TabIndex = 37;
+            this.lblAlgorithm.Text = "-";
             // 
             // lblPostProcessing
             // 
@@ -500,14 +407,131 @@ namespace SYRMEPTomoProject
             this.lblPostProcessing.TabIndex = 36;
             this.lblPostProcessing.Text = "-";
             // 
-            // lblAlgorithm
+            // lblPhaseRetrieval
             // 
-            this.lblAlgorithm.AutoSize = true;
-            this.lblAlgorithm.Location = new System.Drawing.Point(84, 105);
-            this.lblAlgorithm.Name = "lblAlgorithm";
-            this.lblAlgorithm.Size = new System.Drawing.Size(10, 13);
-            this.lblAlgorithm.TabIndex = 37;
-            this.lblAlgorithm.Text = "-";
+            this.lblPhaseRetrieval.AutoSize = true;
+            this.lblPhaseRetrieval.Location = new System.Drawing.Point(310, 45);
+            this.lblPhaseRetrieval.Name = "lblPhaseRetrieval";
+            this.lblPhaseRetrieval.Size = new System.Drawing.Size(10, 13);
+            this.lblPhaseRetrieval.TabIndex = 35;
+            this.lblPhaseRetrieval.Text = "-";
+            // 
+            // lblPreProcessing
+            // 
+            this.lblPreProcessing.AutoSize = true;
+            this.lblPreProcessing.Location = new System.Drawing.Point(310, 25);
+            this.lblPreProcessing.Name = "lblPreProcessing";
+            this.lblPreProcessing.Size = new System.Drawing.Size(10, 13);
+            this.lblPreProcessing.TabIndex = 34;
+            this.lblPreProcessing.Text = "-";
+            // 
+            // lblAngles
+            // 
+            this.lblAngles.AutoSize = true;
+            this.lblAngles.Location = new System.Drawing.Point(84, 85);
+            this.lblAngles.Name = "lblAngles";
+            this.lblAngles.Size = new System.Drawing.Size(10, 13);
+            this.lblAngles.TabIndex = 33;
+            this.lblAngles.Text = "-";
+            // 
+            // lblDownscalingFactor
+            // 
+            this.lblDownscalingFactor.AutoSize = true;
+            this.lblDownscalingFactor.Location = new System.Drawing.Point(84, 65);
+            this.lblDownscalingFactor.Name = "lblDownscalingFactor";
+            this.lblDownscalingFactor.Size = new System.Drawing.Size(10, 13);
+            this.lblDownscalingFactor.TabIndex = 32;
+            this.lblDownscalingFactor.Text = "-";
+            // 
+            // lblDecimationFactor
+            // 
+            this.lblDecimationFactor.AutoSize = true;
+            this.lblDecimationFactor.Location = new System.Drawing.Point(84, 45);
+            this.lblDecimationFactor.Name = "lblDecimationFactor";
+            this.lblDecimationFactor.Size = new System.Drawing.Size(10, 13);
+            this.lblDecimationFactor.TabIndex = 31;
+            this.lblDecimationFactor.Text = "-";
+            // 
+            // lblSliceNr
+            // 
+            this.lblSliceNr.AutoSize = true;
+            this.lblSliceNr.Location = new System.Drawing.Point(84, 25);
+            this.lblSliceNr.Name = "lblSliceNr";
+            this.lblSliceNr.Size = new System.Drawing.Size(10, 13);
+            this.lblSliceNr.TabIndex = 30;
+            this.lblSliceNr.Text = "-";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(30, 105);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(53, 13);
+            this.label10.TabIndex = 29;
+            this.label10.Text = "Algorithm:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(40, 85);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(42, 13);
+            this.label9.TabIndex = 28;
+            this.label9.Text = "Angles:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(172, 65);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(137, 13);
+            this.label8.TabIndex = 27;
+            this.label8.Text = "Post-processing (on-the-fly):";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(177, 45);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(132, 13);
+            this.label7.TabIndex = 26;
+            this.label7.Text = "Phase-retrieval (on-the-fly):";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(177, 25);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(132, 13);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "Pre-processing (on-the-fly):";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 65);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(71, 13);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Downscaling:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(20, 45);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(63, 13);
+            this.label4.TabIndex = 23;
+            this.label4.Text = "Decimation:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(38, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(45, 13);
+            this.label3.TabIndex = 22;
+            this.label3.Text = "Slice nr:";
             // 
             // MultiOffset
             // 
@@ -519,7 +543,7 @@ namespace SYRMEPTomoProject
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.btnConvert);
+            this.Controls.Add(this.btnReconstruct);
             this.Controls.Add(this.groupBox3);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -528,16 +552,16 @@ namespace SYRMEPTomoProject
             this.Name = "MultiOffset";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Test reconstruction with offset range";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TDFToTIFF_FormClosing);
-            this.Load += new System.EventHandler(this.TDFToTIFF_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MultiOffset_FormClosing);
+            this.Load += new System.EventHandler(this.MultiOffset_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTDFToTIFFTo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTDFToTIFFFrom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMultiOffset_From)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMultiOffset_To)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -555,7 +579,7 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Button btnConvert;
+        private System.Windows.Forms.Button btnReconstruct;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TextBox zLogTxb;
         private System.Windows.Forms.FolderBrowserDialog zOutputTIFFsBrowserDialog;
@@ -565,8 +589,8 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripProgressBar mStatusBarProgressBar;
         private System.Windows.Forms.Label lblInputTDF;
-        private System.Windows.Forms.NumericUpDown nudTDFToTIFFTo;
-        private System.Windows.Forms.NumericUpDown nudTDFToTIFFFrom;
+        private System.Windows.Forms.NumericUpDown nudMultiOffset_From;
+        private System.Windows.Forms.NumericUpDown nudMultiOffset_To;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -587,5 +611,7 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.Label lblDownscalingFactor;
         private System.Windows.Forms.Label lblDecimationFactor;
         private System.Windows.Forms.Label lblSliceNr;
+        private System.Windows.Forms.Label lblNrProjections;
+        private System.Windows.Forms.Label label14;
     }
 }

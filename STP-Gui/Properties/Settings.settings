@@ -254,5 +254,14 @@
     <Setting Name="MultiOffsetJob" Type="System.String" Scope="Application">
       <Value Profile="(Default)">tools_multioffset.py</Value>
     </Setting>
+    <Setting Name="MultiOffset_From" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">-40</Value>
+    </Setting>
+    <Setting Name="MultiOffset_To" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">40</Value>
+    </Setting>
+    <Setting Name="MultiOffset_Path" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

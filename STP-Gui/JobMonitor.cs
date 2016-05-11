@@ -140,7 +140,16 @@ namespace SYRMEPTomoProject
 
 
                     // Number of files to process (in order to return the percentage of job completion):
-                    int zFilesToProcess = zJob.To - zJob.From + 1;
+                    int zFilesToProcess;
+                    if (mNrOfLinesToMonitor == 0)
+                    {
+                        zFilesToProcess = zJob.To - zJob.From + 1;
+                    }
+                    else
+                    {
+                        zFilesToProcess = mNrOfLinesToMonitor;
+                    }
+
 
                     StringBuilder aStringBuilder;
 

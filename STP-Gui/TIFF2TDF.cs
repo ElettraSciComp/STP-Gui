@@ -345,6 +345,11 @@ namespace SYRMEPTomoProject
 
         private void TIFFToTDF_Load(object sender, EventArgs e)
         {
+            // Center parent:
+            if (Owner != null)
+                Location = new Point(Owner.Location.X + Owner.Width / 2 - Width / 2,
+                    Owner.Location.Y + Owner.Height / 2 - Height / 2);
+
             // Load settings:
             this.nudConvertToTDF_CropTop.Value = Properties.Settings.Default.TIFF2TDF_CropTop;
             this.nudConvertToTDF_CropBottom.Value = Properties.Settings.Default.TIFF2TDF_CropBottom;

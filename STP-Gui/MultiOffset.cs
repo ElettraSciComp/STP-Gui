@@ -62,18 +62,123 @@ namespace SYRMEPTomoProject
 {
     public partial class MultiOffset : Form
     {
-        private string mInputTDF;
-        private string mOutputTIFFs;
-
-        private DateTime mDt;      
-
+        private DateTime mDt;
         private JobMonitor mJobMonitor;
         private bool mFirstRun = false;
         private bool mRunning = false;
 
-        public MultiOffset()
+        private string mSlicePrefix;
+        private int mImageIndex;
+        private string mInputTDF;
+        private bool mPreProcess = false;
+        private int mAirSx = 0;
+        private int mAirDx = 0;
+        private bool mFlatEnd = false;
+        private bool mHalfHalf = false;
+        private int mHalfHalfLine;
+        private bool mExtFOV = false;
+        private bool mExtFOVRight = false;
+        private int mExtFOVOverlap;
+        private string mRingRemoval = "-";
+        private double mAngles;
+        private double mCenter;
+        private string mReconFunc;
+        private string mReconParam1;
+        private double mScale;
+        private bool mZeroneMode;
+        private double mCorrectionOffset;
+        private bool mOverPaddding;
+        private bool mLogTransform;
+        private bool mCircle;
+        private int mDecimateFactor;
+        private int mDownscaleFactor;
+        private bool mPostProcess;
+        private string mPostProcessConvertArgs;
+        private string mPostProcessCropArgs;
+        private bool mPhaseRetrieval = false;
+        private double mParam1;
+        private double mParam2;
+        private double mDistance;
+        private double mEnergy;
+        private double mPixelsize;
+        private bool mPhrtPad;
+
+
+        public MultiOffset(
+            string slicePrefix,
+            int imageIndex,
+            string inputTDF,
+            bool preProcess,
+            int airSx,
+            int airDx,
+            bool flatEnd,
+            bool halfHalf,
+            int halfHalfLine,
+            bool extFOV,
+            bool extFOVRight,
+            int extFOVOverlap,
+            string ringRemoval,
+            double angles,
+            double center,
+            string reconFunc,
+            string reconParam1,
+            double scale,
+            bool overPadding,
+            bool logTransform,
+            bool circle,
+            bool zeroneMode,
+            double correctionOffset,
+            int decimateFactor,
+            int downscaleFactor,
+            bool postProcess,
+            string postProcessConvertArgs,
+            string postProcessCropArgs,
+            bool phaseRetrieval,
+            double param1,
+            double param2,
+            double distance,
+            double energy,
+            double pixelsize,
+            bool phrtPad
+            )
         {
             InitializeComponent();
+
+            mSlicePrefix = slicePrefix;
+            mImageIndex = imageIndex;
+            mPreProcess = preProcess;
+            mAirSx = airSx;
+            mAirDx = airDx;
+            mFlatEnd = flatEnd;
+            mHalfHalf = halfHalf;
+            mHalfHalfLine = halfHalfLine;
+            mExtFOV = extFOV;
+            mExtFOVRight = extFOVRight;
+            mExtFOVOverlap = extFOVOverlap;
+            mRingRemoval = ringRemoval;
+            mInputTDF = inputTDF;
+            mAngles = angles;
+            mCenter = center;
+            mReconParam1 = reconParam1;
+            mScale = scale;
+            mOverPaddding = overPadding;
+            mLogTransform = logTransform;
+            mCircle = circle;
+            mZeroneMode = zeroneMode;
+            mCorrectionOffset = correctionOffset;
+            mReconFunc = reconFunc;
+            mDecimateFactor = decimateFactor;
+            mDownscaleFactor = downscaleFactor;
+            mPostProcess = postProcess;
+            mPostProcessConvertArgs = postProcessConvertArgs;
+            mPostProcessCropArgs = postProcessCropArgs;
+            mPhaseRetrieval = phaseRetrieval;
+            mParam1 = param1;
+            mParam2 = param2;
+            mDistance = distance;
+            mEnergy = energy;
+            mPixelsize = pixelsize;
+            mPhrtPad = phrtPad;
 
             // Settings for the JobMonitor instance:
             mJobMonitor = new JobMonitor();
@@ -84,6 +189,8 @@ namespace SYRMEPTomoProject
 
             // Start the JobMonitor with the background worker:
             mJobMonitorBgw.RunWorkerAsync();
+
+
         }
 
         #region Monitoring
@@ -139,7 +246,7 @@ namespace SYRMEPTomoProject
                 // Update progress bar:
                 mStatusBarProgressBar.Value = 0;
 
-                btnConvert.Enabled = true;
+                btnReconstruct.Enabled = true;
                 btnClose.Enabled = true;
             });
         }
@@ -159,7 +266,7 @@ namespace SYRMEPTomoProject
                 // Update progress bar:
                 mStatusBarProgressBar.Value = 0;
 
-                btnConvert.Enabled = true;
+                btnReconstruct.Enabled = true;
                 btnClose.Enabled = true;
             });
         }
@@ -183,7 +290,7 @@ namespace SYRMEPTomoProject
             this.Invoke((MethodInvoker)delegate
             {
                 zLogTxb.AppendText(zString);
-                btnConvert.Enabled = false;
+                btnReconstruct.Enabled = false;
                 btnClose.Enabled = false;
             });
         }
@@ -195,25 +302,39 @@ namespace SYRMEPTomoProject
 
         #endregion       
 
-        private void TDFToTIFF_Load(object sender, EventArgs e)
+        private void MultiOffset_Load(object sender, EventArgs e)
         {
+            // Center parent:
+            if (Owner != null)
+                Location = new Point(Owner.Location.X + Owner.Width / 2 - Width / 2,
+                    Owner.Location.Y + Owner.Height / 2 - Height / 2);
+
             // Load settings:
-            /*this.tbxProjectionPrefix.Text = Properties.Settings.Default.TDF2TIFF_FilePrefixProjection;
-            this.tbxDarkPrefix.Text = Properties.Settings.Default.TDF2TIFF_FilePrefixDark;
-            this.tbxFlatPrefix.Text = Properties.Settings.Default.TDF2TIFF_FilePrefixFlat;
+            this.nudMultiOffset_From.Value = Properties.Settings.Default.MultiOffset_From;
+            this.nudMultiOffset_To.Value = Properties.Settings.Default.MultiOffset_To;
+            this.zOutputPathTxb.Text = Properties.Settings.Default.MultiOffset_Path;
 
-            this.rbtDirectOrder.Checked = Properties.Settings.Default.TDF2TIFF_ProjectionOrderChecked;
-            this.rbtSinogramOrder.Checked = !Properties.Settings.Default.TDF2TIFF_ProjectionOrderChecked;
+            this.lblInputTDF.Text = Path.GetFileName(mInputTDF);
+            this.lblSliceNr.Text = mImageIndex.ToString();
+            this.lblAlgorithm.Text = mReconFunc;
+            this.lblDecimationFactor.Text = mDecimateFactor.ToString();
+            this.lblDownscalingFactor.Text = mDownscaleFactor.ToString();
+            this.lblNrProjections.Text = TDFReader.GetNumberOfProjections(mInputTDF).ToString();
+            this.lblAngles.Text = mAngles.ToString("0.0000");            
+            this.lblPreProcessing.Text = mPreProcess ? "yes" : "no";
+            this.lblPostProcessing.Text = mPostProcess ? "yes" : "no";
+            this.lblPhaseRetrieval.Text = mPhaseRetrieval ? "yes" : "no";
 
-            this.btnTIFFFormat.Checked = Properties.Settings.Default.TDF2TIFF_FormatTIFFChecked;
-            this.btnRawFormat.Checked = !Properties.Settings.Default.TDF2TIFF_FormatTIFFChecked;
+            this.nudMultiOffset_From.Minimum = - TDFReader.GetDetectorSize(mInputTDF) / 2;
+            this.nudMultiOffset_From.Maximum = TDFReader.GetDetectorSize(mInputTDF) / 2;
 
-            this.chkData.Checked = Properties.Settings.Default.TDF2TIFF_DatasetToExportTomo;
-            this.chkDataWhite.Checked = Properties.Settings.Default.TDF2TIFF_DatasetToExportFlat;
-            this.chkDataDark.Checked = Properties.Settings.Default.TDF2TIFF_DatasetToExportDark;*/
+            this.nudMultiOffset_To.Minimum = - TDFReader.GetDetectorSize(mInputTDF) / 2;
+            this.nudMultiOffset_To.Maximum = TDFReader.GetDetectorSize(mInputTDF) / 2;
+
+
         }
 
-        private void TDFToTIFF_FormClosing(object sender, FormClosingEventArgs e)
+        private void MultiOffset_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (mRunning)
             {
@@ -224,19 +345,11 @@ namespace SYRMEPTomoProject
             // Serialize settings:
             if (!e.Cancel)
             {
-                /*Properties.Settings.Default["TDF2TIFF_FilePrefixProjection"] = this.tbxProjectionPrefix.Text;
-                Properties.Settings.Default["TDF2TIFF_FilePrefixDark"] = this.tbxDarkPrefix.Text;
-                Properties.Settings.Default["TDF2TIFF_FilePrefixFlat"] = this.tbxFlatPrefix.Text;
+                Properties.Settings.Default["MultiOffset_From"] = this.nudMultiOffset_From.Value;
+                Properties.Settings.Default["MultiOffset_To"] = this.nudMultiOffset_To.Value;
+                Properties.Settings.Default["MultiOffset_Path"] = this.zOutputPathTxb.Text;
 
-                Properties.Settings.Default["TDF2TIFF_ProjectionOrderChecked"] = this.rbtDirectOrder.Checked;
-
-                Properties.Settings.Default["TDF2TIFF_FormatTIFFChecked"] = this.btnTIFFFormat.Checked;
-
-                Properties.Settings.Default["TDF2TIFF_DatasetToExportTomo"] = this.chkData.Checked;
-                Properties.Settings.Default["TDF2TIFF_DatasetToExportFlat"] = this.chkDataWhite.Checked;
-                Properties.Settings.Default["TDF2TIFF_DatasetToExportDark"] = this.chkDataDark.Checked;
-
-                Properties.Settings.Default.Save();*/
+                Properties.Settings.Default.Save();
             }
         }
         
@@ -245,9 +358,7 @@ namespace SYRMEPTomoProject
             if (zOutputTIFFsBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 zOutputPathTxb.Text = zOutputTIFFsBrowserDialog.SelectedPath;
-                mOutputTIFFs = zOutputTIFFsBrowserDialog.SelectedPath;               
-
-                btnConvert.Enabled = true;
+                btnReconstruct.Enabled = true;
             }
         }
 
@@ -266,17 +377,45 @@ namespace SYRMEPTomoProject
             IJob zJob;
 
             // Create an instance for the phase retrieval job:
-            /*zJob = new TDF2TIFFJob(                    
-                    ((KeyValuePair<string, string>)this.cbxInput.SelectedItem).Key,
-                    this.zOutputPathTxb.Text,
-                    (this.chkConsiderSubset.Checked) ? Convert.ToInt32(this.nudTDFToTIFFFrom.Value) : 0,
-                    (this.chkConsiderSubset.Checked) ? Convert.ToInt32(this.nudTDFToTIFFTo.Value) : Convert.ToInt32(this.nudTDFToTIFFTo.Maximum),
-                    tbxProjectionPrefix.Text,
-                    (this.chkDataWhite.Checked) ? tbxFlatPrefix.Text : "-",
-                    (this.chkDataWhite.Checked) ? tbxDarkPrefix.Text : "-",                    
-                    this.rbtDirectOrder.Checked,
-                    this.btnTIFFFormat.Checked,
-                    1
+            zJob = new MultiOffsetJob(  
+                this.mSlicePrefix,
+                this.mImageIndex,
+                this.mInputTDF,
+                this.zOutputPathTxb.Text,
+                this.mPreProcess,
+                this.mAirSx,
+                this.mAirDx,
+                this.mFlatEnd,
+                this.mHalfHalf,
+                this.mHalfHalfLine,
+                this.mExtFOV,
+                this.mExtFOVRight,
+                this.mExtFOVOverlap,
+                this.mRingRemoval,
+                this.mAngles,
+                this.mCenter,
+                this.mReconFunc,
+                this.mReconParam1,
+                this.mScale,
+                this.mOverPaddding,
+                this.mLogTransform,
+                this.mCircle,
+                this.mZeroneMode,
+                this.mCorrectionOffset,
+                Convert.ToInt32(this.nudMultiOffset_From.Value),
+                Convert.ToInt32(this.nudMultiOffset_To.Value),
+                this.mDecimateFactor,
+                this.mDownscaleFactor,
+                this.mPostProcess,
+                this.mPostProcessConvertArgs,
+                this.mPostProcessCropArgs,
+                this.mPhaseRetrieval,
+                this.mParam1,
+                this.mParam2, 
+                this.mDistance, 
+                this.mEnergy, 
+                this.mPixelsize,
+                this.mPhrtPad
                     );
 
             // Create an instance of JobExecuter with the Phase Retrieval job 
@@ -287,7 +426,27 @@ namespace SYRMEPTomoProject
             zExecuter.Run();
 
             // Start the monitoring of the job:
-            mJobMonitor.Run(zExecuter, tbxProjectionPrefix.Text);*/
+            int zLines = (Convert.ToInt32(this.nudMultiOffset_To.Value - this.nudMultiOffset_From.Value))/mDownscaleFactor + 1;
+            mJobMonitor.Run(zExecuter, this.mSlicePrefix, zLines);
+        }
+
+        private void zOutputPathTxb_TextChanged(object sender, EventArgs e)
+        {
+            if (Directory.Exists(zOutputPathTxb.Text))
+            {
+                this.nudMultiOffset_From.Enabled = true;
+                this.nudMultiOffset_To.Enabled = true;
+                this.btnReconstruct.Enabled = true;
+                this.toolStripStatusLabel1.Text = "";
+               
+            }
+            else
+            {
+                this.nudMultiOffset_From.Enabled = false;
+                this.nudMultiOffset_To.Enabled = false;
+                this.btnReconstruct.Enabled = false;
+                this.toolStripStatusLabel1.Text = "Invalid folder.";
+            }           
         }
 
 

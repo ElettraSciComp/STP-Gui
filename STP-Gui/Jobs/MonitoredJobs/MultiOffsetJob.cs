@@ -60,6 +60,12 @@ namespace SYRMEPTomoProject.Jobs
     /// </summary>
     public class MultiOffsetJob : IMonitoredJob
     {
+        private string mSlicePrefix;
+        private int mImageIndex;
+        private int mOffsetFrom;
+        private int mOffsetTo;
+        private string mInputFile;
+        private string mOutputPath;
         private bool mPreProcess = false;
         private int mAirSx = 0;
         private int mAirDx = 0;
@@ -69,9 +75,7 @@ namespace SYRMEPTomoProject.Jobs
         private bool mExtFOV = false;
         private bool mExtFOVRight = false;
         private int mExtFOVOverlap;
-        private string mRingRemoval = "-";
-        private string mInputFile;
-        private string mOutputPath;
+        private string mRingRemoval = "-";  
         private double mAngles;
         private double mCenter;
         private string mReconFunc;
@@ -82,14 +86,18 @@ namespace SYRMEPTomoProject.Jobs
         private bool mOverPaddding;
         private bool mLogTransform;
         private bool mCircle;
-        private int mFrom;
-        private int mTo;
-        private int mThreads;
         private int mDecimateFactor;
         private int mDownscaleFactor;
         private bool mPostProcess;
         private string mPostProcessConvertArgs;
         private string mPostProcessCropArgs;
+        private bool mPhaseRetrieval = false;
+        private double mParam1;
+        private double mParam2;
+        private double mDistance;
+        private double mEnergy;
+        private double mPixelsize;
+        private bool mPhrtPad;
         private string mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
             Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
             Path.DirectorySeparatorChar + "_rec_log_00.txt"; // It should be "*_00.txt"
@@ -99,8 +107,8 @@ namespace SYRMEPTomoProject.Jobs
         /// </summary>
         public int From
         {
-            get { return mFrom; }
-            set { mFrom = value; }
+            get { return mOffsetFrom; }
+            set { mOffsetFrom = value; }
         }
 
         /// <summary>
@@ -108,8 +116,8 @@ namespace SYRMEPTomoProject.Jobs
         /// </summary>
         public int To
         {
-            get { return mTo; }
-            set { mTo = value; }
+            get { return mOffsetTo; }
+            set { mOffsetTo = value; }
         }
 
         /// <summary>
@@ -137,10 +145,11 @@ namespace SYRMEPTomoProject.Jobs
         /// <param name="overPadding"></param>
         /// <param name="logTransform"></param>
         /// <param name="circle"></param>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="threads"></param>
+        /// <param name="offset_from"></param>
+        /// <param name="offsetTo"></param>
         public MultiOffsetJob(
+            string slicePrefix,
+            int imageIndex,
             string inputFile,
             string outputPath,
             bool preProcess,
@@ -163,16 +172,24 @@ namespace SYRMEPTomoProject.Jobs
             bool circle,
             bool zeroneMode,
             double correctionOffset,
-            int from,
-            int to,
-            int threads,
+            int offsetFrom,
+            int offsetTo,
             int decimateFactor,
             int downscaleFactor,
             bool postProcess,
             string postProcessConvertArgs,
-            string postProcessCropArgs
+            string postProcessCropArgs,
+            bool phaseRetrieval,
+            double param1,
+            double param2,
+            double distance,
+            double energy,
+            double pixelsize,
+            bool phrtPad
             )
         {
+            mSlicePrefix = slicePrefix;
+            mImageIndex = imageIndex;
             mPreProcess = preProcess;
             mOutputPath = outputPath;
             mAirSx = airSx;
@@ -194,15 +211,21 @@ namespace SYRMEPTomoProject.Jobs
             mCircle = circle;
             mZeroneMode = zeroneMode;
             mCorrectionOffset = correctionOffset;
-            mFrom = from;
-            mTo = to;
-            mThreads = threads;
+            mOffsetFrom = offsetFrom;
+            mOffsetTo = offsetTo;
             mReconFunc = reconFunc;
             mDecimateFactor = decimateFactor;
             mDownscaleFactor = downscaleFactor;
             mPostProcess = postProcess;
             mPostProcessConvertArgs = postProcessConvertArgs;
             mPostProcessCropArgs = postProcessCropArgs;
+            mPhaseRetrieval = phaseRetrieval;
+            mParam1 = param1;
+            mParam2 = param2;
+            mDistance = distance;
+            mEnergy = energy;
+            mPixelsize = pixelsize;
+            mPhrtPad = phrtPad;
         }
 
         /// <summary>
@@ -222,6 +245,8 @@ namespace SYRMEPTomoProject.Jobs
         /// <param name="threads"></param>
         /// <param name="logFile"></param>
         public MultiOffsetJob(
+            string slicePrefix,
+            int imageIndex,
             string inputFile,
             string outputPath,
             bool preProcess,
@@ -244,19 +269,25 @@ namespace SYRMEPTomoProject.Jobs
             bool circle,
             bool zeroneMode,
             double correctionOffset,
-            int from,
-            int to,
-            int threads,
+            int offsetFrom,
+            int offsetTo,
             int decimateFactor,
             int downscaleFactor,
             bool postProcess,
             string postProcessConvertArgs,
             string postProcessCropArgs,
+            bool phaseRetrieval,
+            double param1,
+            double param2, 
+            double distance, 
+            double energy, 
+            double pixelsize,
+            bool phrtPad,
             string logFile
             )
-            : this(inputFile, outputPath, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, ringRemoval, angles,
-            center, reconFunc, reconParam1, scale, overPadding, logTransform, circle, zeroneMode, correctionOffset, from, to, threads, decimateFactor, downscaleFactor,
-            postProcess, postProcessConvertArgs, postProcessCropArgs)
+            : this(slicePrefix, imageIndex, inputFile, outputPath, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, ringRemoval, angles,
+            center, reconFunc, reconParam1, scale, overPadding, logTransform, circle, zeroneMode, correctionOffset, offsetFrom, offsetTo, decimateFactor, downscaleFactor,
+            postProcess, postProcessConvertArgs, postProcessCropArgs, phaseRetrieval, param1, param2, distance, energy, pixelsize, phrtPad )
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -282,8 +313,9 @@ namespace SYRMEPTomoProject.Jobs
 
             zString = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar
                 + Properties.Settings.Default.PythonPath + Path.DirectorySeparatorChar + Properties.Settings.Default.MultiOffsetJob + "\" "
-                + mFrom.ToString() + " " +
-                mTo.ToString() + " \"" + mInputFile + "\" \"" + mOutputPath.Remove(mOutputPath.Length - 1) + "\" " +
+                + mImageIndex.ToString() + " \"" + 
+                mInputFile + "\" \"" + 
+                mOutputPath + "\" " +
                 mAngles.ToString(CultureInfo.InvariantCulture) + " " +
                 mCenter.ToString(CultureInfo.InvariantCulture) + " " +
                 mReconParam1.ToString() + " " +
@@ -291,13 +323,16 @@ namespace SYRMEPTomoProject.Jobs
                 mOverPaddding.ToString() + " " +
                 mLogTransform.ToString() + " " +
                 mCircle.ToString() + " " +
-                Properties.Settings.Default.FormSettings_OutputPrefix + " " +
+                //Properties.Settings.Default.FormSettings_OutputPrefix + " " +
                 mPreProcess.ToString() + " " +
-                mFlatEnd.ToString() + " " + mHalfHalf.ToString() + " " +
+                mFlatEnd.ToString() + " " + 
+                mHalfHalf.ToString() + " " +
                 mHalfHalfLine.ToString() + " " +
-                mExtFOV.ToString() + " " + mExtFOVRight.ToString() + " " +
+                mExtFOV.ToString() + " " + 
+                mExtFOVRight.ToString() + " " +
                 mExtFOVOverlap.ToString() + " " +
-                mAirSx.ToString() + " " + mAirDx.ToString() + " False \"" +  // This has to be modified...
+                mAirSx.ToString() + " " + 
+                mAirDx.ToString() + " False \"" +  // This has to be modified...
                 mRingRemoval + "\" " +
                 mZeroneMode.ToString() + " " +
                 mCorrectionOffset.ToString() + " " +
@@ -307,8 +342,20 @@ namespace SYRMEPTomoProject.Jobs
                 mPostProcess.ToString() + " " +
                 mPostProcessConvertArgs + " " +
                 mPostProcessCropArgs + " " +
-                mThreads.ToString() +
-                " \"" + mLogFile + "\"";
+                mPhaseRetrieval.ToString() + " " +
+                mParam1.ToString(CultureInfo.InvariantCulture) + " " +
+                mParam2.ToString(CultureInfo.InvariantCulture) + " " +
+                mEnergy.ToString(CultureInfo.InvariantCulture) + " " +
+                mDistance.ToString(CultureInfo.InvariantCulture) + " " +
+                mPixelsize.ToString(CultureInfo.InvariantCulture) + " " +
+                mPhrtPad.ToString() + " " +
+                Properties.Settings.Default.FormSettings_ChunkSize.ToString() + " True \"" +              
+                Properties.Settings.Default.FormSettings_TemporaryPath + "\" " +
+                (Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses)).ToString() + " " +
+                mOffsetFrom.ToString() + " " +
+                mOffsetTo.ToString() + " \"" +
+                mSlicePrefix + "\" \"" +
+                mLogFile + "\"";
 
             return zString;
         }
@@ -319,7 +366,7 @@ namespace SYRMEPTomoProject.Jobs
         /// <returns>A string with the description of the job.</returns>
         public override string ToString()
         {
-            return "visual inspection of the center of rotation";
+            return "test reconstruction";
         }
     }
 }

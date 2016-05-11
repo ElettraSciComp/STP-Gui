@@ -1900,6 +1900,7 @@ namespace SYRMEPTomoProject
             this.btnMultipleCenters.TabIndex = 44;
             this.btnMultipleCenters.Text = "Test...";
             this.btnMultipleCenters.UseVisualStyleBackColor = true;
+            this.btnMultipleCenters.Click += new System.EventHandler(this.btnMultipleCenters_Click);
             // 
             // btnReconstructionGuess
             // 

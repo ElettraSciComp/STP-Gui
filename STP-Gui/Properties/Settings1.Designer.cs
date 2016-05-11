@@ -925,5 +925,41 @@ namespace SYRMEPTomoProject.Properties {
                 return ((string)(this["MultiOffsetJob"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-40")]
+        public decimal MultiOffset_From {
+            get {
+                return ((decimal)(this["MultiOffset_From"]));
+            }
+            set {
+                this["MultiOffset_From"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("40")]
+        public decimal MultiOffset_To {
+            get {
+                return ((decimal)(this["MultiOffset_To"]));
+            }
+            set {
+                this["MultiOffset_To"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MultiOffset_Path {
+            get {
+                return ((string)(this["MultiOffset_Path"]));
+            }
+            set {
+                this["MultiOffset_Path"] = value;
+            }
+        }
     }
 }

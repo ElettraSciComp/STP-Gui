@@ -197,6 +197,11 @@ namespace SYRMEPTomoProject
 
         private void TDFToTIFF_Load(object sender, EventArgs e)
         {
+            // Center parent:
+            if (Owner != null)
+                Location = new Point(Owner.Location.X + Owner.Width / 2 - Width / 2,
+                    Owner.Location.Y + Owner.Height / 2 - Height / 2);
+
             // Load settings:
             this.tbxProjectionPrefix.Text = Properties.Settings.Default.TDF2TIFF_FilePrefixProjection;
             this.tbxDarkPrefix.Text = Properties.Settings.Default.TDF2TIFF_FilePrefixDark;

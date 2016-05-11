@@ -99,6 +99,7 @@ namespace SYRMEPTomoProject
             {
                 this.Invoke((MethodInvoker)delegate
                 {
+
                     // Append line to log textbox:
                     zLogTxb.AppendText(e.Line);// runs on UI thread
 
@@ -112,9 +113,9 @@ namespace SYRMEPTomoProject
                         else
                             zTiming_ToolStripLbl.Text = "Elapsed time: " + zElapsedTime.ToString(@"hh\:mm\:ss") + ".";
                     }
-                   
+
                     mStatusBarProgressBar.Value = Math.Min((int)(Math.Round(e.Step * 100.0)), 100);
-                    
+
                 });
             }
         }
@@ -139,7 +140,7 @@ namespace SYRMEPTomoProject
             // Thread safe (it runs on UI thread):           
             this.Invoke((MethodInvoker)delegate
             {
-                zLogTxb.AppendText(e.Line);          
+                zLogTxb.AppendText(e.Line);
 
                 // Update status bar:
                 zTiming_ToolStripLbl.Text = String.Empty;
@@ -202,11 +203,11 @@ namespace SYRMEPTomoProject
 
         private void button2_Click(object sender, EventArgs e)
         {
-           /* if (zInputTDFFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                zProject_InputPathTxb.Text = zInputTDFFileDialog.FileName;
-                BTPSettings.InputPath = zInputTDFFileDialog.FileName;
-            }*/
+            /* if (zInputTDFFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+             {
+                 zProject_InputPathTxb.Text = zInputTDFFileDialog.FileName;
+                 BTPSettings.InputPath = zInputTDFFileDialog.FileName;
+             }*/
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -254,12 +255,12 @@ namespace SYRMEPTomoProject
                     {
                         if (includeGPUAlgorithms)
                         {
-                            zDict.Add(zKeys[ct-1].InnerText, zValue.InnerText);
+                            zDict.Add(zKeys[ct - 1].InnerText, zValue.InnerText);
                         }
                     }
                     else
                     {
-                        zDict.Add(zKeys[ct-1].InnerText, zValue.InnerText);
+                        zDict.Add(zKeys[ct - 1].InnerText, zValue.InnerText);
                     }
 
                 }
@@ -271,13 +272,13 @@ namespace SYRMEPTomoProject
                 if (cbxAlgorithm.Items.Count > 0)
                 {
                     cbxAlgorithm.SelectedIndex = 0;
-                }                
+                }
             }
 
             // Filters:
 
             ct = 0;
-            
+
             zFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.FbpFiltersXmlFile;
             if (File.Exists(zFile))
@@ -303,7 +304,7 @@ namespace SYRMEPTomoProject
                     cbxAlgorithmParameterFilter.SelectedIndex = 1;
                 }
             }
-            
+
             this.ResumeLayout();
         }
 
@@ -473,7 +474,7 @@ namespace SYRMEPTomoProject
             if (Properties.Settings.Default.PhaseRetrievalTab_MethodIndex < cbxPhaseRetrievalTab_Algorithms.Items.Count)
             {
                 this.cbxPhaseRetrievalTab_Algorithms.SelectedIndex = Properties.Settings.Default.PhaseRetrievalTab_MethodIndex;
-            }      
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -494,13 +495,13 @@ namespace SYRMEPTomoProject
 
 
             // Check Settings:
-            while ( (Program.CheckDirectoryAccess(Properties.Settings.Default.FormSettings_WorkingPath) == false ) ||
+            while ((Program.CheckDirectoryAccess(Properties.Settings.Default.FormSettings_WorkingPath) == false) ||
                  (Program.CheckDirectoryAccess(Properties.Settings.Default.FormSettings_TemporaryPath) == false) ||
-                 (Program.CheckDirectoryAccess(Properties.Settings.Default.FormSettings_OutputPath) == false) )
-                 //|| (Program.IsDirectoryEmpty(Properties.Settings.Default.FormSettings_TemporaryPath) == false ))
+                 (Program.CheckDirectoryAccess(Properties.Settings.Default.FormSettings_OutputPath) == false))
+            //|| (Program.IsDirectoryEmpty(Properties.Settings.Default.FormSettings_TemporaryPath) == false ))
             {
                 //MessageBox.Show("Unexisting or not empty path(s) specified. Settings form will be opened.", 
-                MessageBox.Show("Unexisting path(s) specified. Settings form will be opened.", 
+                MessageBox.Show("Unexisting path(s) specified. Settings form will be opened.",
                                 Properties.Settings.Default.ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 FormSettings zFormSettings = new FormSettings();
@@ -508,10 +509,10 @@ namespace SYRMEPTomoProject
             }
 
             // Create temporary folder:
-            if (! Directory.Exists(Properties.Settings.Default.FormSettings_TemporaryPath + Path.DirectorySeparatorChar + 
+            if (!Directory.Exists(Properties.Settings.Default.FormSettings_TemporaryPath + Path.DirectorySeparatorChar +
                 Properties.Settings.Default.SessionID))
             {
-                Directory.CreateDirectory(Properties.Settings.Default.FormSettings_TemporaryPath + Path.DirectorySeparatorChar + 
+                Directory.CreateDirectory(Properties.Settings.Default.FormSettings_TemporaryPath + Path.DirectorySeparatorChar +
                 Properties.Settings.Default.SessionID);
             }
 
@@ -537,7 +538,7 @@ namespace SYRMEPTomoProject
             }
         }
 
-        #endregion     
+        #endregion
 
         private void btnPreProcessingExecution_RunAll_Click(object sender, EventArgs e)
         {
@@ -562,7 +563,7 @@ namespace SYRMEPTomoProject
                    chkExtendedFOV.Checked,
                    chkExtFOV_AirRight.Checked,
                    Convert.ToInt32(nudExtendedFOVOverlap.Value),
-                   zRingRemString,      
+                   zRingRemString,
                    Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses),
                    false,
                    "-"
@@ -691,19 +692,19 @@ namespace SYRMEPTomoProject
                 zCorrectionOffset = Convert.ToDouble(this.nudCorrectionOffset.Value);
 
             double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
-            if ( ( Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
+            if ((Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
                 zScale = 2.0;
 
             // Get algorithm-specific parameters:
-            if ( (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FBP_CUDA") ||
-                 (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "SCIKIT-FBP")  )
+            if ((((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FBP_CUDA") ||
+                 (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "SCIKIT-FBP"))
             {
                 zParam1 = ((KeyValuePair<string, string>)this.cbxAlgorithmParameterFilter.SelectedItem).Key.ToString();
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "GRIDREC")
             {
                 zParam1 = Convert.ToDouble(this.nudGridRec.Value).ToString();
-            }           
+            }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FISTA-TV_CUDA")
             {
                 zParam1 = Convert.ToDouble(this.txbReconstructionLambda.Text).ToString();
@@ -714,7 +715,7 @@ namespace SYRMEPTomoProject
                 zParam1 = Convert.ToInt32(this.nudAlgorithmParameterIterations.Value).ToString();
             }
 
-           
+
             // Create an instance for the phase retrieval job:
             zJob = new ReconstructionJob(
                 // Get combobox selection (in handler)
@@ -748,7 +749,7 @@ namespace SYRMEPTomoProject
                 chkReconstructionTab_PostProcess.Checked,
                 zConvertTo8String,
                 zCropString
-                );   
+                );
 
 
 
@@ -796,7 +797,7 @@ namespace SYRMEPTomoProject
             string zCropString;
             double zCorrectionOffset = 0.0;
             string zParam1 = "-";
-            
+
             zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
                 nudRingRemParam1.Value.ToString() + ";" + nudRingRemParam2.Value.ToString();
 
@@ -813,7 +814,7 @@ namespace SYRMEPTomoProject
                 zCorrectionOffset = Convert.ToDouble(this.nudCorrectionOffset.Value);
 
             double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
-            if ( ( Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
+            if ((Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
                 zScale = 2.0;
 
             // Get algorithm-specific parameters:
@@ -862,14 +863,14 @@ namespace SYRMEPTomoProject
                 (chkZeroneMode.Checked) && (!chkApplyPreProcessing.Checked),
                 zCorrectionOffset,
                 0,
-                -1,
+                TDFReader.GetNumberOfSlices(((KeyValuePair<string, string>)this.tbxDatasetName.SelectedItem).Key) - 1,
                 Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses),
                 Convert.ToInt32(this.nudReconstructionTab_Decimate.Value),
                 Convert.ToInt32(this.nudReconstructionTab_Downscale.Value),
                 chkReconstructionTab_PostProcess.Checked,
                 zConvertTo8String,
                 zCropString
-                );  
+                );
 
             // Create an instance of JobExecuter with the Phase Retrieval job 
             // splitting it into several processes (if specified):
@@ -891,15 +892,15 @@ namespace SYRMEPTomoProject
                                              MessageBoxIcon.Question);
             if (r == DialogResult.Yes)
             {
-                Application.Exit();                
-            }            
-        }      
+                Application.Exit();
+            }
+        }
 
         private void cbxAlgorithm_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (  (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FBP_CUDA") || 
-                  (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "SCIKIT-FBP") )
-            {              
+            if ((((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FBP_CUDA") ||
+                  (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "SCIKIT-FBP"))
+            {
                 this.lblAlgorithmParameter.Text = "Filter:";
                 this.lblAlgorithmParameter.Visible = true;
                 this.lblAlgorithmParameter.Location = new Point(24, 25);
@@ -963,7 +964,7 @@ namespace SYRMEPTomoProject
                 nudPhaseRetrievalTab_Delta.Enabled = false;
                 nudPhaseRetrievalTab_PixelSize.Enabled = false;
                 nudPhaseRetrievalTab_Distance.Enabled = false;
-                nudPhaseRetrievalTab_Energy.Enabled = false;                
+                nudPhaseRetrievalTab_Energy.Enabled = false;
 
                 // Also delta/beta batch:
                 // TO DO:
@@ -975,7 +976,7 @@ namespace SYRMEPTomoProject
                 nudPhaseRetrievalTab_Delta.Enabled = true;
                 nudPhaseRetrievalTab_PixelSize.Enabled = true;
                 nudPhaseRetrievalTab_Distance.Enabled = true;
-                nudPhaseRetrievalTab_Energy.Enabled = true;               
+                nudPhaseRetrievalTab_Energy.Enabled = true;
 
                 // Also delta/beta batch:
                 // TO DO:
@@ -1000,13 +1001,13 @@ namespace SYRMEPTomoProject
             IJob zJob;
             double zScale = 1.0;
 
-            mGlass = new HourGlass();            
+            mGlass = new HourGlass();
 
             // Create an instance for the phase retrieval job:
             zJob = new GuessCenterJob(
                 // Get combobox selection (in handler)
                 ((KeyValuePair<string, string>)this.tbxDatasetName.SelectedItem).Key,
-                zScale, 
+                zScale,
                 Convert.ToSingle(this.nudAngles.Value)
             );
 
@@ -1037,7 +1038,7 @@ namespace SYRMEPTomoProject
             // Modify the UI:
             this.Invoke((MethodInvoker)delegate
             {
-                this.nudCenter_Middle.Value = System.Convert.ToDecimal(zValue);               
+                this.nudCenter_Middle.Value = System.Convert.ToDecimal(zValue);
             });
 
 
@@ -1048,12 +1049,12 @@ namespace SYRMEPTomoProject
 
         private void bgwGuessOffset_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            mGlass.Dispose();            
+            mGlass.Dispose();
         }
 
         private void cbxRingRem_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ( (this.cbxRingRem.SelectedIndex > 0) && (this.cbxRingRem.SelectedIndex < 4) )
+            if ((this.cbxRingRem.SelectedIndex > 0) && (this.cbxRingRem.SelectedIndex < 4))
             {
                 // Rivers + Boin/Haibel + Raven:                
                 this.lblRingRemParam1.Text = "Width:";
@@ -1124,7 +1125,7 @@ namespace SYRMEPTomoProject
             cbxDatasetInfo_Input.ValueMember = "Key";
 
             this.ResumeLayout();
-        }     
+        }
 
         private void cbxPhaseRetrieval_Input_Click(object sender, EventArgs e)
         {
@@ -1164,15 +1165,15 @@ namespace SYRMEPTomoProject
                    Convert.ToDouble(this.nudPhaseRetrievalTab_Beta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_BetaExp.Value)),
                    Convert.ToDouble(this.nudPhaseRetrievalTab_Delta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_DeltaExp.Value)),
                    Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
-                   Convert.ToDouble(this.nudPhaseRetrievalTab_Energy.Value),                   
+                   Convert.ToDouble(this.nudPhaseRetrievalTab_Energy.Value),
                    Convert.ToDouble(this.nudPhaseRetrievalTab_PixelSize.Value),
                    this.chkPhaseRetrievalTab_OverPadding.Checked,
                    Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses)
             );
 
             // Create an instance of JobExecuter with the Phase Retrieval job:
-            zExecuter = new JobExecuter(zJob);         
-            
+            zExecuter = new JobExecuter(zJob);
+
 
             // Execute the job splitting it with several processes (if specified):
             zExecuter.Run();
@@ -1285,19 +1286,19 @@ namespace SYRMEPTomoProject
         private void menuTIFF2TDF_Click(object sender, EventArgs e)
         {
             TIFFToTDF zForm = new TIFFToTDF();
-            zForm.Show();
+            zForm.Show(this);
         }
 
         private void menuTDF2TIFF_Click(object sender, EventArgs e)
         {
             TDFToTIFF zForm = new TDFToTIFF();
-            zForm.Show();
+            zForm.Show(this);
         }
 
         private void chkApplyPreProcessing_CheckedChanged(object sender, EventArgs e)
         {
             if (chkApplyPreProcessing.Checked)
-            {                
+            {
                 this.chkZeroneMode.Enabled = false;
             }
             else
@@ -1306,9 +1307,9 @@ namespace SYRMEPTomoProject
             }
         }
 
-        #region Preview Section  
+        #region Preview Section
 
-       
+
 
         /// <summary>
         /// In-place swap the sequence of float32 bytes in a float array.
@@ -1348,16 +1349,16 @@ namespace SYRMEPTomoProject
             string[] zStrings;
 
             // Get details from file name:
-            zString  = Path.GetFileName(tempFile);
+            zString = Path.GetFileName(tempFile);
             zString = zString.Substring(18);
             zStrings = zString.Split('x');
-            zWidth   = int.Parse(zStrings[0]);
+            zWidth = int.Parse(zStrings[0]);
             zStrings = zStrings[1].Split('_');
-            zHeight  = int.Parse(zStrings[0]);
+            zHeight = int.Parse(zStrings[0]);
             zStrings = zStrings[1].Split('$');
 
             CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
-            ci.NumberFormat.CurrencyDecimalSeparator = ".";        
+            ci.NumberFormat.CurrencyDecimalSeparator = ".";
 
             zMin = float.Parse(zStrings[0], NumberStyles.Any, ci);
             zMax = float.Parse(zStrings[1], NumberStyles.Any, ci);
@@ -1374,12 +1375,12 @@ namespace SYRMEPTomoProject
             zFs.Close();
             //SwapSingles(zRawData);          
             this.kpImageViewer1.Pix32.Clear();
-            this.kpImageViewer1.Pix8.Clear();            
+            this.kpImageViewer1.Pix8.Clear();
 
             Bitmap zBitmap = new Bitmap(zWidth, zHeight, PixelFormat.Format32bppArgb);
 
             BitmapData zBitmapData = zBitmap.LockBits(new Rectangle(0, 0, zWidth, zHeight),
-               System.Drawing.Imaging.ImageLockMode.WriteOnly, zBitmap.PixelFormat);            
+               System.Drawing.Imaging.ImageLockMode.WriteOnly, zBitmap.PixelFormat);
 
             unsafe
             {
@@ -1389,24 +1390,24 @@ namespace SYRMEPTomoProject
                 fixed (byte* buffer = zRawData)
                 {
                     // Convert to float array:
-                    float* pixels = (float*)buffer;                    
+                    float* pixels = (float*)buffer;
 
                     for (i = 0; i < zBitmapData.Height; ++i)
                     {
-                        byte* row = (byte*) zBitmapData.Scan0 + (i * zBitmapData.Stride);                   
+                        byte* row = (byte*)zBitmapData.Scan0 + (i * zBitmapData.Stride);
 
                         for (j = 0; j < zBitmapData.Width; ++j)
                         {
-                            float f = ((pixels[ct] - zMin) / (zMax - zMin))*255.0f;
-                            
+                            float f = ((pixels[ct] - zMin) / (zMax - zMin)) * 255.0f;
+
                             if (f < 0.0f) f = 0.0f;
                             if (f > 255.0f) f = 255.0f;
-                            byte b  = (byte) f;
+                            byte b = (byte)f;
 
                             this.kpImageViewer1.Pix32.Add(pixels[ct++]);
                             this.kpImageViewer1.Pix8.Add(b);
 
-                            j1 = j * pixelSize;                                
+                            j1 = j * pixelSize;
                             row[j1] = b;            // Red
                             row[j1 + 1] = b;        // Green
                             row[j1 + 2] = b;        // Blue
@@ -1441,7 +1442,7 @@ namespace SYRMEPTomoProject
             string zTempFile;
 
             // Prepare the temporary file name:
-            zTempFile = Properties.Settings.Default.FormSettings_TemporaryPath + Path.DirectorySeparatorChar 
+            zTempFile = Properties.Settings.Default.FormSettings_TemporaryPath + Path.DirectorySeparatorChar
                 + Properties.Settings.Default.SessionID + Path.DirectorySeparatorChar +
                 Program.GetTimestamp(DateTime.Now);
 
@@ -1452,17 +1453,17 @@ namespace SYRMEPTomoProject
             zArgs = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar
                 + Properties.Settings.Default.PythonPath + Path.DirectorySeparatorChar + Properties.Settings.Default.ExtractImage + "\" "
                 + TDFToLoad + " " + index.ToString() + " " + imtype + " "
-                +  zTempFile;
+                + zTempFile;
 
             // Get projection by calling the python process:
-            Program.StartProcess(zProcess, zArgs); 
+            Program.StartProcess(zProcess, zArgs);
 
             // Get the modified file name:
             string[] files = Directory.GetFiles(Path.GetDirectoryName(zTempFile), Path.GetFileNameWithoutExtension(zTempFile) + "*");
             zTempFile = files[0];
-         
+
             // Call subprogram:
-            this.PreviewImageFromTemporaryFile(zTempFile);    
+            this.PreviewImageFromTemporaryFile(zTempFile);
 
         }
 
@@ -1473,13 +1474,13 @@ namespace SYRMEPTomoProject
         /// <param name="e"></param>
         private void cbxDatasetInfo_Input_DropDownClosed(object sender, EventArgs e)
         {
-            string zString; 
+            string zString;
 
             zString = ((KeyValuePair<string, string>)this.cbxDatasetInfo_Input.SelectedItem).Key;
 
             // Modify the cursor:
             mGlass = new HourGlass();
-            
+
             // Check if selected TDF exists:
             if (File.Exists(zString))
             {
@@ -1562,7 +1563,7 @@ namespace SYRMEPTomoProject
             }
 
             mGlass.Dispose();
-        }       
+        }
 
         /// <summary>
         /// Event handler for the preview projection button.
@@ -1575,16 +1576,16 @@ namespace SYRMEPTomoProject
 
             mGlass = new HourGlass();
 
-            zString = ((KeyValuePair<string, string>)this.cbxDatasetInfo_Input.SelectedItem).Key;            
-            
+            zString = ((KeyValuePair<string, string>)this.cbxDatasetInfo_Input.SelectedItem).Key;
+
             // Check if selected TDF exists:
-            if (File.Exists( zString ))
+            if (File.Exists(zString))
             {
-                PreviewImageFromTDF(zString, (int)(this.nudDatasetTab_Projection.Value), "tomo");               
+                PreviewImageFromTDF(zString, (int)(this.nudDatasetTab_Projection.Value), "tomo");
             }
 
             mGlass.Dispose();
-        }       
+        }
 
         /// <summary>
         /// Event handler for the preview sinogram button.
@@ -1602,7 +1603,7 @@ namespace SYRMEPTomoProject
             // Check if selected TDF exists:
             if (File.Exists(zString))
             {
-                PreviewImageFromTDF(zString, (int) (this.nudDatasetTab_Sinogram.Value), "sino");
+                PreviewImageFromTDF(zString, (int)(this.nudDatasetTab_Sinogram.Value), "sino");
             }
 
             mGlass.Dispose();
@@ -1653,13 +1654,13 @@ namespace SYRMEPTomoProject
             mGlass.Dispose();
         }
 
-        
+
 
         private void cbxPhaseRetrieval_Input_DropDownClosed(object sender, EventArgs e)
         {
             string zString;
 
-            zString = ((KeyValuePair<string, string>)this.cbxPhaseRetrieval_Input.SelectedItem).Key;            
+            zString = ((KeyValuePair<string, string>)this.cbxPhaseRetrieval_Input.SelectedItem).Key;
 
             mGlass = new HourGlass();
 
@@ -1674,7 +1675,7 @@ namespace SYRMEPTomoProject
 
                 this.nudPhaseretrievalTab_ProjectionPreview.Minimum = 0;
                 this.nudPhaseretrievalTab_ProjectionPreview.Maximum = TDFReader.GetNumberOfProjections(zString) - 1;
-                this.nudPhaseretrievalTab_ProjectionPreview.Value = Convert.ToDecimal(TDFReader.GetNumberOfProjections(zString) / 2);             
+                this.nudPhaseretrievalTab_ProjectionPreview.Value = Convert.ToDecimal(TDFReader.GetNumberOfProjections(zString) / 2);
             }
 
             mGlass.Dispose();
@@ -1687,7 +1688,7 @@ namespace SYRMEPTomoProject
             string zFolder;
 
             /*string zExperiment;
-            string zDataset;  */      
+            string zDataset;  */
 
             mGlass = new HourGlass();
 
@@ -1701,14 +1702,15 @@ namespace SYRMEPTomoProject
             if (File.Exists(zString))
             {
                 lblReconstructionOutputPath.Text = Properties.Settings.Default.FormSettings_OutputPath + Path.DirectorySeparatorChar +
-                        //zExperiment + Path.DirectorySeparatorChar + zDataset +
-                        zFolder + 
+                    //zExperiment + Path.DirectorySeparatorChar + zDataset +
+                        zFolder +
                         Path.DirectorySeparatorChar + @"slices" + Path.DirectorySeparatorChar;
 
-                this.nudCenter_Middle.Maximum = (TDFReader.GetDetectorSize(zString) - 1)/2;
-                this.nudCenter_Middle.Minimum = -(TDFReader.GetDetectorSize(zString) - 1)/2;
-                
+                this.nudCenter_Middle.Maximum = (TDFReader.GetDetectorSize(zString) - 1) / 2;
+                this.nudCenter_Middle.Minimum = -(TDFReader.GetDetectorSize(zString) - 1) / 2;
+
                 this.btnReconstructionGuess.Enabled = true;
+                this.btnMultipleCenters.Enabled = true;
 
                 this.lblExecutionOutput.Enabled = true;
                 this.lblReconstructionOutputPath.Enabled = true;
@@ -1755,13 +1757,13 @@ namespace SYRMEPTomoProject
                 Program.GetTimestamp(DateTime.Now);
 
             string zRingRemString;
-            
+
             zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
                 Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
 
             // Create an instance for the phase retrieval job:
             zJob = new PreProcessingPreviewJob(
-                   Convert.ToInt32(this.nudPreprocessingTab_Sinogram.Value),                 
+                   Convert.ToInt32(this.nudPreprocessingTab_Sinogram.Value),
                    ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key,
                    zTempFile,
                    Convert.ToInt32(this.nudNormSx.Value),
@@ -1801,9 +1803,9 @@ namespace SYRMEPTomoProject
             // Create an instance for the phase retrieval job:
             zJob = new PhaseRetrievalPreviewJob(
                     Convert.ToInt32(nudPhaseretrievalTab_ProjectionPreview.Value),
-                    // Get combobox selection (in handler)
+                // Get combobox selection (in handler)
                    ((KeyValuePair<string, string>)this.cbxPhaseRetrieval_Input.SelectedItem).Key,
-                   zTempFile,                   
+                   zTempFile,
                    Convert.ToDouble(this.nudPhaseRetrievalTab_Beta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_BetaExp.Value)),
                    Convert.ToDouble(this.nudPhaseRetrievalTab_Delta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_DeltaExp.Value)),
                    Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
@@ -1855,7 +1857,7 @@ namespace SYRMEPTomoProject
                           Convert.ToInt32(nudConvertToTDF_CropRight.Value).ToString();
 
             double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
-            if ( ( Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
+            if ((Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
                 zScale = 2.0;
 
             if (this.chkCorrectionOffset.Checked)
@@ -1908,15 +1910,15 @@ namespace SYRMEPTomoProject
                 Convert.ToInt32(this.nudReconstructionTab_Downscale.Value),
                 this.chkReconstructionTab_PostProcess.Checked,
                 zConvertTo8String,
-                zCropString, 
+                zCropString,
                 this.chkPhrtOnTheFly.Checked,
                 Convert.ToDouble(this.nudPhaseRetrievalTab_Beta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_BetaExp.Value)),
                 Convert.ToDouble(this.nudPhaseRetrievalTab_Delta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_DeltaExp.Value)),
                 Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
-                Convert.ToDouble(this.nudPhaseRetrievalTab_Energy.Value),                   
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Energy.Value),
                 Convert.ToDouble(this.nudPhaseRetrievalTab_PixelSize.Value),
                 this.chkPhaseRetrievalTab_OverPadding.Checked
-            );    
+            );
 
             // Create an instance of JobExecuter with the job:
             JobExecuter zExecuter = new JobExecuter(zJob);
@@ -1930,8 +1932,8 @@ namespace SYRMEPTomoProject
 
         private void mBgwPreview_DoWork(object sender, DoWorkEventArgs e)
         {
-            int ct = 0;            
-            string zTempFile = (string) e.Argument;
+            int ct = 0;
+            string zTempFile = (string)e.Argument;
             string[] files;
 
             // Wait 'till file exists:
@@ -1946,7 +1948,7 @@ namespace SYRMEPTomoProject
 
             // Get the modified file name:
             zTempFile = files[0];
-                    
+
             // Modify the UI:
             this.Invoke((MethodInvoker)delegate
             {
@@ -1961,7 +1963,7 @@ namespace SYRMEPTomoProject
 
             // Delete temporary file:
             if (File.Exists(zTempFile))
-                File.Delete(zTempFile); 
+                File.Delete(zTempFile);
         }
 
         private void mBgwPreview_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -1973,8 +1975,8 @@ namespace SYRMEPTomoProject
 
         private void cbxDegradationMethods_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ( ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key.StartsWith("linear"))            
-            {   
+            if (((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key.StartsWith("linear"))
+            {
                 this.lblPostProcessingTab_LinearRescaleMin.Visible = true;
                 this.lblPostProcessingTab_LinearRescaleMax.Visible = true;
                 this.txbPostProcessingTab_LinearRescaleMin.Visible = true;
@@ -1988,7 +1990,7 @@ namespace SYRMEPTomoProject
                 this.txbPostProcessingTab_LinearRescaleMin.Visible = false;
                 this.txbPostProcessingTab_LinearRescaleMax.Visible = false;
                 this.btnPostProcessingTab_AutoLimit.Visible = false;
-            }         
+            }
         }
 
         private void cbxPreProcessing_Input_DropDownClosed(object sender, EventArgs e)
@@ -1998,11 +2000,11 @@ namespace SYRMEPTomoProject
             zString = ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key;
 
             // Modify the cursor:
-            mGlass = new HourGlass();            
+            mGlass = new HourGlass();
 
             // Check if selected TDF exists:
             if (File.Exists(zString))
-            {   
+            {
                 // Modify UI in preprocessing tab:
                 this.gbxPreProcessing_Preview.Enabled = true;
                 this.gbxPreProcessing_Execute.Enabled = true;
@@ -2058,15 +2060,15 @@ namespace SYRMEPTomoProject
         private void RefreshPreprocessingPreviewBitmap()
         {
             int zLeft, zRight;
-            
+
             Bitmap zBitmapIn = this.kpImageViewer1.Image;
 
             if (zBitmapIn != null)
             {
-                Bitmap zBitmapOut = new Bitmap( zBitmapIn.Width, zBitmapIn.Height, PixelFormat.Format32bppArgb);
+                Bitmap zBitmapOut = new Bitmap(zBitmapIn.Width, zBitmapIn.Height, PixelFormat.Format32bppArgb);
 
                 BitmapData zBitmapDataIn = zBitmapIn.LockBits(new Rectangle(0, 0, zBitmapIn.Width, zBitmapIn.Height),
-                   System.Drawing.Imaging.ImageLockMode.WriteOnly, zBitmapIn.PixelFormat);            
+                   System.Drawing.Imaging.ImageLockMode.WriteOnly, zBitmapIn.PixelFormat);
 
                 BitmapData zBitmapDataOut = zBitmapOut.LockBits(new Rectangle(0, 0, zBitmapIn.Width, zBitmapIn.Height),
                    System.Drawing.Imaging.ImageLockMode.WriteOnly, zBitmapOut.PixelFormat);
@@ -2091,7 +2093,7 @@ namespace SYRMEPTomoProject
                             rowOut[j1 + 1] = rowIn[j1 + 1];
                             rowOut[j1 + 2] = rowIn[j1 + 2];
 
-                            rowOut[j1 + 3] = (byte) (((j < zLeft) || (j > zRight)) ? 128 : 255); // Alpha
+                            rowOut[j1 + 3] = (byte)(((j < zLeft) || (j > zRight)) ? 128 : 255); // Alpha
                         }
                     }
 
@@ -2100,7 +2102,7 @@ namespace SYRMEPTomoProject
                 zBitmapOut.UnlockBits(zBitmapDataOut);
 
                 // Add the Bitmap to the image viewer:
-                this.kpImageViewer1.Image = zBitmapOut;                
+                this.kpImageViewer1.Image = zBitmapOut;
             }
         }
 
@@ -2142,8 +2144,8 @@ namespace SYRMEPTomoProject
                             rowOut[j1 + 1] = rowIn[j1 + 1];
                             rowOut[j1 + 2] = rowIn[j1 + 2];
 
-                            rowOut[j1 + 3] = (byte)( (((j < zLeft) || (j > zRight)) ||
-                                 ((i < zTop) || (i > zBottom)) ) ? 128 : 255); // Alpha
+                            rowOut[j1 + 3] = (byte)((((j < zLeft) || (j > zRight)) ||
+                                 ((i < zTop) || (i > zBottom))) ? 128 : 255); // Alpha
                         }
                     }
 
@@ -2191,7 +2193,7 @@ namespace SYRMEPTomoProject
 
             if (zInputTIFFsBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                txbPostProcessingTab_InputFolder.Text = zInputTIFFsBrowserDialog.SelectedPath;               
+                txbPostProcessingTab_InputFolder.Text = zInputTIFFsBrowserDialog.SelectedPath;
             }
         }
 
@@ -2199,7 +2201,7 @@ namespace SYRMEPTomoProject
         {
             if (zOutputPathBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                txbPostProcessingTab_OutputPath.Text = zOutputPathBrowserDialog.SelectedPath;              
+                txbPostProcessingTab_OutputPath.Text = zOutputPathBrowserDialog.SelectedPath;
 
                 // Set the numerical controls:                
                 nudPostProcessingTab_ExecuteFrom.Enabled = true;
@@ -2217,12 +2219,12 @@ namespace SYRMEPTomoProject
 
             // Create an instance for the phase retrieval job:
             zJob = new PostProcessingJob(
-                    // Get combobox selection (in handler)
+                // Get combobox selection (in handler)
                    txbPostProcessingTab_InputFolder.Text,
                    txbPostProcessingTab_OutputPath.Text,
                    Convert.ToInt32(nudPostProcessingTab_ExecuteFrom.Value),
                    Convert.ToInt32(nudPostProcessingTab_ExecuteTo.Value),
-                   ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key,                   
+                   ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key,
                    Convert.ToDouble(txbPostProcessingTab_LinearRescaleMin.Text),
                    Convert.ToDouble(txbPostProcessingTab_LinearRescaleMax.Text),
                    Convert.ToInt32(nudConvertToTDF_CropLeft.Value),
@@ -2283,7 +2285,7 @@ namespace SYRMEPTomoProject
             string zFilter;
             int zNrOfProjections;
 
-            if ( (txbPostProcessingTab_InputFolder.Text == string.Empty) || !(Directory.Exists(txbPostProcessingTab_InputFolder.Text) ))
+            if ((txbPostProcessingTab_InputFolder.Text == string.Empty) || !(Directory.Exists(txbPostProcessingTab_InputFolder.Text)))
             {
                 gbxPostProcessingTab_Preview.Enabled = false;
                 gbxPostProcessingTab_Execute.Enabled = false;
@@ -2397,17 +2399,17 @@ namespace SYRMEPTomoProject
         private void convertHISToTDFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HISToTDF zForm = new HISToTDF();
-            zForm.Show();
+            zForm.Show(this);
         }
 
         private void UpdateDeltaBetaLbl()
         {
             double zVal, zDelta, zBeta;
 
-            zDelta = ((double) (this.nudPhaseRetrievalTab_Delta.Value)) * Math.Pow(10.0, (double) (this.nudPhaseRetrievalTab_DeltaExp.Value));
-            zBeta = ((double) (this.nudPhaseRetrievalTab_Beta.Value)) * Math.Pow(10.0, (double) (this.nudPhaseRetrievalTab_BetaExp.Value));
-            
-            zVal = (int) (Math.Round(zDelta / zBeta));
+            zDelta = ((double)(this.nudPhaseRetrievalTab_Delta.Value)) * Math.Pow(10.0, (double)(this.nudPhaseRetrievalTab_DeltaExp.Value));
+            zBeta = ((double)(this.nudPhaseRetrievalTab_Beta.Value)) * Math.Pow(10.0, (double)(this.nudPhaseRetrievalTab_BetaExp.Value));
+
+            zVal = (int)(Math.Round(zDelta / zBeta));
 
             this.lblDeltaBetaRatio.Text = "δ/β = " + zVal.ToString();
         }
@@ -2482,7 +2484,7 @@ namespace SYRMEPTomoProject
 
         private void bgwAutoLimit_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            mGlass.Dispose();    
+            mGlass.Dispose();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2505,7 +2507,94 @@ namespace SYRMEPTomoProject
         private void convertEDFsToEDFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EDFToTDF zForm = new EDFToTDF();
-            zForm.Show();
+            zForm.Show(this);
+        }
+
+        private void btnMultipleCenters_Click(object sender, EventArgs e)
+        {
+            double zScale = 1.0;
+            double zCorrectionOffset = 0.0;
+            string zRingRemString;
+            string zConvertTo8String;
+            string zCropString;
+            string zParam1;
+
+            zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
+                Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
+
+            zConvertTo8String = ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key + ":" +
+                (double.Parse(txbPostProcessingTab_LinearRescaleMin.Text, CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture) + ";" +
+                (double.Parse(txbPostProcessingTab_LinearRescaleMax.Text, CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture);
+
+            zCropString = Convert.ToInt32(nudConvertToTDF_CropTop.Value).ToString() + ":" +
+                          Convert.ToInt32(nudConvertToTDF_CropBottom.Value).ToString() + ":" +
+                          Convert.ToInt32(nudConvertToTDF_CropLeft.Value).ToString() + ":" +
+                          Convert.ToInt32(nudConvertToTDF_CropRight.Value).ToString();
+
+            double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
+            if ((Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
+                zScale = 2.0;
+
+            if (this.chkCorrectionOffset.Checked)
+                zCorrectionOffset = Convert.ToDouble(this.nudCorrectionOffset.Value);
+
+            // Get algorithm-specific parameters:
+            if ((((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FBP_CUDA") ||
+                 (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "SCIKIT-FBP"))
+            {
+                zParam1 = ((KeyValuePair<string, string>)this.cbxAlgorithmParameterFilter.SelectedItem).Key.ToString();
+            }
+            else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "GRIDREC")
+            {
+                zParam1 = Convert.ToDouble(this.nudGridRec.Value).ToString();
+            }
+            else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FISTA-TV_CUDA")
+            {
+                zParam1 = Convert.ToDouble(this.txbReconstructionLambda.Text).ToString();
+            }
+            else
+            {
+                zParam1 = Convert.ToInt32(this.nudAlgorithmParameterIterations.Value).ToString();
+            }
+
+            MultiOffset zForm = new MultiOffset(
+                Properties.Settings.Default.FormSettings_OutputPrefix,
+                 Convert.ToInt32(this.nudReconstructionTab_Slice.Value),
+                ((KeyValuePair<string, string>)this.tbxDatasetName.SelectedItem).Key,
+                this.chkApplyPreProcessing.Checked,
+                Convert.ToInt32(this.nudNormSx.Value),
+                Convert.ToInt32(this.nudNormDx.Value),
+                chkDarkFlatEnd.Checked, // use flat at the end
+                chkHalfHalfMode.Checked,
+                Convert.ToInt32(this.nudHalfHalfMode.Value),
+                chkExtendedFOV.Checked,
+                chkExtFOV_AirRight.Checked,
+                Convert.ToInt32(nudExtendedFOVOverlap.Value),
+                zRingRemString,
+                Convert.ToDouble(this.nudAngles.Value),
+                Convert.ToDouble(this.nudCenter_Middle.Value),
+                ((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key,
+                zParam1,
+                zScale,
+                chkOverPadding.Checked,
+                this.chkLogTransform.Checked,
+                chkCircleMask.Checked,
+                (chkZeroneMode.Checked) && (!chkApplyPreProcessing.Checked),
+                zCorrectionOffset,
+                Convert.ToInt32(this.nudReconstructionTab_Decimate.Value),
+                Convert.ToInt32(this.nudReconstructionTab_Downscale.Value),
+                this.chkReconstructionTab_PostProcess.Checked,
+                zConvertTo8String,
+                zCropString,
+                this.chkPhrtOnTheFly.Checked,
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Beta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_BetaExp.Value)),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Delta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_DeltaExp.Value)),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Energy.Value),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_PixelSize.Value),
+                this.chkPhaseRetrievalTab_OverPadding.Checked
+                );
+            zForm.Show(this);
         }
 
     }

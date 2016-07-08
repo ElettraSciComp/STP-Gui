@@ -1,46 +1,28 @@
 ﻿/***************************************************************************/
 /* (C) 2016 Elettra - Sincrotrone Trieste S.C.p.A.. All rights reserved.   */
 /*                                                                         */
-/* Copyright 2016. Elettra - Sincrotrone Trieste S.C.p.A. THE COMPANY      */
-/* ELETTRA - SINCROTRONE TRIESTE S.C.P.A. IS NOT REPONSIBLE FOR THE USE    */
-/* OF THIS SOFTWARE. If software is modified to produce derivative works,  */
-/* such modified software should be clearly marked, so as not to confuse   */
-/* it with the version available from Elettra Sincrotrone Trieste S.C.p.A. */
 /*                                                                         */
-/* Additionally, redistribution and use in source and binary forms, with   */
-/* or without modification, are permitted provided that the following      */
-/* conditions are met:                                                     */
+/* This file is part of STP-Core, the Python core of SYRMEP Tomo Project,  */
+/* a software tool for the reconstruction of experimental CT datasets.     */
 /*                                                                         */
-/*     * Redistributions of source code must retain the above copyright    */
-/*       notice, this list of conditions and the following disclaimer.     */
+/* STP-Core is free software: you can redistribute it and/or modify it     */
+/* under the terms of the GNU General Public License as published by the   */
+/* Free Software Foundation, either version 3 of the License, or (at your  */
+/* option) any later version.                                              */
 /*                                                                         */
-/*     * Redistributions in binary form must reproduce the above copyright */
-/*       notice, this list of conditions and the following disclaimer in   */
-/*       the documentation and/or other materials provided with the        */
-/*       distribution.                                                     */
+/* STP-Core is distributed in the hope that it will be useful, but WITHOUT */
+/* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or   */
+/* FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License    */
+/* for more details.                                                       */
 /*                                                                         */
-/*     * Neither the name of Elettra - Sincotrone Trieste S.C.p.A nor      */
-/*       the names of its contributors may be used to endorse or promote   */
-/*       products derived from this software without specific prior        */
-/*       written permission.                                               */
+/* You should have received a copy of the GNU General Public License       */
+/* along with STP-Core. If not, see <http://www.gnu.org/licenses/>.        */
 /*                                                                         */
-/* THIS SOFTWARE IS PROVIDED BY ELETTRA - SINCROTRONE TRIESTE S.C.P.A. AND */
-/* CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,  */
-/* BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND       */
-/* FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL      */
-/* ELETTRA - SINCROTRONE TRIESTE S.C.P.A. OR CONTRIBUTORS BE LIABLE FOR    */
-/* ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL  */
-/* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE       */
-/* GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS           */
-/* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER    */
-/* IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR         */
-/* OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF  */
-/* ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                              */
 /***************************************************************************/
 
 //
 // Author: Francesco Brun
-// Last modified: April, 11th 2016
+// Last modified: July, 8th 2016
 //
 
 
@@ -92,82 +74,129 @@ namespace SYRMEPTomoProject
 
         void mJobMonitor_JobStep(object sender, JobEventArgs e)
         {
-            TimeSpan zElapsedTime, zRemainingTime;
-
-            // Thread safe (it runs on UI thread):
-            if (!e.Line.Equals(Environment.NewLine))
+            try
             {
-                this.Invoke((MethodInvoker)delegate
+                TimeSpan zElapsedTime, zRemainingTime;
+
+                // Thread safe (it runs on UI thread):
+                if (!e.Line.Equals(Environment.NewLine))
                 {
-
-                    // Append line to log textbox:
-                    zLogTxb.AppendText(e.Line);// runs on UI thread
-
-                    // Update status bar:
-                    zElapsedTime = DateTime.Now - mDt;
-                    if (e.Step > 0.0)
+                    this.Invoke((MethodInvoker)delegate
                     {
-                        zRemainingTime = TimeSpan.FromSeconds(zElapsedTime.TotalSeconds * (1.0 - e.Step) / e.Step);
-                        if (e.Step > Properties.Settings.Default.EstimatedRemaingTimeThresh)
-                            zTiming_ToolStripLbl.Text = "Elapsed time: " + zElapsedTime.ToString(@"hh\:mm\:ss") + ". Estimated remaining time: " + zRemainingTime.ToString(@"hh\:mm\:ss") + ".";
-                        else
-                            zTiming_ToolStripLbl.Text = "Elapsed time: " + zElapsedTime.ToString(@"hh\:mm\:ss") + ".";
-                    }
+                        try
+                        {
+                            // Append line to log textbox:
+                            zLogTxb.AppendText(e.Line);// runs on UI thread
 
-                    mStatusBarProgressBar.Value = Math.Min((int)(Math.Round(e.Step * 100.0)), 100);
+                            // Update status bar:
+                            zElapsedTime = DateTime.Now - mDt;
+                            if (e.Step > 0.0)
+                            {
+                                zRemainingTime = TimeSpan.FromSeconds(zElapsedTime.TotalSeconds * (1.0 - e.Step) / e.Step);
+                                if (e.Step > Properties.Settings.Default.EstimatedRemaingTimeThresh)
+                                    zTiming_ToolStripLbl.Text = "Elapsed time: " + zElapsedTime.ToString(@"hh\:mm\:ss") + ". Estimated remaining time: " + zRemainingTime.ToString(@"hh\:mm\:ss") + ".";
+                                else
+                                    zTiming_ToolStripLbl.Text = "Elapsed time: " + zElapsedTime.ToString(@"hh\:mm\:ss") + ".";
+                            }
 
-                });
+                            mStatusBarProgressBar.Value = Math.Min((int)(Math.Round(e.Step * 100.0)), 100);
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
             }
         }
 
         void mJobMonitor_JobError(object sender, JobEventArgs e)
         {
-            // Thread safe (it runs on UI thread):
-            this.Invoke((MethodInvoker)delegate
+            try
             {
-                zLogTxb.AppendText(e.Line);// runs on UI thread           
+                // Thread safe (it runs on UI thread):
+                this.Invoke((MethodInvoker)delegate
+                {
+                    try
+                    {
+                        zLogTxb.AppendText(e.Line);// runs on UI thread           
 
-                // Update status bar:
-                zTiming_ToolStripLbl.Text = String.Empty;
+                        // Update status bar:
+                        zTiming_ToolStripLbl.Text = String.Empty;
 
-                // Update progress bar:
-                mStatusBarProgressBar.Value = 0;
-            });
+                        // Update progress bar:
+                        mStatusBarProgressBar.Value = 0;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         void mJobMonitor_JobCompleted(object sender, JobEventArgs e)
         {
-            // Thread safe (it runs on UI thread):           
-            this.Invoke((MethodInvoker)delegate
+            try
             {
-                zLogTxb.AppendText(e.Line);
+                // Thread safe (it runs on UI thread):           
+                this.Invoke((MethodInvoker)delegate
+                {
+                    try
+                    {
+                        zLogTxb.AppendText(e.Line);
 
-                // Update status bar:
-                zTiming_ToolStripLbl.Text = String.Empty;
+                        // Update status bar:
+                        zTiming_ToolStripLbl.Text = String.Empty;
 
-                // Update progress bar:
-                mStatusBarProgressBar.Value = 0;
-            });
+                        // Update progress bar:
+                        mStatusBarProgressBar.Value = 0;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         void mJobMonitor_JobStarted(object sender, JobEventArgs e)
         {
-            string zString;
-
-            if (!mFirstRun)
+            try
             {
-                zString = e.Line.TrimStart('\r', '\n');
-                mFirstRun = true;
+                string zString;
+
+                if (!mFirstRun)
+                {
+                    zString = e.Line.TrimStart('\r', '\n');
+                    mFirstRun = true;
+                }
+                else
+                    zString = e.Line;
+
+                // Thread safe (it runs on UI thread):
+                mDt = DateTime.Now;
+                this.Invoke((MethodInvoker)delegate
+                {
+                    try
+                    {
+                        zLogTxb.AppendText(zString);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                });
             }
-            else
-                zString = e.Line;
-
-            // Thread safe (it runs on UI thread):
-            mDt = DateTime.Now;
-            this.Invoke((MethodInvoker)delegate
+            catch (Exception ex)
             {
-                zLogTxb.AppendText(zString);
-            });
+
+            }
         }
 
         private void mJobMonitorBgw_DoWork(object sender, DoWorkEventArgs e)
@@ -436,8 +465,8 @@ namespace SYRMEPTomoProject
                 XmlDocument zDoc = new XmlDocument();
                 zDoc.Load(zFile);
 
-                XmlNodeList zKeys = zDoc.SelectNodes("algorithms/algorithm/key");
-                XmlNodeList zValues = zDoc.SelectNodes("algorithms/algorithm/value");
+                XmlNodeList zKeys = zDoc.SelectNodes("algorithms/algorithm/pyname");
+                XmlNodeList zValues = zDoc.SelectNodes("algorithms/algorithm/displayname");
 
                 Dictionary<string, string> zDict = new Dictionary<string, string>();
                 foreach (XmlNode zValue in zValues)
@@ -731,7 +760,9 @@ namespace SYRMEPTomoProject
                 chkExtFOV_AirRight.Checked,
                 Convert.ToInt32(nudExtendedFOVOverlap.Value),
                 zRingRemString,
-                Convert.ToDouble(this.nudAngles.Value),
+                Convert.ToDouble(this.nudAngles.Value) * Math.PI / 180.0,
+                Convert.ToInt32(this.nudAnglesProjFrom.Value),
+                Convert.ToInt32(this.nudAnglesProjTo.Value),
                 Convert.ToDouble(this.nudCenter_Middle.Value),
                 ((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key,
                 zParam1,
@@ -852,7 +883,9 @@ namespace SYRMEPTomoProject
                 chkExtFOV_AirRight.Checked,
                 Convert.ToInt32(nudExtendedFOVOverlap.Value),
                 zRingRemString,
-                Convert.ToDouble(this.nudAngles.Value),
+                Convert.ToDouble(this.nudAngles.Value) * Math.PI / 180.0,
+                Convert.ToInt32(this.nudAnglesProjFrom.Value),
+                Convert.ToInt32(this.nudAnglesProjTo.Value),
                 Convert.ToDouble(this.nudCenter_Middle.Value),
                 ((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key,
                 zParam1,
@@ -1008,7 +1041,7 @@ namespace SYRMEPTomoProject
                 // Get combobox selection (in handler)
                 ((KeyValuePair<string, string>)this.tbxDatasetName.SelectedItem).Key,
                 zScale,
-                Convert.ToSingle(this.nudAngles.Value)
+                Convert.ToDouble(this.nudAngles.Value) * Math.PI / 180.0
             );
 
             // Create an instance of JobExecuter with the Phase Retrieval job:
@@ -1054,12 +1087,59 @@ namespace SYRMEPTomoProject
 
         private void cbxRingRem_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((this.cbxRingRem.SelectedIndex > 0) && (this.cbxRingRem.SelectedIndex < 4))
+            try
+            {
+                int zIndex = this.cbxRingRem.SelectedIndex + 1;
+                XmlDocument zDoc = new XmlDocument();
+
+                // Load the XML configuration file for ring removal filters:
+                zDoc.Load(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +
+                    Path.DirectorySeparatorChar + Properties.Settings.Default.RingRemAlgsXmlFile);
+
+                // Hide UI elements:
+                this.lblRingRemParam1.Visible = false;
+                this.nudRingRemParam1.Visible = false;
+
+                this.lblRingRemParam2.Visible = false;
+                this.nudRingRemParam2.Visible = false;
+
+                // Configure parameter 1:                
+                XmlNode zParameterNode = zDoc.SelectSingleNode("/algorithms/algorithm[" + zIndex.ToString() + "]/parameters/parameter[1]");
+                this.lblRingRemParam1.Text = zParameterNode.InnerText + ":";
+                this.nudRingRemParam1.Minimum = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("min").Value);
+                this.nudRingRemParam1.Maximum = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("max").Value);
+                this.nudRingRemParam1.DecimalPlaces = Convert.ToInt32(zParameterNode.Attributes.GetNamedItem("decimalplaces").Value);
+                this.nudRingRemParam1.Increment = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("increment").Value);
+                this.nudRingRemParam1.Value = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("default").Value);
+
+                this.lblRingRemParam1.Visible = true;
+                this.nudRingRemParam1.Visible = true;
+
+                // Configure parameter 1:                
+                zParameterNode = zDoc.SelectSingleNode("/algorithms/algorithm[" + zIndex.ToString() + "]/parameters/parameter[2]");
+                this.lblRingRemParam2.Text = zParameterNode.InnerText + ":";
+                this.nudRingRemParam2.Minimum = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("min").Value);
+                this.nudRingRemParam2.Maximum = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("max").Value);
+                this.nudRingRemParam2.DecimalPlaces = Convert.ToInt32(zParameterNode.Attributes.GetNamedItem("decimalplaces").Value);
+                this.nudRingRemParam2.Increment = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("increment").Value);
+                this.nudRingRemParam2.Value = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("default").Value);
+
+                this.lblRingRemParam2.Visible = true;
+                this.nudRingRemParam2.Visible = true;
+              
+            }
+            catch (Exception ex)
+            {
+               
+            }
+
+
+
+            /*if ((this.cbxRingRem.SelectedIndex > 0) && (this.cbxRingRem.SelectedIndex < 4))
             {
                 // Rivers + Boin/Haibel + Raven:                
                 this.lblRingRemParam1.Text = "Width:";
                 this.lblRingRemParam1.Visible = true;
-                this.lblRingRemParam1.Location = new Point(8, 22);
                 this.nudRingRemParam1.Minimum = 3;
                 this.nudRingRemParam1.Maximum = 99;
                 this.nudRingRemParam1.DecimalPlaces = 0;
@@ -1076,7 +1156,6 @@ namespace SYRMEPTomoProject
                 // Munch et al.:
                 this.lblRingRemParam1.Text = "Levels:";
                 this.lblRingRemParam1.Visible = true;
-                this.lblRingRemParam1.Location = new Point(6, 22);
                 this.nudRingRemParam1.Minimum = 2;
                 this.nudRingRemParam1.Maximum = 8;
                 this.nudRingRemParam1.DecimalPlaces = 0;
@@ -1086,12 +1165,53 @@ namespace SYRMEPTomoProject
 
                 this.lblRingRemParam2.Text = "Sigma:";
                 this.lblRingRemParam2.Visible = true;
-                this.lblRingRemParam2.Location = new Point(8, 49);
                 this.nudRingRemParam2.Minimum = (decimal)0.0;
                 this.nudRingRemParam2.Maximum = (decimal)9.9;
                 this.nudRingRemParam2.DecimalPlaces = 1;
                 this.nudRingRemParam2.Increment = (decimal)0.1;
                 this.nudRingRemParam2.Value = 1;
+                this.nudRingRemParam2.Visible = true;
+            }
+            else if (this.cbxRingRem.SelectedIndex == 5)
+            {
+                // Oimoen:
+                this.lblRingRemParam1.Text = "Horizontal:";
+                this.lblRingRemParam1.Visible = true;
+                this.nudRingRemParam1.Minimum = 3;
+                this.nudRingRemParam1.Maximum = 999;
+                this.nudRingRemParam1.DecimalPlaces = 0;
+                this.nudRingRemParam1.Increment = 1;
+                this.nudRingRemParam1.Value = 31;
+                this.nudRingRemParam1.Visible = true;
+
+                this.lblRingRemParam2.Text = "Vertical:";
+                this.lblRingRemParam2.Visible = true;
+                this.nudRingRemParam2.Minimum = 3;
+                this.nudRingRemParam2.Maximum = 999;
+                this.nudRingRemParam2.DecimalPlaces = 0;
+                this.nudRingRemParam2.Increment = 1;
+                this.nudRingRemParam2.Value = 31;
+                this.nudRingRemParam2.Visible = true;
+            }
+            else if (this.cbxRingRem.SelectedIndex == 6)
+            {
+                // Sijbers and Postnov:
+                this.lblRingRemParam1.Text = "Winsize:";
+                this.lblRingRemParam1.Visible = true;
+                this.nudRingRemParam1.Minimum = 3;
+                this.nudRingRemParam1.Maximum = 999;
+                this.nudRingRemParam1.DecimalPlaces = 0;
+                this.nudRingRemParam1.Increment = 1;
+                this.nudRingRemParam1.Value = 51;
+                this.nudRingRemParam1.Visible = true;
+
+                this.lblRingRemParam2.Text = "Thresh:";
+                this.lblRingRemParam2.Visible = true;
+                this.nudRingRemParam2.Minimum = 0;
+                this.nudRingRemParam2.Maximum = (decimal) 99.9;
+                this.nudRingRemParam2.DecimalPlaces = 2;
+                this.nudRingRemParam2.Increment = 1;
+                this.nudRingRemParam2.Value = (decimal) 1.0;
                 this.nudRingRemParam2.Visible = true;
             }
             else
@@ -1101,7 +1221,7 @@ namespace SYRMEPTomoProject
 
                 this.lblRingRemParam2.Visible = false;
                 this.nudRingRemParam2.Visible = false;
-            }
+            }*/
         }
 
         private void cbxPreProcessing_Input_Click(object sender, EventArgs e)
@@ -1736,6 +1856,17 @@ namespace SYRMEPTomoProject
                 this.btnReconstructionTab_ExecuteRunSubset.Enabled = true;
                 this.btnReconstructionTab_ExecuteRunAll.Enabled = true;
 
+                
+                this.nudAnglesProjFrom.Enabled = true;
+                this.nudAnglesProjFrom.Minimum = 0;                
+                this.nudAnglesProjFrom.Maximum = TDFReader.GetNumberOfProjections(zString) - 1;
+                this.nudAnglesProjFrom.Value = 0;
+
+                this.nudAnglesProjTo.Enabled = true;
+                this.nudAnglesProjTo.Minimum = 0;                
+                this.nudAnglesProjTo.Maximum = TDFReader.GetNumberOfProjections(zString) - 1;
+                this.nudAnglesProjTo.Value = this.nudAnglesProjTo.Maximum;
+
                 // Preview by default the central projection:
                 //PreviewImageFromTDF(zString, (int)(this.nudPhaseretrievalTab_ProjectionPreview.Value), true);                
             }
@@ -1896,7 +2027,9 @@ namespace SYRMEPTomoProject
                 chkExtFOV_AirRight.Checked,
                 Convert.ToInt32(nudExtendedFOVOverlap.Value),
                 zRingRemString,
-                Convert.ToDouble(this.nudAngles.Value),
+                Convert.ToDouble(this.nudAngles.Value)*Math.PI/180.0,
+                Convert.ToInt32(this.nudAnglesProjFrom.Value),
+                Convert.ToInt32(this.nudAnglesProjTo.Value),
                 Convert.ToDouble(this.nudCenter_Middle.Value),
                 ((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key,
                 zParam1,
@@ -2571,7 +2704,7 @@ namespace SYRMEPTomoProject
                 chkExtFOV_AirRight.Checked,
                 Convert.ToInt32(nudExtendedFOVOverlap.Value),
                 zRingRemString,
-                Convert.ToDouble(this.nudAngles.Value),
+                Convert.ToDouble(this.nudAngles.Value) * Math.PI / 180.0,
                 Convert.ToDouble(this.nudCenter_Middle.Value),
                 ((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key,
                 zParam1,
@@ -2592,9 +2725,18 @@ namespace SYRMEPTomoProject
                 Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
                 Convert.ToDouble(this.nudPhaseRetrievalTab_Energy.Value),
                 Convert.ToDouble(this.nudPhaseRetrievalTab_PixelSize.Value),
-                this.chkPhaseRetrievalTab_OverPadding.Checked
+                this.chkPhaseRetrievalTab_OverPadding.Checked,
+                Convert.ToInt32(this.nudAnglesProjFrom.Value),
+                Convert.ToInt32(this.nudAnglesProjTo.Value)
                 );
             zForm.Show(this);
+        }
+
+        private void openSourceLicensesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenSourceAboutBox zAboutBox = new OpenSourceAboutBox();
+
+            zAboutBox.ShowDialog(this);
         }
 
     }

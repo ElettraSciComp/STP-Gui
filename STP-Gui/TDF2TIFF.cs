@@ -1,46 +1,28 @@
 ﻿/***************************************************************************/
 /* (C) 2016 Elettra - Sincrotrone Trieste S.C.p.A.. All rights reserved.   */
 /*                                                                         */
-/* Copyright 2016. Elettra - Sincrotrone Trieste S.C.p.A. THE COMPANY      */
-/* ELETTRA - SINCROTRONE TRIESTE S.C.P.A. IS NOT REPONSIBLE FOR THE USE    */
-/* OF THIS SOFTWARE. If software is modified to produce derivative works,  */
-/* such modified software should be clearly marked, so as not to confuse   */
-/* it with the version available from Elettra Sincrotrone Trieste S.C.p.A. */
 /*                                                                         */
-/* Additionally, redistribution and use in source and binary forms, with   */
-/* or without modification, are permitted provided that the following      */
-/* conditions are met:                                                     */
+/* This file is part of STP-Core, the Python core of SYRMEP Tomo Project,  */
+/* a software tool for the reconstruction of experimental CT datasets.     */
 /*                                                                         */
-/*     * Redistributions of source code must retain the above copyright    */
-/*       notice, this list of conditions and the following disclaimer.     */
+/* STP-Core is free software: you can redistribute it and/or modify it     */
+/* under the terms of the GNU General Public License as published by the   */
+/* Free Software Foundation, either version 3 of the License, or (at your  */
+/* option) any later version.                                              */
 /*                                                                         */
-/*     * Redistributions in binary form must reproduce the above copyright */
-/*       notice, this list of conditions and the following disclaimer in   */
-/*       the documentation and/or other materials provided with the        */
-/*       distribution.                                                     */
+/* STP-Core is distributed in the hope that it will be useful, but WITHOUT */
+/* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or   */
+/* FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License    */
+/* for more details.                                                       */
 /*                                                                         */
-/*     * Neither the name of Elettra - Sincotrone Trieste S.C.p.A nor      */
-/*       the names of its contributors may be used to endorse or promote   */
-/*       products derived from this software without specific prior        */
-/*       written permission.                                               */
+/* You should have received a copy of the GNU General Public License       */
+/* along with STP-Core. If not, see <http://www.gnu.org/licenses/>.        */
 /*                                                                         */
-/* THIS SOFTWARE IS PROVIDED BY ELETTRA - SINCROTRONE TRIESTE S.C.P.A. AND */
-/* CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,  */
-/* BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND       */
-/* FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL      */
-/* ELETTRA - SINCROTRONE TRIESTE S.C.P.A. OR CONTRIBUTORS BE LIABLE FOR    */
-/* ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL  */
-/* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE       */
-/* GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS           */
-/* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER    */
-/* IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR         */
-/* OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF  */
-/* ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                              */
 /***************************************************************************/
 
 //
 // Author: Francesco Brun
-// Last modified: April, 11th 2016
+// Last modified: July, 8th 2016
 //
 
 
@@ -62,7 +44,7 @@ namespace SYRMEPTomoProject
 {
     public partial class TDFToTIFF : Form
     {
-        private string mInputTDF;
+        private string zInputTDF;
         private string mOutputTIFFs;
 
         private DateTime mDt;      
@@ -197,6 +179,8 @@ namespace SYRMEPTomoProject
 
         private void TDFToTIFF_Load(object sender, EventArgs e)
         {
+            this.SuspendLayout();
+
             // Center parent:
             if (Owner != null)
                 Location = new Point(Owner.Location.X + Owner.Width / 2 - Width / 2,
@@ -216,6 +200,10 @@ namespace SYRMEPTomoProject
             this.chkData.Checked = Properties.Settings.Default.TDF2TIFF_DatasetToExportTomo;
             this.chkDataWhite.Checked = Properties.Settings.Default.TDF2TIFF_DatasetToExportFlat;
             this.chkDataDark.Checked = Properties.Settings.Default.TDF2TIFF_DatasetToExportDark;
+
+            chkData_CheckedChanged(null, null);
+
+            this.ResumeLayout();
         }
 
         private void TDFToTIFF_FormClosing(object sender, FormClosingEventArgs e)
@@ -269,81 +257,186 @@ namespace SYRMEPTomoProject
         }
 
         private void cbxInput_DropDownClosed(object sender, EventArgs e)
-        {         
-            mInputTDF = ((KeyValuePair<string, string>)this.cbxInput.SelectedItem).Key;
+        {
+            this.SuspendLayout();
+
+            zInputTDF = ((KeyValuePair<string, string>)this.cbxInput.SelectedItem).Key;
                        
             
             // Check if selected TDF exists:
-            if (File.Exists(mInputTDF))
+            if (File.Exists(zInputTDF))
             {                
                 if (rbtDirectOrder.Checked)
                 {
-                    this.nudTDFToTIFFFrom.Maximum = TDFReader.GetNumberOfProjections(mInputTDF) - 1;
-                    this.nudTDFToTIFFTo.Maximum = TDFReader.GetNumberOfProjections(mInputTDF) - 1;
-
+                    this.nudTDFToTIFFFrom.Maximum = TDFReader.GetNumberOfProjections(zInputTDF) - 1;
+                    this.nudTDFToTIFFTo.Maximum = TDFReader.GetNumberOfProjections(zInputTDF) - 1;
                 }
                 else
                 {
-                    this.nudTDFToTIFFFrom.Maximum = TDFReader.GetNumberOfSlices(mInputTDF) - 1;
-                    this.nudTDFToTIFFTo.Maximum = TDFReader.GetNumberOfSlices(mInputTDF) - 1;
-                }             
+                    this.nudTDFToTIFFFrom.Maximum = TDFReader.GetNumberOfSlices(zInputTDF) - 1;
+                    this.nudTDFToTIFFTo.Maximum = TDFReader.GetNumberOfSlices(zInputTDF) - 1;
+                }
+
+                this.chkDataDark.Enabled = (TDFReader.HasDarks(zInputTDF));
+                if (!(this.chkDataDark.Enabled))
+                {
+                    this.tbxDarkPrefix.Enabled = false;
+                }
+                else
+                {
+                    this.chkDataDark_CheckedChanged(null, null);
+                }
+                this.chkDataWhite.Enabled = (TDFReader.HasDarks(zInputTDF));
+                if (!(this.chkDataWhite.Enabled))
+                {
+                    this.tbxFlatPrefix.Enabled = false;
+                }
+                else
+                {
+                    this.chkDataWhite_CheckedChanged(null, null);
+                }
             }
+
+            this.ResumeLayout();
         }
 
 
         private void rbtDirectOrder_CheckedChanged(object sender, EventArgs e)
         {
+            this.SuspendLayout();
+
             if (rbtDirectOrder.Checked)
             {
                 this.tbxProjectionPrefix.Text = "tomo";
                 this.lblProjections.Text = "Projections:";
                 this.lblProjections.Location = new Point(19, 26);
 
-                if (File.Exists(mInputTDF))
+                if (File.Exists(zInputTDF))
                 {
               
-                    this.nudTDFToTIFFFrom.Maximum = TDFReader.GetNumberOfProjections(mInputTDF) - 1;
-                    this.nudTDFToTIFFTo.Maximum = TDFReader.GetNumberOfProjections(mInputTDF) - 1;                    
+                    this.nudTDFToTIFFFrom.Maximum = TDFReader.GetNumberOfProjections(zInputTDF) - 1;
+                    this.nudTDFToTIFFTo.Maximum = TDFReader.GetNumberOfProjections(zInputTDF) - 1;                    
                 }
             }
+
+            this.ResumeLayout();
         }
 
         private void rbtSinogramOrder_CheckedChanged(object sender, EventArgs e)
         {
+            this.SuspendLayout();
+
             if (rbtSinogramOrder.Checked)
             {
                 this.tbxProjectionPrefix.Text = "sino";
                 this.lblProjections.Text = "Sinograms:";
                 this.lblProjections.Location = new Point(22, 26);
 
-                if (File.Exists(mInputTDF))
+                if (File.Exists(zInputTDF))
                 {               
-                    this.nudTDFToTIFFFrom.Maximum = TDFReader.GetNumberOfSlices(mInputTDF) - 1;
-                    this.nudTDFToTIFFTo.Maximum = TDFReader.GetNumberOfSlices(mInputTDF) - 1;                    
+                    this.nudTDFToTIFFFrom.Maximum = TDFReader.GetNumberOfSlices(zInputTDF) - 1;
+                    this.nudTDFToTIFFTo.Maximum = TDFReader.GetNumberOfSlices(zInputTDF) - 1;                    
                 }
             }
+
+            this.ResumeLayout();
         }
 
-        private void chkFlatDark_CheckedChanged(object sender, EventArgs e)
+        private void chkData_CheckedChanged(object sender, EventArgs e)
         {
+            this.SuspendLayout();
+
+            if (chkData.Checked)
+            {
+                this.tbxProjectionPrefix.Enabled = true;
+                this.gbxSubset.Enabled = true;
+                this.gbxOrder.Enabled = true;
+            }
+            else
+            {
+                this.tbxProjectionPrefix.Enabled = false;
+                this.gbxSubset.Enabled = false;
+                this.gbxOrder.Enabled = false;
+            }
+
+            if (Directory.Exists(zOutputPathTxb.Text))
+            {
+                if ((chkData.Checked) || ((chkDataDark.Enabled) && (chkDataDark.Checked)) ||
+                   ((chkDataWhite.Enabled) && (chkDataWhite.Checked)))
+                {
+                    btnConvert.Enabled = true;
+                }
+                else
+                {
+                    btnConvert.Enabled = false;
+                }
+            }
+
+            this.ResumeLayout();
+        }
+
+        private void chkDataWhite_CheckedChanged(object sender, EventArgs e)
+        {
+            this.SuspendLayout();
+
             if (chkDataWhite.Checked)
+            {             
+                this.tbxFlatPrefix.Enabled = true;
+            }
+            else
+            {             
+                this.tbxFlatPrefix.Enabled = false;
+            }
+
+            if (Directory.Exists(zOutputPathTxb.Text))
+            {
+                if ((chkData.Checked) || ((chkDataDark.Enabled) && (chkDataDark.Checked)) ||
+                   ((chkDataWhite.Enabled) && (chkDataWhite.Checked)))
+                {
+                    btnConvert.Enabled = true;
+                }
+                else
+                {
+                    btnConvert.Enabled = false;
+                }
+            }
+
+            this.ResumeLayout();
+        }
+
+        private void chkDataDark_CheckedChanged(object sender, EventArgs e)
+        {
+            this.SuspendLayout();
+
+            if (chkDataDark.Checked)
             {
                 this.tbxDarkPrefix.Enabled = true;
-                this.tbxFlatPrefix.Enabled = true;
-                //this.tbxPostDarkPrefix.Enabled = true;
-                //this.tbxPostFlatPrefix.Enabled = true;
             }
             else
             {
                 this.tbxDarkPrefix.Enabled = false;
-                this.tbxFlatPrefix.Enabled = false;
-                //this.tbxPostDarkPrefix.Enabled = false;
-                //this.tbxPostFlatPrefix.Enabled = false;
             }
+
+            if (Directory.Exists(zOutputPathTxb.Text))
+            {
+                if ((chkData.Checked) || ((chkDataDark.Enabled) && (chkDataDark.Checked)) ||
+                   ((chkDataWhite.Enabled) && (chkDataWhite.Checked)))
+                {
+                    btnConvert.Enabled = true;
+                }
+                else
+                {
+                    btnConvert.Enabled = false;
+                }
+            }
+
+            this.ResumeLayout();
         }
 
         private void btnOutputTIFFs_Click(object sender, EventArgs e)
         {
+            this.SuspendLayout();
+
             if (zOutputTIFFsBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 zOutputPathTxb.Text = zOutputTIFFsBrowserDialog.SelectedPath;
@@ -351,6 +444,8 @@ namespace SYRMEPTomoProject
 
                 btnConvert.Enabled = true;
             }
+
+            this.ResumeLayout();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -362,6 +457,8 @@ namespace SYRMEPTomoProject
 
         private void chkConsiderSubset_CheckedChanged(object sender, EventArgs e)
         {
+            this.SuspendLayout();
+
             if (this.chkConsiderSubset.Checked)
             {
                 this.nudTDFToTIFFFrom.Enabled = true;
@@ -372,22 +469,24 @@ namespace SYRMEPTomoProject
                 this.nudTDFToTIFFFrom.Enabled = false;
                 this.nudTDFToTIFFTo.Enabled = false;
             }
+
+            this.ResumeLayout();
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
-            // Run Job Convert To TDF:
+            string zTDFFile = ((KeyValuePair<string, string>)this.cbxInput.SelectedItem).Key;
             IJob zJob;
-
+            
             // Create an instance for the phase retrieval job:
-            zJob = new TDF2TIFFJob(                    
-                    ((KeyValuePair<string, string>)this.cbxInput.SelectedItem).Key,
+            zJob = new TDF2TIFFJob(
+                    zTDFFile,
                     this.zOutputPathTxb.Text,
                     (this.chkConsiderSubset.Checked) ? Convert.ToInt32(this.nudTDFToTIFFFrom.Value) : 0,
                     (this.chkConsiderSubset.Checked) ? Convert.ToInt32(this.nudTDFToTIFFTo.Value) : Convert.ToInt32(this.nudTDFToTIFFTo.Maximum),
-                    tbxProjectionPrefix.Text,
-                    (this.chkDataWhite.Checked) ? tbxFlatPrefix.Text : "-",
-                    (this.chkDataWhite.Checked) ? tbxDarkPrefix.Text : "-",                    
+                    (this.chkData.Checked) ? tbxProjectionPrefix.Text : "-",
+                    (this.tbxFlatPrefix.Enabled) ? ((this.chkDataWhite.Checked) ? tbxFlatPrefix.Text : "-") : "-",
+                    (this.tbxDarkPrefix.Enabled) ? ((this.chkDataDark.Checked) ? tbxDarkPrefix.Text : "-") : "-",                    
                     this.rbtDirectOrder.Checked,
                     this.btnTIFFFormat.Checked,
                     1
@@ -401,8 +500,63 @@ namespace SYRMEPTomoProject
             zExecuter.Run();
 
             // Start the monitoring of the job:
-            mJobMonitor.Run(zExecuter, tbxProjectionPrefix.Text);
+            if (chkData.Checked)
+            {
+                mJobMonitor.Run(zExecuter, tbxProjectionPrefix.Text);
+            }
+            else
+            {
+                if ((chkDataDark.Checked) && !(chkDataWhite.Checked))
+                {
+                    // Only darks are created:
+                    mJobMonitor.Run(zExecuter, this.tbxDarkPrefix.Text, TDFReader.GetNumberOfDarks(zTDFFile));
+                }
+                else
+                {
+                    if (!(chkDataDark.Checked) && (chkDataWhite.Checked))
+                    {
+                        // Only flats are created:
+                        mJobMonitor.Run(zExecuter, this.tbxFlatPrefix.Text, TDFReader.GetNumberOfFlats(zTDFFile));
+                    }
+                    else
+                    {
+                        // Both flats and darks are created but STP-Core first creates 
+                        // flats and then darks, so monitor the dark prefix:
+                        mJobMonitor.Run(zExecuter, this.tbxDarkPrefix.Text, TDFReader.GetNumberOfDarks(zTDFFile));
+                    }
+                }
+            }
         }
+
+        private void zOutputPathTxb_TextChanged(object sender, EventArgs e)
+        {
+            this.SuspendLayout();
+
+            if (Directory.Exists(zOutputPathTxb.Text))
+            {
+                if ((chkData.Checked) || ((chkDataDark.Enabled) && (chkDataDark.Checked)) ||
+                    ((chkDataWhite.Enabled) && (chkDataWhite.Checked)))
+                {
+                    btnConvert.Enabled = true;
+                }
+                this.toolStripStatusLabel1.Text = "";
+            }
+            else
+            {
+                if ((chkData.Checked) || ((chkDataDark.Enabled) && (chkDataDark.Checked)) ||
+                   ((chkDataWhite.Enabled) && (chkDataWhite.Checked)))
+                {
+                    btnConvert.Enabled = false;
+                }                
+                this.toolStripStatusLabel1.Text = "Invalid output folder.";
+            }
+
+            this.ResumeLayout();
+        }
+
+       
+
+       
 
 
     }

@@ -62,7 +62,7 @@ namespace SYRMEPTomoProject.Jobs
     {
         private string mInputFile;
         private double mScale;
-        private float mAngles;
+        private double mAngles;
         private string mMethod = "registration";
         private string mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
             Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -83,8 +83,8 @@ namespace SYRMEPTomoProject.Jobs
         /// <param name="inputFile"></param>
         public GuessCenterJob(
             string inputFile, 
-            double scale,            
-            float angles
+            double scale,
+            double angles
             )
         {
             mInputFile = inputFile;
@@ -100,7 +100,7 @@ namespace SYRMEPTomoProject.Jobs
         public GuessCenterJob(
             string inputFile,            
             double scale,
-            float angles,
+            double angles,
             string logFile
             ) : this(inputFile, scale, angles)         
         {

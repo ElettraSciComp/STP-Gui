@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="PythonExe" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">WinPython-64bit-2.7.10.3\python-2.7.10.amd64\python.exe</Value>
+      <Value Profile="(Default)">python\python-2.7.10.amd64\python.exe</Value>
     </Setting>
     <Setting Name="TimeOutWaitForLogInSeconds" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">120</Value>
@@ -12,7 +12,7 @@
       <Value Profile="(Default)">exec_phaseretrieval.py</Value>
     </Setting>
     <Setting Name="PythonPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">stp-core</Value>
+      <Value Profile="(Default)">src\stp-core</Value>
     </Setting>
     <Setting Name="ProgramName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">SYRMEP Tomo Project</Value>
@@ -51,7 +51,7 @@
       <Value Profile="(Default)">exec_preprocessing.py</Value>
     </Setting>
     <Setting Name="Version" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">1.1.29</Value>
+      <Value Profile="(Default)">1.1.33</Value>
     </Setting>
     <Setting Name="GuessOverlapJob" Type="System.String" Scope="Application">
       <Value Profile="(Default)">tools_guessoverlap.py</Value>
@@ -262,6 +262,9 @@
     </Setting>
     <Setting Name="MultiOffset_Path" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="OpenSourceLicenses" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Licenses.rtf</Value>
     </Setting>
   </Settings>
 </SettingsFile>

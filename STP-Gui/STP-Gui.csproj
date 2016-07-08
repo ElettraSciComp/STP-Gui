@@ -156,6 +156,12 @@
     <Compile Include="Jobs\ReconstructionPreviewJob.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="OpenSourceAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpenSourceAboutBox.Designer.cs">
+      <DependentUpon>OpenSourceAboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -226,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormSettings.resx">
       <DependentUpon>FormSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenSourceAboutBox.resx">
+      <DependentUpon>OpenSourceAboutBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PerPixelAlphaForm.resx">
       <DependentUpon>PerPixelAlphaForm.cs</DependentUpon>

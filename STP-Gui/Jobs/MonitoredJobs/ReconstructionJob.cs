@@ -72,7 +72,9 @@ namespace SYRMEPTomoProject.Jobs
         private string mRingRemoval = "-";
         private string mInputFile;
         private string mOutputPath; 
-        private double mAngles; 
+        private double mAngles;
+        private int mAngles_ProjFrom;
+        private int mAngles_ProjTo;
         private double mCenter;
         private string mReconFunc; 
         private string mReconParam1; 
@@ -154,6 +156,8 @@ namespace SYRMEPTomoProject.Jobs
             int extFOVOverlap,
             string ringRemoval,            
             double angles,
+            int angles_ProjFrom,
+            int angles_ProjTo,
             double center,
             string reconFunc, 
             string reconParam1,
@@ -186,6 +190,8 @@ namespace SYRMEPTomoProject.Jobs
             mRingRemoval = ringRemoval;
             mInputFile = inputFile;           
             mAngles = angles;
+            mAngles_ProjFrom = angles_ProjFrom;
+            mAngles_ProjTo = angles_ProjTo;
             mCenter = center;
             mReconParam1 = reconParam1;
             mScale = scale;
@@ -235,6 +241,8 @@ namespace SYRMEPTomoProject.Jobs
             int extFOVOverlap,
             string ringRemoval,            
             double angles,
+            int angles_ProjFrom,
+            int angles_ProjTo,
             double center,
             string reconFunc,
             string reconParam1,
@@ -255,6 +263,7 @@ namespace SYRMEPTomoProject.Jobs
             string logFile
             )
             : this(inputFile, outputPath, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, ringRemoval, angles, 
+            angles_ProjFrom, angles_ProjTo,
             center, reconFunc, reconParam1, scale, overPadding, logTransform, circle, zeroneMode, correctionOffset, from, to, threads, decimateFactor, downscaleFactor,
             postProcess, postProcessConvertArgs, postProcessCropArgs)         
         {
@@ -307,6 +316,8 @@ namespace SYRMEPTomoProject.Jobs
                 mPostProcess.ToString() + " " +
                 mPostProcessConvertArgs + " " +
                 mPostProcessCropArgs + " " +
+                mAngles_ProjFrom.ToString() + " " +
+                mAngles_ProjTo.ToString() + " " + 
                 mThreads.ToString() + 
                 " \"" + mLogFile + "\"";
 

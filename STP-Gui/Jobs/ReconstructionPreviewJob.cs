@@ -73,7 +73,9 @@ namespace SYRMEPTomoProject.Jobs
         private string mRingRemoval = "-";
         private string mInputFile;
         private string mPreviewFile; 
-        private double mAngles; 
+        private double mAngles;
+        private int mAngles_ProjFrom;
+        private int mAngles_ProjTo;
         private double mCenter;
         private string mReconFunc; 
         private string mReconParam1; 
@@ -127,6 +129,8 @@ namespace SYRMEPTomoProject.Jobs
             int extFOVOverlap,
             string ringRemoval,            
             double angles,
+            int angles_ProjFrom,
+            int angles_ProjTo,
             double center,
             string reconFunc, 
             string reconParam1,
@@ -164,6 +168,8 @@ namespace SYRMEPTomoProject.Jobs
             mRingRemoval = ringRemoval;
             mInputFile = inputFile;           
             mAngles = angles;
+            mAngles_ProjFrom = angles_ProjFrom;
+            mAngles_ProjTo = angles_ProjTo;
             mCenter = center;
             mReconParam1 = reconParam1;
             mScale = scale;
@@ -205,6 +211,8 @@ namespace SYRMEPTomoProject.Jobs
             int extFOVOverlap,
             string ringRemoval,            
             double angles,
+            int angles_ProjFrom,
+            int angles_ProjTo,
             double center,
             string reconFunc,
             string reconParam1,
@@ -229,9 +237,9 @@ namespace SYRMEPTomoProject.Jobs
             string logFile
             )
             : this(imageIndex, inputFile, previewFile, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, 
-                ringRemoval, angles, center, reconFunc, reconParam1, scale, overPadding, logTransform, circle, zeroneMode, correctionOffset, 
-                decimateFactor, downscaleFactor, postProcess, postProcessConvertArgs, postProcessCropArgs, phaseRetrieval, param1, param2, 
-                distance, energy, pixelsize, phrtPad)         
+                ringRemoval, angles, angles_ProjFrom, angles_ProjTo, center, reconFunc, reconParam1, scale, overPadding, logTransform, circle, 
+                zeroneMode, correctionOffset, decimateFactor, downscaleFactor, postProcess, postProcessConvertArgs, postProcessCropArgs, 
+                phaseRetrieval, param1, param2, distance, energy, pixelsize, phrtPad)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -289,7 +297,10 @@ namespace SYRMEPTomoProject.Jobs
                 mDistance.ToString(CultureInfo.InvariantCulture) + " " +
                 mPixelsize.ToString(CultureInfo.InvariantCulture) + " " +
                 mPhrtPad.ToString() + " " +
-                Properties.Settings.Default.FormSettings_ChunkSize.ToString() + " True 1 \"" +
+                Properties.Settings.Default.FormSettings_ChunkSize.ToString() + " " +
+                mAngles_ProjFrom.ToString() + " " +
+                mAngles_ProjTo.ToString() + 
+                " True 1 \"" +
                 Properties.Settings.Default.FormSettings_TemporaryPath
                 + Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID
                 + "\" \"" +

@@ -100,7 +100,7 @@ namespace SYRMEPTomoProject.Jobs
         private bool mPhrtPad;
         private string mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
             Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
-            Path.DirectorySeparatorChar + "_rec_log_00.txt"; // It should be "*_00.txt"
+            Path.DirectorySeparatorChar + "_multioffset_log_00.txt"; // It should be "*_00.txt"
 
         /// <summary>
         /// 

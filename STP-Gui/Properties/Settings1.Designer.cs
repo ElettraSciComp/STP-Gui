@@ -25,7 +25,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("WinPython-64bit-2.7.10.3\\python-2.7.10.amd64\\python.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("python\\python-2.7.10.amd64\\python.exe")]
         public string PythonExe {
             get {
                 return ((string)(this["PythonExe"]));
@@ -52,7 +52,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("stp-core")]
+        [global::System.Configuration.DefaultSettingValueAttribute("src\\stp-core")]
         public string PythonPath {
             get {
                 return ((string)(this["PythonPath"]));
@@ -169,7 +169,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.1.29")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.1.33")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -959,6 +959,15 @@ namespace SYRMEPTomoProject.Properties {
             }
             set {
                 this["MultiOffset_Path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Licenses.rtf")]
+        public string OpenSourceLicenses {
+            get {
+                return ((string)(this["OpenSourceLicenses"]));
             }
         }
     }

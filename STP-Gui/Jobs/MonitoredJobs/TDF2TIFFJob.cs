@@ -155,7 +155,8 @@ namespace SYRMEPTomoProject.Jobs
                 mTo.ToString() + " \"" + mInputFile + "\" \"" + mOutputFile + "\" " +
                 mTomoPrefix + " " + mFlatPrefix + " " +
                 mDarkPrefix + " " + " " +
-                mInputProj.ToString() + " " + mTIFFFormat.ToString() +
+                mInputProj.ToString() + " " + mTIFFFormat.ToString() + " " +
+                Properties.Settings.Default.FormSettings_NrOfProcesses.ToString() + 
                 " \"" + mLogFile + "\"";
 
             return zString;

@@ -1,47 +1,24 @@
 ﻿/***************************************************************************/
 /* (C) 2016 Elettra - Sincrotrone Trieste S.C.p.A.. All rights reserved.   */
 /*                                                                         */
-/* Copyright 2016. Elettra - Sincrotrone Trieste S.C.p.A. THE COMPANY      */
-/* ELETTRA - SINCROTRONE TRIESTE S.C.P.A. IS NOT REPONSIBLE FOR THE USE    */
-/* OF THIS SOFTWARE. If software is modified to produce derivative works,  */
-/* such modified software should be clearly marked, so as not to confuse   */
-/* it with the version available from Elettra Sincrotrone Trieste S.C.p.A. */
 /*                                                                         */
-/* Additionally, redistribution and use in source and binary forms, with   */
-/* or without modification, are permitted provided that the following      */
-/* conditions are met:                                                     */
+/* This file is part of STP-Core, the Python core of SYRMEP Tomo Project,  */
+/* a software tool for the reconstruction of experimental CT datasets.     */
 /*                                                                         */
-/*     * Redistributions of source code must retain the above copyright    */
-/*       notice, this list of conditions and the following disclaimer.     */
+/* STP-Core is free software: you can redistribute it and/or modify it     */
+/* under the terms of the GNU General Public License as published by the   */
+/* Free Software Foundation, either version 3 of the License, or (at your  */
+/* option) any later version.                                              */
 /*                                                                         */
-/*     * Redistributions in binary form must reproduce the above copyright */
-/*       notice, this list of conditions and the following disclaimer in   */
-/*       the documentation and/or other materials provided with the        */
-/*       distribution.                                                     */
+/* STP-Core is distributed in the hope that it will be useful, but WITHOUT */
+/* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or   */
+/* FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License    */
+/* for more details.                                                       */
 /*                                                                         */
-/*     * Neither the name of Elettra - Sincotrone Trieste S.C.p.A nor      */
-/*       the names of its contributors may be used to endorse or promote   */
-/*       products derived from this software without specific prior        */
-/*       written permission.                                               */
+/* You should have received a copy of the GNU General Public License       */
+/* along with STP-Core. If not, see <http://www.gnu.org/licenses/>.        */
 /*                                                                         */
-/* THIS SOFTWARE IS PROVIDED BY ELETTRA - SINCROTRONE TRIESTE S.C.P.A. AND */
-/* CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,  */
-/* BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND       */
-/* FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL      */
-/* ELETTRA - SINCROTRONE TRIESTE S.C.P.A. OR CONTRIBUTORS BE LIABLE FOR    */
-/* ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL  */
-/* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE       */
-/* GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS           */
-/* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER    */
-/* IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR         */
-/* OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF  */
-/* ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                              */
 /***************************************************************************/
-
-//
-// Author: Francesco Brun
-// Last modified: April, 11th 2016
-//
 
 
 namespace SYRMEPTomoProject
@@ -76,7 +53,6 @@ namespace SYRMEPTomoProject
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TDFToTIFF));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnInfo = new System.Windows.Forms.Button();
             this.cbxInput = new System.Windows.Forms.ComboBox();
             this.btnOutputTIFFs = new System.Windows.Forms.Button();
             this.zOutputPathTxb = new System.Windows.Forms.TextBox();
@@ -95,12 +71,12 @@ namespace SYRMEPTomoProject
             this.chkDataDark = new System.Windows.Forms.CheckBox();
             this.chkDataWhite = new System.Windows.Forms.CheckBox();
             this.chkData = new System.Windows.Forms.CheckBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.gbxOrder = new System.Windows.Forms.GroupBox();
             this.rbtSinogramOrder = new VIBlend.WinForms.Controls.vRadioButton();
             this.rbtDirectOrder = new VIBlend.WinForms.Controls.vRadioButton();
             this.nudTDFToTIFFFrom = new System.Windows.Forms.NumericUpDown();
             this.nudTDFToTIFFTo = new System.Windows.Forms.NumericUpDown();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.gbxSubset = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label57 = new System.Windows.Forms.Label();
             this.chkConsiderSubset = new System.Windows.Forms.CheckBox();
@@ -118,10 +94,10 @@ namespace SYRMEPTomoProject
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.gbxOrder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTDFToTIFFFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTDFToTIFFTo)).BeginInit();
-            this.groupBox5.SuspendLayout();
+            this.gbxSubset.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -129,7 +105,6 @@ namespace SYRMEPTomoProject
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.btnInfo);
             this.groupBox3.Controls.Add(this.cbxInput);
             this.groupBox3.Controls.Add(this.btnOutputTIFFs);
             this.groupBox3.Controls.Add(this.zOutputPathTxb);
@@ -142,30 +117,20 @@ namespace SYRMEPTomoProject
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Input/Output";
             // 
-            // btnInfo
-            // 
-            this.btnInfo.Location = new System.Drawing.Point(311, 22);
-            this.btnInfo.Name = "btnInfo";
-            this.btnInfo.Size = new System.Drawing.Size(74, 23);
-            this.btnInfo.TabIndex = 26;
-            this.btnInfo.Text = "Info...";
-            this.btnInfo.UseVisualStyleBackColor = true;
-            this.btnInfo.Visible = false;
-            // 
             // cbxInput
             // 
             this.cbxInput.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxInput.FormattingEnabled = true;
             this.cbxInput.Location = new System.Drawing.Point(82, 23);
             this.cbxInput.Name = "cbxInput";
-            this.cbxInput.Size = new System.Drawing.Size(223, 21);
+            this.cbxInput.Size = new System.Drawing.Size(303, 21);
             this.cbxInput.TabIndex = 25;
             this.cbxInput.DropDownClosed += new System.EventHandler(this.cbxInput_DropDownClosed);
             this.cbxInput.Click += new System.EventHandler(this.cbxInput_Click);
             // 
             // btnOutputTIFFs
             // 
-            this.btnOutputTIFFs.Location = new System.Drawing.Point(311, 49);
+            this.btnOutputTIFFs.Location = new System.Drawing.Point(311, 48);
             this.btnOutputTIFFs.Name = "btnOutputTIFFs";
             this.btnOutputTIFFs.Size = new System.Drawing.Size(74, 23);
             this.btnOutputTIFFs.TabIndex = 3;
@@ -179,15 +144,16 @@ namespace SYRMEPTomoProject
             this.zOutputPathTxb.Name = "zOutputPathTxb";
             this.zOutputPathTxb.Size = new System.Drawing.Size(223, 20);
             this.zOutputPathTxb.TabIndex = 2;
+            this.zOutputPathTxb.TextChanged += new System.EventHandler(this.zOutputPathTxb_TextChanged);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(5, 53);
+            this.label13.Location = new System.Drawing.Point(16, 53);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(78, 13);
+            this.label13.Size = new System.Drawing.Size(66, 13);
             this.label13.TabIndex = 24;
-            this.label13.Text = "Output (TIFFs):";
+            this.label13.Text = "Output path:";
             // 
             // label12
             // 
@@ -211,11 +177,11 @@ namespace SYRMEPTomoProject
             this.groupBox1.Size = new System.Drawing.Size(199, 109);
             this.groupBox1.TabIndex = 38;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "TIFF files prefixes";
+            this.groupBox1.Text = "Output file prefixes";
             // 
             // tbxFlatPrefix
             // 
-            this.tbxFlatPrefix.Location = new System.Drawing.Point(83, 74);
+            this.tbxFlatPrefix.Location = new System.Drawing.Point(83, 50);
             this.tbxFlatPrefix.Name = "tbxFlatPrefix";
             this.tbxFlatPrefix.Size = new System.Drawing.Size(105, 20);
             this.tbxFlatPrefix.TabIndex = 26;
@@ -224,7 +190,7 @@ namespace SYRMEPTomoProject
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(18, 77);
+            this.label19.Location = new System.Drawing.Point(18, 53);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(63, 13);
             this.label19.TabIndex = 23;
@@ -232,7 +198,7 @@ namespace SYRMEPTomoProject
             // 
             // tbxDarkPrefix
             // 
-            this.tbxDarkPrefix.Location = new System.Drawing.Point(83, 49);
+            this.tbxDarkPrefix.Location = new System.Drawing.Point(83, 77);
             this.tbxDarkPrefix.Name = "tbxDarkPrefix";
             this.tbxDarkPrefix.Size = new System.Drawing.Size(105, 20);
             this.tbxDarkPrefix.TabIndex = 25;
@@ -241,7 +207,7 @@ namespace SYRMEPTomoProject
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(12, 52);
+            this.label18.Location = new System.Drawing.Point(12, 80);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(69, 13);
             this.label18.TabIndex = 22;
@@ -308,6 +274,7 @@ namespace SYRMEPTomoProject
             this.chkDataDark.TabIndex = 2;
             this.chkDataDark.Text = "data_dark";
             this.chkDataDark.UseVisualStyleBackColor = true;
+            this.chkDataDark.CheckedChanged += new System.EventHandler(this.chkDataDark_CheckedChanged);
             // 
             // chkDataWhite
             // 
@@ -320,7 +287,7 @@ namespace SYRMEPTomoProject
             this.chkDataWhite.TabIndex = 1;
             this.chkDataWhite.Text = "data_white";
             this.chkDataWhite.UseVisualStyleBackColor = true;
-            this.chkDataWhite.CheckedChanged += new System.EventHandler(this.chkFlatDark_CheckedChanged);
+            this.chkDataWhite.CheckedChanged += new System.EventHandler(this.chkDataWhite_CheckedChanged);
             // 
             // chkData
             // 
@@ -333,17 +300,18 @@ namespace SYRMEPTomoProject
             this.chkData.TabIndex = 0;
             this.chkData.Text = "data";
             this.chkData.UseVisualStyleBackColor = true;
+            this.chkData.CheckedChanged += new System.EventHandler(this.chkData_CheckedChanged);
             // 
-            // groupBox4
+            // gbxOrder
             // 
-            this.groupBox4.Controls.Add(this.rbtSinogramOrder);
-            this.groupBox4.Controls.Add(this.rbtDirectOrder);
-            this.groupBox4.Location = new System.Drawing.Point(223, 160);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(199, 64);
-            this.groupBox4.TabIndex = 1;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Export options";
+            this.gbxOrder.Controls.Add(this.rbtSinogramOrder);
+            this.gbxOrder.Controls.Add(this.rbtDirectOrder);
+            this.gbxOrder.Location = new System.Drawing.Point(223, 160);
+            this.gbxOrder.Name = "gbxOrder";
+            this.gbxOrder.Size = new System.Drawing.Size(199, 64);
+            this.gbxOrder.TabIndex = 1;
+            this.gbxOrder.TabStop = false;
+            this.gbxOrder.Text = "Export options";
             // 
             // rbtSinogramOrder
             // 
@@ -413,19 +381,19 @@ namespace SYRMEPTomoProject
             0,
             0});
             // 
-            // groupBox5
+            // gbxSubset
             // 
-            this.groupBox5.Controls.Add(this.label1);
-            this.groupBox5.Controls.Add(this.label57);
-            this.groupBox5.Controls.Add(this.nudTDFToTIFFFrom);
-            this.groupBox5.Controls.Add(this.chkConsiderSubset);
-            this.groupBox5.Controls.Add(this.nudTDFToTIFFTo);
-            this.groupBox5.Location = new System.Drawing.Point(222, 232);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(199, 80);
-            this.groupBox5.TabIndex = 5;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Subset";
+            this.gbxSubset.Controls.Add(this.label1);
+            this.gbxSubset.Controls.Add(this.label57);
+            this.gbxSubset.Controls.Add(this.nudTDFToTIFFFrom);
+            this.gbxSubset.Controls.Add(this.chkConsiderSubset);
+            this.gbxSubset.Controls.Add(this.nudTDFToTIFFTo);
+            this.gbxSubset.Location = new System.Drawing.Point(222, 232);
+            this.gbxSubset.Name = "gbxSubset";
+            this.gbxSubset.Size = new System.Drawing.Size(199, 80);
+            this.gbxSubset.TabIndex = 5;
+            this.gbxSubset.TabStop = false;
+            this.gbxSubset.Text = "Subset";
             // 
             // label1
             // 
@@ -510,6 +478,7 @@ namespace SYRMEPTomoProject
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(320, 17);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.Text = " ";
+            this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // mStatusBarProgressBar
             // 
@@ -563,8 +532,8 @@ namespace SYRMEPTomoProject
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.gbxSubset);
+            this.Controls.Add(this.gbxOrder);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnConvert);
@@ -585,11 +554,11 @@ namespace SYRMEPTomoProject
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
+            this.gbxOrder.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudTDFToTIFFFrom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTDFToTIFFTo)).EndInit();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            this.gbxSubset.ResumeLayout(false);
+            this.gbxSubset.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -617,19 +586,18 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnConvert;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox gbxOrder;
         private VIBlend.WinForms.Controls.vRadioButton rbtSinogramOrder;
         private VIBlend.WinForms.Controls.vRadioButton rbtDirectOrder;
         private System.Windows.Forms.NumericUpDown nudTDFToTIFFFrom;
         private System.Windows.Forms.NumericUpDown nudTDFToTIFFTo;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox gbxSubset;
         private System.Windows.Forms.CheckBox chkConsiderSubset;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TextBox zLogTxb;
         private System.Windows.Forms.CheckBox chkDataWhite;
         private System.Windows.Forms.CheckBox chkData;
         private System.Windows.Forms.ComboBox cbxInput;
-        private System.Windows.Forms.Button btnInfo;
         private System.Windows.Forms.FolderBrowserDialog zOutputTIFFsBrowserDialog;
         private System.ComponentModel.BackgroundWorker mJobMonitorBgw;
         private System.Windows.Forms.StatusStrip statusStrip1;

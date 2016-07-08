@@ -25,7 +25,7 @@ namespace KaiwaProjects.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("WinPython-64bit-2.7.10.3\\python-2.7.10.amd64\\python.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("python\\python-2.7.10.amd64\\python.exe")]
         public string PythonExe {
             get {
                 return ((string)(this["PythonExe"]));
@@ -49,7 +49,7 @@ namespace KaiwaProjects.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("stp-core")]
+        [global::System.Configuration.DefaultSettingValueAttribute("src\\stp-core")]
         public string PythonPath {
             get {
                 return ((string)(this["PythonPath"]));

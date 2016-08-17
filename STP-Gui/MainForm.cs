@@ -573,39 +573,61 @@ namespace SYRMEPTomoProject
         {
             IJob zJob;
             string zRingRemString;
+            string zStrToMonitor;
 
             zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
                 Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
 
-            // Create an instance for the phase retrieval job:
-            zJob = new PreProcessingJob(
-                // Get combobox selection (in handler)
-                   ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key,
-                   this.lblPreProcessing_Output.Text,
-                   0,
-                   TDFReader.GetNumberOfSlices(((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key) - 1,
-                   Convert.ToInt32(this.nudNormSx.Value),
-                   Convert.ToInt32(this.nudNormDx.Value),
-                   chkDarkFlatEnd.Checked, // use flat at the end
-                   chkHalfHalfMode.Checked,
-                   Convert.ToInt32(this.nudHalfHalfMode.Value),
-                   chkExtendedFOV.Checked,
-                   chkExtFOV_AirRight.Checked,
-                   Convert.ToInt32(nudExtendedFOVOverlap.Value),
-                   zRingRemString,
-                   Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses),
-                   false,
-                   "-"
-            );
+            if (this.cbxFlatField.SelectedIndex == 0)
+            {
+                // Execute with conventional flat fielding:
+                zJob = new PreProcessingJob(
+                       // Get combobox selection (in handler)
+                       ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key,
+                       this.lblPreProcessing_Output.Text,
+                       0,
+                       TDFReader.GetNumberOfSlices(((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key) - 1,
+                       Convert.ToInt32(this.nudNormSx.Value),
+                       Convert.ToInt32(this.nudNormDx.Value),
+                       chkDarkFlatEnd.Checked, // use flat at the end
+                       chkHalfHalfMode.Checked,
+                       Convert.ToInt32(this.nudHalfHalfMode.Value),
+                       chkExtendedFOV.Checked,
+                       chkExtFOV_AirRight.Checked,
+                       Convert.ToInt32(nudExtendedFOVOverlap.Value),
+                       zRingRemString,
+                       Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses),
+                       false,
+                       "-"
+                );
 
-            // Create an instance of JobExecuter with the Phase Retrieval job:
+                zStrToMonitor = "sino";
+            }
+            else
+            {
+                zJob = new DynamicFlatFieldingJob(
+                    // Get combobox selection (in handler)
+                    ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key,
+                    this.lblPreProcessing_Output.Text,
+                    0,
+                    TDFReader.GetNumberOfProjections(((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key) - 1,
+                    Convert.ToInt32(this.nudNormSx.Value),
+                    Convert.ToInt32(this.nudNormDx.Value),
+                    Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses)
+                );
+
+                zStrToMonitor = "tomo";
+            }
+            
+
+            // Create an instance of JobExecuter with the pre processing job:
             JobExecuter zExecuter = new JobExecuter(zJob);
 
             // Execute the job splitting it with several processes (if specified):
             zExecuter.Run();
 
             // Start the monitoring of the job:
-            mJobMonitor.Run(zExecuter, "sino");
+            mJobMonitor.Run(zExecuter, zStrToMonitor);
         }
 
         private void Form1_Layout(object sender, LayoutEventArgs e)
@@ -745,7 +767,7 @@ namespace SYRMEPTomoProject
             }
 
 
-            // Create an instance for the phase retrieval job:
+            // Create an instance for the reconstruction job:
             zJob = new ReconstructionJob(
                 // Get combobox selection (in handler)
                 ((KeyValuePair<string, string>)this.tbxDatasetName.SelectedItem).Key,
@@ -784,7 +806,7 @@ namespace SYRMEPTomoProject
 
 
 
-            // Create an instance of JobExecuter with the Phase Retrieval job 
+            // Create an instance of JobExecuter with the reconstruction job:
             // splitting it into several processes (if specified):
             JobExecuter zExecuter = new JobExecuter(zJob);
 
@@ -868,7 +890,7 @@ namespace SYRMEPTomoProject
                 zParam1 = Convert.ToInt32(this.nudAlgorithmParameterIterations.Value).ToString();
             }
 
-            // Create an instance for the phase retrieval job:
+            // Create an instance for the reconstruction job:
             zJob = new ReconstructionJob(
                 // Get combobox selection (in handler)
                 ((KeyValuePair<string, string>)this.tbxDatasetName.SelectedItem).Key,
@@ -905,7 +927,7 @@ namespace SYRMEPTomoProject
                 zCropString
                 );
 
-            // Create an instance of JobExecuter with the Phase Retrieval job 
+            // Create an instance of JobExecuter with the reconstruction job 
             // splitting it into several processes (if specified):
             JobExecuter zExecuter = new JobExecuter(zJob);
 
@@ -988,34 +1010,6 @@ namespace SYRMEPTomoProject
             }
         }
 
-        private void cbxPhrtAlgorithms_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.cbxPhaseRetrievalTab_Algorithms.SelectedIndex == 0)
-            {
-                // Disable items:
-                //zProjections_OptionsBetaNud.Enabled = false;
-                nudPhaseRetrievalTab_Delta.Enabled = false;
-                nudPhaseRetrievalTab_PixelSize.Enabled = false;
-                nudPhaseRetrievalTab_Distance.Enabled = false;
-                nudPhaseRetrievalTab_Energy.Enabled = false;
-
-                // Also delta/beta batch:
-                // TO DO:
-            }
-            else
-            {
-                // Enable items:
-                //zProjections_OptionsBetaNud.Enabled = true;
-                nudPhaseRetrievalTab_Delta.Enabled = true;
-                nudPhaseRetrievalTab_PixelSize.Enabled = true;
-                nudPhaseRetrievalTab_Distance.Enabled = true;
-                nudPhaseRetrievalTab_Energy.Enabled = true;
-
-                // Also delta/beta batch:
-                // TO DO:
-            }
-        }
-
         private void btnAlgorithmSettings_Click(object sender, EventArgs e)
         {
             string zString;
@@ -1036,7 +1030,7 @@ namespace SYRMEPTomoProject
 
             mGlass = new HourGlass();
 
-            // Create an instance for the phase retrieval job:
+            // Create an instance for the guess center job:
             zJob = new GuessCenterJob(
                 // Get combobox selection (in handler)
                 ((KeyValuePair<string, string>)this.tbxDatasetName.SelectedItem).Key,
@@ -1044,7 +1038,7 @@ namespace SYRMEPTomoProject
                 Convert.ToDouble(this.nudAngles.Value) * Math.PI / 180.0
             );
 
-            // Create an instance of JobExecuter with the Phase Retrieval job:
+            // Create an instance of JobExecuter with the guess center job:
             JobExecuter zExecuter = new JobExecuter(zJob);
 
             // Execute the job splitting it with several processes (if specified):
@@ -1126,11 +1120,11 @@ namespace SYRMEPTomoProject
 
                 this.lblRingRemParam2.Visible = true;
                 this.nudRingRemParam2.Visible = true;
-              
+
             }
             catch (Exception ex)
             {
-               
+
             }
 
 
@@ -1280,6 +1274,7 @@ namespace SYRMEPTomoProject
                 // Get combobox selection (in handler)
                    ((KeyValuePair<string, string>)this.cbxPhaseRetrieval_Input.SelectedItem).Key,
                    this.lblPhaseRetrieval_Output.Text,
+                   Convert.ToInt32(((KeyValuePair<string, string>)this.cbxPhaseRetrievalTab_Algorithms.SelectedItem).Key),
                    0,
                    TDFReader.GetNumberOfProjections(((KeyValuePair<string, string>)this.cbxPhaseRetrieval_Input.SelectedItem).Key) - 1,
                    Convert.ToDouble(this.nudPhaseRetrievalTab_Beta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_BetaExp.Value)),
@@ -1385,14 +1380,14 @@ namespace SYRMEPTomoProject
 
             mGlass = new HourGlass();
 
-            // Create an instance for the phase retrieval job:
+            // Create an instance for the guess overlap job:
             zJob = new GuessOverlapJob(
                 // Get combobox selection (in handler)
                 ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key,
                 zScale
             );
 
-            // Create an instance of JobExecuter with the Phase Retrieval job:
+            // Create an instance of JobExecuter with the guess overlap job:
             JobExecuter zExecuter = new JobExecuter(zJob);
 
             // Execute the job splitting it with several processes (if specified):
@@ -1856,14 +1851,14 @@ namespace SYRMEPTomoProject
                 this.btnReconstructionTab_ExecuteRunSubset.Enabled = true;
                 this.btnReconstructionTab_ExecuteRunAll.Enabled = true;
 
-                
+
                 this.nudAnglesProjFrom.Enabled = true;
-                this.nudAnglesProjFrom.Minimum = 0;                
+                this.nudAnglesProjFrom.Minimum = 0;
                 this.nudAnglesProjFrom.Maximum = TDFReader.GetNumberOfProjections(zString) - 1;
                 this.nudAnglesProjFrom.Value = 0;
 
                 this.nudAnglesProjTo.Enabled = true;
-                this.nudAnglesProjTo.Minimum = 0;                
+                this.nudAnglesProjTo.Minimum = 0;
                 this.nudAnglesProjTo.Maximum = TDFReader.GetNumberOfProjections(zString) - 1;
                 this.nudAnglesProjTo.Value = this.nudAnglesProjTo.Maximum;
 
@@ -1887,26 +1882,42 @@ namespace SYRMEPTomoProject
                 + Properties.Settings.Default.SessionID + Path.DirectorySeparatorChar +
                 Program.GetTimestamp(DateTime.Now);
 
-            string zRingRemString;
+            if (this.cbxFlatField.SelectedIndex == 0)
+            {
+                // Preview with conventional flat fielding:
 
-            zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
-                Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
+                string zRingRemString;
 
-            // Create an instance for the phase retrieval job:
-            zJob = new PreProcessingPreviewJob(
-                   Convert.ToInt32(this.nudPreprocessingTab_Sinogram.Value),
-                   ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key,
-                   zTempFile,
-                   Convert.ToInt32(this.nudNormSx.Value),
-                   Convert.ToInt32(this.nudNormDx.Value),
-                   chkDarkFlatEnd.Checked, // use flat at the end
-                   chkHalfHalfMode.Checked,
-                   Convert.ToInt32(this.nudHalfHalfMode.Value),
-                   chkExtendedFOV.Checked,
-                   chkExtFOV_AirRight.Checked,
-                   Convert.ToInt32(nudExtendedFOVOverlap.Value),
-                   zRingRemString
-            );
+                zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
+                    Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
+
+                // Create an instance for the job:
+                zJob = new PreProcessingPreviewJob(
+                       Convert.ToInt32(this.nudPreprocessingTab_Preview.Value),
+                       ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key,
+                       zTempFile,
+                       Convert.ToInt32(this.nudNormSx.Value),
+                       Convert.ToInt32(this.nudNormDx.Value),
+                       chkDarkFlatEnd.Checked, // use flat at the end
+                       chkHalfHalfMode.Checked,
+                       Convert.ToInt32(this.nudHalfHalfMode.Value),
+                       chkExtendedFOV.Checked,
+                       chkExtFOV_AirRight.Checked,
+                       Convert.ToInt32(nudExtendedFOVOverlap.Value),
+                       zRingRemString
+                );
+            }
+            else
+            {
+                 // Create an instance for the job:
+                zJob = new DynamicFlatFieldingPreviewJob(
+                       Convert.ToInt32(this.nudPreprocessingTab_Preview.Value),
+                       ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key,
+                       zTempFile,
+                       Convert.ToInt32(this.nudNormSx.Value),
+                       Convert.ToInt32(this.nudNormDx.Value)
+                );
+            }
 
             // Create an instance of JobExecuter with the job:
             JobExecuter zExecuter = new JobExecuter(zJob);
@@ -1937,6 +1948,7 @@ namespace SYRMEPTomoProject
                 // Get combobox selection (in handler)
                    ((KeyValuePair<string, string>)this.cbxPhaseRetrieval_Input.SelectedItem).Key,
                    zTempFile,
+                   Convert.ToInt32(((KeyValuePair<string, string>)this.cbxPhaseRetrievalTab_Algorithms.SelectedItem).Key),
                    Convert.ToDouble(this.nudPhaseRetrievalTab_Beta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_BetaExp.Value)),
                    Convert.ToDouble(this.nudPhaseRetrievalTab_Delta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_DeltaExp.Value)),
                    Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
@@ -2027,7 +2039,7 @@ namespace SYRMEPTomoProject
                 chkExtFOV_AirRight.Checked,
                 Convert.ToInt32(nudExtendedFOVOverlap.Value),
                 zRingRemString,
-                Convert.ToDouble(this.nudAngles.Value)*Math.PI/180.0,
+                Convert.ToDouble(this.nudAngles.Value) * Math.PI / 180.0,
                 Convert.ToInt32(this.nudAnglesProjFrom.Value),
                 Convert.ToInt32(this.nudAnglesProjTo.Value),
                 Convert.ToDouble(this.nudCenter_Middle.Value),
@@ -2045,6 +2057,7 @@ namespace SYRMEPTomoProject
                 zConvertTo8String,
                 zCropString,
                 this.chkPhrtOnTheFly.Checked,
+                Convert.ToInt32(((KeyValuePair<string, string>)this.cbxPhaseRetrievalTab_Algorithms.SelectedItem).Key),
                 Convert.ToDouble(this.nudPhaseRetrievalTab_Beta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_BetaExp.Value)),
                 Convert.ToDouble(this.nudPhaseRetrievalTab_Delta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_DeltaExp.Value)),
                 Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
@@ -2144,9 +2157,9 @@ namespace SYRMEPTomoProject
 
                 lblPreProcessing_Output.Text = zString.Remove(zString.Length - 4) + "_corr.tdf";
 
-                this.nudPreprocessingTab_Sinogram.Minimum = 0;
-                this.nudPreprocessingTab_Sinogram.Maximum = TDFReader.GetNumberOfSlices(zString) - 1;
-                this.nudPreprocessingTab_Sinogram.Value = Convert.ToDecimal(TDFReader.GetNumberOfSlices(zString) / 2);
+                this.nudPreprocessingTab_Preview.Minimum = 0;
+                this.nudPreprocessingTab_Preview.Maximum = TDFReader.GetNumberOfSlices(zString) - 1;
+                this.nudPreprocessingTab_Preview.Value = Convert.ToDecimal(TDFReader.GetNumberOfSlices(zString) / 2);
 
                 this.nudNormSx.Maximum = TDFReader.GetDetectorSize(zString) - 1;
                 this.nudNormDx.Maximum = TDFReader.GetDetectorSize(zString) - 1;
@@ -2156,8 +2169,8 @@ namespace SYRMEPTomoProject
 
                 this.nudExtendedFOVOverlap.Maximum = TDFReader.GetDetectorSize(zString) - 1;
 
-                this.nudPreprocessingTab_Sinogram.Maximum = TDFReader.GetNumberOfSlices(zString) - 1;
-                this.nudPreprocessingTab_Sinogram.Value = this.nudPreprocessingTab_Sinogram.Maximum / 2;
+                this.nudPreprocessingTab_Preview.Maximum = TDFReader.GetNumberOfSlices(zString) - 1;
+                this.nudPreprocessingTab_Preview.Value = this.nudPreprocessingTab_Preview.Maximum / 2;
 
                 // Preview by default the central projection:
                 //PreviewImageFromTDF(zString, (int)(this.nudDatasetTab_Projection.Value), true);
@@ -2181,11 +2194,19 @@ namespace SYRMEPTomoProject
             {
                 foreach (string fileName in fileEntries)
                     zDict.Add(fileName, Path.GetFileName(fileName));
+
+                // Enable UI controls:
+                this.groupBox12.Enabled = true;
+                this.groupBox28.Enabled = true;
+                this.groupBox8.Enabled = true;
+                this.gbxPreProcessing_Preview.Enabled = true;
+                this.gbxPreProcessing_Execute.Enabled = true;
             }
 
             cbxPreProcessing_Input.DataSource = new BindingSource(zDict, null);
             cbxPreProcessing_Input.DisplayMember = "Value";
             cbxPreProcessing_Input.ValueMember = "Key";
+
 
             this.ResumeLayout();
         }
@@ -2350,7 +2371,7 @@ namespace SYRMEPTomoProject
             IJob zJob;
             JobExecuter zExecuter;
 
-            // Create an instance for the phase retrieval job:
+            // Create an instance for the post processing job:
             zJob = new PostProcessingJob(
                 // Get combobox selection (in handler)
                    txbPostProcessingTab_InputFolder.Text,
@@ -2368,7 +2389,7 @@ namespace SYRMEPTomoProject
                    Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses)
             );
 
-            // Create an instance of JobExecuter with the Phase Retrieval job:
+            // Create an instance of JobExecuter with the post processing job:
             zExecuter = new JobExecuter(zJob);
 
 
@@ -2384,7 +2405,7 @@ namespace SYRMEPTomoProject
             IJob zJob;
             JobExecuter zExecuter;
 
-            // Create an instance for the phase retrieval job:
+            // Create an instance for the post processing job:
             zJob = new PostProcessingJob(
                 // Get combobox selection (in handler)
                    txbPostProcessingTab_InputFolder.Text,
@@ -2402,7 +2423,7 @@ namespace SYRMEPTomoProject
                    Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses)
             );
 
-            // Create an instance of JobExecuter with the Phase Retrieval job:
+            // Create an instance of JobExecuter with the post processing job:
             zExecuter = new JobExecuter(zJob);
 
 
@@ -2737,6 +2758,138 @@ namespace SYRMEPTomoProject
             OpenSourceAboutBox zAboutBox = new OpenSourceAboutBox();
 
             zAboutBox.ShowDialog(this);
+        }
+
+        private void cbxPhaseRetrievalTab_Algorithms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cbxPhaseRetrievalTab_Algorithms.SelectedIndex == 0)
+            {
+                // Paganin's:             
+                this.label9.Visible = true;
+                this.label10.Visible = true;
+                this.nudPhaseRetrievalTab_DeltaExp.Visible = true;
+                this.nudPhaseRetrievalTab_BetaExp.Visible = true;
+                this.lblDeltaBetaRatio.Visible = true;
+
+                this.label3.Text = "δ:";
+                this.label15.Text = "β:";
+
+                this.nudPhaseRetrievalTab_Delta.Minimum = Convert.ToDecimal(0.0001);
+                this.nudPhaseRetrievalTab_Delta.Maximum = Convert.ToDecimal(999999.9);
+                this.nudPhaseRetrievalTab_Delta.DecimalPlaces = 5;
+
+                this.nudPhaseRetrievalTab_Beta.Minimum = Convert.ToDecimal(0.0001);
+                this.nudPhaseRetrievalTab_Beta.Maximum = Convert.ToDecimal(999999.9);
+                this.nudPhaseRetrievalTab_Beta.DecimalPlaces = 5;
+
+                this.nudPhaseRetrievalTab_DeltaExp.Value = Convert.ToDecimal(0);
+                this.nudPhaseRetrievalTab_BetaExp.Value = Convert.ToDecimal(0);
+
+                this.nudPhaseRetrievalTab_BetaExp.Value = Properties.Settings.Default.PhaseRetrievalTab_BetaExp;
+                this.nudPhaseRetrievalTab_Beta.Value = Properties.Settings.Default.PhaseRetrievalTab_Beta;
+                this.nudPhaseRetrievalTab_DeltaExp.Value = Properties.Settings.Default.PhaseRetrievalTab_DeltaExp;
+                this.nudPhaseRetrievalTab_Delta.Value = Properties.Settings.Default.PhaseRetrievalTab_Delta;
+            }
+            else
+            {
+                // Moosmann: 
+                this.label9.Visible = false;
+                this.label10.Visible = false;
+                this.nudPhaseRetrievalTab_DeltaExp.Visible = false;
+                this.nudPhaseRetrievalTab_BetaExp.Visible = false;
+                this.lblDeltaBetaRatio.Visible = false;
+
+                this.label3.Text = "Regular:";
+                this.label15.Text = "Threshold:";
+
+                this.nudPhaseRetrievalTab_Delta.Minimum = Convert.ToDecimal(0.01);
+                this.nudPhaseRetrievalTab_Delta.Maximum = Convert.ToDecimal(5.00);
+                this.nudPhaseRetrievalTab_Delta.Value = Convert.ToDecimal(2.5);
+                this.nudPhaseRetrievalTab_Delta.DecimalPlaces = 2;
+
+                this.nudPhaseRetrievalTab_Beta.Minimum = Convert.ToDecimal(0.01);
+                this.nudPhaseRetrievalTab_Beta.Maximum = Convert.ToDecimal(1.00);
+                this.nudPhaseRetrievalTab_Beta.Value = Convert.ToDecimal(0.1);
+                this.nudPhaseRetrievalTab_Beta.DecimalPlaces = 2;
+
+                this.nudPhaseRetrievalTab_DeltaExp.Value = Convert.ToDecimal(0);
+                this.nudPhaseRetrievalTab_BetaExp.Value = Convert.ToDecimal(0);
+            }
+        }
+
+        private void cbxFlatField_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Modify the cursor:
+            mGlass = new HourGlass();
+
+            try
+            {
+                // First check if a dataset has been selected (an exception is raised):
+                string zString = ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key;
+
+                if (this.cbxFlatField.SelectedIndex == 0)
+                {
+                    // Conventional flat fielding:                    
+                    this.label51.Visible = true;
+                    this.label51.Text = "Air left:";
+                    this.label52.Visible = true;
+                    this.label52.Text = "Air right:";
+                    this.chkDarkFlatEnd.Visible = true;
+                    this.chkHalfHalfMode.Visible = true;
+                    this.nudHalfHalfMode.Visible = true;
+                    lblPreProcessing_Output.Text = zString.Remove(zString.Length - 4) + "_corr.tdf";
+
+                    this.groupBox28.Enabled = true;
+                    this.groupBox8.Enabled = true;
+                    this.lblPreprocessingTab_Preview.Text = "Sinogram:";
+                    
+                    this.nudPreprocessingTab_Preview.Minimum = 0;
+                    this.nudPreprocessingTab_Preview.Maximum = TDFReader.GetNumberOfSlices(zString) - 1;
+                    this.nudPreprocessingTab_Preview.Value = Convert.ToDecimal(TDFReader.GetNumberOfSlices(zString) / 2);
+
+                    this.nudNormSx.Maximum = TDFReader.GetDetectorSize(zString) - 1;
+                    this.nudNormSx.Minimum = 0;
+                    this.nudNormDx.Maximum = TDFReader.GetDetectorSize(zString) - 1;
+                    this.nudNormDx.Minimum = 0;
+
+                }
+                else
+                {
+                    // Dynamic flat fielding:
+                    this.label51.Visible = true;
+                    this.label51.Text = "Downscale:";
+                    this.label52.Visible = true;
+                    this.label52.Text = "Repetitions:";
+                    this.chkDarkFlatEnd.Visible = false;
+                    this.chkHalfHalfMode.Visible = false;
+                    this.nudHalfHalfMode.Visible = false;
+                    lblPreProcessing_Output.Text = zString.Remove(zString.Length - 4) + "_dff.tdf";
+
+                    // Downscale:
+                    this.nudNormSx.Maximum = 10;
+                    this.nudNormSx.Minimum = 2;
+                    this.nudNormSx.Value = 2;
+                    // Repetitions:
+                    this.nudNormDx.Maximum = 99;
+                    this.nudNormDx.Minimum = 1;
+                    this.nudNormDx.Value = 10;
+
+                    this.groupBox28.Enabled = false;
+                    this.groupBox8.Enabled = false;
+                    this.lblPreprocessingTab_Preview.Text = "Projection:";
+
+                    this.nudPreprocessingTab_Preview.Minimum = 0;
+                    this.nudPreprocessingTab_Preview.Maximum = TDFReader.GetNumberOfProjections(zString) - 1;
+                    this.nudPreprocessingTab_Preview.Value = Convert.ToDecimal(TDFReader.GetNumberOfProjections(zString) / 2);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                mGlass.Dispose();
+            }
         }
 
     }

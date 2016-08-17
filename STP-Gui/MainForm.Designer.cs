@@ -131,8 +131,8 @@ namespace SYRMEPTomoProject
             this.label34 = new System.Windows.Forms.Label();
             this.gbxPreProcessing_Preview = new System.Windows.Forms.GroupBox();
             this.btnPreprocessingTab_Preview = new System.Windows.Forms.Button();
-            this.nudPreprocessingTab_Sinogram = new System.Windows.Forms.NumericUpDown();
-            this.lblPreprocessingTab_Sinogram = new System.Windows.Forms.Label();
+            this.nudPreprocessingTab_Preview = new System.Windows.Forms.NumericUpDown();
+            this.lblPreprocessingTab_Preview = new System.Windows.Forms.Label();
             this.vNavPaneItem7 = new VIBlend.WinForms.Controls.vNavPaneItem();
             this.gbxPhaseRetrieval_Preview = new System.Windows.Forms.GroupBox();
             this.btnPhaseretrievalTab_Preview = new System.Windows.Forms.Button();
@@ -168,6 +168,12 @@ namespace SYRMEPTomoProject
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.vNavPaneItem4 = new VIBlend.WinForms.Controls.vNavPaneItem();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nudAnglesProjTo = new System.Windows.Forms.NumericUpDown();
+            this.nudAnglesProjFrom = new System.Windows.Forms.NumericUpDown();
+            this.label62 = new System.Windows.Forms.Label();
+            this.nudAngles = new System.Windows.Forms.NumericUpDown();
             this.groupBox35 = new System.Windows.Forms.GroupBox();
             this.chkPhrtOnTheFly = new System.Windows.Forms.CheckBox();
             this.btnReconstructionTab_Preview = new System.Windows.Forms.Button();
@@ -198,8 +204,6 @@ namespace SYRMEPTomoProject
             this.chkLogTransform = new System.Windows.Forms.CheckBox();
             this.chkOverPadding = new System.Windows.Forms.CheckBox();
             this.chkCircleMask = new System.Windows.Forms.CheckBox();
-            this.label62 = new System.Windows.Forms.Label();
-            this.nudAngles = new System.Windows.Forms.NumericUpDown();
             this.cbxAlgorithm = new System.Windows.Forms.ComboBox();
             this.label33 = new System.Windows.Forms.Label();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
@@ -272,10 +276,6 @@ namespace SYRMEPTomoProject
             this.mBgwPreview = new System.ComponentModel.BackgroundWorker();
             this.bgwAutoLimit = new System.ComponentModel.BackgroundWorker();
             this.mBgwPostProcessingPreview = new System.ComponentModel.BackgroundWorker();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.nudAnglesProjFrom = new System.Windows.Forms.NumericUpDown();
-            this.nudAnglesProjTo = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.vNavPane1.SuspendLayout();
@@ -304,7 +304,7 @@ namespace SYRMEPTomoProject
             ((System.ComponentModel.ISupportInitialize)(this.nudNormSx)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNormDx)).BeginInit();
             this.gbxPreProcessing_Preview.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPreprocessingTab_Sinogram)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPreprocessingTab_Preview)).BeginInit();
             this.vNavPaneItem7.ItemPanel.SuspendLayout();
             this.vNavPaneItem7.SuspendLayout();
             this.gbxPhaseRetrieval_Preview.SuspendLayout();
@@ -321,6 +321,10 @@ namespace SYRMEPTomoProject
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_Energy)).BeginInit();
             this.vNavPaneItem4.ItemPanel.SuspendLayout();
             this.vNavPaneItem4.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAnglesProjTo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAnglesProjFrom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAngles)).BeginInit();
             this.groupBox35.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudReconstructionTab_Slice)).BeginInit();
             this.groupBox24.SuspendLayout();
@@ -334,7 +338,6 @@ namespace SYRMEPTomoProject
             this.groupBox14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudGridRec)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAlgorithmParameterIterations)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudAngles)).BeginInit();
             this.groupBox18.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox11.SuspendLayout();
@@ -366,9 +369,6 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem6.ItemPanel.SuspendLayout();
             this.vNavPaneItem6.SuspendLayout();
             this.vImageNavPane.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudAnglesProjFrom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudAnglesProjTo)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -421,39 +421,39 @@ namespace SYRMEPTomoProject
             this.toolStripMenuItem3,
             this.menuTDF2TIFF});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // menuTIFF2TDF
             // 
             this.menuTIFF2TDF.Name = "menuTIFF2TDF";
-            this.menuTIFF2TDF.Size = new System.Drawing.Size(229, 22);
+            this.menuTIFF2TDF.Size = new System.Drawing.Size(228, 22);
             this.menuTIFF2TDF.Text = "Convert TIFFs to TDF...";
             this.menuTIFF2TDF.Click += new System.EventHandler(this.menuTIFF2TDF_Click);
             // 
             // convertHISToTDFToolStripMenuItem
             // 
             this.convertHISToTDFToolStripMenuItem.Name = "convertHISToTDFToolStripMenuItem";
-            this.convertHISToTDFToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.convertHISToTDFToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.convertHISToTDFToolStripMenuItem.Text = "Convert HIS to TDF...";
             this.convertHISToTDFToolStripMenuItem.Click += new System.EventHandler(this.convertHISToTDFToolStripMenuItem_Click);
             // 
             // convertEDFsToEDFToolStripMenuItem
             // 
             this.convertEDFsToEDFToolStripMenuItem.Name = "convertEDFsToEDFToolStripMenuItem";
-            this.convertEDFsToEDFToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.convertEDFsToEDFToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.convertEDFsToEDFToolStripMenuItem.Text = "Convert EDFs to TDF...";
             this.convertEDFsToEDFToolStripMenuItem.Click += new System.EventHandler(this.convertEDFsToEDFToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(226, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(225, 6);
             // 
             // menuTDF2TIFF
             // 
             this.menuTDF2TIFF.Name = "menuTDF2TIFF";
-            this.menuTDF2TIFF.Size = new System.Drawing.Size(229, 22);
+            this.menuTDF2TIFF.Size = new System.Drawing.Size(228, 22);
             this.menuTDF2TIFF.Text = "Convert TDF to TIFFs/RAWs...";
             this.menuTDF2TIFF.Click += new System.EventHandler(this.menuTDF2TIFF_Click);
             // 
@@ -850,11 +850,11 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem3.ItemPanel.Controls.Add(this.gbxPreProcessing_Preview);
             this.vNavPaneItem3.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem3.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem3.ItemPanel.Size = new System.Drawing.Size(452, 0);
+            this.vNavPaneItem3.ItemPanel.Size = new System.Drawing.Size(452, 536);
             this.vNavPaneItem3.ItemPanel.TabIndex = 1;
             this.vNavPaneItem3.Location = new System.Drawing.Point(0, 30);
             this.vNavPaneItem3.Name = "vNavPaneItem3";
-            this.vNavPaneItem3.Size = new System.Drawing.Size(454, 30);
+            this.vNavPaneItem3.Size = new System.Drawing.Size(454, 567);
             this.vNavPaneItem3.TabIndex = 2;
             this.vNavPaneItem3.Text = "vProjectionsPaneItem";
             this.vNavPaneItem3.TooltipText = "Pre-processing";
@@ -935,6 +935,7 @@ namespace SYRMEPTomoProject
             this.groupBox28.Controls.Add(this.chkExtFOV_AirRight);
             this.groupBox28.Controls.Add(this.nudExtendedFOVOverlap);
             this.groupBox28.Controls.Add(this.chkExtendedFOV);
+            this.groupBox28.Enabled = false;
             this.groupBox28.Location = new System.Drawing.Point(20, 178);
             this.groupBox28.Name = "groupBox28";
             this.groupBox28.Size = new System.Drawing.Size(404, 72);
@@ -994,6 +995,7 @@ namespace SYRMEPTomoProject
             this.groupBox8.Controls.Add(this.groupBox21);
             this.groupBox8.Controls.Add(this.cbxRingRem);
             this.groupBox8.Controls.Add(this.label38);
+            this.groupBox8.Enabled = false;
             this.groupBox8.Location = new System.Drawing.Point(20, 256);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(404, 97);
@@ -1087,6 +1089,7 @@ namespace SYRMEPTomoProject
             this.groupBox12.Controls.Add(this.groupBox17);
             this.groupBox12.Controls.Add(this.cbxFlatField);
             this.groupBox12.Controls.Add(this.label34);
+            this.groupBox12.Enabled = false;
             this.groupBox12.Location = new System.Drawing.Point(20, 75);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(404, 96);
@@ -1177,7 +1180,7 @@ namespace SYRMEPTomoProject
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(63, 13);
             this.label52.TabIndex = 26;
-            this.label52.Text = "Right:";
+            this.label52.Text = "Air right:";
             this.label52.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label51
@@ -1186,12 +1189,13 @@ namespace SYRMEPTomoProject
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(63, 13);
             this.label51.TabIndex = 25;
-            this.label51.Text = "Left:";
+            this.label51.Text = "Air left:";
             this.label51.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cbxFlatField
             // 
             this.cbxFlatField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFlatField.DropDownWidth = 265;
             this.cbxFlatField.FormattingEnabled = true;
             this.cbxFlatField.Items.AddRange(new object[] {
             "Flat fielding with air normalization"});
@@ -1199,6 +1203,7 @@ namespace SYRMEPTomoProject
             this.cbxFlatField.Name = "cbxFlatField";
             this.cbxFlatField.Size = new System.Drawing.Size(201, 21);
             this.cbxFlatField.TabIndex = 10;
+            this.cbxFlatField.SelectedIndexChanged += new System.EventHandler(this.cbxFlatField_SelectedIndexChanged);
             // 
             // label34
             // 
@@ -1212,8 +1217,8 @@ namespace SYRMEPTomoProject
             // gbxPreProcessing_Preview
             // 
             this.gbxPreProcessing_Preview.Controls.Add(this.btnPreprocessingTab_Preview);
-            this.gbxPreProcessing_Preview.Controls.Add(this.nudPreprocessingTab_Sinogram);
-            this.gbxPreProcessing_Preview.Controls.Add(this.lblPreprocessingTab_Sinogram);
+            this.gbxPreProcessing_Preview.Controls.Add(this.nudPreprocessingTab_Preview);
+            this.gbxPreProcessing_Preview.Controls.Add(this.lblPreprocessingTab_Preview);
             this.gbxPreProcessing_Preview.Enabled = false;
             this.gbxPreProcessing_Preview.Location = new System.Drawing.Point(20, 359);
             this.gbxPreProcessing_Preview.Name = "gbxPreProcessing_Preview";
@@ -1232,27 +1237,28 @@ namespace SYRMEPTomoProject
             this.btnPreprocessingTab_Preview.UseVisualStyleBackColor = true;
             this.btnPreprocessingTab_Preview.Click += new System.EventHandler(this.btnPreprocessingTab_Preview_Click);
             // 
-            // nudPreprocessingTab_Sinogram
+            // nudPreprocessingTab_Preview
             // 
-            this.nudPreprocessingTab_Sinogram.Location = new System.Drawing.Point(62, 21);
-            this.nudPreprocessingTab_Sinogram.Maximum = new decimal(new int[] {
+            this.nudPreprocessingTab_Preview.Location = new System.Drawing.Point(62, 21);
+            this.nudPreprocessingTab_Preview.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
-            this.nudPreprocessingTab_Sinogram.Name = "nudPreprocessingTab_Sinogram";
-            this.nudPreprocessingTab_Sinogram.Size = new System.Drawing.Size(50, 20);
-            this.nudPreprocessingTab_Sinogram.TabIndex = 23;
-            this.nudPreprocessingTab_Sinogram.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudPreprocessingTab_Preview.Name = "nudPreprocessingTab_Preview";
+            this.nudPreprocessingTab_Preview.Size = new System.Drawing.Size(50, 20);
+            this.nudPreprocessingTab_Preview.TabIndex = 23;
+            this.nudPreprocessingTab_Preview.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // lblPreprocessingTab_Sinogram
+            // lblPreprocessingTab_Preview
             // 
-            this.lblPreprocessingTab_Sinogram.AutoSize = true;
-            this.lblPreprocessingTab_Sinogram.Location = new System.Drawing.Point(6, 24);
-            this.lblPreprocessingTab_Sinogram.Name = "lblPreprocessingTab_Sinogram";
-            this.lblPreprocessingTab_Sinogram.Size = new System.Drawing.Size(54, 13);
-            this.lblPreprocessingTab_Sinogram.TabIndex = 22;
-            this.lblPreprocessingTab_Sinogram.Text = "Sinogram:";
+            this.lblPreprocessingTab_Preview.AutoSize = true;
+            this.lblPreprocessingTab_Preview.Location = new System.Drawing.Point(6, 24);
+            this.lblPreprocessingTab_Preview.Name = "lblPreprocessingTab_Preview";
+            this.lblPreprocessingTab_Preview.Size = new System.Drawing.Size(54, 13);
+            this.lblPreprocessingTab_Preview.TabIndex = 22;
+            this.lblPreprocessingTab_Preview.Text = "Sinogram:";
+            this.lblPreprocessingTab_Preview.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // vNavPaneItem7
             // 
@@ -1270,7 +1276,7 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem7.ItemPanel.Name = "ItemPanel";
             this.vNavPaneItem7.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem7.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem7.Location = new System.Drawing.Point(0, 60);
+            this.vNavPaneItem7.Location = new System.Drawing.Point(0, 597);
             this.vNavPaneItem7.Name = "vNavPaneItem7";
             this.vNavPaneItem7.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem7.TabIndex = 5;
@@ -1425,7 +1431,7 @@ namespace SYRMEPTomoProject
             // chkPhaseRetrievalTab_OverPadding
             // 
             this.chkPhaseRetrievalTab_OverPadding.AutoSize = true;
-            this.chkPhaseRetrievalTab_OverPadding.Location = new System.Drawing.Point(53, 128);
+            this.chkPhaseRetrievalTab_OverPadding.Location = new System.Drawing.Point(226, 128);
             this.chkPhaseRetrievalTab_OverPadding.Name = "chkPhaseRetrievalTab_OverPadding";
             this.chkPhaseRetrievalTab_OverPadding.Size = new System.Drawing.Size(132, 17);
             this.chkPhaseRetrievalTab_OverPadding.TabIndex = 35;
@@ -1443,12 +1449,12 @@ namespace SYRMEPTomoProject
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(50, 52);
+            this.label3.Location = new System.Drawing.Point(2, 51);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(16, 13);
+            this.label3.Size = new System.Drawing.Size(64, 15);
             this.label3.TabIndex = 28;
             this.label3.Text = "δ:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // nudPhaseRetrievalTab_BetaExp
             // 
@@ -1515,12 +1521,12 @@ namespace SYRMEPTomoProject
             // 
             // label15
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(51, 78);
+            this.label15.Location = new System.Drawing.Point(1, 77);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(16, 13);
+            this.label15.Size = new System.Drawing.Size(66, 17);
             this.label15.TabIndex = 24;
             this.label15.Text = "β:";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // nudPhaseRetrievalTab_Delta
             // 
@@ -1593,6 +1599,7 @@ namespace SYRMEPTomoProject
             this.cbxPhaseRetrievalTab_Algorithms.Name = "cbxPhaseRetrievalTab_Algorithms";
             this.cbxPhaseRetrievalTab_Algorithms.Size = new System.Drawing.Size(274, 21);
             this.cbxPhaseRetrievalTab_Algorithms.TabIndex = 27;
+            this.cbxPhaseRetrievalTab_Algorithms.SelectedIndexChanged += new System.EventHandler(this.cbxPhaseRetrievalTab_Algorithms_SelectedIndexChanged);
             // 
             // label28
             // 
@@ -1723,14 +1730,88 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem4.ItemPanel.Controls.Add(this.groupBox11);
             this.vNavPaneItem4.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem4.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem4.ItemPanel.Size = new System.Drawing.Size(452, 536);
+            this.vNavPaneItem4.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem4.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem4.Location = new System.Drawing.Point(0, 90);
+            this.vNavPaneItem4.Location = new System.Drawing.Point(0, 627);
             this.vNavPaneItem4.Name = "vNavPaneItem4";
-            this.vNavPaneItem4.Size = new System.Drawing.Size(454, 567);
+            this.vNavPaneItem4.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem4.TabIndex = 3;
             this.vNavPaneItem4.Text = "vReconstructionPaneItem";
             this.vNavPaneItem4.TooltipText = "Reconstruction";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.nudAnglesProjTo);
+            this.groupBox1.Controls.Add(this.nudAnglesProjFrom);
+            this.groupBox1.Controls.Add(this.label62);
+            this.groupBox1.Controls.Add(this.nudAngles);
+            this.groupBox1.Location = new System.Drawing.Point(20, 225);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(404, 54);
+            this.groupBox1.TabIndex = 42;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Angles/Projections";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(239, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(16, 13);
+            this.label1.TabIndex = 48;
+            this.label1.Text = "to";
+            // 
+            // nudAnglesProjTo
+            // 
+            this.nudAnglesProjTo.Enabled = false;
+            this.nudAnglesProjTo.Location = new System.Drawing.Point(255, 23);
+            this.nudAnglesProjTo.Name = "nudAnglesProjTo";
+            this.nudAnglesProjTo.Size = new System.Drawing.Size(49, 20);
+            this.nudAnglesProjTo.TabIndex = 47;
+            this.nudAnglesProjTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // nudAnglesProjFrom
+            // 
+            this.nudAnglesProjFrom.Enabled = false;
+            this.nudAnglesProjFrom.Location = new System.Drawing.Point(188, 23);
+            this.nudAnglesProjFrom.Name = "nudAnglesProjFrom";
+            this.nudAnglesProjFrom.Size = new System.Drawing.Size(49, 20);
+            this.nudAnglesProjFrom.TabIndex = 46;
+            this.nudAnglesProjFrom.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(71, 26);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(117, 13);
+            this.label62.TabIndex = 31;
+            this.label62.Text = "deg for projections from";
+            // 
+            // nudAngles
+            // 
+            this.nudAngles.DecimalPlaces = 2;
+            this.nudAngles.Increment = new decimal(new int[] {
+            174532925,
+            0,
+            0,
+            655360});
+            this.nudAngles.Location = new System.Drawing.Point(13, 23);
+            this.nudAngles.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            131072});
+            this.nudAngles.Name = "nudAngles";
+            this.nudAngles.Size = new System.Drawing.Size(56, 20);
+            this.nudAngles.TabIndex = 45;
+            this.nudAngles.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudAngles.Value = new decimal(new int[] {
+            18000,
+            0,
+            0,
+            131072});
             // 
             // groupBox35
             // 
@@ -2143,39 +2224,6 @@ namespace SYRMEPTomoProject
             this.chkCircleMask.TabIndex = 32;
             this.chkCircleMask.Text = "Circle mask";
             this.chkCircleMask.UseVisualStyleBackColor = true;
-            // 
-            // label62
-            // 
-            this.label62.AutoSize = true;
-            this.label62.Location = new System.Drawing.Point(71, 26);
-            this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(117, 13);
-            this.label62.TabIndex = 31;
-            this.label62.Text = "deg for projections from";
-            // 
-            // nudAngles
-            // 
-            this.nudAngles.DecimalPlaces = 2;
-            this.nudAngles.Increment = new decimal(new int[] {
-            174532925,
-            0,
-            0,
-            655360});
-            this.nudAngles.Location = new System.Drawing.Point(13, 23);
-            this.nudAngles.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            131072});
-            this.nudAngles.Name = "nudAngles";
-            this.nudAngles.Size = new System.Drawing.Size(56, 20);
-            this.nudAngles.TabIndex = 45;
-            this.nudAngles.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudAngles.Value = new decimal(new int[] {
-            18000,
-            0,
-            0,
-            131072});
             // 
             // cbxAlgorithm
             // 
@@ -2998,47 +3046,6 @@ namespace SYRMEPTomoProject
             this.mBgwPostProcessingPreview.DoWork += new System.ComponentModel.DoWorkEventHandler(this.mBgwPreview_DoWork);
             this.mBgwPostProcessingPreview.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.mBgwPostProcessingPreview_RunWorkerCompleted);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.nudAnglesProjTo);
-            this.groupBox1.Controls.Add(this.nudAnglesProjFrom);
-            this.groupBox1.Controls.Add(this.label62);
-            this.groupBox1.Controls.Add(this.nudAngles);
-            this.groupBox1.Location = new System.Drawing.Point(20, 225);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(404, 54);
-            this.groupBox1.TabIndex = 42;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Angles/Projections";
-            // 
-            // nudAnglesProjFrom
-            // 
-            this.nudAnglesProjFrom.Enabled = false;
-            this.nudAnglesProjFrom.Location = new System.Drawing.Point(188, 23);
-            this.nudAnglesProjFrom.Name = "nudAnglesProjFrom";
-            this.nudAnglesProjFrom.Size = new System.Drawing.Size(49, 20);
-            this.nudAnglesProjFrom.TabIndex = 46;
-            this.nudAnglesProjFrom.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // nudAnglesProjTo
-            // 
-            this.nudAnglesProjTo.Enabled = false;
-            this.nudAnglesProjTo.Location = new System.Drawing.Point(255, 23);
-            this.nudAnglesProjTo.Name = "nudAnglesProjTo";
-            this.nudAnglesProjTo.Size = new System.Drawing.Size(49, 20);
-            this.nudAnglesProjTo.TabIndex = 47;
-            this.nudAnglesProjTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(239, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(16, 13);
-            this.label1.TabIndex = 48;
-            this.label1.Text = "to";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3095,7 +3102,7 @@ namespace SYRMEPTomoProject
             ((System.ComponentModel.ISupportInitialize)(this.nudNormDx)).EndInit();
             this.gbxPreProcessing_Preview.ResumeLayout(false);
             this.gbxPreProcessing_Preview.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPreprocessingTab_Sinogram)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPreprocessingTab_Preview)).EndInit();
             this.vNavPaneItem7.ItemPanel.ResumeLayout(false);
             this.vNavPaneItem7.ResumeLayout(false);
             this.gbxPhaseRetrieval_Preview.ResumeLayout(false);
@@ -3116,6 +3123,11 @@ namespace SYRMEPTomoProject
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_Energy)).EndInit();
             this.vNavPaneItem4.ItemPanel.ResumeLayout(false);
             this.vNavPaneItem4.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAnglesProjTo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAnglesProjFrom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAngles)).EndInit();
             this.groupBox35.ResumeLayout(false);
             this.groupBox35.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudReconstructionTab_Slice)).EndInit();
@@ -3135,7 +3147,6 @@ namespace SYRMEPTomoProject
             this.groupBox14.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudGridRec)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAlgorithmParameterIterations)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudAngles)).EndInit();
             this.groupBox18.ResumeLayout(false);
             this.groupBox18.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -3177,10 +3188,6 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem6.ItemPanel.PerformLayout();
             this.vNavPaneItem6.ResumeLayout(false);
             this.vImageNavPane.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudAnglesProjFrom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudAnglesProjTo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3286,8 +3293,8 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.GroupBox groupBox28;
         private System.Windows.Forms.NumericUpDown nudExtendedFOVOverlap;
         private System.Windows.Forms.CheckBox chkExtendedFOV;
-        private System.Windows.Forms.NumericUpDown nudPreprocessingTab_Sinogram;
-        private System.Windows.Forms.Label lblPreprocessingTab_Sinogram;
+        private System.Windows.Forms.NumericUpDown nudPreprocessingTab_Preview;
+        private System.Windows.Forms.Label lblPreprocessingTab_Preview;
         private System.Windows.Forms.CheckBox chkExtFOV_AirRight;
         private System.Windows.Forms.Button btnPreProcess_GuessOverlap;
         private System.ComponentModel.BackgroundWorker bgwGuessOverlap;

@@ -67,6 +67,7 @@ namespace SYRMEPTomoProject.Jobs
         private double mDistance;
         private double mEnergy;
         private double mPixelsize;
+        private int mMethod; // 0 for Paganin, 5 for Quasiparticle
         private int mFrom;
         private int mTo;        
         private int mThreads;
@@ -119,6 +120,7 @@ namespace SYRMEPTomoProject.Jobs
         public PhaseRetrievalJob(
             string inputFile,
             string outputFile,
+            int method,
             int from,
             int to,
             double param1,
@@ -132,6 +134,7 @@ namespace SYRMEPTomoProject.Jobs
         {
             mInputFile = inputFile;
             mOutputFile = outputFile;
+            mMethod = method;
             mParam1 = param1;
             mParam2 = param2;
             mDistance = distance;
@@ -146,21 +149,23 @@ namespace SYRMEPTomoProject.Jobs
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="skipPhrt"></param>
-        /// <param name="flatEnd"></param>
+        /// <param name="inputFile"></param>
+        /// <param name="outputFile"></param>
+        /// <param name="method"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
         /// <param name="param1"></param>
+        /// <param name="param2"></param>
         /// <param name="distance"></param>
         /// <param name="energy"></param>
         /// <param name="pixelsize"></param>
-        /// <param name="normSx"></param>
-        /// <param name="normDx"></param>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
+        /// <param name="pad"></param>
         /// <param name="threads"></param>
         /// <param name="logFile"></param>
         public PhaseRetrievalJob(
             string inputFile,
             string outputFile,
+            int method,
             int from,
             int to,
             double param1,
@@ -172,7 +177,7 @@ namespace SYRMEPTomoProject.Jobs
             int threads,
             string logFile
             )
-            : this(inputFile, outputFile, from, to, param1, param2, distance, energy, pixelsize, pad, threads)
+            : this(inputFile, outputFile, method, from, to, param1, param2, distance, energy, pixelsize, pad, threads)
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -192,6 +197,7 @@ namespace SYRMEPTomoProject.Jobs
                 + Properties.Settings.Default.PythonPath + Path.DirectorySeparatorChar + Properties.Settings.Default.PhaseRetrievalJob + "\" "
                 + mFrom.ToString() + " " +
                 mTo.ToString() + " \"" + mInputFile + "\" \"" + mOutputFile + "\" " +
+                mMethod.ToString() + " " +
                 mParam1.ToString(CultureInfo.InvariantCulture) + " " +
                 mParam2.ToString(CultureInfo.InvariantCulture) + " " +
                 mEnergy.ToString(CultureInfo.InvariantCulture) + " " +
@@ -209,7 +215,7 @@ namespace SYRMEPTomoProject.Jobs
         /// <returns>A string with the description of the job.</returns>
         public override string ToString()
         {
-            return "phase retrieval filtering";
+            return "phase retrieval";
         }
     }
 }

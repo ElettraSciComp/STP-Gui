@@ -91,6 +91,7 @@ namespace SYRMEPTomoProject.Jobs
         private string mPostProcessConvertArgs;
         private string mPostProcessCropArgs;
         private bool mPhaseRetrieval = false;
+        private int mPhrtMethod;
         private double mParam1;
         private double mParam2;
         private double mDistance;
@@ -146,6 +147,7 @@ namespace SYRMEPTomoProject.Jobs
             string postProcessConvertArgs,
             string postProcessCropArgs,
             bool phaseRetrieval,
+            int phrtMethod,
             double param1,
             double param2, 
             double distance, 
@@ -185,6 +187,7 @@ namespace SYRMEPTomoProject.Jobs
             mPostProcessConvertArgs = postProcessConvertArgs;
             mPostProcessCropArgs = postProcessCropArgs;
             mPhaseRetrieval = phaseRetrieval;
+            mPhrtMethod = phrtMethod;
             mParam1 = param1;
             mParam2 = param2;
             mDistance = distance;
@@ -228,6 +231,7 @@ namespace SYRMEPTomoProject.Jobs
             string postProcessConvertArgs,
             string postProcessCropArgs,
             bool phaseRetrieval,
+            int phrtMethod,
             double param1,
             double param2, 
             double distance, 
@@ -239,7 +243,7 @@ namespace SYRMEPTomoProject.Jobs
             : this(imageIndex, inputFile, previewFile, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, 
                 ringRemoval, angles, angles_ProjFrom, angles_ProjTo, center, reconFunc, reconParam1, scale, overPadding, logTransform, circle, 
                 zeroneMode, correctionOffset, decimateFactor, downscaleFactor, postProcess, postProcessConvertArgs, postProcessCropArgs, 
-                phaseRetrieval, param1, param2, distance, energy, pixelsize, phrtPad)         
+                phaseRetrieval, phrtMethod, param1, param2, distance, energy, pixelsize, phrtPad)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -291,6 +295,7 @@ namespace SYRMEPTomoProject.Jobs
                 mPostProcessConvertArgs + " " +
                 mPostProcessCropArgs + " " +
                 mPhaseRetrieval.ToString() + " " +
+                mPhrtMethod.ToString() + " " +
                 mParam1.ToString(CultureInfo.InvariantCulture) + " " +
                 mParam2.ToString(CultureInfo.InvariantCulture) + " " +
                 mEnergy.ToString(CultureInfo.InvariantCulture) + " " +

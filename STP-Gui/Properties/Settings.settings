@@ -266,5 +266,11 @@
     <Setting Name="OpenSourceLicenses" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Licenses.rtf</Value>
     </Setting>
+    <Setting Name="DynamicFlatFieldingJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">exec_dff.py</Value>
+    </Setting>
+    <Setting Name="DynamicFlatFieldingPreviewJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">preview_dff.py</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

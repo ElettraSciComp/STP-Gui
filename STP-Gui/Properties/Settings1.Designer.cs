@@ -970,5 +970,23 @@ namespace SYRMEPTomoProject.Properties {
                 return ((string)(this["OpenSourceLicenses"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("exec_dff.py")]
+        public string DynamicFlatFieldingJob {
+            get {
+                return ((string)(this["DynamicFlatFieldingJob"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("preview_dff.py")]
+        public string DynamicFlatFieldingPreviewJob {
+            get {
+                return ((string)(this["DynamicFlatFieldingPreviewJob"]));
+            }
+        }
     }
 }

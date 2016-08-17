@@ -43,7 +43,6 @@
 // Last modified: April, 11th 2016
 //
 
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,22 +57,36 @@ namespace SYRMEPTomoProject.Jobs
     /// <summary>
     /// 
     /// </summary>
-    public class PhaseRetrievalPreviewJob : IJob
+    public class DynamicFlatFieldingJob : IMonitoredJob
     {
-        private int mImageIndex;
         private string mInputFile;
-        private string mPreviewFile;
-        private int mMethod;
-        private double mParam1;
-        private double mParam2;
-        private double mDistance;
-        private double mEnergy;
-        private double mPixelsize;
-        private bool mPad;
+        private string mOutputFile;
+        private int mFrom; 
+        private int mTo;
+        private int mDownsampling;
+        private int mRepetitions;
+        private int mThreads;
         private string mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
-            Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
-            Path.DirectorySeparatorChar + "_phrt_log_00.txt"; // It should be "*_00.txt"
+            Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID + 
+            Path.DirectorySeparatorChar + "_dff_log_00.txt"; // It should be "*_00.txt"
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public int From
+        {
+            get { return mFrom; }
+            set { mFrom = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int To
+        {
+            get { return mTo; }
+            set { mTo = value; }
+        }
 
         /// <summary>
         /// 
@@ -85,48 +98,52 @@ namespace SYRMEPTomoProject.Jobs
         }
 
         /// <summary>
-        /// Class constructor.
+        /// 
         /// </summary>
-        public PhaseRetrievalPreviewJob(
-            int imageIndex,
-            string inputFile,
-            string previewFile,
-            int method,
-            double param1,
-            double param2, 
-            double distance, 
-            double energy, 
-            double pixelsize,
-            bool pad
+        /// <param name="inputFile"></param>
+        /// <param name="outputFile"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="threads"></param>
+        public DynamicFlatFieldingJob(
+            string inputFile,      
+            string outputFile,
+            int from,
+            int to,
+            int downsampling,
+            int repetitions,                  
+            int threads
             )
         {
-            mMethod = method;
-            mImageIndex = imageIndex;
             mInputFile = inputFile;
-            mPreviewFile = previewFile;
-            mParam1 = param1;
-            mParam2 = param2;
-            mDistance = distance;
-            mEnergy = energy;
-            mPixelsize = pixelsize;
-            mPad = pad;
+            mOutputFile = outputFile;
+            mFrom = from;
+            mTo = to;
+            mRepetitions = repetitions;
+            mDownsampling = downsampling;    
+            mThreads = threads;
         }
 
-     
-        public PhaseRetrievalPreviewJob(
-            int imageIndex,
-            string inputFile,
-            string previewFile,
-            int method,
-            double param1,
-            double param2, 
-            double distance, 
-            double energy, 
-            double pixelsize,
-            bool pad,
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inputFile"></param>
+        /// <param name="outputFile"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="threads"></param>
+        /// <param name="logFile"></param>
+        public DynamicFlatFieldingJob(
+            string inputFile, 
+            string outputFile,
+            int from,
+            int to,
+            int downsampling,
+            int repetitions,            
+            int threads,
             string logFile
             )
-            : this(imageIndex, inputFile, previewFile, method, param1, param2, distance, energy, pixelsize, pad)
+            : this(inputFile, outputFile, from, to, downsampling, repetitions, threads)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -139,25 +156,19 @@ namespace SYRMEPTomoProject.Jobs
         /// <returns>The string to execute.</returns>
         public string GetCommandLine()
         {
-            string zString;
+         
+            string zString = string.Empty;
 
-            // Single Thread version:
+            // Multithread version:
             zString = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar
-                + Properties.Settings.Default.PythonPath + Path.DirectorySeparatorChar 
-                + Properties.Settings.Default.PhaseRetrievalPreviewJob + "\" " +
-                mImageIndex.ToString() + " \"" + 
+                + Properties.Settings.Default.PythonPath + Path.DirectorySeparatorChar + Properties.Settings.Default.DynamicFlatFieldingJob + "\" "
+                + mFrom.ToString() + " " +
+                mTo.ToString() + " \"" + 
                 mInputFile + "\" \"" + 
-                mPreviewFile + "\" " +
-                mMethod.ToString() + " " +
-                mParam1.ToString(CultureInfo.InvariantCulture) + " " +
-                mParam2.ToString(CultureInfo.InvariantCulture) + " " +
-                mEnergy.ToString(CultureInfo.InvariantCulture) + " " +
-                mDistance.ToString(CultureInfo.InvariantCulture) + " " +
-                mPixelsize.ToString(CultureInfo.InvariantCulture) + " " +
-                mPad.ToString() + " \"" +
-                Properties.Settings.Default.FormSettings_TemporaryPath
-                + Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID
-                + "\" \"" +
+                mOutputFile + "\" " +
+                mDownsampling.ToString() + " " + 
+                mRepetitions.ToString() + " " +
+                mThreads.ToString() + " \"" + 
                 mLogFile + "\"";
           
             return zString;
@@ -169,7 +180,7 @@ namespace SYRMEPTomoProject.Jobs
         /// <returns>A string with the description of the job.</returns>
         public override string ToString()
         {
-            return "phase retrieval";
+            return "dynamic flat fielding";
         }
     }
 }

@@ -58,22 +58,16 @@ namespace SYRMEPTomoProject.Jobs
     /// <summary>
     /// 
     /// </summary>
-    public class PhaseRetrievalPreviewJob : IJob
+    public class DynamicFlatFieldingPreviewJob : IJob
     {
         private int mImageIndex;
         private string mInputFile;
         private string mPreviewFile;
-        private int mMethod;
-        private double mParam1;
-        private double mParam2;
-        private double mDistance;
-        private double mEnergy;
-        private double mPixelsize;
-        private bool mPad;
+        private int mDownsampling;
+        private int mRepetitions;
         private string mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
             Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
-            Path.DirectorySeparatorChar + "_phrt_log_00.txt"; // It should be "*_00.txt"
-
+            Path.DirectorySeparatorChar + "_previewdff_log_00.txt"; // It should be "*_00.txt"
 
         /// <summary>
         /// 
@@ -85,48 +79,35 @@ namespace SYRMEPTomoProject.Jobs
         }
 
         /// <summary>
-        /// Class constructor.
+        /// 
         /// </summary>
-        public PhaseRetrievalPreviewJob(
+        public DynamicFlatFieldingPreviewJob(
             int imageIndex,
-            string inputFile,
-            string previewFile,
-            int method,
-            double param1,
-            double param2, 
-            double distance, 
-            double energy, 
-            double pixelsize,
-            bool pad
+            string inputFile,      
+            string outputFile,
+            int downsampling,
+            int repetitions  
             )
         {
-            mMethod = method;
             mImageIndex = imageIndex;
             mInputFile = inputFile;
-            mPreviewFile = previewFile;
-            mParam1 = param1;
-            mParam2 = param2;
-            mDistance = distance;
-            mEnergy = energy;
-            mPixelsize = pixelsize;
-            mPad = pad;
+            mPreviewFile = outputFile;
+            mRepetitions = repetitions;
+            mDownsampling = downsampling;        
         }
 
-     
-        public PhaseRetrievalPreviewJob(
+        /// <summary>
+        /// 
+        /// </summary>
+        public DynamicFlatFieldingPreviewJob(
             int imageIndex,
-            string inputFile,
-            string previewFile,
-            int method,
-            double param1,
-            double param2, 
-            double distance, 
-            double energy, 
-            double pixelsize,
-            bool pad,
+            string inputFile,      
+            string outputFile,
+            int downsampling,
+            int repetitions,             
             string logFile
             )
-            : this(imageIndex, inputFile, previewFile, method, param1, param2, distance, energy, pixelsize, pad)
+            : this(imageIndex, inputFile, outputFile, downsampling, repetitions)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -139,25 +120,18 @@ namespace SYRMEPTomoProject.Jobs
         /// <returns>The string to execute.</returns>
         public string GetCommandLine()
         {
-            string zString;
+         
+            string zString = string.Empty;
 
-            // Single Thread version:
+            // Multithread version:
             zString = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar
-                + Properties.Settings.Default.PythonPath + Path.DirectorySeparatorChar 
-                + Properties.Settings.Default.PhaseRetrievalPreviewJob + "\" " +
+                + Properties.Settings.Default.PythonPath + Path.DirectorySeparatorChar + 
+                Properties.Settings.Default.DynamicFlatFieldingPreviewJob + "\" " +
                 mImageIndex.ToString() + " \"" + 
-                mInputFile + "\" \"" + 
+                mInputFile + "\" \"" +
                 mPreviewFile + "\" " +
-                mMethod.ToString() + " " +
-                mParam1.ToString(CultureInfo.InvariantCulture) + " " +
-                mParam2.ToString(CultureInfo.InvariantCulture) + " " +
-                mEnergy.ToString(CultureInfo.InvariantCulture) + " " +
-                mDistance.ToString(CultureInfo.InvariantCulture) + " " +
-                mPixelsize.ToString(CultureInfo.InvariantCulture) + " " +
-                mPad.ToString() + " \"" +
-                Properties.Settings.Default.FormSettings_TemporaryPath
-                + Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID
-                + "\" \"" +
+                mDownsampling.ToString() + " " +
+                mRepetitions.ToString() + " \"" +
                 mLogFile + "\"";
           
             return zString;
@@ -169,7 +143,7 @@ namespace SYRMEPTomoProject.Jobs
         /// <returns>A string with the description of the job.</returns>
         public override string ToString()
         {
-            return "phase retrieval";
+            return "dynamic flat fielding";
         }
     }
 }

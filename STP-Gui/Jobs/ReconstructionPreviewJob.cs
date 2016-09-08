@@ -98,6 +98,7 @@ namespace SYRMEPTomoProject.Jobs
         private double mEnergy;
         private double mPixelsize;
         private bool mPhrtPad;
+        private bool mDynamicFlatFielding;
         private string mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
             Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
             Path.DirectorySeparatorChar + "_rec_log_00.txt"; // It should be "*_00.txt"
@@ -153,7 +154,8 @@ namespace SYRMEPTomoProject.Jobs
             double distance, 
             double energy, 
             double pixelsize,
-            bool phrtPad
+            bool phrtPad,
+            bool dynamicFlatFielding
             )
         {
             mImageIndex = imageIndex;
@@ -194,6 +196,7 @@ namespace SYRMEPTomoProject.Jobs
             mEnergy = energy;
             mPixelsize = pixelsize;
             mPhrtPad = phrtPad;
+            mDynamicFlatFielding = dynamicFlatFielding;
         }
 
         /// <summary>
@@ -238,12 +241,13 @@ namespace SYRMEPTomoProject.Jobs
             double energy, 
             double pixelsize,
             bool phrtPad,
+            bool dynamicFlatFielding,
             string logFile
             )
             : this(imageIndex, inputFile, previewFile, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, 
                 ringRemoval, angles, angles_ProjFrom, angles_ProjTo, center, reconFunc, reconParam1, scale, overPadding, logTransform, circle, 
                 zeroneMode, correctionOffset, decimateFactor, downscaleFactor, postProcess, postProcessConvertArgs, postProcessCropArgs, 
-                phaseRetrieval, phrtMethod, param1, param2, distance, energy, pixelsize, phrtPad)         
+                phaseRetrieval, phrtMethod, param1, param2, distance, energy, pixelsize, phrtPad, dynamicFlatFielding)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -305,7 +309,8 @@ namespace SYRMEPTomoProject.Jobs
                 Properties.Settings.Default.FormSettings_ChunkSize.ToString() + " " +
                 mAngles_ProjFrom.ToString() + " " +
                 mAngles_ProjTo.ToString() + 
-                " True 1 \"" +
+                " True " +  
+                mDynamicFlatFielding.ToString() + " 1 \"" +
                 Properties.Settings.Default.FormSettings_TemporaryPath
                 + Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID
                 + "\" \"" +

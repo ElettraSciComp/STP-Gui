@@ -574,10 +574,20 @@ namespace SYRMEPTomoProject
             0,
             0,
             0});
+            this.nudOutputCompression.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudOutputCompression.Name = "nudOutputCompression";
             this.nudOutputCompression.Size = new System.Drawing.Size(37, 20);
             this.nudOutputCompression.TabIndex = 30;
             this.nudOutputCompression.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudOutputCompression.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label3
             // 

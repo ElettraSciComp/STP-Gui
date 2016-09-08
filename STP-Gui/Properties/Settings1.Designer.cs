@@ -169,7 +169,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.1.33")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.1.41")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -968,24 +968,6 @@ namespace SYRMEPTomoProject.Properties {
         public string OpenSourceLicenses {
             get {
                 return ((string)(this["OpenSourceLicenses"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("exec_dff.py")]
-        public string DynamicFlatFieldingJob {
-            get {
-                return ((string)(this["DynamicFlatFieldingJob"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("preview_dff.py")]
-        public string DynamicFlatFieldingPreviewJob {
-            get {
-                return ((string)(this["DynamicFlatFieldingPreviewJob"]));
             }
         }
     }

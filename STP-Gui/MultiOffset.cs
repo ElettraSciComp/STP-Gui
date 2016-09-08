@@ -78,6 +78,7 @@ namespace SYRMEPTomoProject
         private string mPostProcessConvertArgs;
         private string mPostProcessCropArgs;
         private bool mPhaseRetrieval = false;
+        private int mPhrtMethod;
         private double mParam1;
         private double mParam2;
         private double mDistance;
@@ -118,6 +119,7 @@ namespace SYRMEPTomoProject
             string postProcessConvertArgs,
             string postProcessCropArgs,
             bool phaseRetrieval,
+            int phrtMethod,
             double param1,
             double param2,
             double distance,
@@ -159,6 +161,7 @@ namespace SYRMEPTomoProject
             mPostProcessConvertArgs = postProcessConvertArgs;
             mPostProcessCropArgs = postProcessCropArgs;
             mPhaseRetrieval = phaseRetrieval;
+            mPhrtMethod = phrtMethod;
             mParam1 = param1;
             mParam2 = param2;
             mDistance = distance;
@@ -396,6 +399,7 @@ namespace SYRMEPTomoProject
                 this.mPostProcessConvertArgs,
                 this.mPostProcessCropArgs,
                 this.mPhaseRetrieval,
+                this.mPhrtMethod,
                 this.mParam1,
                 this.mParam2, 
                 this.mDistance, 

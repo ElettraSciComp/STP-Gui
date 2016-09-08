@@ -71,7 +71,8 @@ namespace SYRMEPTomoProject.Jobs
         private bool mExtFOV;
         private bool mExtFOVRight;
         private int mExtFOVOverlap;
-        private string mRingRem;     
+        private string mRingRem;
+        private bool mDynamicFlatFielding;
         private int mThreads;
         private bool mPreviewMode;
         private string mPreviewModeOutFile;
@@ -127,7 +128,8 @@ namespace SYRMEPTomoProject.Jobs
             bool extFOV,
             bool extFOVRight,
             int extFOVOverlap,
-            string ringRem,          
+            string ringRem,  
+            bool dynamicFlatFielding,
             int threads,
             bool previewMode,
             string previewModeOutFile
@@ -145,7 +147,8 @@ namespace SYRMEPTomoProject.Jobs
             mExtFOV = extFOV;
             mExtFOVRight = extFOVRight;
             mExtFOVOverlap = extFOVOverlap;
-            mRingRem = ringRem;      
+            mRingRem = ringRem;
+            mDynamicFlatFielding = dynamicFlatFielding;
             mThreads = threads;
             mPreviewMode = previewMode;
             mPreviewModeOutFile = previewModeOutFile;
@@ -173,14 +176,15 @@ namespace SYRMEPTomoProject.Jobs
             bool extFOV,
             bool extFOVRight,
             int extFOVOverlap,
-            string ringRem,           
+            string ringRem,   
+            bool dynamicFlatFielding,
             int threads,
             bool previewMode,
             string previewModeOutFile,
             string logFile
             )
-            : this(inputFile, outputFile, from, to, normSx, normDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, ringRem,
-                threads, previewMode, previewModeOutFile)         
+            : this(inputFile, outputFile, from, to, normSx, normDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap,
+                ringRem, dynamicFlatFielding, threads, previewMode, previewModeOutFile)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -212,6 +216,7 @@ namespace SYRMEPTomoProject.Jobs
                 mExtFOVRight.ToString() + " " +
                 mExtFOVOverlap.ToString() + " " +
                 mRingRem + " " +
+                mDynamicFlatFielding.ToString() + " " +
                 mThreads.ToString() + " \"" + 
                 mLogFile + "\"";
           

@@ -92,6 +92,7 @@ namespace SYRMEPTomoProject.Jobs
         private string mPostProcessConvertArgs;
         private string mPostProcessCropArgs;
         private bool mPhaseRetrieval = false;
+        private int mPhrtMethod;
         private double mParam1;
         private double mParam2;
         private double mDistance;
@@ -180,6 +181,7 @@ namespace SYRMEPTomoProject.Jobs
             string postProcessConvertArgs,
             string postProcessCropArgs,
             bool phaseRetrieval,
+            int phrtMethod,
             double param1,
             double param2,
             double distance,
@@ -277,6 +279,7 @@ namespace SYRMEPTomoProject.Jobs
             string postProcessConvertArgs,
             string postProcessCropArgs,
             bool phaseRetrieval,
+            int phrtMethod,
             double param1,
             double param2, 
             double distance, 
@@ -287,7 +290,7 @@ namespace SYRMEPTomoProject.Jobs
             )
             : this(slicePrefix, imageIndex, inputFile, outputPath, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, ringRemoval, angles,
             center, reconFunc, reconParam1, scale, overPadding, logTransform, circle, zeroneMode, correctionOffset, offsetFrom, offsetTo, decimateFactor, downscaleFactor,
-            postProcess, postProcessConvertArgs, postProcessCropArgs, phaseRetrieval, param1, param2, distance, energy, pixelsize, phrtPad )
+            postProcess, postProcessConvertArgs, postProcessCropArgs, phaseRetrieval, phrtMethod, param1, param2, distance, energy, pixelsize, phrtPad )
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -343,6 +346,7 @@ namespace SYRMEPTomoProject.Jobs
                 mPostProcessConvertArgs + " " +
                 mPostProcessCropArgs + " " +
                 mPhaseRetrieval.ToString() + " " +
+                mPhrtMethod.ToString() + " " +
                 mParam1.ToString(CultureInfo.InvariantCulture) + " " +
                 mParam2.ToString(CultureInfo.InvariantCulture) + " " +
                 mEnergy.ToString(CultureInfo.InvariantCulture) + " " +

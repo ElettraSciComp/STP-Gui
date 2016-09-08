@@ -547,7 +547,7 @@ namespace SYRMEPTomoProject
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(288, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(319, 17);
             this.toolStripStatusLabel2.Spring = true;
             this.toolStripStatusLabel2.Text = " ";
             this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -587,10 +587,20 @@ namespace SYRMEPTomoProject
             0,
             0,
             0});
+            this.nudOutputCompression.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudOutputCompression.Name = "nudOutputCompression";
             this.nudOutputCompression.Size = new System.Drawing.Size(37, 20);
             this.nudOutputCompression.TabIndex = 30;
             this.nudOutputCompression.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudOutputCompression.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label3
             // 

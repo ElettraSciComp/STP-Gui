@@ -92,6 +92,7 @@ namespace SYRMEPTomoProject.Jobs
         private bool mPostProcess;
         private string mPostProcessConvertArgs;
         private string mPostProcessCropArgs;
+        private bool mDynamicFlatFielding;
         private string mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
             Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
             Path.DirectorySeparatorChar + "_rec_log_00.txt"; // It should be "*_00.txt"
@@ -174,7 +175,8 @@ namespace SYRMEPTomoProject.Jobs
             int downscaleFactor,
             bool postProcess,
             string postProcessConvertArgs,
-            string postProcessCropArgs
+            string postProcessCropArgs,
+            bool dynamicFlatFielding
             )
         {
             mPreProcess = preProcess;
@@ -209,6 +211,7 @@ namespace SYRMEPTomoProject.Jobs
             mPostProcess = postProcess;
             mPostProcessConvertArgs = postProcessConvertArgs;
             mPostProcessCropArgs = postProcessCropArgs;
+            mDynamicFlatFielding = dynamicFlatFielding;
         }
 
         /// <summary>
@@ -260,12 +263,13 @@ namespace SYRMEPTomoProject.Jobs
             bool postProcess,
             string postProcessConvertArgs,
             string postProcessCropArgs,
+            bool dynamicFlatFielding,
             string logFile
             )
             : this(inputFile, outputPath, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, ringRemoval, angles, 
             angles_ProjFrom, angles_ProjTo,
             center, reconFunc, reconParam1, scale, overPadding, logTransform, circle, zeroneMode, correctionOffset, from, to, threads, decimateFactor, downscaleFactor,
-            postProcess, postProcessConvertArgs, postProcessCropArgs)         
+            postProcess, postProcessConvertArgs, postProcessCropArgs, dynamicFlatFielding)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -318,6 +322,7 @@ namespace SYRMEPTomoProject.Jobs
                 mPostProcessCropArgs + " " +
                 mAngles_ProjFrom.ToString() + " " +
                 mAngles_ProjTo.ToString() + " " + 
+                mDynamicFlatFielding.ToString() + " " +
                 mThreads.ToString() + 
                 " \"" + mLogFile + "\"";
 

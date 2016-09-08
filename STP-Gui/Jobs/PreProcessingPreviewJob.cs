@@ -71,7 +71,8 @@ namespace SYRMEPTomoProject.Jobs
         private bool mExtFOV;
         private bool mExtFOVRight;
         private int mExtFOVOverlap;
-        private string mRingRem;     
+        private string mRingRem;
+        private bool mDynamicFlatFielding;
         private string mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
             Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
             Path.DirectorySeparatorChar + "_corr_log_00.txt"; // It should be "*_00.txt"
@@ -100,7 +101,8 @@ namespace SYRMEPTomoProject.Jobs
             bool extFOV,
             bool extFOVRight,
             int extFOVOverlap,
-            string ringRem         
+            string ringRem,
+            bool dynamicFlatFielding
             )
         {
             mImageIndex = imageIndex;
@@ -114,7 +116,8 @@ namespace SYRMEPTomoProject.Jobs
             mExtFOV = extFOV;
             mExtFOVRight = extFOVRight;
             mExtFOVOverlap = extFOVOverlap;
-            mRingRem = ringRem;     
+            mRingRem = ringRem;
+            mDynamicFlatFielding = dynamicFlatFielding;
         }
 
         /// <summary>
@@ -132,11 +135,12 @@ namespace SYRMEPTomoProject.Jobs
             bool extFOV,
             bool extFOVRight,
             int extFOVOverlap,
-            string ringRem,           
+            string ringRem,     
+            bool dynamicFlatFielding,
             string logFile
             )
-            : this(imageIndex, inputFile, outputFile, normSx, normDx, flatEnd, halfHalf, 
-                halfHalfLine, extFOV, extFOVRight, extFOVOverlap, ringRem)         
+            : this(imageIndex, inputFile, outputFile, normSx, normDx, flatEnd, halfHalf,
+                halfHalfLine, extFOV, extFOVRight, extFOVOverlap, ringRem, dynamicFlatFielding)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -167,7 +171,8 @@ namespace SYRMEPTomoProject.Jobs
                 mExtFOV.ToString() + " " + 
                 mExtFOVRight.ToString() + " " +
                 mExtFOVOverlap.ToString() + " " +
-                mRingRem + " \"" + 
+                mRingRem + " " +
+                mDynamicFlatFielding.ToString() + " \"" + 
                 Properties.Settings.Default.FormSettings_TemporaryPath
                 + Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID
                 + "\" \"" +

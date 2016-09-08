@@ -119,8 +119,6 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Jobs\DynamicFlatFieldingPreviewJob.cs" />
-    <Compile Include="Jobs\MonitoredJobs\DynamicFlatFieldingJob.cs" />
     <Compile Include="MultiOffset.cs">
       <SubType>Form</SubType>
     </Compile>

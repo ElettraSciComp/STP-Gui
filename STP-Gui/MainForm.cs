@@ -564,7 +564,7 @@ namespace SYRMEPTomoProject
             else
             {
                 InitializeReconstructionAlgorithmsDropDown(true);
-            }
+            }           
         }
 
         #endregion
@@ -573,52 +573,35 @@ namespace SYRMEPTomoProject
         {
             IJob zJob;
             string zRingRemString;
-            string zStrToMonitor;
+            bool zDynamicFlatFielding;
+
+            zDynamicFlatFielding = !(this.cbxFlatField.SelectedIndex == 0);
 
             zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
                 Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
 
-            if (this.cbxFlatField.SelectedIndex == 0)
-            {
-                // Execute with conventional flat fielding:
-                zJob = new PreProcessingJob(
-                       // Get combobox selection (in handler)
-                       ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key,
-                       this.lblPreProcessing_Output.Text,
-                       0,
-                       TDFReader.GetNumberOfSlices(((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key) - 1,
-                       Convert.ToInt32(this.nudNormSx.Value),
-                       Convert.ToInt32(this.nudNormDx.Value),
-                       chkDarkFlatEnd.Checked, // use flat at the end
-                       chkHalfHalfMode.Checked,
-                       Convert.ToInt32(this.nudHalfHalfMode.Value),
-                       chkExtendedFOV.Checked,
-                       chkExtFOV_AirRight.Checked,
-                       Convert.ToInt32(nudExtendedFOVOverlap.Value),
-                       zRingRemString,
-                       Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses),
-                       false,
-                       "-"
-                );
+            // Execute with conventional flat fielding:
+            zJob = new PreProcessingJob(
+                // Get combobox selection (in handler)
+                   ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key,
+                   this.lblPreProcessing_Output.Text,
+                   0,
+                   TDFReader.GetNumberOfSlices(((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key) - 1,
+                   Convert.ToInt32(this.nudNormSx.Value),
+                   Convert.ToInt32(this.nudNormDx.Value),
+                   chkDarkFlatEnd.Checked, // use flat at the end
+                   chkHalfHalfMode.Checked,
+                   Convert.ToInt32(this.nudHalfHalfMode.Value),
+                   chkExtendedFOV.Checked,
+                   chkExtFOV_AirRight.Checked,
+                   Convert.ToInt32(nudExtendedFOVOverlap.Value),
+                   zRingRemString,
+                   zDynamicFlatFielding,
+                   Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses),
+                   false,
+                   "-"
+            );
 
-                zStrToMonitor = "sino";
-            }
-            else
-            {
-                zJob = new DynamicFlatFieldingJob(
-                    // Get combobox selection (in handler)
-                    ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key,
-                    this.lblPreProcessing_Output.Text,
-                    0,
-                    TDFReader.GetNumberOfProjections(((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key) - 1,
-                    Convert.ToInt32(this.nudNormSx.Value),
-                    Convert.ToInt32(this.nudNormDx.Value),
-                    Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses)
-                );
-
-                zStrToMonitor = "tomo";
-            }
-            
 
             // Create an instance of JobExecuter with the pre processing job:
             JobExecuter zExecuter = new JobExecuter(zJob);
@@ -627,7 +610,7 @@ namespace SYRMEPTomoProject
             zExecuter.Run();
 
             // Start the monitoring of the job:
-            mJobMonitor.Run(zExecuter, zStrToMonitor);
+            mJobMonitor.Run(zExecuter, "sino");
         }
 
         private void Form1_Layout(object sender, LayoutEventArgs e)
@@ -726,6 +709,9 @@ namespace SYRMEPTomoProject
             string zCropString;
             double zCorrectionOffset = 0.0;
             string zParam1 = "-";
+            bool zDynamicFlatFielding;
+
+            zDynamicFlatFielding = !(this.cbxFlatField.SelectedIndex == 0);
 
             zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
                 Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
@@ -801,7 +787,8 @@ namespace SYRMEPTomoProject
                 Convert.ToInt32(this.nudReconstructionTab_Downscale.Value),
                 chkReconstructionTab_PostProcess.Checked,
                 zConvertTo8String,
-                zCropString
+                zCropString,
+                zDynamicFlatFielding            
                 );
 
 
@@ -850,6 +837,9 @@ namespace SYRMEPTomoProject
             string zCropString;
             double zCorrectionOffset = 0.0;
             string zParam1 = "-";
+            bool zDynamicFlatFielding;
+
+            zDynamicFlatFielding = !(this.cbxFlatField.SelectedIndex == 0);
 
             zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
                 nudRingRemParam1.Value.ToString() + ";" + nudRingRemParam2.Value.ToString();
@@ -924,7 +914,8 @@ namespace SYRMEPTomoProject
                 Convert.ToInt32(this.nudReconstructionTab_Downscale.Value),
                 chkReconstructionTab_PostProcess.Checked,
                 zConvertTo8String,
-                zCropString
+                zCropString,
+                zDynamicFlatFielding
                 );
 
             // Create an instance of JobExecuter with the reconstruction job 
@@ -1873,6 +1864,7 @@ namespace SYRMEPTomoProject
         {
             IJob zJob;
             string zTempFile;
+            bool zDynamicFlatFielding;
 
             // Modify the cursor:
             mGlass = new HourGlass();
@@ -1882,42 +1874,30 @@ namespace SYRMEPTomoProject
                 + Properties.Settings.Default.SessionID + Path.DirectorySeparatorChar +
                 Program.GetTimestamp(DateTime.Now);
 
-            if (this.cbxFlatField.SelectedIndex == 0)
-            {
-                // Preview with conventional flat fielding:
+            string zRingRemString;
 
-                string zRingRemString;
+            zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
+                Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
 
-                zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
-                    Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
+            zDynamicFlatFielding = !(this.cbxFlatField.SelectedIndex == 0);
 
-                // Create an instance for the job:
-                zJob = new PreProcessingPreviewJob(
-                       Convert.ToInt32(this.nudPreprocessingTab_Preview.Value),
-                       ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key,
-                       zTempFile,
-                       Convert.ToInt32(this.nudNormSx.Value),
-                       Convert.ToInt32(this.nudNormDx.Value),
-                       chkDarkFlatEnd.Checked, // use flat at the end
-                       chkHalfHalfMode.Checked,
-                       Convert.ToInt32(this.nudHalfHalfMode.Value),
-                       chkExtendedFOV.Checked,
-                       chkExtFOV_AirRight.Checked,
-                       Convert.ToInt32(nudExtendedFOVOverlap.Value),
-                       zRingRemString
-                );
-            }
-            else
-            {
-                 // Create an instance for the job:
-                zJob = new DynamicFlatFieldingPreviewJob(
-                       Convert.ToInt32(this.nudPreprocessingTab_Preview.Value),
-                       ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key,
-                       zTempFile,
-                       Convert.ToInt32(this.nudNormSx.Value),
-                       Convert.ToInt32(this.nudNormDx.Value)
-                );
-            }
+            // Create an instance for the job:
+            zJob = new PreProcessingPreviewJob(
+                   Convert.ToInt32(this.nudPreprocessingTab_Preview.Value),
+                   ((KeyValuePair<string, string>)this.cbxPreProcessing_Input.SelectedItem).Key,
+                   zTempFile,
+                   Convert.ToInt32(this.nudNormSx.Value),
+                   Convert.ToInt32(this.nudNormDx.Value),
+                   chkDarkFlatEnd.Checked, // use flat at the end
+                   chkHalfHalfMode.Checked,
+                   Convert.ToInt32(this.nudHalfHalfMode.Value),
+                   chkExtendedFOV.Checked,
+                   chkExtFOV_AirRight.Checked,
+                   Convert.ToInt32(nudExtendedFOVOverlap.Value),
+                   zRingRemString,
+                   zDynamicFlatFielding
+            );
+
 
             // Create an instance of JobExecuter with the job:
             JobExecuter zExecuter = new JobExecuter(zJob);
@@ -1986,6 +1966,9 @@ namespace SYRMEPTomoProject
             string zConvertTo8String;
             string zCropString;
             string zParam1;
+            bool zDynamicFlatFielding;
+
+            zDynamicFlatFielding = !(this.cbxFlatField.SelectedIndex == 0);
 
             zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
                 Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
@@ -2063,7 +2046,8 @@ namespace SYRMEPTomoProject
                 Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
                 Convert.ToDouble(this.nudPhaseRetrievalTab_Energy.Value),
                 Convert.ToDouble(this.nudPhaseRetrievalTab_PixelSize.Value),
-                this.chkPhaseRetrievalTab_OverPadding.Checked
+                this.chkPhaseRetrievalTab_OverPadding.Checked,
+                zDynamicFlatFielding
             );
 
             // Create an instance of JobExecuter with the job:
@@ -2741,6 +2725,7 @@ namespace SYRMEPTomoProject
                 zConvertTo8String,
                 zCropString,
                 this.chkPhrtOnTheFly.Checked,
+                Convert.ToInt32(((KeyValuePair<string, string>)this.cbxPhaseRetrievalTab_Algorithms.SelectedItem).Key),
                 Convert.ToDouble(this.nudPhaseRetrievalTab_Beta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_BetaExp.Value)),
                 Convert.ToDouble(this.nudPhaseRetrievalTab_Delta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_DeltaExp.Value)),
                 Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
@@ -2830,57 +2815,16 @@ namespace SYRMEPTomoProject
                 if (this.cbxFlatField.SelectedIndex == 0)
                 {
                     // Conventional flat fielding:                    
-                    this.label51.Visible = true;
-                    this.label51.Text = "Air left:";
-                    this.label52.Visible = true;
-                    this.label52.Text = "Air right:";
                     this.chkDarkFlatEnd.Visible = true;
                     this.chkHalfHalfMode.Visible = true;
                     this.nudHalfHalfMode.Visible = true;
-                    lblPreProcessing_Output.Text = zString.Remove(zString.Length - 4) + "_corr.tdf";
-
-                    this.groupBox28.Enabled = true;
-                    this.groupBox8.Enabled = true;
-                    this.lblPreprocessingTab_Preview.Text = "Sinogram:";
-                    
-                    this.nudPreprocessingTab_Preview.Minimum = 0;
-                    this.nudPreprocessingTab_Preview.Maximum = TDFReader.GetNumberOfSlices(zString) - 1;
-                    this.nudPreprocessingTab_Preview.Value = Convert.ToDecimal(TDFReader.GetNumberOfSlices(zString) / 2);
-
-                    this.nudNormSx.Maximum = TDFReader.GetDetectorSize(zString) - 1;
-                    this.nudNormSx.Minimum = 0;
-                    this.nudNormDx.Maximum = TDFReader.GetDetectorSize(zString) - 1;
-                    this.nudNormDx.Minimum = 0;
-
                 }
                 else
                 {
-                    // Dynamic flat fielding:
-                    this.label51.Visible = true;
-                    this.label51.Text = "Downscale:";
-                    this.label52.Visible = true;
-                    this.label52.Text = "Repetitions:";
+                    // Dynamic flat fielding:                 
                     this.chkDarkFlatEnd.Visible = false;
                     this.chkHalfHalfMode.Visible = false;
-                    this.nudHalfHalfMode.Visible = false;
-                    lblPreProcessing_Output.Text = zString.Remove(zString.Length - 4) + "_dff.tdf";
-
-                    // Downscale:
-                    this.nudNormSx.Maximum = 10;
-                    this.nudNormSx.Minimum = 2;
-                    this.nudNormSx.Value = 2;
-                    // Repetitions:
-                    this.nudNormDx.Maximum = 99;
-                    this.nudNormDx.Minimum = 1;
-                    this.nudNormDx.Value = 10;
-
-                    this.groupBox28.Enabled = false;
-                    this.groupBox8.Enabled = false;
-                    this.lblPreprocessingTab_Preview.Text = "Projection:";
-
-                    this.nudPreprocessingTab_Preview.Minimum = 0;
-                    this.nudPreprocessingTab_Preview.Maximum = TDFReader.GetNumberOfProjections(zString) - 1;
-                    this.nudPreprocessingTab_Preview.Value = Convert.ToDecimal(TDFReader.GetNumberOfProjections(zString) / 2);
+                    this.nudHalfHalfMode.Visible = false;                  
                 }
             }
             catch (Exception ex)

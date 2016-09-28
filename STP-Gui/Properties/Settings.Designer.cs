@@ -169,7 +169,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.1.41")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.1.43")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -364,7 +364,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public decimal HIS2TDF_gZipCompression {
             get {
                 return ((decimal)(this["HIS2TDF_gZipCompression"]));
@@ -424,7 +424,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public decimal TIFF2TDF_gZipCompression {
             get {
                 return ((decimal)(this["TIFF2TDF_gZipCompression"]));
@@ -763,7 +763,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public decimal EDF2TDF_gZipCompression {
             get {
                 return ((decimal)(this["EDF2TDF_gZipCompression"]));
@@ -968,6 +968,27 @@ namespace SYRMEPTomoProject.Properties {
         public string OpenSourceLicenses {
             get {
                 return ((string)(this["OpenSourceLicenses"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("tools_multiangle.py")]
+        public string MultiAngleJob {
+            get {
+                return ((string)(this["MultiAngleJob"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MultiAngle_Path {
+            get {
+                return ((string)(this["MultiAngle_Path"]));
+            }
+            set {
+                this["MultiAngle_Path"] = value;
             }
         }
     }

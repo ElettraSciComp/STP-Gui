@@ -169,6 +169,7 @@ namespace SYRMEPTomoProject
             this.label10 = new System.Windows.Forms.Label();
             this.vNavPaneItem4 = new VIBlend.WinForms.Controls.vNavPaneItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnMultipleAngles = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.nudAnglesProjTo = new System.Windows.Forms.NumericUpDown();
             this.nudAnglesProjFrom = new System.Windows.Forms.NumericUpDown();
@@ -850,11 +851,11 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem3.ItemPanel.Controls.Add(this.gbxPreProcessing_Preview);
             this.vNavPaneItem3.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem3.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem3.ItemPanel.Size = new System.Drawing.Size(452, 536);
+            this.vNavPaneItem3.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem3.ItemPanel.TabIndex = 1;
             this.vNavPaneItem3.Location = new System.Drawing.Point(0, 30);
             this.vNavPaneItem3.Name = "vNavPaneItem3";
-            this.vNavPaneItem3.Size = new System.Drawing.Size(454, 567);
+            this.vNavPaneItem3.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem3.TabIndex = 2;
             this.vNavPaneItem3.Text = "vProjectionsPaneItem";
             this.vNavPaneItem3.TooltipText = "Pre-processing";
@@ -1276,7 +1277,7 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem7.ItemPanel.Name = "ItemPanel";
             this.vNavPaneItem7.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem7.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem7.Location = new System.Drawing.Point(0, 597);
+            this.vNavPaneItem7.Location = new System.Drawing.Point(0, 60);
             this.vNavPaneItem7.Name = "vNavPaneItem7";
             this.vNavPaneItem7.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem7.TabIndex = 5;
@@ -1730,17 +1731,18 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem4.ItemPanel.Controls.Add(this.groupBox11);
             this.vNavPaneItem4.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem4.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem4.ItemPanel.Size = new System.Drawing.Size(452, 0);
+            this.vNavPaneItem4.ItemPanel.Size = new System.Drawing.Size(452, 536);
             this.vNavPaneItem4.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem4.Location = new System.Drawing.Point(0, 627);
+            this.vNavPaneItem4.Location = new System.Drawing.Point(0, 90);
             this.vNavPaneItem4.Name = "vNavPaneItem4";
-            this.vNavPaneItem4.Size = new System.Drawing.Size(454, 30);
+            this.vNavPaneItem4.Size = new System.Drawing.Size(454, 567);
             this.vNavPaneItem4.TabIndex = 3;
             this.vNavPaneItem4.Text = "vReconstructionPaneItem";
             this.vNavPaneItem4.TooltipText = "Reconstruction";
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnMultipleAngles);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.nudAnglesProjTo);
             this.groupBox1.Controls.Add(this.nudAnglesProjFrom);
@@ -1752,6 +1754,17 @@ namespace SYRMEPTomoProject
             this.groupBox1.TabIndex = 42;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Angles/Projections";
+            // 
+            // btnMultipleAngles
+            // 
+            this.btnMultipleAngles.Enabled = false;
+            this.btnMultipleAngles.Location = new System.Drawing.Point(314, 21);
+            this.btnMultipleAngles.Name = "btnMultipleAngles";
+            this.btnMultipleAngles.Size = new System.Drawing.Size(75, 23);
+            this.btnMultipleAngles.TabIndex = 49;
+            this.btnMultipleAngles.Text = "Test...";
+            this.btnMultipleAngles.UseVisualStyleBackColor = true;
+            this.btnMultipleAngles.Click += new System.EventHandler(this.btnMultipleAngles_Click);
             // 
             // label1
             // 
@@ -3419,6 +3432,7 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown nudAnglesProjTo;
         private System.Windows.Forms.NumericUpDown nudAnglesProjFrom;
+        private System.Windows.Forms.Button btnMultipleAngles;
     }
 }
 

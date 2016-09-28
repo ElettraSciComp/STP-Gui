@@ -23,7 +23,7 @@
 
 namespace SYRMEPTomoProject
 {
-    partial class MultiOffset
+    partial class MultiAngle
     {
         /// <summary>
         /// Required designer variable.
@@ -51,7 +51,7 @@ namespace SYRMEPTomoProject
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MultiOffset));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MultiAngle));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lblInputTDF = new System.Windows.Forms.Label();
             this.btnOutputTIFFs = new System.Windows.Forms.Button();
@@ -68,13 +68,13 @@ namespace SYRMEPTomoProject
             this.zTiming_ToolStripLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.mStatusBarProgressBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.nudMultiOffset_From = new System.Windows.Forms.NumericUpDown();
-            this.nudMultiOffset_To = new System.Windows.Forms.NumericUpDown();
+            this.nudMultiAngle_From = new System.Windows.Forms.NumericUpDown();
+            this.nudMultiAngle_To = new System.Windows.Forms.NumericUpDown();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.lblNrProjections = new System.Windows.Forms.Label();
+            this.lblOffset = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.lblAlgorithm = new System.Windows.Forms.Label();
             this.lblPostProcessing = new System.Windows.Forms.Label();
@@ -95,8 +95,8 @@ namespace SYRMEPTomoProject
             this.groupBox3.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMultiOffset_From)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMultiOffset_To)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMultiAngle_From)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMultiAngle_To)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.SuspendLayout();
@@ -242,62 +242,62 @@ namespace SYRMEPTomoProject
             this.mStatusBarProgressBar.Name = "mStatusBarProgressBar";
             this.mStatusBarProgressBar.Size = new System.Drawing.Size(100, 16);
             // 
-            // nudMultiOffset_From
+            // nudMultiAngle_From
             // 
-            this.nudMultiOffset_From.Enabled = false;
-            this.nudMultiOffset_From.Location = new System.Drawing.Point(252, 19);
-            this.nudMultiOffset_From.Maximum = new decimal(new int[] {
+            this.nudMultiAngle_From.Enabled = false;
+            this.nudMultiAngle_From.Location = new System.Drawing.Point(271, 19);
+            this.nudMultiAngle_From.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
-            this.nudMultiOffset_From.Minimum = new decimal(new int[] {
+            this.nudMultiAngle_From.Minimum = new decimal(new int[] {
             9999,
             0,
             0,
             -2147483648});
-            this.nudMultiOffset_From.Name = "nudMultiOffset_From";
-            this.nudMultiOffset_From.Size = new System.Drawing.Size(50, 20);
-            this.nudMultiOffset_From.TabIndex = 17;
-            this.nudMultiOffset_From.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudMultiOffset_From.Value = new decimal(new int[] {
+            this.nudMultiAngle_From.Name = "nudMultiAngle_From";
+            this.nudMultiAngle_From.Size = new System.Drawing.Size(50, 20);
+            this.nudMultiAngle_From.TabIndex = 17;
+            this.nudMultiAngle_From.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudMultiAngle_From.Value = new decimal(new int[] {
             40,
             0,
             0,
             -2147483648});
-            this.nudMultiOffset_From.ValueChanged += new System.EventHandler(this.nudMultiOffset_From_ValueChanged);
+            this.nudMultiAngle_From.ValueChanged += new System.EventHandler(this.nudMultiAngle_From_ValueChanged);
             // 
-            // nudMultiOffset_To
+            // nudMultiAngle_To
             // 
-            this.nudMultiOffset_To.Enabled = false;
-            this.nudMultiOffset_To.Location = new System.Drawing.Point(333, 19);
-            this.nudMultiOffset_To.Maximum = new decimal(new int[] {
+            this.nudMultiAngle_To.Enabled = false;
+            this.nudMultiAngle_To.Location = new System.Drawing.Point(339, 19);
+            this.nudMultiAngle_To.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
-            this.nudMultiOffset_To.Minimum = new decimal(new int[] {
+            this.nudMultiAngle_To.Minimum = new decimal(new int[] {
             9999,
             0,
             0,
             -2147483648});
-            this.nudMultiOffset_To.Name = "nudMultiOffset_To";
-            this.nudMultiOffset_To.Size = new System.Drawing.Size(50, 20);
-            this.nudMultiOffset_To.TabIndex = 16;
-            this.nudMultiOffset_To.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudMultiOffset_To.Value = new decimal(new int[] {
+            this.nudMultiAngle_To.Name = "nudMultiAngle_To";
+            this.nudMultiAngle_To.Size = new System.Drawing.Size(50, 20);
+            this.nudMultiAngle_To.TabIndex = 16;
+            this.nudMultiAngle_To.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudMultiAngle_To.Value = new decimal(new int[] {
             40,
             0,
             0,
             0});
-            this.nudMultiOffset_To.ValueChanged += new System.EventHandler(this.nudMultiOffset_To_ValueChanged);
+            this.nudMultiAngle_To.ValueChanged += new System.EventHandler(this.nudMultiAngle_To_ValueChanged);
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.nudMultiAngle_To);
+            this.groupBox5.Controls.Add(this.nudMultiAngle_From);
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.label1);
-            this.groupBox5.Controls.Add(this.nudMultiOffset_To);
-            this.groupBox5.Controls.Add(this.nudMultiOffset_From);
             this.groupBox5.Location = new System.Drawing.Point(17, 245);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(405, 51);
@@ -308,7 +308,7 @@ namespace SYRMEPTomoProject
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(310, 22);
+            this.label2.Location = new System.Drawing.Point(323, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(16, 13);
             this.label2.TabIndex = 19;
@@ -317,15 +317,15 @@ namespace SYRMEPTomoProject
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 22);
+            this.label1.Location = new System.Drawing.Point(8, 23);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(237, 13);
+            this.label1.Size = new System.Drawing.Size(266, 13);
             this.label1.TabIndex = 18;
-            this.label1.Text = "Reconstruct with offset for center of rotation from";
+            this.label1.Text = "Reconstruct with a variable number of projections from:";
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.lblNrProjections);
+            this.groupBox7.Controls.Add(this.lblOffset);
             this.groupBox7.Controls.Add(this.label14);
             this.groupBox7.Controls.Add(this.lblAlgorithm);
             this.groupBox7.Controls.Add(this.lblPostProcessing);
@@ -350,23 +350,23 @@ namespace SYRMEPTomoProject
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Significant settings (from Reconstruction tab)";
             // 
-            // lblNrProjections
+            // lblOffset
             // 
-            this.lblNrProjections.AutoSize = true;
-            this.lblNrProjections.Location = new System.Drawing.Point(311, 85);
-            this.lblNrProjections.Name = "lblNrProjections";
-            this.lblNrProjections.Size = new System.Drawing.Size(10, 13);
-            this.lblNrProjections.TabIndex = 39;
-            this.lblNrProjections.Text = "-";
+            this.lblOffset.AutoSize = true;
+            this.lblOffset.Location = new System.Drawing.Point(311, 85);
+            this.lblOffset.Name = "lblOffset";
+            this.lblOffset.Size = new System.Drawing.Size(10, 13);
+            this.lblOffset.TabIndex = 39;
+            this.lblOffset.Text = "-";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(219, 85);
+            this.label14.Location = new System.Drawing.Point(271, 85);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(90, 13);
+            this.label14.Size = new System.Drawing.Size(38, 13);
             this.label14.TabIndex = 38;
-            this.label14.Text = "Nr. of projections:";
+            this.label14.Text = "Offset:";
             // 
             // lblAlgorithm
             // 
@@ -512,7 +512,7 @@ namespace SYRMEPTomoProject
             this.label3.TabIndex = 22;
             this.label3.Text = "Slice nr:";
             // 
-            // MultiOffset
+            // MultiAngle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -528,19 +528,19 @@ namespace SYRMEPTomoProject
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "MultiOffset";
+            this.Name = "MultiAngle";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Test reconstruction with offset range";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MultiOffset_FormClosing);
-            this.Load += new System.EventHandler(this.MultiOffset_Load);
+            this.Text = "Test reconstruction with projections (angles) range";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MultiAngle_FormClosing);
+            this.Load += new System.EventHandler(this.MultiAngle_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMultiOffset_From)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMultiOffset_To)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMultiAngle_From)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMultiAngle_To)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -568,8 +568,8 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripProgressBar mStatusBarProgressBar;
         private System.Windows.Forms.Label lblInputTDF;
-        private System.Windows.Forms.NumericUpDown nudMultiOffset_From;
-        private System.Windows.Forms.NumericUpDown nudMultiOffset_To;
+        private System.Windows.Forms.NumericUpDown nudMultiAngle_From;
+        private System.Windows.Forms.NumericUpDown nudMultiAngle_To;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -590,7 +590,7 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.Label lblDownscalingFactor;
         private System.Windows.Forms.Label lblDecimationFactor;
         private System.Windows.Forms.Label lblSliceNr;
-        private System.Windows.Forms.Label lblNrProjections;
+        private System.Windows.Forms.Label lblOffset;
         private System.Windows.Forms.Label label14;
     }
 }

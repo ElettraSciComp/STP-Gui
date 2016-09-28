@@ -23,7 +23,7 @@
 
 //
 // Author: Francesco Brun
-// Last modified: July, 8th 2016
+// Last modified: Sept, 28th 2016
 //
 
 
@@ -43,7 +43,7 @@ using SYRMEPTomoProject.Jobs;
 
 namespace SYRMEPTomoProject
 {
-    public partial class MultiOffset : Form
+    public partial class MultiAngle : Form
     {
         private DateTime mDt;
         private JobMonitor mJobMonitor;
@@ -89,7 +89,7 @@ namespace SYRMEPTomoProject
         private int mAnglesProjTo;
 
 
-        public MultiOffset(
+        public MultiAngle(
             string slicePrefix,
             int imageIndex,
             string inputTDF,
@@ -294,7 +294,7 @@ namespace SYRMEPTomoProject
 
         #endregion       
 
-        private void MultiOffset_Load(object sender, EventArgs e)
+        private void MultiAngle_Load(object sender, EventArgs e)
         {
             // Center parent:
             if (Owner != null)
@@ -302,29 +302,33 @@ namespace SYRMEPTomoProject
                     Owner.Location.Y + Owner.Height / 2 - Height / 2);
 
             // Load settings:
-            this.nudMultiOffset_From.Value = Properties.Settings.Default.MultiOffset_From;
-            this.nudMultiOffset_To.Value = Properties.Settings.Default.MultiOffset_To;
-            this.zOutputPathTxb.Text = Properties.Settings.Default.MultiOffset_Path;
+            this.nudMultiAngle_From.Value = Properties.Settings.Default.MultiOffset_From;
+            this.nudMultiAngle_To.Value = Properties.Settings.Default.MultiOffset_To;
+            this.zOutputPathTxb.Text = Properties.Settings.Default.MultiAngle_Path;
 
             this.lblInputTDF.Text = Path.GetFileName(mInputTDF);
             this.lblSliceNr.Text = mImageIndex.ToString();
             this.lblAlgorithm.Text = mReconFunc;
             this.lblDecimationFactor.Text = mDecimateFactor.ToString();
             this.lblDownscalingFactor.Text = mDownscaleFactor.ToString();
-            this.lblNrProjections.Text = (this.mAnglesProjTo - this.mAnglesProjFrom + 1).ToString();
+            this.lblOffset.Text = mCenter.ToString();
             this.lblAngles.Text = (mAngles / Math.PI * 180.0).ToString("0.000");            
             this.lblPreProcessing.Text = mPreProcess ? "yes" : "no";
             this.lblPostProcessing.Text = mPostProcess ? "yes" : "no";
             this.lblPhaseRetrieval.Text = mPhaseRetrieval ? "yes" : "no";
 
-            this.nudMultiOffset_From.Minimum = - TDFReader.GetDetectorSize(mInputTDF) / 2;
-            this.nudMultiOffset_From.Maximum = TDFReader.GetDetectorSize(mInputTDF) / 2;
+            this.nudMultiAngle_From.Minimum = 0;
+            this.nudMultiAngle_From.Maximum = TDFReader.GetNumberOfProjections(mInputTDF) - 1;
+            this.nudMultiAngle_From.Value = Convert.ToDecimal(this.mAnglesProjTo) - 100;
+            
 
-            this.nudMultiOffset_To.Minimum = - TDFReader.GetDetectorSize(mInputTDF) / 2;
-            this.nudMultiOffset_To.Maximum = TDFReader.GetDetectorSize(mInputTDF) / 2;
+            this.nudMultiAngle_To.Minimum = 0;
+            this.nudMultiAngle_To.Maximum = TDFReader.GetNumberOfProjections(mInputTDF) - 1;
+            this.nudMultiAngle_To.Value = Convert.ToDecimal(this.mAnglesProjTo);
+            
         }
 
-        private void MultiOffset_FormClosing(object sender, FormClosingEventArgs e)
+        private void MultiAngle_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (mRunning)
             {
@@ -335,9 +339,7 @@ namespace SYRMEPTomoProject
             // Serialize settings:
             if (!e.Cancel)
             {
-                Properties.Settings.Default["MultiOffset_From"] = this.nudMultiOffset_From.Value;
-                Properties.Settings.Default["MultiOffset_To"] = this.nudMultiOffset_To.Value;
-                Properties.Settings.Default["MultiOffset_Path"] = this.zOutputPathTxb.Text;
+                Properties.Settings.Default["MultiAngle_Path"] = this.zOutputPathTxb.Text;
 
                 Properties.Settings.Default.Save();
             }
@@ -366,7 +368,7 @@ namespace SYRMEPTomoProject
             IJob zJob;
 
             // Create an instance for the multi offset job:
-            zJob = new MultiOffsetJob(  
+            zJob = new MultiAngleJob(  
                 this.mSlicePrefix,
                 this.mImageIndex,
                 this.mInputTDF,
@@ -391,8 +393,6 @@ namespace SYRMEPTomoProject
                 this.mCircle,
                 this.mZeroneMode,
                 this.mCorrectionOffset,
-                Convert.ToInt32(this.nudMultiOffset_From.Value),
-                Convert.ToInt32(this.nudMultiOffset_To.Value),
                 this.mDecimateFactor,
                 this.mDownscaleFactor,
                 this.mPostProcess,
@@ -405,9 +405,9 @@ namespace SYRMEPTomoProject
                 this.mDistance, 
                 this.mEnergy, 
                 this.mPixelsize,
-                this.mPhrtPad,
-                this.mAnglesProjFrom,
-                this.mAnglesProjTo
+                this.mPhrtPad,               
+                Convert.ToInt32(this.nudMultiAngle_From.Value),
+                Convert.ToInt32(this.nudMultiAngle_To.Value)
                     );
 
             // Create an instance of JobExecuter with the Phase Retrieval job 
@@ -418,7 +418,7 @@ namespace SYRMEPTomoProject
             zExecuter.Run();
 
             // Start the monitoring of the job:
-            int zLines = (Convert.ToInt32(this.nudMultiOffset_To.Value - this.nudMultiOffset_From.Value))/mDownscaleFactor + 1;
+            int zLines = (Convert.ToInt32(this.nudMultiAngle_To.Value - this.nudMultiAngle_From.Value)) + 1;
             mJobMonitor.Run(zExecuter, this.mSlicePrefix, zLines);
         }
 
@@ -426,36 +426,36 @@ namespace SYRMEPTomoProject
         {
             if (Directory.Exists(zOutputPathTxb.Text))
             {
-                this.nudMultiOffset_From.Enabled = true;
-                this.nudMultiOffset_To.Enabled = true;
+                this.nudMultiAngle_From.Enabled = true;
+                this.nudMultiAngle_To.Enabled = true;
                 this.btnReconstruct.Enabled = true;
                 this.toolStripStatusLabel1.Text = "";               
             }
             else
             {
-                this.nudMultiOffset_From.Enabled = false;
-                this.nudMultiOffset_To.Enabled = false;
+                this.nudMultiAngle_From.Enabled = false;
+                this.nudMultiAngle_To.Enabled = false;
                 this.btnReconstruct.Enabled = false;
                 this.toolStripStatusLabel1.Text = "Invalid folder.";
             }           
         }
 
-        private void nudMultiOffset_From_ValueChanged(object sender, EventArgs e)
+        private void nudMultiAngle_From_ValueChanged(object sender, EventArgs e)
         {
-            if (this.nudMultiOffset_To.Value < this.nudMultiOffset_From.Value)
+            if (this.nudMultiAngle_To.Value < this.nudMultiAngle_From.Value)
             {
-                this.nudMultiOffset_To.Value = this.nudMultiOffset_From.Value;
+                this.nudMultiAngle_To.Value = this.nudMultiAngle_From.Value;
             }
-            this.nudMultiOffset_To.Minimum = this.nudMultiOffset_From.Value;
+            this.nudMultiAngle_To.Minimum = this.nudMultiAngle_From.Value;
         }
 
-        private void nudMultiOffset_To_ValueChanged(object sender, EventArgs e)
+        private void nudMultiAngle_To_ValueChanged(object sender, EventArgs e)
         {
-            if (this.nudMultiOffset_From.Value > this.nudMultiOffset_To.Value)
+            if (this.nudMultiAngle_From.Value > this.nudMultiAngle_To.Value)
             {
-                this.nudMultiOffset_From.Value = this.nudMultiOffset_To.Value;
+                this.nudMultiAngle_From.Value = this.nudMultiAngle_To.Value;
             }
-            this.nudMultiOffset_From.Maximum = this.nudMultiOffset_To.Value;
+            this.nudMultiAngle_From.Maximum = this.nudMultiAngle_To.Value;
         }
 
 

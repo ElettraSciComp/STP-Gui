@@ -2,21 +2,22 @@
 /* (C) 2016 Elettra - Sincrotrone Trieste S.C.p.A.. All rights reserved.   */
 /*                                                                         */
 /*                                                                         */
-/* This file is part of STP-Core, the Python core of SYRMEP Tomo Project,  */
-/* a software tool for the reconstruction of experimental CT datasets.     */
+/* This file is part of STP-Gui, the .NET Graphical User Interface of      */
+/* SYRMEP Tomo Project, a software tool for the reconstruction of          */
+/* experimental CT datasets.                                               */
 /*                                                                         */
-/* STP-Core is free software: you can redistribute it and/or modify it     */
+/* STP-Gui is free software: you can redistribute it and/or modify it      */
 /* under the terms of the GNU General Public License as published by the   */
 /* Free Software Foundation, either version 3 of the License, or (at your  */
 /* option) any later version.                                              */
 /*                                                                         */
-/* STP-Core is distributed in the hope that it will be useful, but WITHOUT */
+/* STP-Gui is distributed in the hope that it will be useful, but WITHOUT  */
 /* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or   */
 /* FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License    */
 /* for more details.                                                       */
 /*                                                                         */
 /* You should have received a copy of the GNU General Public License       */
-/* along with STP-Core. If not, see <http://www.gnu.org/licenses/>.        */
+/* along with STP-Gui. If not, see <http://www.gnu.org/licenses/>.         */
 /*                                                                         */
 /***************************************************************************/
 
@@ -1026,7 +1027,9 @@ namespace SYRMEPTomoProject
                 // Get combobox selection (in handler)
                 ((KeyValuePair<string, string>)this.tbxDatasetName.SelectedItem).Key,
                 zScale,
-                Convert.ToDouble(this.nudAngles.Value) * Math.PI / 180.0
+                Convert.ToDouble(this.nudAngles.Value) * Math.PI / 180.0,
+                Convert.ToInt32(this.nudAnglesProjFrom.Value),
+                Convert.ToInt32(this.nudAnglesProjTo.Value)
             );
 
             // Create an instance of JobExecuter with the guess center job:
@@ -1817,6 +1820,7 @@ namespace SYRMEPTomoProject
 
                 this.btnReconstructionGuess.Enabled = true;
                 this.btnMultipleCenters.Enabled = true;
+                this.btnMultipleAngles.Enabled = true;
 
                 this.lblExecutionOutput.Enabled = true;
                 this.lblReconstructionOutputPath.Enabled = true;
@@ -2741,7 +2745,7 @@ namespace SYRMEPTomoProject
         private void openSourceLicensesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenSourceAboutBox zAboutBox = new OpenSourceAboutBox();
-
+            
             zAboutBox.ShowDialog(this);
         }
 
@@ -2834,6 +2838,96 @@ namespace SYRMEPTomoProject
             {
                 mGlass.Dispose();
             }
+        }
+
+        private void btnMultipleAngles_Click(object sender, EventArgs e)
+        {
+            double zScale = 1.0;
+            double zCorrectionOffset = 0.0;
+            string zRingRemString;
+            string zConvertTo8String;
+            string zCropString;
+            string zParam1;
+
+            zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
+                Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
+
+            zConvertTo8String = ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key + ":" +
+                (double.Parse(txbPostProcessingTab_LinearRescaleMin.Text, CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture) + ";" +
+                (double.Parse(txbPostProcessingTab_LinearRescaleMax.Text, CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture);
+
+            zCropString = Convert.ToInt32(nudConvertToTDF_CropTop.Value).ToString() + ":" +
+                          Convert.ToInt32(nudConvertToTDF_CropBottom.Value).ToString() + ":" +
+                          Convert.ToInt32(nudConvertToTDF_CropLeft.Value).ToString() + ":" +
+                          Convert.ToInt32(nudConvertToTDF_CropRight.Value).ToString();
+
+            double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
+            if ((Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
+                zScale = 2.0;
+
+            if (this.chkCorrectionOffset.Checked)
+                zCorrectionOffset = Convert.ToDouble(this.nudCorrectionOffset.Value);
+
+            // Get algorithm-specific parameters:
+            if ((((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FBP_CUDA") ||
+                 (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "SCIKIT-FBP"))
+            {
+                zParam1 = ((KeyValuePair<string, string>)this.cbxAlgorithmParameterFilter.SelectedItem).Key.ToString();
+            }
+            else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "GRIDREC")
+            {
+                zParam1 = Convert.ToDouble(this.nudGridRec.Value).ToString();
+            }
+            else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FISTA-TV_CUDA")
+            {
+                zParam1 = Convert.ToDouble(this.txbReconstructionLambda.Text).ToString();
+            }
+            else
+            {
+                zParam1 = Convert.ToInt32(this.nudAlgorithmParameterIterations.Value).ToString();
+            }
+
+            MultiAngle zForm = new MultiAngle(
+                Properties.Settings.Default.FormSettings_OutputPrefix,
+                 Convert.ToInt32(this.nudReconstructionTab_Slice.Value),
+                ((KeyValuePair<string, string>)this.tbxDatasetName.SelectedItem).Key,
+                this.chkApplyPreProcessing.Checked,
+                Convert.ToInt32(this.nudNormSx.Value),
+                Convert.ToInt32(this.nudNormDx.Value),
+                chkDarkFlatEnd.Checked, // use flat at the end
+                chkHalfHalfMode.Checked,
+                Convert.ToInt32(this.nudHalfHalfMode.Value),
+                chkExtendedFOV.Checked,
+                chkExtFOV_AirRight.Checked,
+                Convert.ToInt32(nudExtendedFOVOverlap.Value),
+                zRingRemString,
+                Convert.ToDouble(this.nudAngles.Value) * Math.PI / 180.0,
+                Convert.ToDouble(this.nudCenter_Middle.Value),
+                ((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key,
+                zParam1,
+                zScale,
+                chkOverPadding.Checked,
+                this.chkLogTransform.Checked,
+                chkCircleMask.Checked,
+                (chkZeroneMode.Checked) && (!chkApplyPreProcessing.Checked),
+                zCorrectionOffset,
+                Convert.ToInt32(this.nudReconstructionTab_Decimate.Value),
+                Convert.ToInt32(this.nudReconstructionTab_Downscale.Value),
+                this.chkReconstructionTab_PostProcess.Checked,
+                zConvertTo8String,
+                zCropString,
+                this.chkPhrtOnTheFly.Checked,
+                Convert.ToInt32(((KeyValuePair<string, string>)this.cbxPhaseRetrievalTab_Algorithms.SelectedItem).Key),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Beta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_BetaExp.Value)),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Delta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_DeltaExp.Value)),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Energy.Value),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_PixelSize.Value),
+                this.chkPhaseRetrievalTab_OverPadding.Checked,
+                Convert.ToInt32(this.nudAnglesProjFrom.Value),
+                Convert.ToInt32(this.nudAnglesProjTo.Value)
+                );
+            zForm.Show(this);
         }
 
     }

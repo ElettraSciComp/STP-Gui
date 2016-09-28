@@ -41,9 +41,12 @@ namespace SYRMEPTomoProject.Jobs
     /// <summary>
     /// 
     /// </summary>
-    public class ReconstructionPreviewJob : IJob
+    public class MultiAngleJob : IMonitoredJob
     {
+        private string mSlicePrefix;
         private int mImageIndex;
+        private string mInputFile;
+        private string mOutputPath;
         private bool mPreProcess = false;
         private int mAirSx = 0;
         private int mAirDx = 0;
@@ -53,21 +56,17 @@ namespace SYRMEPTomoProject.Jobs
         private bool mExtFOV = false;
         private bool mExtFOVRight = false;
         private int mExtFOVOverlap;
-        private string mRingRemoval = "-";
-        private string mInputFile;
-        private string mPreviewFile; 
+        private string mRingRemoval = "-";  
         private double mAngles;
-        private int mAngles_ProjFrom;
-        private int mAngles_ProjTo;
         private double mCenter;
-        private string mReconFunc; 
-        private string mReconParam1; 
+        private string mReconFunc;
+        private string mReconParam1;
         private double mScale;
         private bool mZeroneMode;
         private double mCorrectionOffset;
-        private bool mOverPaddding; 
-        private bool mLogTransform; 
-        private bool mCircle; 
+        private bool mOverPaddding;
+        private bool mLogTransform;
+        private bool mCircle;
         private int mDecimateFactor;
         private int mDownscaleFactor;
         private bool mPostProcess;
@@ -81,11 +80,29 @@ namespace SYRMEPTomoProject.Jobs
         private double mEnergy;
         private double mPixelsize;
         private bool mPhrtPad;
-        private bool mDynamicFlatFielding;
+        private int mAnglesProjFrom;
+        private int mAnglesProjTo;
         private string mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
             Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
-            Path.DirectorySeparatorChar + "_rec_log_00.txt"; // It should be "*_00.txt"
+            Path.DirectorySeparatorChar + "_multiangle_log_00.txt"; // It should be "*_00.txt"
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public int From
+        {
+            get { return mAnglesProjFrom; }
+            set { mAnglesProjFrom = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int To
+        {
+            get { return mAnglesProjTo; }
+            set { mAnglesProjTo = value; }
+        }
 
         /// <summary>
         /// 
@@ -99,10 +116,26 @@ namespace SYRMEPTomoProject.Jobs
         /// <summary>
         /// 
         /// </summary>
-        public ReconstructionPreviewJob(
+        /// <param name="preProcess"></param>
+        /// <param name="airSx"></param>
+        /// <param name="airDx"></param>
+        /// <param name="ringRemoval"></param>
+        /// <param name="inputFile"></param>
+        /// <param name="angles"></param>
+        /// <param name="center"></param>
+        /// <param name="reconFunc"></param>
+        /// <param name="reconParam1"></param>
+        /// <param name="scale"></param>
+        /// <param name="overPadding"></param>
+        /// <param name="logTransform"></param>
+        /// <param name="circle"></param>
+        /// <param name="offset_from"></param>
+        /// <param name="offsetTo"></param>
+        public MultiAngleJob(
+            string slicePrefix,
             int imageIndex,
             string inputFile,
-            string previewFile,
+            string outputPath,
             bool preProcess,
             int airSx,
             int airDx,
@@ -112,12 +145,108 @@ namespace SYRMEPTomoProject.Jobs
             bool extFOV,
             bool extFOVRight,
             int extFOVOverlap,
-            string ringRemoval,            
+            string ringRemoval,
             double angles,
-            int angles_ProjFrom,
-            int angles_ProjTo,
             double center,
-            string reconFunc, 
+            string reconFunc,
+            string reconParam1,
+            double scale,
+            bool overPadding,
+            bool logTransform,
+            bool circle,
+            bool zeroneMode,
+            double correctionOffset,
+            int decimateFactor,
+            int downscaleFactor,
+            bool postProcess,
+            string postProcessConvertArgs,
+            string postProcessCropArgs,
+            bool phaseRetrieval,
+            int phrtMethod,
+            double param1,
+            double param2,
+            double distance,
+            double energy,
+            double pixelsize,
+            bool phrtPad,
+            int anglesProjFrom,
+            int anglesProjTo
+            )
+        {
+            mSlicePrefix = slicePrefix;
+            mImageIndex = imageIndex;
+            mPreProcess = preProcess;
+            mOutputPath = outputPath;
+            mAirSx = airSx;
+            mAirDx = airDx;
+            mFlatEnd = flatEnd;
+            mHalfHalf = halfHalf;
+            mHalfHalfLine = halfHalfLine;
+            mExtFOV = extFOV;
+            mExtFOVRight = extFOVRight;
+            mExtFOVOverlap = extFOVOverlap;
+            mRingRemoval = ringRemoval;
+            mInputFile = inputFile;
+            mAngles = angles;
+            mCenter = center;
+            mReconParam1 = reconParam1;
+            mScale = scale;
+            mOverPaddding = overPadding;
+            mLogTransform = logTransform;
+            mCircle = circle;
+            mZeroneMode = zeroneMode;
+            mCorrectionOffset = correctionOffset;
+            mReconFunc = reconFunc;
+            mDecimateFactor = decimateFactor;
+            mDownscaleFactor = downscaleFactor;
+            mPostProcess = postProcess;
+            mPostProcessConvertArgs = postProcessConvertArgs;
+            mPostProcessCropArgs = postProcessCropArgs;
+            mPhaseRetrieval = phaseRetrieval;
+            mParam1 = param1;
+            mParam2 = param2;
+            mDistance = distance;
+            mEnergy = energy;
+            mPixelsize = pixelsize;
+            mPhrtPad = phrtPad;
+            mAnglesProjFrom = anglesProjFrom;
+            mAnglesProjTo = anglesProjTo;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inputFile"></param>
+        /// <param name="angles"></param>
+        /// <param name="center"></param>
+        /// <param name="reconFunc"></param>
+        /// <param name="reconParam1"></param>
+        /// <param name="scale"></param>
+        /// <param name="overPadding"></param>
+        /// <param name="logTransform"></param>
+        /// <param name="circle"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="threads"></param>
+        /// <param name="logFile"></param>
+        public MultiAngleJob(
+            string slicePrefix,
+            int imageIndex,
+            string inputFile,
+            string outputPath,
+            bool preProcess,
+            int airSx,
+            int airDx,
+            bool flatEnd,
+            bool halfHalf,
+            int halfHalfLine,
+            bool extFOV,
+            bool extFOVRight,
+            int extFOVOverlap,
+            string ringRemoval,
+            double angles,
+            double center,
+            string reconFunc,
             string reconParam1,
             double scale,
             bool overPadding,
@@ -138,99 +267,13 @@ namespace SYRMEPTomoProject.Jobs
             double energy, 
             double pixelsize,
             bool phrtPad,
-            bool dynamicFlatFielding
-            )
-        {
-            mImageIndex = imageIndex;
-            mPreProcess = preProcess;
-            mPreviewFile = previewFile;
-            mAirSx = airSx;
-            mAirDx = airDx;
-            mFlatEnd = flatEnd;
-            mHalfHalf = halfHalf;
-            mHalfHalfLine = halfHalfLine;
-            mExtFOV = extFOV;
-            mExtFOVRight = extFOVRight;
-            mExtFOVOverlap = extFOVOverlap;
-            mRingRemoval = ringRemoval;
-            mInputFile = inputFile;           
-            mAngles = angles;
-            mAngles_ProjFrom = angles_ProjFrom;
-            mAngles_ProjTo = angles_ProjTo;
-            mCenter = center;
-            mReconParam1 = reconParam1;
-            mScale = scale;
-            mOverPaddding = overPadding;
-            mLogTransform = logTransform;            
-            mCircle = circle;
-            mZeroneMode = zeroneMode;
-            mCorrectionOffset = correctionOffset;
-            mReconFunc = reconFunc;
-            mDecimateFactor = decimateFactor;
-            mDownscaleFactor = downscaleFactor;
-            mPostProcess = postProcess;
-            mPostProcessConvertArgs = postProcessConvertArgs;
-            mPostProcessCropArgs = postProcessCropArgs;
-            mPhaseRetrieval = phaseRetrieval;
-            mPhrtMethod = phrtMethod;
-            mParam1 = param1;
-            mParam2 = param2;
-            mDistance = distance;
-            mEnergy = energy;
-            mPixelsize = pixelsize;
-            mPhrtPad = phrtPad;
-            mDynamicFlatFielding = dynamicFlatFielding;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ReconstructionPreviewJob(
-            int imageIndex,
-            string inputFile,
-            string previewFile,
-            bool preProcess,
-            int airSx,
-            int airDx,
-            bool flatEnd,
-            bool halfHalf,
-            int halfHalfLine,
-            bool extFOV,
-            bool extFOVRight,
-            int extFOVOverlap,
-            string ringRemoval,            
-            double angles,
-            int angles_ProjFrom,
-            int angles_ProjTo,
-            double center,
-            string reconFunc,
-            string reconParam1,
-            double scale,
-            bool overPadding,
-            bool logTransform,
-            bool circle,
-            bool zeroneMode,
-            double correctionOffset,           
-            int decimateFactor,
-            int downscaleFactor,
-            bool postProcess,
-            string postProcessConvertArgs,
-            string postProcessCropArgs,
-            bool phaseRetrieval,
-            int phrtMethod,
-            double param1,
-            double param2, 
-            double distance, 
-            double energy, 
-            double pixelsize,
-            bool phrtPad,
-            bool dynamicFlatFielding,
+            int anglesProjFrom,
+            int anglesProjTo,
             string logFile
             )
-            : this(imageIndex, inputFile, previewFile, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, 
-                ringRemoval, angles, angles_ProjFrom, angles_ProjTo, center, reconFunc, reconParam1, scale, overPadding, logTransform, circle, 
-                zeroneMode, correctionOffset, decimateFactor, downscaleFactor, postProcess, postProcessConvertArgs, postProcessCropArgs, 
-                phaseRetrieval, phrtMethod, param1, param2, distance, energy, pixelsize, phrtPad, dynamicFlatFielding)         
+            : this(slicePrefix, imageIndex, inputFile, outputPath, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, ringRemoval, angles,
+            center, reconFunc, reconParam1, scale, overPadding, logTransform, circle, zeroneMode, correctionOffset, decimateFactor, downscaleFactor, postProcess, 
+            postProcessConvertArgs, postProcessCropArgs, phaseRetrieval, phrtMethod, param1, param2, distance, energy, pixelsize, phrtPad, anglesProjFrom, anglesProjTo )
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -249,16 +292,16 @@ namespace SYRMEPTomoProject.Jobs
             //
             //
 
-            string zString = string.Empty; 
+            string zString = string.Empty;
 
             // Create output path if does not exist:
             Directory.CreateDirectory(Properties.Settings.Default.FormSettings_OutputPath);
 
             zString = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar
-                + Properties.Settings.Default.PythonPath + Path.DirectorySeparatorChar + Properties.Settings.Default.ReconstructPreviewJob + "\" "
-                + mImageIndex.ToString() + " \"" +
-                mInputFile + "\" \"" +
-                mPreviewFile + "\" " +
+                + Properties.Settings.Default.PythonPath + Path.DirectorySeparatorChar + Properties.Settings.Default.MultiAngleJob + "\" "
+                + mImageIndex.ToString() + " \"" + 
+                mInputFile + "\" \"" + 
+                mOutputPath + "\" " +
                 mAngles.ToString(CultureInfo.InvariantCulture) + " " +
                 mCenter.ToString(CultureInfo.InvariantCulture) + " " +
                 mReconParam1.ToString() + " " +
@@ -266,12 +309,16 @@ namespace SYRMEPTomoProject.Jobs
                 mOverPaddding.ToString() + " " +
                 mLogTransform.ToString() + " " +
                 mCircle.ToString() + " " +
-                mPreProcess.ToString() + " " +                 
-                mFlatEnd.ToString() + " " + mHalfHalf.ToString() + " " +
+                //Properties.Settings.Default.FormSettings_OutputPrefix + " " +
+                mPreProcess.ToString() + " " +
+                mFlatEnd.ToString() + " " + 
+                mHalfHalf.ToString() + " " +
                 mHalfHalfLine.ToString() + " " +
-                mExtFOV.ToString() + " " + mExtFOVRight.ToString() + " " +
-                mExtFOVOverlap.ToString() + " " + 
-                mAirSx.ToString() + " " + mAirDx.ToString() + " False \"" +  // This has to be modified...
+                mExtFOV.ToString() + " " + 
+                mExtFOVRight.ToString() + " " +
+                mExtFOVOverlap.ToString() + " " +
+                mAirSx.ToString() + " " + 
+                mAirDx.ToString() + " False \"" +  // This has to be modified...
                 mRingRemoval + "\" " +
                 mZeroneMode.ToString() + " " +
                 mCorrectionOffset.ToString() + " " +
@@ -289,14 +336,12 @@ namespace SYRMEPTomoProject.Jobs
                 mDistance.ToString(CultureInfo.InvariantCulture) + " " +
                 mPixelsize.ToString(CultureInfo.InvariantCulture) + " " +
                 mPhrtPad.ToString() + " " +
-                Properties.Settings.Default.FormSettings_ChunkSize.ToString() + " " +
-                mAngles_ProjFrom.ToString() + " " +
-                mAngles_ProjTo.ToString() + 
-                " True " +  
-                mDynamicFlatFielding.ToString() + " 1 \"" +
-                Properties.Settings.Default.FormSettings_TemporaryPath
-                + Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID
-                + "\" \"" +
+                Properties.Settings.Default.FormSettings_ChunkSize.ToString() + " True \"" +              
+                Properties.Settings.Default.FormSettings_TemporaryPath + "\" " +
+                (Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses)).ToString() + " " +
+                mAnglesProjFrom.ToString() + " " +
+                mAnglesProjTo.ToString() + " \"" +
+                mSlicePrefix + "\" \"" +
                 mLogFile + "\"";
 
             return zString;
@@ -308,7 +353,7 @@ namespace SYRMEPTomoProject.Jobs
         /// <returns>A string with the description of the job.</returns>
         public override string ToString()
         {
-            return "tomographic reconstruction";
+            return "test reconstruction";
         }
     }
 }

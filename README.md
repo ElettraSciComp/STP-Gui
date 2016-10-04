@@ -27,3 +27,7 @@ NVidia GPU CUDA-compliant card is required to exploit the features provided by t
 ## Credits
 
 The software has been developed in collaboration with the University of Trieste (http://www.units.it) and CNR Nanotec (http://www.nanotec.cnr.it) and it is powered by the open source projects ASTRA-toolbox (https://astra-toolbox.readthedocs.org) and TomoPy (https://tomopy.readthedocs.org).
+
+## License
+
+The project is licensed under the GPL-v3 license.

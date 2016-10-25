@@ -32,6 +32,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -55,6 +56,9 @@ namespace SYRMEPTomoProject
         private JobMonitor mJobMonitor;
         private bool mFirstRun = false;
 
+        PerformanceCounter mCPUCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+        PerformanceCounter mRAMCounter = new PerformanceCounter("Memory", "Available MBytes");
+
         public MainForm()
         {
             InitializeComponent();
@@ -71,7 +75,6 @@ namespace SYRMEPTomoProject
         }
 
         #region Monitoring
-
 
         void mJobMonitor_JobStep(object sender, JobEventArgs e)
         {
@@ -101,6 +104,9 @@ namespace SYRMEPTomoProject
                             }
 
                             mStatusBarProgressBar.Value = Math.Min((int)(Math.Round(e.Step * 100.0)), 100);
+
+                            // Add CPU and memory usage:
+                            sslLeftLabel.Text = "Busy (Available RAM: " + (mRAMCounter.NextValue() / 1000).ToString("0.##") + " GB)";
                         }
                         catch (Exception ex)
                         {
@@ -129,6 +135,18 @@ namespace SYRMEPTomoProject
 
                         // Update progress bar:
                         mStatusBarProgressBar.Value = 0;
+
+                        // Change status bar label:
+                        sslLeftLabel.Text = "Ready";
+
+                        // Enable all the "Run" buttons:
+                        btnPreProcessing_ExecuteRun.Enabled = true;
+                        btnPhaseRetrieval_ExecuteRun.Enabled = true;
+                        btnReconstructionTab_ExecuteRunSubset.Enabled = true;
+                        btnReconstructionTab_ExecuteRunAll.Enabled = true;
+                        btnPostProcessingTab_RunSubset.Enabled = true;
+                        btnPostProcessingTab_RunAll.Enabled = true;
+                       
                     }
                     catch (Exception ex)
                     {
@@ -156,6 +174,17 @@ namespace SYRMEPTomoProject
 
                         // Update progress bar:
                         mStatusBarProgressBar.Value = 0;
+
+                        // Change status bar label:
+                        sslLeftLabel.Text = "Ready";
+
+                        // Enable all the "Run" buttons:
+                        btnPreProcessing_ExecuteRun.Enabled = true;
+                        btnPhaseRetrieval_ExecuteRun.Enabled = true;
+                        btnReconstructionTab_ExecuteRunSubset.Enabled = true;
+                        btnReconstructionTab_ExecuteRunAll.Enabled = true;
+                        btnPostProcessingTab_RunSubset.Enabled = true;
+                        btnPostProcessingTab_RunAll.Enabled = true;
                     }
                     catch (Exception ex)
                     {
@@ -188,6 +217,17 @@ namespace SYRMEPTomoProject
                     try
                     {
                         zLogTxb.AppendText(zString);
+
+                        // Change status bar label:
+                        sslLeftLabel.Text = "Busy";
+
+                        // Disable all the "Run" buttons:
+                        btnPreProcessing_ExecuteRun.Enabled = false;
+                        btnPhaseRetrieval_ExecuteRun.Enabled = false;
+                        btnReconstructionTab_ExecuteRunSubset.Enabled = false;
+                        btnReconstructionTab_ExecuteRunAll.Enabled = false;
+                        btnPostProcessingTab_RunSubset.Enabled = false;
+                        btnPostProcessingTab_RunAll.Enabled = false;
                     }
                     catch (Exception ex)
                     {
@@ -206,57 +246,6 @@ namespace SYRMEPTomoProject
         }
 
         #endregion
-
-        private void groupBox10_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            /*string zFilter;
-
-            if (zInputTIFFsBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                zProject_InputPathTxb.Text = zInputTIFFsBrowserDialog.SelectedPath;
-                BTPSettings.InputPath = zInputTIFFsBrowserDialog.SelectedPath;
-
-                // Get the number of projection files:
-                zFilter = BTPSettings.TomoPrefix + "*." + Properties.Settings.Default.FileFormat + "*";
-                BTPSettings.NumberOfProjections = (int)(Directory.GetFiles(BTPSettings.InputPath, zFilter, SearchOption.TopDirectoryOnly).Length);
-
-
-                //zProjections_SimulationToNud.Maximum = BTPSettings.NumberOfProjections;
-                zProjections_TestImageNud.Maximum = BTPSettings.NumberOfProjections;
-            }*/
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            /* if (zInputTDFFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-             {
-                 zProject_InputPathTxb.Text = zInputTDFFileDialog.FileName;
-                 BTPSettings.InputPath = zInputTDFFileDialog.FileName;
-             }*/
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            /*if (zWorkingPathBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                //zWorkingPathTxb.Text = zWorkingPathBrowserDialog.SelectedPath;
-                BTPSettings.WorkingPath = zWorkingPathBrowserDialog.SelectedPath;
-            }*/
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            /*if (zTestPathBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                //zTestPathTxb.Text = zTestPathBrowserDialog.SelectedPath;
-                BTPSettings.TestPath = zTestPathBrowserDialog.SelectedPath;
-            }*/
-        }
 
         #region On Form Load
 
@@ -1794,7 +1783,6 @@ namespace SYRMEPTomoProject
         {
             string zString;
             //string[] zSplit;
-            string zFolder;
 
             /*string zExperiment;
             string zDataset;  */
@@ -1805,14 +1793,13 @@ namespace SYRMEPTomoProject
             //zSplit = Path.GetFileNameWithoutExtension(zString).Split('_');
             //zExperiment = zSplit[0];
             //zDataset = zSplit[1];          
-            zFolder = Path.GetFileNameWithoutExtension(zString);
 
             // Check if selected TDF exists:
             if (File.Exists(zString))
             {
                 lblReconstructionOutputPath.Text = Properties.Settings.Default.FormSettings_OutputPath + Path.DirectorySeparatorChar +
                     //zExperiment + Path.DirectorySeparatorChar + zDataset +
-                        zFolder +
+                        Path.GetFileNameWithoutExtension(zString) +
                         Path.DirectorySeparatorChar + @"slices" + Path.DirectorySeparatorChar;
 
                 this.nudCenter_Middle.Maximum = (TDFReader.GetDetectorSize(zString) - 1) / 2;

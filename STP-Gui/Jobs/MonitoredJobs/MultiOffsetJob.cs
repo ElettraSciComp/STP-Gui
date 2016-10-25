@@ -209,6 +209,7 @@ namespace SYRMEPTomoProject.Jobs
             mPostProcessConvertArgs = postProcessConvertArgs;
             mPostProcessCropArgs = postProcessCropArgs;
             mPhaseRetrieval = phaseRetrieval;
+            mPhrtMethod = phrtMethod;
             mParam1 = param1;
             mParam2 = param2;
             mDistance = distance;

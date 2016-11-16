@@ -169,15 +169,6 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.1.43")]
-        public string Version {
-            get {
-                return ((string)(this["Version"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("tools_guessoverlap.py")]
         public string GuessOverlapJob {
             get {
@@ -989,6 +980,51 @@ namespace SYRMEPTomoProject.Properties {
             }
             set {
                 this["MultiAngle_Path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.1.50")]
+        public string Version {
+            get {
+                return ((string)(this["Version"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TIFF2TDF_LastPath {
+            get {
+                return ((string)(this["TIFF2TDF_LastPath"]));
+            }
+            set {
+                this["TIFF2TDF_LastPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EDF2TDF_LastPath {
+            get {
+                return ((string)(this["EDF2TDF_LastPath"]));
+            }
+            set {
+                this["EDF2TDF_LastPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TDF2TIFF_LastPath {
+            get {
+                return ((string)(this["TDF2TIFF_LastPath"]));
+            }
+            set {
+                this["TDF2TIFF_LastPath"] = value;
             }
         }
     }

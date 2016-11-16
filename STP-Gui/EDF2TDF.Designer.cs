@@ -86,7 +86,7 @@ namespace SYRMEPTomoProject
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.zLogTxb = new System.Windows.Forms.TextBox();
             this.zOutputPathBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.zInputTIFFsBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.zInputEDFsBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.mJobMonitorBgw = new System.ComponentModel.BackgroundWorker();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.zTiming_ToolStripLbl = new System.Windows.Forms.ToolStripStatusLabel();
@@ -118,27 +118,29 @@ namespace SYRMEPTomoProject
             // 
             // nudConvertToTDF_CropRight
             // 
-            this.nudConvertToTDF_CropRight.Location = new System.Drawing.Point(142, 45);
+            this.nudConvertToTDF_CropRight.Location = new System.Drawing.Point(189, 55);
+            this.nudConvertToTDF_CropRight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nudConvertToTDF_CropRight.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
             this.nudConvertToTDF_CropRight.Name = "nudConvertToTDF_CropRight";
-            this.nudConvertToTDF_CropRight.Size = new System.Drawing.Size(50, 20);
+            this.nudConvertToTDF_CropRight.Size = new System.Drawing.Size(67, 22);
             this.nudConvertToTDF_CropRight.TabIndex = 13;
             this.nudConvertToTDF_CropRight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // nudConvertToTDF_CropLeft
             // 
-            this.nudConvertToTDF_CropLeft.Location = new System.Drawing.Point(142, 19);
+            this.nudConvertToTDF_CropLeft.Location = new System.Drawing.Point(189, 23);
+            this.nudConvertToTDF_CropLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nudConvertToTDF_CropLeft.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
             this.nudConvertToTDF_CropLeft.Name = "nudConvertToTDF_CropLeft";
-            this.nudConvertToTDF_CropLeft.Size = new System.Drawing.Size(50, 20);
+            this.nudConvertToTDF_CropLeft.Size = new System.Drawing.Size(67, 22);
             this.nudConvertToTDF_CropLeft.TabIndex = 12;
             this.nudConvertToTDF_CropLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -153,9 +155,11 @@ namespace SYRMEPTomoProject
             this.gbxCrop.Controls.Add(this.nudConvertToTDF_CropTop);
             this.gbxCrop.Controls.Add(this.label50);
             this.gbxCrop.Enabled = false;
-            this.gbxCrop.Location = new System.Drawing.Point(210, 146);
+            this.gbxCrop.Location = new System.Drawing.Point(280, 180);
+            this.gbxCrop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbxCrop.Name = "gbxCrop";
-            this.gbxCrop.Size = new System.Drawing.Size(211, 76);
+            this.gbxCrop.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbxCrop.Size = new System.Drawing.Size(281, 94);
             this.gbxCrop.TabIndex = 36;
             this.gbxCrop.TabStop = false;
             this.gbxCrop.Text = "Crop";
@@ -163,62 +167,68 @@ namespace SYRMEPTomoProject
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(108, 48);
+            this.label42.Location = new System.Drawing.Point(144, 59);
+            this.label42.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(35, 13);
+            this.label42.Size = new System.Drawing.Size(45, 17);
             this.label42.TabIndex = 14;
             this.label42.Text = "Right:";
             // 
             // label70
             // 
             this.label70.AutoSize = true;
-            this.label70.Location = new System.Drawing.Point(115, 22);
+            this.label70.Location = new System.Drawing.Point(153, 27);
+            this.label70.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(28, 13);
+            this.label70.Size = new System.Drawing.Size(36, 17);
             this.label70.TabIndex = 11;
             this.label70.Text = "Left:";
             // 
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(7, 48);
+            this.label22.Location = new System.Drawing.Point(9, 59);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(43, 13);
+            this.label22.Size = new System.Drawing.Size(56, 17);
             this.label22.TabIndex = 10;
             this.label22.Text = "Bottom:";
             // 
             // nudConvertToTDF_CropBottom
             // 
-            this.nudConvertToTDF_CropBottom.Location = new System.Drawing.Point(51, 45);
+            this.nudConvertToTDF_CropBottom.Location = new System.Drawing.Point(68, 55);
+            this.nudConvertToTDF_CropBottom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nudConvertToTDF_CropBottom.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
             this.nudConvertToTDF_CropBottom.Name = "nudConvertToTDF_CropBottom";
-            this.nudConvertToTDF_CropBottom.Size = new System.Drawing.Size(50, 20);
+            this.nudConvertToTDF_CropBottom.Size = new System.Drawing.Size(67, 22);
             this.nudConvertToTDF_CropBottom.TabIndex = 9;
             this.nudConvertToTDF_CropBottom.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // nudConvertToTDF_CropTop
             // 
-            this.nudConvertToTDF_CropTop.Location = new System.Drawing.Point(51, 19);
+            this.nudConvertToTDF_CropTop.Location = new System.Drawing.Point(68, 23);
+            this.nudConvertToTDF_CropTop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nudConvertToTDF_CropTop.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
             this.nudConvertToTDF_CropTop.Name = "nudConvertToTDF_CropTop";
-            this.nudConvertToTDF_CropTop.Size = new System.Drawing.Size(50, 20);
+            this.nudConvertToTDF_CropTop.Size = new System.Drawing.Size(67, 22);
             this.nudConvertToTDF_CropTop.TabIndex = 8;
             this.nudConvertToTDF_CropTop.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(21, 22);
+            this.label50.Location = new System.Drawing.Point(28, 27);
+            this.label50.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(29, 13);
+            this.label50.Size = new System.Drawing.Size(37, 17);
             this.label50.TabIndex = 7;
             this.label50.Text = "Top:";
             // 
@@ -227,18 +237,21 @@ namespace SYRMEPTomoProject
             this.groupBox3.Controls.Add(this.btnBrowseTIFFs);
             this.groupBox3.Controls.Add(this.zProject_InputPathTxb);
             this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Location = new System.Drawing.Point(16, 20);
+            this.groupBox3.Location = new System.Drawing.Point(21, 25);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(405, 62);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Size = new System.Drawing.Size(540, 76);
             this.groupBox3.TabIndex = 37;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Input";
             // 
             // btnBrowseTIFFs
             // 
-            this.btnBrowseTIFFs.Location = new System.Drawing.Point(313, 21);
+            this.btnBrowseTIFFs.Location = new System.Drawing.Point(417, 26);
+            this.btnBrowseTIFFs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnBrowseTIFFs.Name = "btnBrowseTIFFs";
-            this.btnBrowseTIFFs.Size = new System.Drawing.Size(74, 23);
+            this.btnBrowseTIFFs.Size = new System.Drawing.Size(99, 28);
             this.btnBrowseTIFFs.TabIndex = 1;
             this.btnBrowseTIFFs.Text = "Browse...";
             this.btnBrowseTIFFs.UseVisualStyleBackColor = true;
@@ -246,18 +259,20 @@ namespace SYRMEPTomoProject
             // 
             // zProject_InputPathTxb
             // 
-            this.zProject_InputPathTxb.Location = new System.Drawing.Point(82, 23);
+            this.zProject_InputPathTxb.Location = new System.Drawing.Point(109, 28);
+            this.zProject_InputPathTxb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.zProject_InputPathTxb.Name = "zProject_InputPathTxb";
-            this.zProject_InputPathTxb.Size = new System.Drawing.Size(223, 20);
+            this.zProject_InputPathTxb.Size = new System.Drawing.Size(296, 22);
             this.zProject_InputPathTxb.TabIndex = 0;
             this.zProject_InputPathTxb.TextChanged += new System.EventHandler(this.zProject_InputPathTxb_TextChanged);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(12, 27);
+            this.label12.Location = new System.Drawing.Point(16, 33);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(69, 13);
+            this.label12.Size = new System.Drawing.Size(91, 17);
             this.label12.TabIndex = 21;
             this.label12.Text = "Input (EDFs):";
             // 
@@ -269,69 +284,78 @@ namespace SYRMEPTomoProject
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.tbxProjectionPrefix);
             this.groupBox1.Controls.Add(this.lblProjections);
-            this.groupBox1.Location = new System.Drawing.Point(17, 229);
+            this.groupBox1.Location = new System.Drawing.Point(23, 282);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(187, 109);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(249, 134);
             this.groupBox1.TabIndex = 38;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "EDF files prefixes";
             // 
             // tbxFlatPrefix
             // 
-            this.tbxFlatPrefix.Location = new System.Drawing.Point(82, 74);
+            this.tbxFlatPrefix.Location = new System.Drawing.Point(109, 91);
+            this.tbxFlatPrefix.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbxFlatPrefix.Name = "tbxFlatPrefix";
-            this.tbxFlatPrefix.Size = new System.Drawing.Size(94, 20);
+            this.tbxFlatPrefix.Size = new System.Drawing.Size(124, 22);
             this.tbxFlatPrefix.TabIndex = 26;
             this.tbxFlatPrefix.Text = "ref";
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(18, 77);
+            this.label19.Location = new System.Drawing.Point(24, 95);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(63, 13);
+            this.label19.Size = new System.Drawing.Size(84, 17);
             this.label19.TabIndex = 23;
             this.label19.Text = "Flat images:";
             // 
             // tbxDarkPrefix
             // 
-            this.tbxDarkPrefix.Location = new System.Drawing.Point(82, 49);
+            this.tbxDarkPrefix.Location = new System.Drawing.Point(109, 60);
+            this.tbxDarkPrefix.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbxDarkPrefix.Name = "tbxDarkPrefix";
-            this.tbxDarkPrefix.Size = new System.Drawing.Size(94, 20);
+            this.tbxDarkPrefix.Size = new System.Drawing.Size(124, 22);
             this.tbxDarkPrefix.TabIndex = 25;
             this.tbxDarkPrefix.Text = "dark";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(12, 52);
+            this.label18.Location = new System.Drawing.Point(16, 64);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(69, 13);
+            this.label18.Size = new System.Drawing.Size(91, 17);
             this.label18.TabIndex = 22;
             this.label18.Text = "Dark images:";
             // 
             // tbxProjectionPrefix
             // 
-            this.tbxProjectionPrefix.Location = new System.Drawing.Point(82, 23);
+            this.tbxProjectionPrefix.Location = new System.Drawing.Point(109, 28);
+            this.tbxProjectionPrefix.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbxProjectionPrefix.Name = "tbxProjectionPrefix";
-            this.tbxProjectionPrefix.Size = new System.Drawing.Size(94, 20);
+            this.tbxProjectionPrefix.Size = new System.Drawing.Size(124, 22);
             this.tbxProjectionPrefix.TabIndex = 24;
             this.tbxProjectionPrefix.TextChanged += new System.EventHandler(this.tbxProjectionPrefix_TextChanged);
             // 
             // lblProjections
             // 
             this.lblProjections.AutoSize = true;
-            this.lblProjections.Location = new System.Drawing.Point(19, 26);
+            this.lblProjections.Location = new System.Drawing.Point(25, 32);
+            this.lblProjections.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblProjections.Name = "lblProjections";
-            this.lblProjections.Size = new System.Drawing.Size(62, 13);
+            this.lblProjections.Size = new System.Drawing.Size(82, 17);
             this.lblProjections.TabIndex = 21;
             this.lblProjections.Text = "Projections:";
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(347, 467);
+            this.btnClose.Location = new System.Drawing.Point(463, 575);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(74, 23);
+            this.btnClose.Size = new System.Drawing.Size(99, 28);
             this.btnClose.TabIndex = 26;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -340,9 +364,10 @@ namespace SYRMEPTomoProject
             // btnConvert
             // 
             this.btnConvert.Enabled = false;
-            this.btnConvert.Location = new System.Drawing.Point(269, 467);
+            this.btnConvert.Location = new System.Drawing.Point(359, 575);
+            this.btnConvert.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnConvert.Name = "btnConvert";
-            this.btnConvert.Size = new System.Drawing.Size(74, 23);
+            this.btnConvert.Size = new System.Drawing.Size(99, 28);
             this.btnConvert.TabIndex = 25;
             this.btnConvert.Text = "Convert";
             this.btnConvert.UseVisualStyleBackColor = true;
@@ -354,9 +379,11 @@ namespace SYRMEPTomoProject
             this.gbxFormat.Controls.Add(this.rbtInputSinograms);
             this.gbxFormat.Controls.Add(this.rbtInputProjections);
             this.gbxFormat.Enabled = false;
-            this.gbxFormat.Location = new System.Drawing.Point(17, 146);
+            this.gbxFormat.Location = new System.Drawing.Point(23, 180);
+            this.gbxFormat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbxFormat.Name = "gbxFormat";
-            this.gbxFormat.Size = new System.Drawing.Size(187, 76);
+            this.gbxFormat.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbxFormat.Size = new System.Drawing.Size(249, 94);
             this.gbxFormat.TabIndex = 37;
             this.gbxFormat.TabStop = false;
             this.gbxFormat.Text = "Input EDF image";
@@ -366,9 +393,10 @@ namespace SYRMEPTomoProject
             this.rbtInputSinograms.BackColor = System.Drawing.Color.Transparent;
             this.rbtInputSinograms.Flat = true;
             this.rbtInputSinograms.Image = null;
-            this.rbtInputSinograms.Location = new System.Drawing.Point(14, 40);
+            this.rbtInputSinograms.Location = new System.Drawing.Point(19, 49);
+            this.rbtInputSinograms.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rbtInputSinograms.Name = "rbtInputSinograms";
-            this.rbtInputSinograms.Size = new System.Drawing.Size(104, 24);
+            this.rbtInputSinograms.Size = new System.Drawing.Size(139, 30);
             this.rbtInputSinograms.TabIndex = 1;
             this.rbtInputSinograms.Text = "Sinograms";
             this.rbtInputSinograms.UseVisualStyleBackColor = false;
@@ -381,9 +409,10 @@ namespace SYRMEPTomoProject
             this.rbtInputProjections.Checked = true;
             this.rbtInputProjections.Flat = true;
             this.rbtInputProjections.Image = null;
-            this.rbtInputProjections.Location = new System.Drawing.Point(14, 19);
+            this.rbtInputProjections.Location = new System.Drawing.Point(19, 23);
+            this.rbtInputProjections.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rbtInputProjections.Name = "rbtInputProjections";
-            this.rbtInputProjections.Size = new System.Drawing.Size(104, 24);
+            this.rbtInputProjections.Size = new System.Drawing.Size(139, 30);
             this.rbtInputProjections.TabIndex = 0;
             this.rbtInputProjections.TabStop = true;
             this.rbtInputProjections.Text = "Projections";
@@ -394,21 +423,23 @@ namespace SYRMEPTomoProject
             // nudConvertToTDFFrom
             // 
             this.nudConvertToTDFFrom.Enabled = false;
-            this.nudConvertToTDFFrom.Location = new System.Drawing.Point(51, 48);
+            this.nudConvertToTDFFrom.Location = new System.Drawing.Point(68, 59);
+            this.nudConvertToTDFFrom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nudConvertToTDFFrom.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             this.nudConvertToTDFFrom.Name = "nudConvertToTDFFrom";
-            this.nudConvertToTDFFrom.Size = new System.Drawing.Size(50, 20);
+            this.nudConvertToTDFFrom.Size = new System.Drawing.Size(67, 22);
             this.nudConvertToTDFFrom.TabIndex = 16;
             this.nudConvertToTDFFrom.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // nudConvertToTDFTo
             // 
             this.nudConvertToTDFTo.Enabled = false;
-            this.nudConvertToTDFTo.Location = new System.Drawing.Point(142, 48);
+            this.nudConvertToTDFTo.Location = new System.Drawing.Point(189, 59);
+            this.nudConvertToTDFTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nudConvertToTDFTo.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -420,7 +451,7 @@ namespace SYRMEPTomoProject
             0,
             0});
             this.nudConvertToTDFTo.Name = "nudConvertToTDFTo";
-            this.nudConvertToTDFTo.Size = new System.Drawing.Size(50, 20);
+            this.nudConvertToTDFTo.Size = new System.Drawing.Size(67, 22);
             this.nudConvertToTDFTo.TabIndex = 17;
             this.nudConvertToTDFTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.nudConvertToTDFTo.Value = new decimal(new int[] {
@@ -432,9 +463,10 @@ namespace SYRMEPTomoProject
             // label57
             // 
             this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(119, 51);
+            this.label57.Location = new System.Drawing.Point(159, 63);
+            this.label57.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(23, 13);
+            this.label57.Size = new System.Drawing.Size(29, 17);
             this.label57.TabIndex = 18;
             this.label57.Text = "To:";
             // 
@@ -446,9 +478,11 @@ namespace SYRMEPTomoProject
             this.gbxSubset.Controls.Add(this.label57);
             this.gbxSubset.Controls.Add(this.label1);
             this.gbxSubset.Enabled = false;
-            this.gbxSubset.Location = new System.Drawing.Point(210, 229);
+            this.gbxSubset.Location = new System.Drawing.Point(280, 282);
+            this.gbxSubset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbxSubset.Name = "gbxSubset";
-            this.gbxSubset.Size = new System.Drawing.Size(211, 109);
+            this.gbxSubset.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbxSubset.Size = new System.Drawing.Size(281, 134);
             this.gbxSubset.TabIndex = 5;
             this.gbxSubset.TabStop = false;
             this.gbxSubset.Text = "Subset";
@@ -456,9 +490,10 @@ namespace SYRMEPTomoProject
             // chkConsiderSubset
             // 
             this.chkConsiderSubset.AutoSize = true;
-            this.chkConsiderSubset.Location = new System.Drawing.Point(23, 25);
+            this.chkConsiderSubset.Location = new System.Drawing.Point(31, 31);
+            this.chkConsiderSubset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkConsiderSubset.Name = "chkConsiderSubset";
-            this.chkConsiderSubset.Size = new System.Drawing.Size(173, 17);
+            this.chkConsiderSubset.Size = new System.Drawing.Size(228, 21);
             this.chkConsiderSubset.TabIndex = 19;
             this.chkConsiderSubset.Text = "Process a subset of the images";
             this.chkConsiderSubset.UseVisualStyleBackColor = true;
@@ -467,18 +502,21 @@ namespace SYRMEPTomoProject
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 51);
+            this.label1.Location = new System.Drawing.Point(25, 63);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 13);
+            this.label1.Size = new System.Drawing.Size(44, 17);
             this.label1.TabIndex = 20;
             this.label1.Text = "From:";
             // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.zLogTxb);
-            this.groupBox6.Location = new System.Drawing.Point(17, 344);
+            this.groupBox6.Location = new System.Drawing.Point(23, 423);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(404, 113);
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox6.Size = new System.Drawing.Size(539, 139);
             this.groupBox6.TabIndex = 39;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Log";
@@ -488,22 +526,23 @@ namespace SYRMEPTomoProject
             this.zLogTxb.BackColor = System.Drawing.Color.White;
             this.zLogTxb.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.zLogTxb.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.zLogTxb.Location = new System.Drawing.Point(3, 16);
+            this.zLogTxb.Location = new System.Drawing.Point(4, 19);
+            this.zLogTxb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.zLogTxb.Multiline = true;
             this.zLogTxb.Name = "zLogTxb";
             this.zLogTxb.ReadOnly = true;
             this.zLogTxb.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.zLogTxb.Size = new System.Drawing.Size(398, 94);
+            this.zLogTxb.Size = new System.Drawing.Size(531, 116);
             this.zLogTxb.TabIndex = 1;
             // 
             // zOutputPathBrowserDialog
             // 
             this.zOutputPathBrowserDialog.Description = "Select output folder:";
             // 
-            // zInputTIFFsBrowserDialog
+            // zInputEDFsBrowserDialog
             // 
-            this.zInputTIFFsBrowserDialog.Description = "Browse for TIFF files:";
-            this.zInputTIFFsBrowserDialog.ShowNewFolderButton = false;
+            this.zInputEDFsBrowserDialog.Description = "Browse for TIFF files:";
+            this.zInputEDFsBrowserDialog.ShowNewFolderButton = false;
             // 
             // mJobMonitorBgw
             // 
@@ -516,33 +555,34 @@ namespace SYRMEPTomoProject
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.mStatusBarProgressBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 498);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 614);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(436, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(581, 26);
             this.statusStrip1.TabIndex = 40;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // zTiming_ToolStripLbl
             // 
             this.zTiming_ToolStripLbl.Name = "zTiming_ToolStripLbl";
-            this.zTiming_ToolStripLbl.Size = new System.Drawing.Size(0, 17);
+            this.zTiming_ToolStripLbl.Size = new System.Drawing.Size(0, 21);
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 21);
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(319, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(426, 21);
             this.toolStripStatusLabel2.Spring = true;
             this.toolStripStatusLabel2.Text = " ";
             // 
             // mStatusBarProgressBar
             // 
             this.mStatusBarProgressBar.Name = "mStatusBarProgressBar";
-            this.mStatusBarProgressBar.Size = new System.Drawing.Size(100, 16);
+            this.mStatusBarProgressBar.Size = new System.Drawing.Size(133, 20);
             // 
             // gbxOutput
             // 
@@ -551,24 +591,28 @@ namespace SYRMEPTomoProject
             this.gbxOutput.Controls.Add(this.label3);
             this.gbxOutput.Controls.Add(this.label13);
             this.gbxOutput.Enabled = false;
-            this.gbxOutput.Location = new System.Drawing.Point(16, 86);
+            this.gbxOutput.Location = new System.Drawing.Point(21, 106);
+            this.gbxOutput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbxOutput.Name = "gbxOutput";
-            this.gbxOutput.Size = new System.Drawing.Size(405, 55);
+            this.gbxOutput.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbxOutput.Size = new System.Drawing.Size(540, 68);
             this.gbxOutput.TabIndex = 42;
             this.gbxOutput.TabStop = false;
             this.gbxOutput.Text = "Output";
             // 
             // txbOutputTDF
             // 
-            this.txbOutputTDF.Location = new System.Drawing.Point(83, 20);
+            this.txbOutputTDF.Location = new System.Drawing.Point(111, 25);
+            this.txbOutputTDF.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txbOutputTDF.Name = "txbOutputTDF";
-            this.txbOutputTDF.Size = new System.Drawing.Size(223, 20);
+            this.txbOutputTDF.Size = new System.Drawing.Size(296, 22);
             this.txbOutputTDF.TabIndex = 34;
             this.mToolTip.SetToolTip(this.txbOutputTDF, "A TDF file with the specified name will be in created in the temporary folder. ");
             // 
             // nudOutputCompression
             // 
-            this.nudOutputCompression.Location = new System.Drawing.Point(348, 21);
+            this.nudOutputCompression.Location = new System.Drawing.Point(464, 26);
+            this.nudOutputCompression.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nudOutputCompression.Maximum = new decimal(new int[] {
             9,
             0,
@@ -580,7 +624,7 @@ namespace SYRMEPTomoProject
             0,
             0});
             this.nudOutputCompression.Name = "nudOutputCompression";
-            this.nudOutputCompression.Size = new System.Drawing.Size(37, 20);
+            this.nudOutputCompression.Size = new System.Drawing.Size(49, 22);
             this.nudOutputCompression.TabIndex = 30;
             this.nudOutputCompression.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.nudOutputCompression.Value = new decimal(new int[] {
@@ -592,26 +636,28 @@ namespace SYRMEPTomoProject
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(316, 24);
+            this.label3.Location = new System.Drawing.Point(421, 30);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(31, 13);
+            this.label3.Size = new System.Drawing.Size(40, 17);
             this.label3.TabIndex = 31;
             this.label3.Text = "gZip:";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(10, 24);
+            this.label13.Location = new System.Drawing.Point(13, 30);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(72, 13);
+            this.label13.Size = new System.Drawing.Size(96, 17);
             this.label13.TabIndex = 32;
             this.label13.Text = "Output (TDF):";
             // 
             // EDFToTDF
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(436, 520);
+            this.ClientSize = new System.Drawing.Size(581, 640);
             this.Controls.Add(this.gbxOutput);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.gbxSubset);
@@ -625,6 +671,7 @@ namespace SYRMEPTomoProject
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "EDFToTDF";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -693,7 +740,7 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TextBox zLogTxb;
         private System.Windows.Forms.FolderBrowserDialog zOutputPathBrowserDialog;
-        private System.Windows.Forms.FolderBrowserDialog zInputTIFFsBrowserDialog;
+        private System.Windows.Forms.FolderBrowserDialog zInputEDFsBrowserDialog;
         private System.ComponentModel.BackgroundWorker mJobMonitorBgw;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel zTiming_ToolStripLbl;

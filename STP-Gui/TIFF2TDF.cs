@@ -281,9 +281,16 @@ namespace SYRMEPTomoProject
 
         private void btnBrowseTIFFs_Click(object sender, EventArgs e)
         {
+            // Load previous setting:
+            if (Directory.Exists(Properties.Settings.Default.TIFF2TDF_LastPath))
+            {
+                zInputTIFFsBrowserDialog.SelectedPath = Properties.Settings.Default.TIFF2TDF_LastPath;
+            }
+
             if (zInputTIFFsBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 zProject_InputPathTxb.Text = zInputTIFFsBrowserDialog.SelectedPath;
+                Properties.Settings.Default.TIFF2TDF_LastPath = zInputTIFFsBrowserDialog.SelectedPath;
             }
         }
 

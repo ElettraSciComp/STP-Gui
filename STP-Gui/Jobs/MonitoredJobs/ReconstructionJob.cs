@@ -76,6 +76,8 @@ namespace SYRMEPTomoProject.Jobs
         private string mPostProcessConvertArgs;
         private string mPostProcessCropArgs;
         private bool mDynamicFlatFielding;
+        private bool mRolling;
+        private int mRollShift;
         private string mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
             Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
             Path.DirectorySeparatorChar + "_rec_log_00.txt"; // It should be "*_00.txt"
@@ -159,7 +161,9 @@ namespace SYRMEPTomoProject.Jobs
             bool postProcess,
             string postProcessConvertArgs,
             string postProcessCropArgs,
-            bool dynamicFlatFielding
+            bool dynamicFlatFielding,
+            bool rolling,
+            int rollShift
             )
         {
             mPreProcess = preProcess;
@@ -195,6 +199,8 @@ namespace SYRMEPTomoProject.Jobs
             mPostProcessConvertArgs = postProcessConvertArgs;
             mPostProcessCropArgs = postProcessCropArgs;
             mDynamicFlatFielding = dynamicFlatFielding;
+            mRolling = rolling;
+            mRollShift = rollShift;
         }
 
         /// <summary>
@@ -247,12 +253,14 @@ namespace SYRMEPTomoProject.Jobs
             string postProcessConvertArgs,
             string postProcessCropArgs,
             bool dynamicFlatFielding,
+            bool rolling,
+            int rollShift,
             string logFile
             )
             : this(inputFile, outputPath, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, ringRemoval, angles, 
             angles_ProjFrom, angles_ProjTo,
             center, reconFunc, reconParam1, scale, overPadding, logTransform, circle, zeroneMode, correctionOffset, from, to, threads, decimateFactor, downscaleFactor,
-            postProcess, postProcessConvertArgs, postProcessCropArgs, dynamicFlatFielding)         
+            postProcess, postProcessConvertArgs, postProcessCropArgs, dynamicFlatFielding, rolling, rollShift)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -304,7 +312,9 @@ namespace SYRMEPTomoProject.Jobs
                 mPostProcessConvertArgs + " " +
                 mPostProcessCropArgs + " " +
                 mAngles_ProjFrom.ToString() + " " +
-                mAngles_ProjTo.ToString() + " " + 
+                mAngles_ProjTo.ToString() + " " +
+                mRolling.ToString() + " " +
+                mRollShift.ToString() + " " +
                 mDynamicFlatFielding.ToString() + " " +
                 mThreads.ToString() + 
                 " \"" + mLogFile + "\"";

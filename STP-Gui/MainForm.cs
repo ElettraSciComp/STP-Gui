@@ -32,6 +32,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -55,6 +56,9 @@ namespace SYRMEPTomoProject
         private JobMonitor mJobMonitor;
         private bool mFirstRun = false;
 
+        PerformanceCounter mCPUCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+        PerformanceCounter mRAMCounter = new PerformanceCounter("Memory", "Available MBytes");
+
         public MainForm()
         {
             InitializeComponent();
@@ -72,12 +76,13 @@ namespace SYRMEPTomoProject
 
         #region Monitoring
 
-
         void mJobMonitor_JobStep(object sender, JobEventArgs e)
         {
             try
             {
+                IMonitoredJob zJob = ((JobMonitor)sender).MonitoredJob;
                 TimeSpan zElapsedTime, zRemainingTime;
+                ulong zFreeSpace;               
 
                 // Thread safe (it runs on UI thread):
                 if (!e.Line.Equals(Environment.NewLine))
@@ -101,6 +106,56 @@ namespace SYRMEPTomoProject
                             }
 
                             mStatusBarProgressBar.Value = Math.Min((int)(Math.Round(e.Step * 100.0)), 100);
+                            toolStripStatusLabel1.Text = "Busy (Available RAM: " + (mRAMCounter.NextValue() / 1000).ToString("0.00") + " GB";
+
+                            if ((zJob.GetType() == typeof(PreProcessingJob)) || (zJob.GetType() == typeof(PhaseRetrievalJob)))
+                            {
+                                // Add memory usage and free space on temporary folder:
+                                if (FreeSpaceHelper.DriveFreeBytes(Properties.Settings.Default.FormSettings_WorkingPath, out zFreeSpace))
+                                {
+                                    double zVal = ((double)(zFreeSpace) / (1024.0 * 1024.0 * 1024.0));
+                                    if (zVal > 1024.0)
+                                    {
+                                        toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + " - Free space on working path: " +
+                                            (zVal / (1024.0)).ToString("0.0") + " TB)";
+                                    }
+                                    else
+                                    {
+                                        toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + " - Free space on working path: " +
+                                            zVal.ToString("0.0") + " GB)";
+                                    }
+                                }
+                                else
+                                {
+                                    toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + ")";
+                                }
+                            }
+                            else if ((zJob.GetType() == typeof(ReconstructionJob)) || (zJob.GetType() == typeof(PostProcessingJob)))
+                            {
+                                // Add memory usage and free space on temporary folder:
+                                if (FreeSpaceHelper.DriveFreeBytes(Properties.Settings.Default.FormSettings_OutputPath, out zFreeSpace))
+                                {
+                                    double zVal = ((double)(zFreeSpace) / (1024.0 * 1024.0 * 1024.0));
+                                    if (zVal > 1024.0)
+                                    {
+                                        toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + " - Free space on output path: " +
+                                            (zVal / (1024.0)).ToString("0.0") + " TB)";
+                                    }
+                                    else
+                                    {
+                                        toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + " - Free space on output path: " +
+                                            zVal.ToString("0.0") + " GB)";
+                                    }
+                                }
+                                else
+                                {
+                                    toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + ")";
+                                }
+                            }
+                            else
+                            {
+                                toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + ")";
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -129,6 +184,18 @@ namespace SYRMEPTomoProject
 
                         // Update progress bar:
                         mStatusBarProgressBar.Value = 0;
+
+                        // Change status bar label:
+                        toolStripStatusLabel1.Text = "Ready";
+
+                        // Enable all the "Run" buttons:
+                        btnPreProcessing_ExecuteRun.Enabled = true;
+                        btnPhaseRetrieval_ExecuteRun.Enabled = true;
+                        btnReconstructionTab_ExecuteRunSubset.Enabled = true;
+                        btnReconstructionTab_ExecuteRunAll.Enabled = true;
+                        btnPostProcessingTab_RunSubset.Enabled = true;
+                        btnPostProcessingTab_RunAll.Enabled = true;
+                       
                     }
                     catch (Exception ex)
                     {
@@ -156,6 +223,17 @@ namespace SYRMEPTomoProject
 
                         // Update progress bar:
                         mStatusBarProgressBar.Value = 0;
+
+                        // Change status bar label:
+                        toolStripStatusLabel1.Text = "Ready";
+
+                        // Enable all the "Run" buttons:
+                        btnPreProcessing_ExecuteRun.Enabled = true;
+                        btnPhaseRetrieval_ExecuteRun.Enabled = true;
+                        btnReconstructionTab_ExecuteRunSubset.Enabled = true;
+                        btnReconstructionTab_ExecuteRunAll.Enabled = true;
+                        btnPostProcessingTab_RunSubset.Enabled = true;
+                        btnPostProcessingTab_RunAll.Enabled = true;
                     }
                     catch (Exception ex)
                     {
@@ -188,6 +266,17 @@ namespace SYRMEPTomoProject
                     try
                     {
                         zLogTxb.AppendText(zString);
+
+                        // Change status bar label:
+                        toolStripStatusLabel1.Text = "Busy";
+
+                        // Disable all the "Run" buttons:
+                        btnPreProcessing_ExecuteRun.Enabled = false;
+                        btnPhaseRetrieval_ExecuteRun.Enabled = false;
+                        btnReconstructionTab_ExecuteRunSubset.Enabled = false;
+                        btnReconstructionTab_ExecuteRunAll.Enabled = false;
+                        btnPostProcessingTab_RunSubset.Enabled = false;
+                        btnPostProcessingTab_RunAll.Enabled = false;
                     }
                     catch (Exception ex)
                     {
@@ -207,66 +296,12 @@ namespace SYRMEPTomoProject
 
         #endregion
 
-        private void groupBox10_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            /*string zFilter;
-
-            if (zInputTIFFsBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                zProject_InputPathTxb.Text = zInputTIFFsBrowserDialog.SelectedPath;
-                BTPSettings.InputPath = zInputTIFFsBrowserDialog.SelectedPath;
-
-                // Get the number of projection files:
-                zFilter = BTPSettings.TomoPrefix + "*." + Properties.Settings.Default.FileFormat + "*";
-                BTPSettings.NumberOfProjections = (int)(Directory.GetFiles(BTPSettings.InputPath, zFilter, SearchOption.TopDirectoryOnly).Length);
-
-
-                //zProjections_SimulationToNud.Maximum = BTPSettings.NumberOfProjections;
-                zProjections_TestImageNud.Maximum = BTPSettings.NumberOfProjections;
-            }*/
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            /* if (zInputTDFFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-             {
-                 zProject_InputPathTxb.Text = zInputTDFFileDialog.FileName;
-                 BTPSettings.InputPath = zInputTDFFileDialog.FileName;
-             }*/
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            /*if (zWorkingPathBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                //zWorkingPathTxb.Text = zWorkingPathBrowserDialog.SelectedPath;
-                BTPSettings.WorkingPath = zWorkingPathBrowserDialog.SelectedPath;
-            }*/
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            /*if (zTestPathBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                //zTestPathTxb.Text = zTestPathBrowserDialog.SelectedPath;
-                BTPSettings.TestPath = zTestPathBrowserDialog.SelectedPath;
-            }*/
-        }
-
         #region On Form Load
 
         private void InitializeReconstructionAlgorithmsDropDown(bool includeGPUAlgorithms)
         {
             int ct = 0;
             string zFile;
-
-            // Populate the list:
-            this.SuspendLayout();
 
             zFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.RecAlgsXmlFile;
@@ -334,17 +369,12 @@ namespace SYRMEPTomoProject
                     cbxAlgorithmParameterFilter.SelectedIndex = 1;
                 }
             }
-
-            this.ResumeLayout();
         }
 
         private void InitializeDegradationMethodsDropDown()
         {
             int ct = 0;
             string zFile;
-
-            // Populate the list:
-            this.SuspendLayout();
 
             zFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.DegradationMethodsXmlFile;
@@ -371,17 +401,12 @@ namespace SYRMEPTomoProject
                     cbxDegradationMethods.SelectedIndex = 1;
                 }
             }
-
-            this.ResumeLayout();
         }
 
         private void InitializePhaseRetrievalAlgorithmsDropDown()
         {
             int ct = 0;
             string zFile;
-
-            // Populate the list:
-            this.SuspendLayout();
 
             zFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.PhrtAlgsXmlFile;
@@ -408,19 +433,13 @@ namespace SYRMEPTomoProject
                     cbxPhaseRetrievalTab_Algorithms.SelectedIndex = 0;
                 }
             }
-
-
-            this.ResumeLayout();
         }
 
         private void InitializeNormalizationMethodsDropDown()
         {
             int ct = 0;
             string zFile;
-
-            // Populate the list:
-            this.SuspendLayout();
-
+            
             zFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.FlatFieldAlgsXmlFile;
             if (File.Exists(zFile))
@@ -446,18 +465,12 @@ namespace SYRMEPTomoProject
                     cbxFlatField.SelectedIndex = 0;
                 }
             }
-
-
-            this.ResumeLayout();
         }
 
         private void InitializeRingRemovalMethodsDropDown()
         {
             int ct = 0;
             string zFile;
-
-            // Populate the list:
-            this.SuspendLayout();
 
             zFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.RingRemAlgsXmlFile;
@@ -484,9 +497,6 @@ namespace SYRMEPTomoProject
                     cbxRingRem.SelectedIndex = 1;
                 }
             }
-
-
-            this.ResumeLayout();
         }
 
         private void LoadPreviousValues()
@@ -789,7 +799,9 @@ namespace SYRMEPTomoProject
                 chkReconstructionTab_PostProcess.Checked,
                 zConvertTo8String,
                 zCropString,
-                zDynamicFlatFielding            
+                zDynamicFlatFielding,
+                this.gbxRolling.Enabled,
+                Convert.ToInt32(this.nudRollShift.Value)            
                 );
 
 
@@ -916,7 +928,9 @@ namespace SYRMEPTomoProject
                 chkReconstructionTab_PostProcess.Checked,
                 zConvertTo8String,
                 zCropString,
-                zDynamicFlatFielding
+                zDynamicFlatFielding,
+                this.gbxRolling.Enabled,
+                Convert.ToInt32(this.nudRollShift.Value)  
                 );
 
             // Create an instance of JobExecuter with the reconstruction job 
@@ -1794,7 +1808,6 @@ namespace SYRMEPTomoProject
         {
             string zString;
             //string[] zSplit;
-            string zFolder;
 
             /*string zExperiment;
             string zDataset;  */
@@ -1805,14 +1818,13 @@ namespace SYRMEPTomoProject
             //zSplit = Path.GetFileNameWithoutExtension(zString).Split('_');
             //zExperiment = zSplit[0];
             //zDataset = zSplit[1];          
-            zFolder = Path.GetFileNameWithoutExtension(zString);
 
             // Check if selected TDF exists:
             if (File.Exists(zString))
             {
                 lblReconstructionOutputPath.Text = Properties.Settings.Default.FormSettings_OutputPath + Path.DirectorySeparatorChar +
                     //zExperiment + Path.DirectorySeparatorChar + zDataset +
-                        zFolder +
+                        Path.GetFileNameWithoutExtension(zString) +
                         Path.DirectorySeparatorChar + @"slices" + Path.DirectorySeparatorChar;
 
                 this.nudCenter_Middle.Maximum = (TDFReader.GetDetectorSize(zString) - 1) / 2;
@@ -1831,6 +1843,8 @@ namespace SYRMEPTomoProject
                 this.nudReconstructionTab_Slice.Minimum = 0;
                 this.nudReconstructionTab_Slice.Maximum = TDFReader.GetNumberOfSlices(zString) - 1;
                 this.nudReconstructionTab_Slice.Value = Convert.ToDecimal(TDFReader.GetNumberOfSlices(zString) / 2);
+
+                this.nudRollShift.Maximum = Convert.ToDecimal(TDFReader.GetNumberOfProjections(zString) -1);
 
 
                 this.lblReconstructionTab_ExecuteFrom.Enabled = true;
@@ -2051,7 +2065,9 @@ namespace SYRMEPTomoProject
                 Convert.ToDouble(this.nudPhaseRetrievalTab_Energy.Value),
                 Convert.ToDouble(this.nudPhaseRetrievalTab_PixelSize.Value),
                 this.chkPhaseRetrievalTab_OverPadding.Checked,
-                zDynamicFlatFielding
+                zDynamicFlatFielding,
+                this.gbxRolling.Enabled,
+                Convert.ToInt32(this.nudRollShift.Value)  
             );
 
             // Create an instance of JobExecuter with the job:
@@ -2928,6 +2944,32 @@ namespace SYRMEPTomoProject
                 Convert.ToInt32(this.nudAnglesProjTo.Value)
                 );
             zForm.Show(this);
+        }
+
+        private void nudRollShift_ValueChanged(object sender, EventArgs e)
+        {
+            double zVal = Convert.ToDouble(this.nudRollShift.Value) / Convert.ToDouble(this.nudRollShift.Maximum) * Convert.ToDouble(this.nudAngles.Value);
+
+            this.lblRollShift.Text = "projections (i.e. " + zVal.ToString("0.0")  + " deg counterclockwise rotation)";
+        }
+
+        private void nudAngles_ValueChanged(object sender, EventArgs e)
+        {
+            if (Math.Abs(Convert.ToDouble(nudAngles.Value) - 180.0) < 0.001)
+            {
+                this.gbxRolling.Enabled = true;
+            }
+            else
+            {
+                if (Math.Abs(Convert.ToDouble(nudAngles.Value) - 360.0) < 0.001)
+                {
+                    this.gbxRolling.Enabled = true;
+                }
+                else
+                {
+                    this.gbxRolling.Enabled = false;
+                }
+            }
         }
 
     }

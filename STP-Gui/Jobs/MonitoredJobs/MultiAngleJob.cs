@@ -205,6 +205,7 @@ namespace SYRMEPTomoProject.Jobs
             mPhaseRetrieval = phaseRetrieval;
             mParam1 = param1;
             mParam2 = param2;
+            mPhrtMethod = phrtMethod;
             mDistance = distance;
             mEnergy = energy;
             mPixelsize = pixelsize;

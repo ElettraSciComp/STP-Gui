@@ -290,9 +290,17 @@ namespace SYRMEPTomoProject
 
         private void btnBrowseEDFs_Click(object sender, EventArgs e)
         {
-            if (zInputTIFFsBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+
+            // Load previous setting:
+            if (Directory.Exists(Properties.Settings.Default.EDF2TDF_LastPath))
             {
-                zProject_InputPathTxb.Text = zInputTIFFsBrowserDialog.SelectedPath;
+                zInputEDFsBrowserDialog.SelectedPath = Properties.Settings.Default.EDF2TDF_LastPath;
+            }
+
+            if (zInputEDFsBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                zProject_InputPathTxb.Text = zInputEDFsBrowserDialog.SelectedPath;
+                Properties.Settings.Default.EDF2TDF_LastPath = zInputEDFsBrowserDialog.SelectedPath;
             }
         }
 

@@ -438,9 +438,16 @@ namespace SYRMEPTomoProject
         {
             this.SuspendLayout();
 
+            // Load previous setting:
+            if (Directory.Exists(Properties.Settings.Default.TDF2TIFF_LastPath))
+            {
+                zOutputTIFFsBrowserDialog.SelectedPath = Properties.Settings.Default.TDF2TIFF_LastPath;
+            }
+
             if (zOutputTIFFsBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 zOutputPathTxb.Text = zOutputTIFFsBrowserDialog.SelectedPath;
+                Properties.Settings.Default.TDF2TIFF_LastPath = zOutputTIFFsBrowserDialog.SelectedPath;
                 mOutputTIFFs = zOutputTIFFsBrowserDialog.SelectedPath;               
 
                 btnConvert.Enabled = true;

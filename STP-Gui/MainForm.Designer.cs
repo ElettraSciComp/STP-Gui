@@ -277,6 +277,10 @@ namespace SYRMEPTomoProject
             this.mBgwPreview = new System.ComponentModel.BackgroundWorker();
             this.bgwAutoLimit = new System.ComponentModel.BackgroundWorker();
             this.mBgwPostProcessingPreview = new System.ComponentModel.BackgroundWorker();
+            this.gbxRolling = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.nudRollShift = new System.Windows.Forms.NumericUpDown();
+            this.lblRollShift = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.vNavPane1.SuspendLayout();
@@ -370,6 +374,8 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem6.ItemPanel.SuspendLayout();
             this.vNavPaneItem6.SuspendLayout();
             this.vImageNavPane.SuspendLayout();
+            this.gbxRolling.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRollShift)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -380,7 +386,7 @@ namespace SYRMEPTomoProject
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1079, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1185, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -493,9 +499,9 @@ namespace SYRMEPTomoProject
             this.toolStripStatusLabel1,
             this.zTiming_ToolStripLbl,
             this.mStatusBarProgressBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 711);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 851);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1079, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1185, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -510,7 +516,7 @@ namespace SYRMEPTomoProject
             // zTiming_ToolStripLbl
             // 
             this.zTiming_ToolStripLbl.Name = "zTiming_ToolStripLbl";
-            this.zTiming_ToolStripLbl.Size = new System.Drawing.Size(504, 17);
+            this.zTiming_ToolStripLbl.Size = new System.Drawing.Size(610, 17);
             this.zTiming_ToolStripLbl.Spring = true;
             this.zTiming_ToolStripLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -536,7 +542,7 @@ namespace SYRMEPTomoProject
             this.vNavPane1.Items.Add(this.vNavPaneItem8);
             this.vNavPane1.Location = new System.Drawing.Point(0, 24);
             this.vNavPane1.Name = "vNavPane1";
-            this.vNavPane1.Size = new System.Drawing.Size(454, 687);
+            this.vNavPane1.Size = new System.Drawing.Size(454, 827);
             this.vNavPane1.TabIndex = 3;
             this.vNavPane1.VIBlendTheme = VIBlend.Utilities.VIBLEND_THEME.VISTABLUE;
             // 
@@ -1720,6 +1726,7 @@ namespace SYRMEPTomoProject
             // vNavPaneItem4.ItemPanel
             // 
             this.vNavPaneItem4.ItemPanel.AutoScroll = true;
+            this.vNavPaneItem4.ItemPanel.Controls.Add(this.gbxRolling);
             this.vNavPaneItem4.ItemPanel.Controls.Add(this.groupBox1);
             this.vNavPaneItem4.ItemPanel.Controls.Add(this.groupBox35);
             this.vNavPaneItem4.ItemPanel.Controls.Add(this.groupBox24);
@@ -1731,11 +1738,11 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem4.ItemPanel.Controls.Add(this.groupBox11);
             this.vNavPaneItem4.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem4.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem4.ItemPanel.Size = new System.Drawing.Size(452, 536);
+            this.vNavPaneItem4.ItemPanel.Size = new System.Drawing.Size(452, 676);
             this.vNavPaneItem4.ItemPanel.TabIndex = 1;
             this.vNavPaneItem4.Location = new System.Drawing.Point(0, 90);
             this.vNavPaneItem4.Name = "vNavPaneItem4";
-            this.vNavPaneItem4.Size = new System.Drawing.Size(454, 567);
+            this.vNavPaneItem4.Size = new System.Drawing.Size(454, 707);
             this.vNavPaneItem4.TabIndex = 3;
             this.vNavPaneItem4.Text = "vReconstructionPaneItem";
             this.vNavPaneItem4.TooltipText = "Reconstruction";
@@ -1825,6 +1832,7 @@ namespace SYRMEPTomoProject
             0,
             0,
             131072});
+            this.nudAngles.ValueChanged += new System.EventHandler(this.nudAngles_ValueChanged);
             // 
             // groupBox35
             // 
@@ -1832,7 +1840,7 @@ namespace SYRMEPTomoProject
             this.groupBox35.Controls.Add(this.btnReconstructionTab_Preview);
             this.groupBox35.Controls.Add(this.nudReconstructionTab_Slice);
             this.groupBox35.Controls.Add(this.lblReconstructionTab_Slice);
-            this.groupBox35.Location = new System.Drawing.Point(20, 518);
+            this.groupBox35.Location = new System.Drawing.Point(20, 572);
             this.groupBox35.Name = "groupBox35";
             this.groupBox35.Size = new System.Drawing.Size(404, 77);
             this.groupBox35.TabIndex = 36;
@@ -1954,7 +1962,7 @@ namespace SYRMEPTomoProject
             // groupBox23
             // 
             this.groupBox23.Controls.Add(this.chkReconstructionTab_PostProcess);
-            this.groupBox23.Location = new System.Drawing.Point(20, 458);
+            this.groupBox23.Location = new System.Drawing.Point(20, 512);
             this.groupBox23.Name = "groupBox23";
             this.groupBox23.Size = new System.Drawing.Size(404, 53);
             this.groupBox23.TabIndex = 19;
@@ -2045,13 +2053,12 @@ namespace SYRMEPTomoProject
             this.groupBox10.Controls.Add(this.chkCircleMask);
             this.groupBox10.Controls.Add(this.cbxAlgorithm);
             this.groupBox10.Controls.Add(this.label33);
-            this.groupBox10.Location = new System.Drawing.Point(20, 286);
+            this.groupBox10.Location = new System.Drawing.Point(20, 340);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(404, 166);
             this.groupBox10.TabIndex = 1;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Reconstruction";
-            this.groupBox10.Enter += new System.EventHandler(this.groupBox10_Enter);
             // 
             // nudCorrectionOffset
             // 
@@ -2320,7 +2327,7 @@ namespace SYRMEPTomoProject
             this.groupBox11.Controls.Add(this.nudReconstructionTab_ExecuteFrom);
             this.groupBox11.Controls.Add(this.lblReconstructionTab_ExecuteFrom);
             this.groupBox11.Controls.Add(this.btnReconstructionTab_ExecuteRunSubset);
-            this.groupBox11.Location = new System.Drawing.Point(21, 601);
+            this.groupBox11.Location = new System.Drawing.Point(21, 655);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(404, 81);
             this.groupBox11.TabIndex = 3;
@@ -2432,7 +2439,7 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem8.ItemPanel.Name = "ItemPanel";
             this.vNavPaneItem8.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem8.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem8.Location = new System.Drawing.Point(0, 657);
+            this.vNavPaneItem8.Location = new System.Drawing.Point(0, 797);
             this.vNavPaneItem8.Name = "vNavPaneItem8";
             this.vNavPaneItem8.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem8.TabIndex = 6;
@@ -2887,8 +2894,8 @@ namespace SYRMEPTomoProject
             // 
             this.splitContainer1.Panel2.Controls.Add(this.vLogNavPane);
             this.splitContainer1.Panel2MinSize = 200;
-            this.splitContainer1.Size = new System.Drawing.Size(625, 687);
-            this.splitContainer1.SplitterDistance = 482;
+            this.splitContainer1.Size = new System.Drawing.Size(731, 827);
+            this.splitContainer1.SplitterDistance = 580;
             this.splitContainer1.TabIndex = 0;
             // 
             // vNavPaneImage
@@ -2898,7 +2905,7 @@ namespace SYRMEPTomoProject
             this.vNavPaneImage.Items.Add(this.vNavPaneItem2);
             this.vNavPaneImage.Location = new System.Drawing.Point(0, 0);
             this.vNavPaneImage.Name = "vNavPaneImage";
-            this.vNavPaneImage.Size = new System.Drawing.Size(625, 482);
+            this.vNavPaneImage.Size = new System.Drawing.Size(731, 580);
             this.vNavPaneImage.TabIndex = 0;
             this.vNavPaneImage.VIBlendTheme = VIBlend.Utilities.VIBLEND_THEME.VISTABLUE;
             // 
@@ -2913,11 +2920,11 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem2.ItemPanel.Controls.Add(this.kpImageViewer1);
             this.vNavPaneItem2.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem2.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem2.ItemPanel.Size = new System.Drawing.Size(623, 451);
+            this.vNavPaneItem2.ItemPanel.Size = new System.Drawing.Size(729, 549);
             this.vNavPaneItem2.ItemPanel.TabIndex = 1;
             this.vNavPaneItem2.Location = new System.Drawing.Point(0, 0);
             this.vNavPaneItem2.Name = "vNavPaneItem2";
-            this.vNavPaneItem2.Size = new System.Drawing.Size(625, 482);
+            this.vNavPaneItem2.Size = new System.Drawing.Size(731, 580);
             this.vNavPaneItem2.TabIndex = 0;
             this.vNavPaneItem2.Text = "vNavPaneImage_ItemViewer";
             this.vNavPaneItem2.TooltipText = "Image Viewer";
@@ -2946,7 +2953,7 @@ namespace SYRMEPTomoProject
             this.kpImageViewer1.Rotation = 0;
             this.kpImageViewer1.Scrollbars = false;
             this.kpImageViewer1.ShowPreview = true;
-            this.kpImageViewer1.Size = new System.Drawing.Size(623, 451);
+            this.kpImageViewer1.Size = new System.Drawing.Size(729, 549);
             this.kpImageViewer1.TabIndex = 0;
             this.kpImageViewer1.TextColor = System.Drawing.SystemColors.MenuText;
             this.kpImageViewer1.Zoom = 100D;
@@ -2958,7 +2965,7 @@ namespace SYRMEPTomoProject
             this.vLogNavPane.Items.Add(this.vNavPaneItem6);
             this.vLogNavPane.Location = new System.Drawing.Point(0, 0);
             this.vLogNavPane.Name = "vLogNavPane";
-            this.vLogNavPane.Size = new System.Drawing.Size(625, 201);
+            this.vLogNavPane.Size = new System.Drawing.Size(731, 243);
             this.vLogNavPane.TabIndex = 5;
             this.vLogNavPane.VIBlendTheme = VIBlend.Utilities.VIBLEND_THEME.VISTABLUE;
             // 
@@ -2974,11 +2981,11 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem6.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem6.ItemPanel.Name = "ItemPanel";
             this.vNavPaneItem6.ItemPanel.Padding = new System.Windows.Forms.Padding(10);
-            this.vNavPaneItem6.ItemPanel.Size = new System.Drawing.Size(623, 170);
+            this.vNavPaneItem6.ItemPanel.Size = new System.Drawing.Size(729, 212);
             this.vNavPaneItem6.ItemPanel.TabIndex = 1;
             this.vNavPaneItem6.Location = new System.Drawing.Point(0, 0);
             this.vNavPaneItem6.Name = "vNavPaneItem6";
-            this.vNavPaneItem6.Size = new System.Drawing.Size(625, 201);
+            this.vNavPaneItem6.Size = new System.Drawing.Size(731, 243);
             this.vNavPaneItem6.TabIndex = 0;
             this.vNavPaneItem6.Text = "Log";
             this.vNavPaneItem6.TooltipText = "Log";
@@ -2993,7 +3000,7 @@ namespace SYRMEPTomoProject
             this.zLogTxb.Name = "zLogTxb";
             this.zLogTxb.ReadOnly = true;
             this.zLogTxb.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.zLogTxb.Size = new System.Drawing.Size(603, 150);
+            this.zLogTxb.Size = new System.Drawing.Size(709, 192);
             this.zLogTxb.TabIndex = 0;
             // 
             // vImageNavPane
@@ -3002,7 +3009,7 @@ namespace SYRMEPTomoProject
             this.vImageNavPane.Dock = System.Windows.Forms.DockStyle.Fill;
             this.vImageNavPane.Location = new System.Drawing.Point(454, 24);
             this.vImageNavPane.Name = "vImageNavPane";
-            this.vImageNavPane.Size = new System.Drawing.Size(625, 687);
+            this.vImageNavPane.Size = new System.Drawing.Size(731, 827);
             this.vImageNavPane.TabIndex = 5;
             this.vImageNavPane.VIBlendTheme = VIBlend.Utilities.VIBLEND_THEME.VISTABLUE;
             // 
@@ -3059,11 +3066,55 @@ namespace SYRMEPTomoProject
             this.mBgwPostProcessingPreview.DoWork += new System.ComponentModel.DoWorkEventHandler(this.mBgwPreview_DoWork);
             this.mBgwPostProcessingPreview.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.mBgwPostProcessingPreview_RunWorkerCompleted);
             // 
+            // gbxRolling
+            // 
+            this.gbxRolling.Controls.Add(this.lblRollShift);
+            this.gbxRolling.Controls.Add(this.label6);
+            this.gbxRolling.Controls.Add(this.nudRollShift);
+            this.gbxRolling.Location = new System.Drawing.Point(20, 282);
+            this.gbxRolling.Name = "gbxRolling";
+            this.gbxRolling.Size = new System.Drawing.Size(404, 54);
+            this.gbxRolling.TabIndex = 50;
+            this.gbxRolling.TabStop = false;
+            this.gbxRolling.Text = "(Lossless) Rotation";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 28);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(25, 13);
+            this.label6.TabIndex = 31;
+            this.label6.Text = "Roll";
+            // 
+            // nudRollShift
+            // 
+            this.nudRollShift.Location = new System.Drawing.Point(37, 25);
+            this.nudRollShift.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.nudRollShift.Name = "nudRollShift";
+            this.nudRollShift.Size = new System.Drawing.Size(56, 20);
+            this.nudRollShift.TabIndex = 45;
+            this.nudRollShift.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudRollShift.ValueChanged += new System.EventHandler(this.nudRollShift_ValueChanged);
+            // 
+            // lblRollShift
+            // 
+            this.lblRollShift.AutoSize = true;
+            this.lblRollShift.Location = new System.Drawing.Point(99, 28);
+            this.lblRollShift.Name = "lblRollShift";
+            this.lblRollShift.Size = new System.Drawing.Size(199, 13);
+            this.lblRollShift.TabIndex = 46;
+            this.lblRollShift.Text = "projections (i.e. 0 deg clockwise rotation)";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1079, 733);
+            this.ClientSize = new System.Drawing.Size(1185, 873);
             this.Controls.Add(this.vImageNavPane);
             this.Controls.Add(this.vNavPane1);
             this.Controls.Add(this.statusStrip1);
@@ -3201,6 +3252,9 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem6.ItemPanel.PerformLayout();
             this.vNavPaneItem6.ResumeLayout(false);
             this.vImageNavPane.ResumeLayout(false);
+            this.gbxRolling.ResumeLayout(false);
+            this.gbxRolling.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRollShift)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3433,6 +3487,10 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.NumericUpDown nudAnglesProjTo;
         private System.Windows.Forms.NumericUpDown nudAnglesProjFrom;
         private System.Windows.Forms.Button btnMultipleAngles;
+        private System.Windows.Forms.GroupBox gbxRolling;
+        private System.Windows.Forms.Label lblRollShift;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown nudRollShift;
     }
 }
 

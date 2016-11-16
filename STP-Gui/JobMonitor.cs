@@ -86,12 +86,18 @@ namespace SYRMEPTomoProject
         public event JobCompletedEventHandler JobCompleted;
         public event JobErrorEventHandler JobError;
 
+        public IMonitoredJob MonitoredJob
+        {
+            get { return (IMonitoredJob) mJobExecuter.Job; }
+        }
+
+
         /// <summary>
         /// Class constructor.
         /// </summary>
         public JobMonitor()
         {
-
+            
         }
 
         /// <summary>

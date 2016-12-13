@@ -116,8 +116,10 @@ namespace SYRMEPTomoProject.Jobs
                 + mAngles.ToString() + " "
                 + mProjFrom.ToString() + " "
                 + mProjTo.ToString() + " "
-                + mMethod + " " 
-                + Properties.Settings.Default.FormSettings_TemporaryPath + Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID;
+                + mMethod + " \"" +
+                Properties.Settings.Default.FormSettings_TemporaryPath
+                + Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID
+                + "\"";
 
             return zString;
         }

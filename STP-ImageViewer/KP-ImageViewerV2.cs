@@ -24,6 +24,8 @@ namespace KaiwaProjects
 
         private List<byte> pix8;
         private List<float> pix32;
+        private int pix32_Width;
+        private int pix32_Height;
 
         private byte[] lut8;        
 
@@ -206,7 +208,8 @@ namespace KaiwaProjects
         public void ResetValues()
         {
             winMax = 255;
-            winMin = 0;           
+            winMin = 0;
+            drawing.Rotation = 0;
         }
 
         #endregion
@@ -440,8 +443,13 @@ namespace KaiwaProjects
             set
             {
                 drawing.Image = value;
-                
-               
+
+                if (value != null)
+                {
+                    pix32_Width = value.Width;
+                    pix32_Height = value.Height;
+                }
+
                 UpdatePanels(true);
                 ToggleMultiPage();
 
@@ -1077,8 +1085,8 @@ namespace KaiwaProjects
                 // Prepare the args:
                 zArgs = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar
                     + Properties.Settings.Default.PythonPath + Path.DirectorySeparatorChar + Properties.Settings.Default.ConvertToTIFF32 + "\" "
-                    + zSaveFileDialog.FileName + "_tmp" + " " + zSaveFileDialog.FileName + " " + this.drawing.Image.Width.ToString() + " "
-                    + this.drawing.Image.Height.ToString();
+                    + zSaveFileDialog.FileName + "_tmp" + " " + zSaveFileDialog.FileName + " " + this.pix32_Width.ToString() + " "
+                    + this.pix32_Height.ToString();
 
                 // Get projection by calling the python process:
                 StartProcess(zProcess, zArgs);

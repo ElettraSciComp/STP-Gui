@@ -52,6 +52,8 @@ namespace SYRMEPTomoProject.Jobs
         private bool mExtFOV = false;
         private bool mExtFOVRight = false;
         private int mExtFOVOverlap;
+        private bool mExtFOVNormalize;
+        private bool mExtFOVAverage;
         private string mRingRemoval = "-";
         private string mInputFile;
         private string mOutputPath; 
@@ -140,6 +142,8 @@ namespace SYRMEPTomoProject.Jobs
             bool extFOV,
             bool extFOVRight,
             int extFOVOverlap,
+            bool extFOVNormalize,
+            bool extFOVAverage,
             string ringRemoval,            
             double angles,
             int angles_ProjFrom,
@@ -176,6 +180,8 @@ namespace SYRMEPTomoProject.Jobs
             mExtFOV = extFOV;
             mExtFOVRight = extFOVRight;
             mExtFOVOverlap = extFOVOverlap;
+            mExtFOVNormalize = extFOVNormalize;
+            mExtFOVAverage = extFOVAverage;
             mRingRemoval = ringRemoval;
             mInputFile = inputFile;           
             mAngles = angles;
@@ -231,6 +237,8 @@ namespace SYRMEPTomoProject.Jobs
             bool extFOV,
             bool extFOVRight,
             int extFOVOverlap,
+            bool extFOVNormalize,
+            bool extFOVAverage,
             string ringRemoval,            
             double angles,
             int angles_ProjFrom,
@@ -257,9 +265,9 @@ namespace SYRMEPTomoProject.Jobs
             int rollShift,
             string logFile
             )
-            : this(inputFile, outputPath, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, ringRemoval, angles, 
-            angles_ProjFrom, angles_ProjTo,
-            center, reconFunc, reconParam1, scale, overPadding, logTransform, circle, zeroneMode, correctionOffset, from, to, threads, decimateFactor, downscaleFactor,
+            : this(inputFile, outputPath, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, 
+            extFOVNormalize, extFOVAverage, ringRemoval, angles, angles_ProjFrom, angles_ProjTo, center, reconFunc, reconParam1, scale, 
+            overPadding, logTransform, circle, zeroneMode, correctionOffset, from, to, threads, decimateFactor, downscaleFactor,
             postProcess, postProcessConvertArgs, postProcessCropArgs, dynamicFlatFielding, rolling, rollShift)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
@@ -300,7 +308,9 @@ namespace SYRMEPTomoProject.Jobs
                 mFlatEnd.ToString() + " " + mHalfHalf.ToString() + " " +
                 mHalfHalfLine.ToString() + " " +
                 mExtFOV.ToString() + " " + mExtFOVRight.ToString() + " " +
-                mExtFOVOverlap.ToString() + " " + 
+                mExtFOVOverlap.ToString() + " " +
+                mExtFOVNormalize.ToString() + " " +
+                mExtFOVAverage.ToString() + " " + 
                 mAirSx.ToString() + " " + mAirDx.ToString() + " False \"" +  // This has to be modified...
                 mRingRemoval + "\" " +
                 mZeroneMode.ToString() + " " +

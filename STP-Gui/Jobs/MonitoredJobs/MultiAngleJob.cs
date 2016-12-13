@@ -337,8 +337,9 @@ namespace SYRMEPTomoProject.Jobs
                 mDistance.ToString(CultureInfo.InvariantCulture) + " " +
                 mPixelsize.ToString(CultureInfo.InvariantCulture) + " " +
                 mPhrtPad.ToString() + " " +
-                Properties.Settings.Default.FormSettings_ChunkSize.ToString() + " True \"" +              
-                Properties.Settings.Default.FormSettings_TemporaryPath + "\" " +
+                Properties.Settings.Default.FormSettings_ChunkSize.ToString() + " True \"" +
+                Properties.Settings.Default.FormSettings_TemporaryPath
+                + Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID + "\" " +
                 (Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses)).ToString() + " " +
                 mAnglesProjFrom.ToString() + " " +
                 mAnglesProjTo.ToString() + " \"" +

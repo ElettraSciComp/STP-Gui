@@ -985,7 +985,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.1.50")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.1.52")]
         public string Version {
             get {
                 return ((string)(this["Version"]));

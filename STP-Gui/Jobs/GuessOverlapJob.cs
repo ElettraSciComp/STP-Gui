@@ -109,8 +109,10 @@ namespace SYRMEPTomoProject.Jobs
                 + Properties.Settings.Default.PythonPath + Path.DirectorySeparatorChar + Properties.Settings.Default.GuessOverlapJob + "\" \"" 
                 + mInputFile + "\" \"" 
                 + mLogFile + "\" "
-                + mScale.ToString() + " "
-                + Properties.Settings.Default.FormSettings_TemporaryPath + Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID;
+                + mScale.ToString() + " \"" +
+                Properties.Settings.Default.FormSettings_TemporaryPath
+                + Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID
+                + "\""; 
 
             return zString;
         }

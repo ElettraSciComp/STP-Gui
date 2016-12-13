@@ -604,8 +604,10 @@ namespace SYRMEPTomoProject
                    chkHalfHalfMode.Checked,
                    Convert.ToInt32(this.nudHalfHalfMode.Value),
                    chkExtendedFOV.Checked,
-                   chkExtFOV_AirRight.Checked,
+                   chkExtFOV_AirRight.Checked,                   
                    Convert.ToInt32(nudExtendedFOVOverlap.Value),
+                   chkExtFOVNormalize.Checked,
+                   chkExtFOVAverage.Checked,
                    zRingRemString,
                    zDynamicFlatFielding,
                    Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses),
@@ -778,6 +780,8 @@ namespace SYRMEPTomoProject
                 chkExtendedFOV.Checked,
                 chkExtFOV_AirRight.Checked,
                 Convert.ToInt32(nudExtendedFOVOverlap.Value),
+                chkExtFOVNormalize.Checked,
+                chkExtFOVAverage.Checked,
                 zRingRemString,
                 Convert.ToDouble(this.nudAngles.Value) * Math.PI / 180.0,
                 Convert.ToInt32(this.nudAnglesProjFrom.Value),
@@ -907,6 +911,8 @@ namespace SYRMEPTomoProject
                 chkExtendedFOV.Checked,
                 chkExtFOV_AirRight.Checked,
                 Convert.ToInt32(nudExtendedFOVOverlap.Value),
+                chkExtFOVNormalize.Checked,
+                chkExtFOVAverage.Checked,
                 zRingRemString,
                 Convert.ToDouble(this.nudAngles.Value) * Math.PI / 180.0,
                 Convert.ToInt32(this.nudAnglesProjFrom.Value),
@@ -970,6 +976,7 @@ namespace SYRMEPTomoProject
                 this.nudAlgorithmParameterIterations.Visible = false;
                 this.txbReconstructionLambda.Visible = false;
                 this.nudGridRec.Visible = false;
+                this.chkOverPadding.Enabled = true;
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "GRIDREC")
             {
@@ -981,6 +988,7 @@ namespace SYRMEPTomoProject
                 this.nudAlgorithmParameterIterations.Visible = false;
                 this.txbReconstructionLambda.Visible = false;
                 this.nudGridRec.Visible = true;
+                this.chkOverPadding.Enabled = false;
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "MR-FBP_CUDA")
             {
@@ -990,6 +998,7 @@ namespace SYRMEPTomoProject
                 this.cbxAlgorithmParameterFilter.Visible = false;
                 this.txbReconstructionLambda.Visible = false;
                 this.nudGridRec.Visible = false;
+                this.chkOverPadding.Enabled = true;
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FISTA-TV_CUDA")
             {
@@ -1001,6 +1010,7 @@ namespace SYRMEPTomoProject
                 this.cbxAlgorithmParameterFilter.Visible = false;
                 this.txbReconstructionLambda.Visible = true;
                 this.nudGridRec.Visible = false;
+                this.chkOverPadding.Enabled = true;
             }
             else
             {
@@ -1013,6 +1023,7 @@ namespace SYRMEPTomoProject
                 this.cbxAlgorithmParameterFilter.Visible = false;
                 this.txbReconstructionLambda.Visible = false;
                 this.nudGridRec.Visible = false;
+                this.chkOverPadding.Enabled = true;
             }
         }
 
@@ -1326,6 +1337,8 @@ namespace SYRMEPTomoProject
                 btnPreProcess_GuessOverlap.Enabled = true;
                 nudExtendedFOVOverlap.Enabled = true;
                 chkExtFOV_AirRight.Enabled = true;
+                chkExtFOVNormalize.Enabled = true;
+                chkExtFOVAverage.Enabled = true;
                 chkExtFOV_AirRight_CheckedChanged(null, null);
             }
             else
@@ -1333,6 +1346,8 @@ namespace SYRMEPTomoProject
                 btnPreProcess_GuessOverlap.Enabled = false;
                 nudExtendedFOVOverlap.Enabled = false;
                 chkExtFOV_AirRight.Enabled = false;
+                chkExtFOVNormalize.Enabled = false;
+                chkExtFOVAverage.Enabled = false;
                 nudNormSx.Enabled = true;
                 nudNormDx.Enabled = true;
             }
@@ -1542,8 +1557,8 @@ namespace SYRMEPTomoProject
             zBitmap.UnlockBits(zBitmapData);
 
             // Add the Bitmap to the image viewer:
-            this.kpImageViewer1.Image = zBitmap;
             this.kpImageViewer1.ResetValues();
+            this.kpImageViewer1.Image = zBitmap;            
 
 
             // Delete temporary file:
@@ -1912,6 +1927,8 @@ namespace SYRMEPTomoProject
                    chkExtendedFOV.Checked,
                    chkExtFOV_AirRight.Checked,
                    Convert.ToInt32(nudExtendedFOVOverlap.Value),
+                   chkExtFOVNormalize.Checked,
+                   chkExtFOVAverage.Checked,
                    zRingRemString,
                    zDynamicFlatFielding
             );
@@ -2039,6 +2056,8 @@ namespace SYRMEPTomoProject
                 chkExtendedFOV.Checked,
                 chkExtFOV_AirRight.Checked,
                 Convert.ToInt32(nudExtendedFOVOverlap.Value),
+                chkExtFOVNormalize.Checked,
+                chkExtFOVAverage.Checked,
                 zRingRemString,
                 Convert.ToDouble(this.nudAngles.Value) * Math.PI / 180.0,
                 Convert.ToInt32(this.nudAnglesProjFrom.Value),
@@ -2112,8 +2131,14 @@ namespace SYRMEPTomoProject
             });
 
             // Delete temporary file:
-            if (File.Exists(zTempFile))
-                File.Delete(zTempFile);
+            try
+            {
+                if (File.Exists(zTempFile))
+                    File.Delete(zTempFile);
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private void mBgwPreview_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

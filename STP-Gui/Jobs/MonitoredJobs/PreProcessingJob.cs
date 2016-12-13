@@ -23,7 +23,7 @@
 
 //
 // Author: Francesco Brun
-// Last modified: April, 11th 2016
+// Last modified: December, 12th 2016
 //
 
 using System;
@@ -54,6 +54,8 @@ namespace SYRMEPTomoProject.Jobs
         private bool mExtFOV;
         private bool mExtFOVRight;
         private int mExtFOVOverlap;
+        private bool mExtFOVNormalize;
+        private bool mExtFOVAverage;
         private string mRingRem;
         private bool mDynamicFlatFielding;
         private int mThreads;
@@ -111,6 +113,8 @@ namespace SYRMEPTomoProject.Jobs
             bool extFOV,
             bool extFOVRight,
             int extFOVOverlap,
+            bool extFOVNormalize,
+            bool extFOVAverage,
             string ringRem,  
             bool dynamicFlatFielding,
             int threads,
@@ -130,6 +134,8 @@ namespace SYRMEPTomoProject.Jobs
             mExtFOV = extFOV;
             mExtFOVRight = extFOVRight;
             mExtFOVOverlap = extFOVOverlap;
+            mExtFOVNormalize = extFOVNormalize;
+            mExtFOVAverage = extFOVAverage;
             mRingRem = ringRem;
             mDynamicFlatFielding = dynamicFlatFielding;
             mThreads = threads;
@@ -159,6 +165,8 @@ namespace SYRMEPTomoProject.Jobs
             bool extFOV,
             bool extFOVRight,
             int extFOVOverlap,
+            bool extFOVNormalize,
+            bool extFOVAverage,
             string ringRem,   
             bool dynamicFlatFielding,
             int threads,
@@ -167,7 +175,7 @@ namespace SYRMEPTomoProject.Jobs
             string logFile
             )
             : this(inputFile, outputFile, from, to, normSx, normDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap,
-                ringRem, dynamicFlatFielding, threads, previewMode, previewModeOutFile)         
+                extFOVNormalize, extFOVAverage, ringRem, dynamicFlatFielding, threads, previewMode, previewModeOutFile)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -198,6 +206,8 @@ namespace SYRMEPTomoProject.Jobs
                 mExtFOV.ToString() + " " + 
                 mExtFOVRight.ToString() + " " +
                 mExtFOVOverlap.ToString() + " " +
+                mExtFOVNormalize.ToString() + " " +
+                mExtFOVAverage.ToString() + " " +
                 mRingRem + " " +
                 mDynamicFlatFielding.ToString() + " " +
                 mThreads.ToString() + " \"" + 

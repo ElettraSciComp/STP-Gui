@@ -168,6 +168,10 @@ namespace SYRMEPTomoProject
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.vNavPaneItem4 = new VIBlend.WinForms.Controls.vNavPaneItem();
+            this.gbxRolling = new System.Windows.Forms.GroupBox();
+            this.lblRollShift = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.nudRollShift = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnMultipleAngles = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -277,10 +281,8 @@ namespace SYRMEPTomoProject
             this.mBgwPreview = new System.ComponentModel.BackgroundWorker();
             this.bgwAutoLimit = new System.ComponentModel.BackgroundWorker();
             this.mBgwPostProcessingPreview = new System.ComponentModel.BackgroundWorker();
-            this.gbxRolling = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.nudRollShift = new System.Windows.Forms.NumericUpDown();
-            this.lblRollShift = new System.Windows.Forms.Label();
+            this.chkExtFOVNormalize = new System.Windows.Forms.CheckBox();
+            this.chkExtFOVAverage = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.vNavPane1.SuspendLayout();
@@ -326,6 +328,8 @@ namespace SYRMEPTomoProject
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_Energy)).BeginInit();
             this.vNavPaneItem4.ItemPanel.SuspendLayout();
             this.vNavPaneItem4.SuspendLayout();
+            this.gbxRolling.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRollShift)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAnglesProjTo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAnglesProjFrom)).BeginInit();
@@ -374,8 +378,6 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem6.ItemPanel.SuspendLayout();
             this.vNavPaneItem6.SuspendLayout();
             this.vImageNavPane.SuspendLayout();
-            this.gbxRolling.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRollShift)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -857,11 +859,11 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem3.ItemPanel.Controls.Add(this.gbxPreProcessing_Preview);
             this.vNavPaneItem3.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem3.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem3.ItemPanel.Size = new System.Drawing.Size(452, 0);
+            this.vNavPaneItem3.ItemPanel.Size = new System.Drawing.Size(452, 676);
             this.vNavPaneItem3.ItemPanel.TabIndex = 1;
             this.vNavPaneItem3.Location = new System.Drawing.Point(0, 30);
             this.vNavPaneItem3.Name = "vNavPaneItem3";
-            this.vNavPaneItem3.Size = new System.Drawing.Size(454, 30);
+            this.vNavPaneItem3.Size = new System.Drawing.Size(454, 707);
             this.vNavPaneItem3.TabIndex = 2;
             this.vNavPaneItem3.Text = "vProjectionsPaneItem";
             this.vNavPaneItem3.TooltipText = "Pre-processing";
@@ -872,7 +874,7 @@ namespace SYRMEPTomoProject
             this.gbxPreProcessing_Execute.Controls.Add(this.lblPreProcessing_ExecuteOutput);
             this.gbxPreProcessing_Execute.Controls.Add(this.btnPreProcessing_ExecuteRun);
             this.gbxPreProcessing_Execute.Enabled = false;
-            this.gbxPreProcessing_Execute.Location = new System.Drawing.Point(20, 424);
+            this.gbxPreProcessing_Execute.Location = new System.Drawing.Point(20, 463);
             this.gbxPreProcessing_Execute.Name = "gbxPreProcessing_Execute";
             this.gbxPreProcessing_Execute.Size = new System.Drawing.Size(404, 52);
             this.gbxPreProcessing_Execute.TabIndex = 25;
@@ -938,6 +940,8 @@ namespace SYRMEPTomoProject
             // 
             // groupBox28
             // 
+            this.groupBox28.Controls.Add(this.chkExtFOVAverage);
+            this.groupBox28.Controls.Add(this.chkExtFOVNormalize);
             this.groupBox28.Controls.Add(this.btnPreProcess_GuessOverlap);
             this.groupBox28.Controls.Add(this.chkExtFOV_AirRight);
             this.groupBox28.Controls.Add(this.nudExtendedFOVOverlap);
@@ -945,7 +949,7 @@ namespace SYRMEPTomoProject
             this.groupBox28.Enabled = false;
             this.groupBox28.Location = new System.Drawing.Point(20, 178);
             this.groupBox28.Name = "groupBox28";
-            this.groupBox28.Size = new System.Drawing.Size(404, 72);
+            this.groupBox28.Size = new System.Drawing.Size(404, 110);
             this.groupBox28.TabIndex = 34;
             this.groupBox28.TabStop = false;
             this.groupBox28.Text = "Extended Field Of View (FOV)";
@@ -964,6 +968,7 @@ namespace SYRMEPTomoProject
             // chkExtFOV_AirRight
             // 
             this.chkExtFOV_AirRight.AutoSize = true;
+            this.chkExtFOV_AirRight.Enabled = false;
             this.chkExtFOV_AirRight.Location = new System.Drawing.Point(62, 43);
             this.chkExtFOV_AirRight.Name = "chkExtFOV_AirRight";
             this.chkExtFOV_AirRight.Size = new System.Drawing.Size(199, 17);
@@ -1003,7 +1008,7 @@ namespace SYRMEPTomoProject
             this.groupBox8.Controls.Add(this.cbxRingRem);
             this.groupBox8.Controls.Add(this.label38);
             this.groupBox8.Enabled = false;
-            this.groupBox8.Location = new System.Drawing.Point(20, 256);
+            this.groupBox8.Location = new System.Drawing.Point(20, 295);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(404, 97);
             this.groupBox8.TabIndex = 32;
@@ -1227,7 +1232,7 @@ namespace SYRMEPTomoProject
             this.gbxPreProcessing_Preview.Controls.Add(this.nudPreprocessingTab_Preview);
             this.gbxPreProcessing_Preview.Controls.Add(this.lblPreprocessingTab_Preview);
             this.gbxPreProcessing_Preview.Enabled = false;
-            this.gbxPreProcessing_Preview.Location = new System.Drawing.Point(20, 359);
+            this.gbxPreProcessing_Preview.Location = new System.Drawing.Point(20, 398);
             this.gbxPreProcessing_Preview.Name = "gbxPreProcessing_Preview";
             this.gbxPreProcessing_Preview.Size = new System.Drawing.Size(404, 52);
             this.gbxPreProcessing_Preview.TabIndex = 12;
@@ -1283,7 +1288,7 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem7.ItemPanel.Name = "ItemPanel";
             this.vNavPaneItem7.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem7.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem7.Location = new System.Drawing.Point(0, 60);
+            this.vNavPaneItem7.Location = new System.Drawing.Point(0, 737);
             this.vNavPaneItem7.Name = "vNavPaneItem7";
             this.vNavPaneItem7.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem7.TabIndex = 5;
@@ -1738,14 +1743,58 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem4.ItemPanel.Controls.Add(this.groupBox11);
             this.vNavPaneItem4.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem4.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem4.ItemPanel.Size = new System.Drawing.Size(452, 676);
+            this.vNavPaneItem4.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem4.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem4.Location = new System.Drawing.Point(0, 90);
+            this.vNavPaneItem4.Location = new System.Drawing.Point(0, 767);
             this.vNavPaneItem4.Name = "vNavPaneItem4";
-            this.vNavPaneItem4.Size = new System.Drawing.Size(454, 707);
+            this.vNavPaneItem4.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem4.TabIndex = 3;
             this.vNavPaneItem4.Text = "vReconstructionPaneItem";
             this.vNavPaneItem4.TooltipText = "Reconstruction";
+            // 
+            // gbxRolling
+            // 
+            this.gbxRolling.Controls.Add(this.lblRollShift);
+            this.gbxRolling.Controls.Add(this.label6);
+            this.gbxRolling.Controls.Add(this.nudRollShift);
+            this.gbxRolling.Location = new System.Drawing.Point(20, 282);
+            this.gbxRolling.Name = "gbxRolling";
+            this.gbxRolling.Size = new System.Drawing.Size(404, 54);
+            this.gbxRolling.TabIndex = 50;
+            this.gbxRolling.TabStop = false;
+            this.gbxRolling.Text = "(Lossless) Rotation";
+            // 
+            // lblRollShift
+            // 
+            this.lblRollShift.AutoSize = true;
+            this.lblRollShift.Location = new System.Drawing.Point(99, 28);
+            this.lblRollShift.Name = "lblRollShift";
+            this.lblRollShift.Size = new System.Drawing.Size(199, 13);
+            this.lblRollShift.TabIndex = 46;
+            this.lblRollShift.Text = "projections (i.e. 0 deg clockwise rotation)";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 28);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(25, 13);
+            this.label6.TabIndex = 31;
+            this.label6.Text = "Roll";
+            // 
+            // nudRollShift
+            // 
+            this.nudRollShift.Location = new System.Drawing.Point(37, 25);
+            this.nudRollShift.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.nudRollShift.Name = "nudRollShift";
+            this.nudRollShift.Size = new System.Drawing.Size(56, 20);
+            this.nudRollShift.TabIndex = 45;
+            this.nudRollShift.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudRollShift.ValueChanged += new System.EventHandler(this.nudRollShift_ValueChanged);
             // 
             // groupBox1
             // 
@@ -2135,7 +2184,7 @@ namespace SYRMEPTomoProject
             this.nudGridRec.TabIndex = 31;
             this.nudGridRec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.nudGridRec.Value = new decimal(new int[] {
-            14,
+            10,
             0,
             0,
             65536});
@@ -3066,49 +3115,27 @@ namespace SYRMEPTomoProject
             this.mBgwPostProcessingPreview.DoWork += new System.ComponentModel.DoWorkEventHandler(this.mBgwPreview_DoWork);
             this.mBgwPostProcessingPreview.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.mBgwPostProcessingPreview_RunWorkerCompleted);
             // 
-            // gbxRolling
+            // chkExtFOVNormalize
             // 
-            this.gbxRolling.Controls.Add(this.lblRollShift);
-            this.gbxRolling.Controls.Add(this.label6);
-            this.gbxRolling.Controls.Add(this.nudRollShift);
-            this.gbxRolling.Location = new System.Drawing.Point(20, 282);
-            this.gbxRolling.Name = "gbxRolling";
-            this.gbxRolling.Size = new System.Drawing.Size(404, 54);
-            this.gbxRolling.TabIndex = 50;
-            this.gbxRolling.TabStop = false;
-            this.gbxRolling.Text = "(Lossless) Rotation";
+            this.chkExtFOVNormalize.AutoSize = true;
+            this.chkExtFOVNormalize.Enabled = false;
+            this.chkExtFOVNormalize.Location = new System.Drawing.Point(62, 64);
+            this.chkExtFOVNormalize.Name = "chkExtFOVNormalize";
+            this.chkExtFOVNormalize.Size = new System.Drawing.Size(305, 17);
+            this.chkExtFOVNormalize.TabIndex = 20;
+            this.chkExtFOVNormalize.Text = "Apply line-by-line normalization considering the overlap area";
+            this.chkExtFOVNormalize.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // chkExtFOVAverage
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 28);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(25, 13);
-            this.label6.TabIndex = 31;
-            this.label6.Text = "Roll";
-            // 
-            // nudRollShift
-            // 
-            this.nudRollShift.Location = new System.Drawing.Point(37, 25);
-            this.nudRollShift.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.nudRollShift.Name = "nudRollShift";
-            this.nudRollShift.Size = new System.Drawing.Size(56, 20);
-            this.nudRollShift.TabIndex = 45;
-            this.nudRollShift.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudRollShift.ValueChanged += new System.EventHandler(this.nudRollShift_ValueChanged);
-            // 
-            // lblRollShift
-            // 
-            this.lblRollShift.AutoSize = true;
-            this.lblRollShift.Location = new System.Drawing.Point(99, 28);
-            this.lblRollShift.Name = "lblRollShift";
-            this.lblRollShift.Size = new System.Drawing.Size(199, 13);
-            this.lblRollShift.TabIndex = 46;
-            this.lblRollShift.Text = "projections (i.e. 0 deg clockwise rotation)";
+            this.chkExtFOVAverage.AutoSize = true;
+            this.chkExtFOVAverage.Enabled = false;
+            this.chkExtFOVAverage.Location = new System.Drawing.Point(62, 85);
+            this.chkExtFOVAverage.Name = "chkExtFOVAverage";
+            this.chkExtFOVAverage.Size = new System.Drawing.Size(146, 17);
+            this.chkExtFOVAverage.TabIndex = 21;
+            this.chkExtFOVAverage.Text = "Average the overlap area";
+            this.chkExtFOVAverage.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -3187,6 +3214,9 @@ namespace SYRMEPTomoProject
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaseRetrievalTab_Energy)).EndInit();
             this.vNavPaneItem4.ItemPanel.ResumeLayout(false);
             this.vNavPaneItem4.ResumeLayout(false);
+            this.gbxRolling.ResumeLayout(false);
+            this.gbxRolling.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRollShift)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAnglesProjTo)).EndInit();
@@ -3252,9 +3282,6 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem6.ItemPanel.PerformLayout();
             this.vNavPaneItem6.ResumeLayout(false);
             this.vImageNavPane.ResumeLayout(false);
-            this.gbxRolling.ResumeLayout(false);
-            this.gbxRolling.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRollShift)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3491,6 +3518,8 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.Label lblRollShift;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown nudRollShift;
+        private System.Windows.Forms.CheckBox chkExtFOVAverage;
+        private System.Windows.Forms.CheckBox chkExtFOVNormalize;
     }
 }
 

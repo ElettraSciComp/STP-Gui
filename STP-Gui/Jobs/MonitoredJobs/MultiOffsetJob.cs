@@ -58,6 +58,8 @@ namespace SYRMEPTomoProject.Jobs
         private bool mExtFOV = false;
         private bool mExtFOVRight = false;
         private int mExtFOVOverlap;
+        private bool mExtFOVNormalize = false;
+        private bool mExtFOVAverage = false;
         private string mRingRemoval = "-";  
         private double mAngles;
         private double mCenter;
@@ -147,6 +149,8 @@ namespace SYRMEPTomoProject.Jobs
             bool extFOV,
             bool extFOVRight,
             int extFOVOverlap,
+            bool extFOVNormalize,
+            bool extFOVAverage,
             string ringRemoval,
             double angles,
             double center,
@@ -189,6 +193,8 @@ namespace SYRMEPTomoProject.Jobs
             mExtFOV = extFOV;
             mExtFOVRight = extFOVRight;
             mExtFOVOverlap = extFOVOverlap;
+            mExtFOVNormalize = extFOVNormalize;
+            mExtFOVAverage = extFOVAverage;
             mRingRemoval = ringRemoval;
             mInputFile = inputFile;
             mAngles = angles;
@@ -250,6 +256,8 @@ namespace SYRMEPTomoProject.Jobs
             bool extFOV,
             bool extFOVRight,
             int extFOVOverlap,
+            bool extFOVNormalize,
+            bool extFOVAverage,
             string ringRemoval,
             double angles,
             double center,
@@ -280,7 +288,8 @@ namespace SYRMEPTomoProject.Jobs
             int anglesProjTo,
             string logFile
             )
-            : this(slicePrefix, imageIndex, inputFile, outputPath, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, ringRemoval, angles,
+            : this(slicePrefix, imageIndex, inputFile, outputPath, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, 
+            extFOVNormalize, extFOVAverage, ringRemoval, angles,
             center, reconFunc, reconParam1, scale, overPadding, logTransform, circle, zeroneMode, correctionOffset, offsetFrom, offsetTo, decimateFactor, downscaleFactor,
             postProcess, postProcessConvertArgs, postProcessCropArgs, phaseRetrieval, phrtMethod, param1, param2, distance, energy, pixelsize, phrtPad, anglesProjFrom, anglesProjTo )
         {
@@ -326,6 +335,8 @@ namespace SYRMEPTomoProject.Jobs
                 mExtFOV.ToString() + " " + 
                 mExtFOVRight.ToString() + " " +
                 mExtFOVOverlap.ToString() + " " +
+                mExtFOVNormalize.ToString() + " " +
+                mExtFOVAverage.ToString() + " " +
                 mAirSx.ToString() + " " + 
                 mAirDx.ToString() + " False \"" +  // This has to be modified...
                 mRingRemoval + "\" " +

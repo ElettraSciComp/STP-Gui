@@ -61,6 +61,8 @@ namespace SYRMEPTomoProject
         private bool mExtFOV = false;
         private bool mExtFOVRight = false;
         private int mExtFOVOverlap;
+        private bool mExtFOVNormalize = false;
+        private bool mExtFOVAverage = false;
         private string mRingRemoval = "-";
         private double mAngles;
         private double mCenter;
@@ -102,6 +104,8 @@ namespace SYRMEPTomoProject
             bool extFOV,
             bool extFOVRight,
             int extFOVOverlap,
+            bool extFOVNormalize,
+            bool extFOVAverage,
             string ringRemoval,
             double angles,
             double center,
@@ -143,6 +147,8 @@ namespace SYRMEPTomoProject
             mExtFOV = extFOV;
             mExtFOVRight = extFOVRight;
             mExtFOVOverlap = extFOVOverlap;
+            mExtFOVNormalize = extFOVNormalize;
+            mExtFOVAverage = extFOVAverage;
             mRingRemoval = ringRemoval;
             mInputTDF = inputTDF;
             mAngles = angles;
@@ -382,6 +388,8 @@ namespace SYRMEPTomoProject
                 this.mExtFOV,
                 this.mExtFOVRight,
                 this.mExtFOVOverlap,
+                this.mExtFOVNormalize,
+                this.mExtFOVAverage,
                 this.mRingRemoval,
                 this.mAngles,
                 this.mCenter,

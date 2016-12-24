@@ -270,7 +270,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Version" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">1.1.52</Value>
+      <Value Profile="(Default)">1.1.54</Value>
     </Setting>
     <Setting Name="TIFF2TDF_LastPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -280,6 +280,9 @@
     </Setting>
     <Setting Name="TDF2TIFF_LastPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="UserGuideIndex" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">guide</Value>
     </Setting>
   </Settings>
 </SettingsFile>

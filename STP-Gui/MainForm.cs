@@ -59,6 +59,9 @@ namespace SYRMEPTomoProject
         PerformanceCounter mCPUCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
         PerformanceCounter mRAMCounter = new PerformanceCounter("Memory", "Available MBytes");
 
+        UserGuide mUserGuideForm;
+        bool mUserGuideFormShown = false;
+
         public MainForm()
         {
             InitializeComponent();
@@ -71,7 +74,7 @@ namespace SYRMEPTomoProject
             mJobMonitor.JobStep += new JobStepEventHandler(mJobMonitor_JobStep);
 
             // Start the JobMonitor with the background worker:
-            mJobMonitorBgw.RunWorkerAsync();
+            mJobMonitorBgw.RunWorkerAsync();          
         }
 
         #region Monitoring
@@ -757,7 +760,10 @@ namespace SYRMEPTomoProject
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FISTA-TV_CUDA")
             {
-                zParam1 = Convert.ToDouble(this.txbReconstructionLambda.Text).ToString();
+                double zLambda = Convert.ToDouble(this.nudLambdaBase.Value) * Math.Pow(10, Convert.ToDouble(this.nudLambdaExp.Value));
+                string zFGPIters = Convert.ToInt32(this.nudFISTAFGPIter.Value).ToString();
+                string zReconIters = Convert.ToInt32(this.nudFISTAReconIter.Value).ToString();
+                zParam1 = zLambda.ToString() + ":" + zFGPIters + ":" + zReconIters;
             }
             else
             {
@@ -889,7 +895,10 @@ namespace SYRMEPTomoProject
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FISTA-TV_CUDA")
             {
-                zParam1 = Convert.ToDouble(this.txbReconstructionLambda.Text).ToString();
+                double zLambda = Convert.ToDouble(this.nudLambdaBase.Value) * Math.Pow(10, Convert.ToDouble(this.nudLambdaExp.Value));
+                string zFGPIters = Convert.ToInt32(this.nudFISTAFGPIter.Value).ToString();
+                string zReconIters = Convert.ToInt32(this.nudFISTAReconIter.Value).ToString();
+                zParam1 = zLambda.ToString() + ":" + zFGPIters + ":" + zReconIters;
             }
             else
             {
@@ -970,25 +979,41 @@ namespace SYRMEPTomoProject
             {
                 this.lblAlgorithmParameter.Text = "Filter:";
                 this.lblAlgorithmParameter.Visible = true;
-                this.lblAlgorithmParameter.Location = new Point(24, 25);
+                this.lblAlgorithmParameter.Location = new Point(7, 25);
+                this.lblAlgorithmParameter.Size = new Size(49, 13);
 
                 this.cbxAlgorithmParameterFilter.Visible = true;
                 this.nudAlgorithmParameterIterations.Visible = false;
-                this.txbReconstructionLambda.Visible = false;
+                this.nudLambdaBase.Visible = false;
+                this.nudLambdaExp.Visible = false;
+                this.lblLambdaTenTo.Visible = false;
                 this.nudGridRec.Visible = false;
                 this.chkOverPadding.Enabled = true;
+
+                this.nudFISTAFGPIter.Visible = false;
+                this.nudFISTAReconIter.Visible = false;
+                this.lblFISTAFGPIter.Visible = false;
+                this.lblFISTAReconIter.Visible = false;
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "GRIDREC")
             {
                 this.lblAlgorithmParameter.Text = "Oversampling:";
                 this.lblAlgorithmParameter.Visible = true;
-                this.lblAlgorithmParameter.Location = new Point(7, 25);
+                this.lblAlgorithmParameter.Location = new Point(5, 25);
+                this.lblAlgorithmParameter.Size = new Size(75, 13);
 
                 this.cbxAlgorithmParameterFilter.Visible = false;
                 this.nudAlgorithmParameterIterations.Visible = false;
-                this.txbReconstructionLambda.Visible = false;
+                this.nudLambdaBase.Visible = false;
+                this.nudLambdaExp.Visible = false;
+                this.lblLambdaTenTo.Visible = false;
                 this.nudGridRec.Visible = true;
                 this.chkOverPadding.Enabled = false;
+
+                this.nudFISTAFGPIter.Visible = false;
+                this.nudFISTAReconIter.Visible = false;
+                this.lblFISTAFGPIter.Visible = false;
+                this.lblFISTAReconIter.Visible = false;
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "MR-FBP_CUDA")
             {
@@ -996,34 +1021,59 @@ namespace SYRMEPTomoProject
 
                 this.nudAlgorithmParameterIterations.Visible = false;
                 this.cbxAlgorithmParameterFilter.Visible = false;
-                this.txbReconstructionLambda.Visible = false;
+                this.nudLambdaBase.Visible = false;
+                this.nudLambdaExp.Visible = false;
+                this.lblLambdaTenTo.Visible = false;
                 this.nudGridRec.Visible = false;
                 this.chkOverPadding.Enabled = true;
+
+                this.nudFISTAFGPIter.Visible = false;
+                this.nudFISTAReconIter.Visible = false;
+                this.lblFISTAFGPIter.Visible = false;
+                this.lblFISTAReconIter.Visible = false;
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FISTA-TV_CUDA")
             {
                 this.lblAlgorithmParameter.Text = "Lambda:";
                 this.lblAlgorithmParameter.Visible = true;
-                this.lblAlgorithmParameter.Location = new Point(8, 25);
+                this.lblAlgorithmParameter.Location = new Point(7, 24);
+                this.lblAlgorithmParameter.Size = new Size(67, 13);
 
                 this.nudAlgorithmParameterIterations.Visible = false;
                 this.cbxAlgorithmParameterFilter.Visible = false;
-                this.txbReconstructionLambda.Visible = true;
+
+                this.nudLambdaBase.Visible = true;
+                this.nudLambdaExp.Visible = true;
+                this.lblLambdaTenTo.Visible = true;
+
                 this.nudGridRec.Visible = false;
                 this.chkOverPadding.Enabled = true;
+
+                this.nudFISTAFGPIter.Visible = true;
+                this.nudFISTAReconIter.Visible = true;
+                this.lblFISTAFGPIter.Visible = true;
+                this.lblFISTAReconIter.Visible = true;
             }
             else
             {
                 // Iterative algorithms:
                 this.lblAlgorithmParameter.Text = "Iterations:";
                 this.lblAlgorithmParameter.Visible = true;
-                this.lblAlgorithmParameter.Location = new Point(7, 25);
+                this.lblAlgorithmParameter.Location = new Point(5, 25);
+                this.lblAlgorithmParameter.Size = new Size(57, 13);
 
                 this.nudAlgorithmParameterIterations.Visible = true;
                 this.cbxAlgorithmParameterFilter.Visible = false;
-                this.txbReconstructionLambda.Visible = false;
+                this.nudLambdaBase.Visible = false;
+                this.nudLambdaExp.Visible = false;
+                this.lblLambdaTenTo.Visible = false;
                 this.nudGridRec.Visible = false;
                 this.chkOverPadding.Enabled = true;
+
+                this.nudFISTAFGPIter.Visible = false;
+                this.nudFISTAReconIter.Visible = false;
+                this.lblFISTAFGPIter.Visible = false;
+                this.lblFISTAReconIter.Visible = false;
             }
         }
 
@@ -2036,7 +2086,10 @@ namespace SYRMEPTomoProject
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FISTA-TV_CUDA")
             {
-                zParam1 = Convert.ToDouble(this.txbReconstructionLambda.Text).ToString();
+                double zLambda = Convert.ToDouble(this.nudLambdaBase.Value) * Math.Pow(10, Convert.ToDouble(this.nudLambdaExp.Value));
+                string zFGPIters = Convert.ToInt32(this.nudFISTAFGPIter.Value).ToString();
+                string zReconIters = Convert.ToInt32(this.nudFISTAReconIter.Value).ToString();
+                zParam1 = zLambda.ToString() + ":" + zFGPIters + ":" + zReconIters;
             }
             else
             {
@@ -2733,7 +2786,10 @@ namespace SYRMEPTomoProject
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FISTA-TV_CUDA")
             {
-                zParam1 = Convert.ToDouble(this.txbReconstructionLambda.Text).ToString();
+                double zLambda = Convert.ToDouble(this.nudLambdaBase.Value) * Math.Pow(10, Convert.ToDouble(this.nudLambdaExp.Value));
+                string zFGPIters = Convert.ToInt32(this.nudFISTAFGPIter.Value).ToString();
+                string zReconIters = Convert.ToInt32(this.nudFISTAReconIter.Value).ToString();
+                zParam1 = zLambda.ToString() + ":" + zFGPIters + ":" + zReconIters;
             }
             else
             {
@@ -2923,7 +2979,10 @@ namespace SYRMEPTomoProject
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FISTA-TV_CUDA")
             {
-                zParam1 = Convert.ToDouble(this.txbReconstructionLambda.Text).ToString();
+                double zLambda = Convert.ToDouble(this.nudLambdaBase.Value) * Math.Pow(10, Convert.ToDouble(this.nudLambdaExp.Value));
+                string zFGPIters = Convert.ToInt32(this.nudFISTAFGPIter.Value).ToString();
+                string zReconIters = Convert.ToInt32(this.nudFISTAReconIter.Value).ToString();
+                zParam1 = zLambda.ToString() + ":" + zFGPIters + ":" + zReconIters;
             }
             else
             {
@@ -2999,6 +3058,66 @@ namespace SYRMEPTomoProject
                     this.gbxRolling.Enabled = false;
                 }
             }
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            bool zFound = false;
+
+            for (int i = 0; i < Application.OpenForms.Count; i++)
+            {
+                if (Application.OpenForms[i].Name.Equals("UserGuide"))
+                {
+                    Application.OpenForms[i].BringToFront();
+                    zFound = true;
+                }
+            }
+
+            if (zFound == false)
+            {
+                // Create an instance of the User's guide:
+                mUserGuideForm = new UserGuide();
+                mUserGuideForm.Show();
+            }
+        }
+
+        private void nudReconstructionTab_Downscale_ValueChanged(object sender, EventArgs e)
+        {
+            // Get TDF name:
+            string zString = ((KeyValuePair<string, string>)this.tbxDatasetName.SelectedItem).Key;
+
+            /*this.nudAnglesProjFrom.Value = this.nudAnglesProjFrom.Value / this.nudReconstructionTab_Downscale.Value;
+            this.nudAnglesProjFrom.Maximum = TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value;
+            this.nudAnglesProjTo.Value = this.nudAnglesProjTo.Value / this.nudReconstructionTab_Downscale.Value;
+            this.nudAnglesProjTo.Maximum = TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value;*/
+
+            this.nudReconstructionTab_Slice.Maximum = Math.Max(TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value - 1,1);
+            this.nudReconstructionTab_Slice.Value = (TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value) / 2;
+
+            this.nudReconstructionTab_ExecuteFrom.Maximum = Math.Max(TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value - 1,1);
+            this.nudReconstructionTab_ExecuteFrom.Value = 0;
+
+            this.nudReconstructionTab_ExecuteTo.Maximum = Math.Max(TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value - 1,1);
+            this.nudReconstructionTab_ExecuteTo.Value = TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value - 1;        
+            
+        }
+
+        private void nudReconstructionTab_ExecuteFrom_ValueChanged(object sender, EventArgs e)
+        {
+            if (this.nudReconstructionTab_ExecuteTo.Value < this.nudReconstructionTab_ExecuteFrom.Value)
+            {
+                this.nudReconstructionTab_ExecuteTo.Value = this.nudReconstructionTab_ExecuteFrom.Value;
+            }
+            this.nudReconstructionTab_ExecuteTo.Minimum = this.nudReconstructionTab_ExecuteFrom.Value;
+        }
+
+        private void nudReconstructionTab_ExecuteTo_ValueChanged(object sender, EventArgs e)
+        {
+            if (this.nudReconstructionTab_ExecuteFrom.Value > this.nudReconstructionTab_ExecuteTo.Value)
+            {
+                this.nudReconstructionTab_ExecuteFrom.Value = this.nudReconstructionTab_ExecuteTo.Value;
+            }
+            this.nudReconstructionTab_ExecuteFrom.Maximum = this.nudReconstructionTab_ExecuteTo.Value;
         }
 
     }

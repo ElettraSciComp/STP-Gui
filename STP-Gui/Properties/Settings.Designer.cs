@@ -985,7 +985,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.1.52")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.1.54")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -1025,6 +1025,15 @@ namespace SYRMEPTomoProject.Properties {
             }
             set {
                 this["TDF2TIFF_LastPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("guide")]
+        public string UserGuideIndex {
+            get {
+                return ((string)(this["UserGuideIndex"]));
             }
         }
     }

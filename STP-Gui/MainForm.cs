@@ -50,6 +50,7 @@ namespace SYRMEPTomoProject
     public partial class MainForm : Form
     {
         private HourGlass mGlass;
+        private UIWaitDialog mWaitDialog;
         private bool m_bLayoutCalled = false;
         private DateTime mDt;
 
@@ -1116,6 +1117,9 @@ namespace SYRMEPTomoProject
             // Start the monitoring of the job:            
             bgwGuessOffset.RunWorkerAsync(zJob.LogFile);
             //mJobMonitor.Run(zExecuter, BTPSettings.TomoPrefix);
+
+            mWaitDialog = new UIWaitDialog(Properties.Settings.Default.ProgramName, "Guessing offset for center of rotation...");
+            mWaitDialog.ShowDialog();
         }
 
         private void bgwGuessOffset_DoWork(object sender, DoWorkEventArgs e)
@@ -1145,6 +1149,7 @@ namespace SYRMEPTomoProject
 
         private void bgwGuessOffset_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            mWaitDialog.Close();
             mGlass.Dispose();
         }
 
@@ -1443,6 +1448,7 @@ namespace SYRMEPTomoProject
 
         private void bgwGuessOverlap_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            mWaitDialog.Close();
             mGlass.Dispose();
         }
 
@@ -1469,6 +1475,9 @@ namespace SYRMEPTomoProject
             // Start the monitoring of the job:            
             bgwGuessOverlap.RunWorkerAsync(zJob.LogFile);
             //mJobMonitor.Run(zExecuter, BTPSettings.TomoPrefix);
+
+            mWaitDialog = new UIWaitDialog(Properties.Settings.Default.ProgramName, "Guessing overlap size...");
+            mWaitDialog.ShowDialog();
         }
 
         private void menuTIFF2TDF_Click(object sender, EventArgs e)
@@ -1992,6 +2001,9 @@ namespace SYRMEPTomoProject
 
             // Start the monitoring of the job:            
             mBgwPreview.RunWorkerAsync(zTempFile);
+
+            mWaitDialog = new UIWaitDialog(Properties.Settings.Default.ProgramName, "Pre-processing preview...");
+            mWaitDialog.ShowDialog();
         }
 
         private void btnPhaseretrievalTab_Preview_Click(object sender, EventArgs e)
@@ -2030,6 +2042,9 @@ namespace SYRMEPTomoProject
 
             // Start the monitoring of the job:            
             mBgwPreview.RunWorkerAsync(zTempFile);
+
+            mWaitDialog = new UIWaitDialog(Properties.Settings.Default.ProgramName, "Phase retrieval preview...");
+            mWaitDialog.ShowDialog();
         }
 
         private void btnReconstructionTab_Preview_Click(object sender, EventArgs e)
@@ -2150,6 +2165,9 @@ namespace SYRMEPTomoProject
 
             // Start the monitoring of the job:            
             mBgwPreview.RunWorkerAsync(zTempFile);
+
+            mWaitDialog = new UIWaitDialog(Properties.Settings.Default.ProgramName, "Reconstruction preview...");
+            mWaitDialog.ShowDialog();
         }
 
         private void mBgwPreview_DoWork(object sender, DoWorkEventArgs e)
@@ -2196,6 +2214,7 @@ namespace SYRMEPTomoProject
 
         private void mBgwPreview_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            mWaitDialog.Close();
             mGlass.Dispose();
         }
 
@@ -2594,6 +2613,9 @@ namespace SYRMEPTomoProject
 
             // Prepare the preview:           
             mBgwPostProcessingPreview.RunWorkerAsync(zTempFile);
+
+            mWaitDialog = new UIWaitDialog(Properties.Settings.Default.ProgramName, "Post-processing preview...");
+            mWaitDialog.ShowDialog();
         }
 
         private void txbPostProcessingTab_OutputPath_TextChanged(object sender, EventArgs e)
@@ -2689,6 +2711,9 @@ namespace SYRMEPTomoProject
             this.bgwAutoLimit.RunWorkerAsync(zJob.LogFile);
             //mJobMonitor.Run(zExecuter, BTPSettings.TomoPrefix);
 
+            mWaitDialog = new UIWaitDialog(Properties.Settings.Default.ProgramName, "Determining limits...");
+            mWaitDialog.ShowDialog();
+
         }
 
         private void bgwAutoLimit_DoWork(object sender, DoWorkEventArgs e)
@@ -2720,6 +2745,7 @@ namespace SYRMEPTomoProject
 
         private void bgwAutoLimit_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            mWaitDialog.Close();
             mGlass.Dispose();
         }
 
@@ -2734,6 +2760,7 @@ namespace SYRMEPTomoProject
 
         private void mBgwPostProcessingPreview_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            mWaitDialog.Close();
             mGlass.Dispose();
 
             // Re-apply cropping windows:

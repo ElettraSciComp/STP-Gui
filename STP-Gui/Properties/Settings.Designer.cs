@@ -298,7 +298,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("vcredist_x64.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("vc10redist_x64.exe")]
         public string VC2010Redistributable_x64 {
             get {
                 return ((string)(this["VC2010Redistributable_x64"]));
@@ -985,7 +985,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.1.54")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.2.0")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -1034,6 +1034,24 @@ namespace SYRMEPTomoProject.Properties {
         public string UserGuideIndex {
             get {
                 return ((string)(this["UserGuideIndex"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("vc08redist_x64.exe")]
+        public string VC2008Redistributable_x64 {
+            get {
+                return ((string)(this["VC2008Redistributable_x64"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("vc15redist_x64.exe")]
+        public string VC2015Redistributable_x64 {
+            get {
+                return ((string)(this["VC2015Redistributable_x64"]));
             }
         }
     }

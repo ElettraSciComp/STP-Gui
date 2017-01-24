@@ -209,23 +209,17 @@ namespace SYRMEPTomoProject
             return null;
         }*/
 
-        private static bool CheckVC10Redistributable()
+        private static bool CheckVCRedistributable(string regkey)
         {
-            bool zVal = true;
+            bool zVal = false;
 
             try
             {
-                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\10.0\VC\VCRedist\x64"))
+                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(regkey,false))
                 {
                     if (key != null)
                     {
-                        Object o = key.GetValue("Installed");
-                        if (o != null)
-                        {
-                            string zString = o.ToString();
-
-                            zVal = (zString == "1");
-                        }
+                        zVal = true;
                     }
                 }
             }
@@ -267,28 +261,69 @@ namespace SYRMEPTomoProject
                 //System.Threading.Thread.Sleep(1900);
                 mSplashSchreen.SetStatus(Properties.Resources.Splash, "");
 
-                if (Program.CheckVC10Redistributable())
+                
+                if (Program.CheckVCRedistributable(@"SOFTWARE\Classes\Installer\Products\67D6ECF5CD5FBA732B8B22BAC8DE1B4D") == false)
                 {
-                    // Open the main form:
-                    Application.Run(new MainForm());
-                }
-                else
-                {
+
                     // Show a message:
                     SplashScreen.CloseForm();
-                    DialogResult zResult = MessageBox.Show("Microsoft Visual C++ 2010 Redistributable Package (x64) is required.\nDo you want to install it now?", 
-                        Properties.Settings.Default.ProgramName, MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-                    
+                    DialogResult zResult = MessageBox.Show("Microsoft Visual C++ 2008 (x64) not found. Continue anyway?",
+                        Properties.Settings.Default.ProgramName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                    if (zResult == DialogResult.Yes)
+
+                    if (zResult == DialogResult.No)
                     {
                         // Run VC++ 2010 Redistributable x64:
-                        Program.StartProcess("\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar +
-                        Properties.Settings.Default.DependenciesPath + Path.DirectorySeparatorChar + Properties.Settings.Default.VC2010Redistributable_x64 + "\"", "");
+                        /*Program.StartProcess("\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar +
+                        Properties.Settings.Default.DependenciesPath + Path.DirectorySeparatorChar + Properties.Settings.Default.VC2008Redistributable_x64 + "\"", "");*/
+                    
+                        Application.Exit();
+                        return;
                     }
-
-                    Application.Exit();
                 }
+                if (Program.CheckVCRedistributable(@"SOFTWARE\Classes\Installer\Products\1926E8D15D0BCE53481466615F760A7F") == false)
+                {
+
+                    // Show a message:
+                    SplashScreen.CloseForm();
+                    DialogResult zResult = MessageBox.Show("Microsoft Visual C++ 2010 (x64) not found. Continue anyway?",
+                        Properties.Settings.Default.ProgramName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+
+                    if (zResult == DialogResult.No)
+                    {
+                        // Run VC++ 2010 Redistributable x64:
+                        /*Program.StartProcess("\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar +
+                        Properties.Settings.Default.DependenciesPath + Path.DirectorySeparatorChar + Properties.Settings.Default.VC2010Redistributable_x64 + "\"", "");*/
+                    
+
+                        Application.Exit();
+                        return;
+                    }
+                }
+                if (Program.CheckVCRedistributable(@"SOFTWARE\Classes\Installer\Dependencies\{d992c12e-cab2-426f-bde3-fb8c53950b0d}") == false)
+                {
+
+                    // Show a message:
+                    SplashScreen.CloseForm();
+                    DialogResult zResult = MessageBox.Show("Microsoft Visual C++ 2015 (x64) not found. Continue anyway?",
+                        Properties.Settings.Default.ProgramName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+
+                    if (zResult == DialogResult.No)
+                    {
+                        // Run VC++ 2010 Redistributable x64:
+                        /*Program.StartProcess("\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar +
+                        Properties.Settings.Default.DependenciesPath + Path.DirectorySeparatorChar + Properties.Settings.Default.VC2015Redistributable_x64 + "\"", "");*/
+
+
+                        Application.Exit();
+                        return;
+                    }
+                }
+                
+                // Open the main form:
+                Application.Run(new MainForm());               
             }
             catch (Exception ex)
             {

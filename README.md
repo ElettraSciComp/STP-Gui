@@ -17,8 +17,9 @@ In most of the machines, the software runs without performing additional install
 * .NET Framework 4.0 (https://www.microsoft.com/en-us/download/details.aspx?id=17851)
 * VC++ 2008 Redistributable x64 (https://www.microsoft.com/en-us/download/details.aspx?id=15336)
 * VC++ 2010 Redistributable x64 (https://www.microsoft.com/en-us/download/details.aspx?id=14632) 
+* VC++ Redistributable for Visual Studio 2015 x64 (https://www.microsoft.com/en-us/download/details.aspx?id=48145)
 
-The installer for each of these tools is not included into the .zip file of the SYRMEP Tomo Project.
+The installer for each of these tools is included into the "depend" folder within the .zip file of the SYRMEP Tomo Project.
 
 ## Hardware requirements
 

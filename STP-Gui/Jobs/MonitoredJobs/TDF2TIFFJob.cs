@@ -116,7 +116,7 @@ namespace SYRMEPTomoProject.Jobs
 
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
-                Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(outputFile) + "_totiff_00.txt";
+                Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(outputFile) + "_tdf2tiff_00.txt";
         }
 
 

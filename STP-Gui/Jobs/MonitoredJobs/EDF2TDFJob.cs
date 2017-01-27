@@ -128,7 +128,7 @@ namespace SYRMEPTomoProject.Jobs
 
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
-                Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(outputFile) + "_edftotdf_00.txt";
+                Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(outputFile) + "_edf2tdf_00.txt";
         }       
 
         /// <summary>

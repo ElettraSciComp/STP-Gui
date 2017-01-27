@@ -88,7 +88,7 @@ namespace SYRMEPTomoProject.Jobs
         private int mRollShift;
         private string mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
             Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
-            Path.DirectorySeparatorChar + "_rec_log_00.txt"; // It should be "*_00.txt"
+            Path.DirectorySeparatorChar + "_prev_rec_log_00.txt"; // It should be "*_00.txt"
 
 
         /// <summary>

@@ -4,7 +4,9 @@ SYRMEP Tomo Project (STP) has been developed for the users of the SYRMEP beamlin
 
 ## References
 
-If you use this software please cite: F. Brun et al., Enhanced and Flexible Software Tools for X-ray Computed Tomography at the Italian Synchrotron Radiation Facility Elettra (2015) Fundamenta Informaticae, 141 (2-3), pp. 233-243.
+If you use this software with data acquired at the SYRMEP beamline of Elettra please cite: F. Brun et al., Enhanced and Flexible Software Tools for X-ray Computed Tomography at the Italian Synchrotron Radiation Facility Elettra (2015) Fundamenta Informaticae, 141 (2-3), pp. 233-243.
+
+For any other use of this software please cite: F. Brun et al., SYRMEP Tomo Project: a graphical user interface for customizing CT reconstruction workflows (2017) Advanced Structural and Chemical Imaging 3:4.
 
 ## Installation
 

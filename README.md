@@ -4,7 +4,9 @@ SYRMEP Tomo Project (STP) has been developed for the users of the SYRMEP beamlin
 
 ## References
 
-If you use this software please cite: F. Brun et al., Enhanced and Flexible Software Tools for X-ray Computed Tomography at the Italian Synchrotron Radiation Facility Elettra (2015) Fundamenta Informaticae, 141 (2-3), pp. 233-243.
+If you use this software with data acquired at the SYRMEP beamline of Elettra please cite: F. Brun et al., Enhanced and Flexible Software Tools for X-ray Computed Tomography at the Italian Synchrotron Radiation Facility Elettra (2015) Fundamenta Informaticae, 141 (2-3), pp. 233-243, http://dx.doi.org/10.3233/FI-2015-1273.
+
+For any other use of this software please cite: F. Brun et al., SYRMEP Tomo Project: a graphical user interface for customizing CT reconstruction workflows (2017) Advanced Structural and Chemical Imaging 3:4, http://dx.doi.org/10.1186/s40679-016-0036-8.
 
 ## Installation
 
@@ -17,7 +19,7 @@ In most of the machines, the software runs without performing additional install
 * .NET Framework 4.0 (https://www.microsoft.com/en-us/download/details.aspx?id=17851)
 * VC++ 2008 Redistributable x64 (https://www.microsoft.com/en-us/download/details.aspx?id=15336)
 * VC++ 2010 Redistributable x64 (https://www.microsoft.com/en-us/download/details.aspx?id=14632) 
-* VC++ Redistributable for Visual Studio 2015 x64 (https://www.microsoft.com/en-us/download/details.aspx?id=48145)
+* VC++ 2015 Redistributable x64 (https://www.microsoft.com/en-us/download/details.aspx?id=53840)
 
 The installer for each of these tools is included into the "depend" folder within the .zip file of the SYRMEP Tomo Project.
 

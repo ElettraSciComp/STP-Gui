@@ -23,7 +23,7 @@
 
 //
 // Author: Francesco Brun
-// Last modified: July, 8th 2016
+// Last modified: March, 14th 2017
 //
 
 
@@ -252,7 +252,8 @@ namespace SYRMEPTomoProject
                 }
             } 
 
-            mTempOutputName = Properties.Settings.Default.FormSettings_WorkingPath + Path.DirectorySeparatorChar + "_" + Program.GetTimestamp(DateTime.Now) + ".tmp";
+            //mTempOutputName = Properties.Settings.Default.FormSettings_WorkingPath + Path.DirectorySeparatorChar + "_" + Program.GetTimestamp(DateTime.Now) + ".tmp";
+            mTempOutputName = Properties.Settings.Default.FormSettings_WorkingPath + Path.DirectorySeparatorChar + txbOutputTDF.Text;
 
             // Create an instance for the phase retrieval job:
             zJob = new HIS2TDFJob(

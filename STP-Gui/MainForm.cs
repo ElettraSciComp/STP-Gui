@@ -1574,6 +1574,9 @@ namespace SYRMEPTomoProject
             this.kpImageViewer1.Pix32.Clear();
             this.kpImageViewer1.Pix8.Clear();
 
+            this.kpImageViewer1.Pix32Min = zMin;
+            this.kpImageViewer1.Pix32Max = zMax;
+
             Bitmap zBitmap = new Bitmap(zWidth, zHeight, PixelFormat.Format32bppArgb);
 
             BitmapData zBitmapData = zBitmap.LockBits(new Rectangle(0, 0, zWidth, zHeight),

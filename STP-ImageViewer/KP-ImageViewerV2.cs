@@ -26,17 +26,18 @@ namespace KaiwaProjects
         private List<float> pix32;
         private int pix32_Width;
         private int pix32_Height;
+        private float pix32Min;
+        private float pix32Max;
 
         private byte[] lut8;        
 
         // For Window Level
-        int winMin;
-        int winMax;
-        int winCentre;
-        int winWidth;
-        int winWidthBy2;
-        int deltaX;
-        int deltaY;
+        private float winMin;
+        private float winMax;
+        private float winCentre;
+        private float winWidth;
+        float deltaX;
+        float deltaY;
         Point ptWLDown;
         double changeValWidth;
         double changeValCentre;
@@ -99,6 +100,37 @@ namespace KaiwaProjects
             set
             {
                 pix32 = value;
+
+            }
+        }
+
+        public float Pix32Min
+        {
+            get
+            {
+                return pix32Min;                
+            }
+            set
+            {
+                pix32Min = value; 
+                winMin = pix32Min;
+                winWidth = winMax - winMin;
+                winCentre = winWidth / 2;
+            }
+        }
+
+        public float Pix32Max
+        {
+            get
+            {
+                return pix32Max;
+            }
+            set
+            {
+                pix32Max = value;
+                winMax = pix32Max;
+                winWidth = winMax - winMin;
+                winCentre = winWidth / 2;
             }
         }
 
@@ -180,10 +212,8 @@ namespace KaiwaProjects
             changeValCentre = changeValWidth;
         }
 
-        private void ComputeLookUpTable8()
+        /*private void ComputeLookUpTable8()
         {
-            Random zRandom = new Random();
-
             if (winMax == 0)
                 winMax = 255;
 
@@ -202,13 +232,15 @@ namespace KaiwaProjects
                     lut8[i] = (byte)((i - winMin) * factor);
                 }
             }
-        }
+        }*/
 
         // Restore original window/level values
         public void ResetValues()
         {
-            winMax = 255;
-            winMin = 0;
+            winMax = pix32Max;
+            winMin = pix32Min;
+            winWidth = winMax - winMin;
+            winCentre = winWidth / 2; 
             drawing.Rotation = 0;
         }
 
@@ -554,14 +586,13 @@ namespace KaiwaProjects
             lut8  = new byte[256];
             ptWLDown = new Point();
 
-            winMin = 0;
+            /*winMin = 0;
             winMax = 255;
             winWidth = winMax - winMin;
-            winCentre = winWidth / 2;           
+            winCentre = winWidth / 2;  */         
 
             changeValWidth = 0.5;
             changeValCentre = 20.0;
-
 
             try
             {
@@ -961,36 +992,30 @@ namespace KaiwaProjects
             }
             
             if (rightMouseDown == true)
-            {
-
-                Point zPoint = PointToScreen(pbFull.Location);
-                Rectangle zRect = drawing.CurrentRect;
-                Rectangle zBound = drawing.BoundingBox;
-                double zZoom = drawing.Zoom;
-
-                winWidthBy2 = winWidth / 2;
+            {                
                 winWidth = winMax - winMin;
-                winCentre = winMin + winWidthBy2;
+                winCentre = winMin + winWidth / 2;
 
-                deltaX = (int)((ptWLDown.X - e.X) * changeValWidth);
-                deltaY = (int)((ptWLDown.Y - e.Y) * changeValCentre);                
+                // To be adapted:
+                deltaX = (float)((ptWLDown.X - e.X));//* changeValWidth);
+                deltaY = (float) ((ptWLDown.Y - e.Y));//* changeValCentre);
 
+                deltaX = (deltaX / 255.0f) * (winMax - winMin);
+                deltaY = (deltaY / 255.0f) * (winMax - winMin);
+                
                 winCentre -= deltaY;
-                winWidth -= deltaX;
+                winWidth -= deltaX;             
+                                
+                winMax = winCentre + winWidth / 2;
+                winMin = winCentre - winWidth / 2;
 
-                if (winWidth < 2) winWidth = 2;
-                winWidthBy2 = winWidth / 2;
-
-                winMax = winCentre + winWidthBy2;
-                winMin = winCentre - winWidthBy2;
-
-                if (winMin >= winMax) winMin = winMax - 1;
-                if (winMax <= winMin) winMax = winMin + 1;
+                // Reset conditions:
+                if (winMin >= winMax) winMin = pix32Min;
+                if (winMax <= winMin) winMax = pix32Max;
 
                 ptWLDown.X = e.X;
                 ptWLDown.Y = e.Y;
 
-                ComputeLookUpTable8();
                 CreateImage8();                             
 
                 // Refresh my screen & update my preview panel
@@ -1644,13 +1669,12 @@ namespace KaiwaProjects
         private void CreateImage8()
         {
             BitmapData zBitmapData = drawing.Image.LockBits(new Rectangle(0, 0, drawing.Image.Width, drawing.Image.Height),
-               System.Drawing.Imaging.ImageLockMode.WriteOnly, drawing.Image.PixelFormat); 
+               System.Drawing.Imaging.ImageLockMode.WriteOnly, drawing.Image.PixelFormat);
 
             unsafe
             {
                 int pixelSize = 4;
-                int i, j, j1, i1, ct = 0;
-                byte b;
+                int i, j, j1, i1, ct = 0;          
 
                 for (i = 0; i < zBitmapData.Height; ++i)
                 {
@@ -1659,7 +1683,11 @@ namespace KaiwaProjects
 
                     for (j = 0; j < zBitmapData.Width; ++j)
                     {
-                        b = lut8[pix8[ct++]];
+                        float f = ((pix32[ct++] - winMin) / (winMax - winMin)) * 255.0f;   
+                        if (f < 0.0) f = 0.0f;
+                        if (f > 255.0) f = 255.0f;
+                        byte b = (byte)f;
+
                         j1 = j * pixelSize;
                         row[j1] = b;            // Red
                         row[j1 + 1] = b;        // Green

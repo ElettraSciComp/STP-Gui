@@ -985,7 +985,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.2.3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.2.4")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -1052,6 +1052,312 @@ namespace SYRMEPTomoProject.Properties {
         public string VC2015Redistributable_x64 {
             get {
                 return ((string)(this["VC2015Redistributable_x64"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_ShiftVert1 {
+            get {
+                return ((decimal)(this["GDEI_ShiftVert1"]));
+            }
+            set {
+                this["GDEI_ShiftVert1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_ShiftHoriz1 {
+            get {
+                return ((decimal)(this["GDEI_ShiftHoriz1"]));
+            }
+            set {
+                this["GDEI_ShiftHoriz1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_ShiftVert2 {
+            get {
+                return ((decimal)(this["GDEI_ShiftVert2"]));
+            }
+            set {
+                this["GDEI_ShiftVert2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_ShiftHoriz2 {
+            get {
+                return ((decimal)(this["GDEI_ShiftHoriz2"]));
+            }
+            set {
+                this["GDEI_ShiftHoriz2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_ShiftVert3 {
+            get {
+                return ((decimal)(this["GDEI_ShiftVert3"]));
+            }
+            set {
+                this["GDEI_ShiftVert3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_ShiftHoriz3 {
+            get {
+                return ((decimal)(this["GDEI_ShiftHoriz3"]));
+            }
+            set {
+                this["GDEI_ShiftHoriz3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_r1 {
+            get {
+                return ((decimal)(this["GDEI_r1"]));
+            }
+            set {
+                this["GDEI_r1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_r1Exp {
+            get {
+                return ((decimal)(this["GDEI_r1Exp"]));
+            }
+            set {
+                this["GDEI_r1Exp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_d1 {
+            get {
+                return ((decimal)(this["GDEI_d1"]));
+            }
+            set {
+                this["GDEI_d1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_d1Exp {
+            get {
+                return ((decimal)(this["GDEI_d1Exp"]));
+            }
+            set {
+                this["GDEI_d1Exp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_dd1 {
+            get {
+                return ((decimal)(this["GDEI_dd1"]));
+            }
+            set {
+                this["GDEI_dd1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_dd1Exp {
+            get {
+                return ((decimal)(this["GDEI_dd1Exp"]));
+            }
+            set {
+                this["GDEI_dd1Exp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_r2 {
+            get {
+                return ((decimal)(this["GDEI_r2"]));
+            }
+            set {
+                this["GDEI_r2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_r2Exp {
+            get {
+                return ((decimal)(this["GDEI_r2Exp"]));
+            }
+            set {
+                this["GDEI_r2Exp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_d2 {
+            get {
+                return ((decimal)(this["GDEI_d2"]));
+            }
+            set {
+                this["GDEI_d2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_d2Exp {
+            get {
+                return ((decimal)(this["GDEI_d2Exp"]));
+            }
+            set {
+                this["GDEI_d2Exp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_dd2 {
+            get {
+                return ((decimal)(this["GDEI_dd2"]));
+            }
+            set {
+                this["GDEI_dd2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_dd2Exp {
+            get {
+                return ((decimal)(this["GDEI_dd2Exp"]));
+            }
+            set {
+                this["GDEI_dd2Exp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_r3 {
+            get {
+                return ((decimal)(this["GDEI_r3"]));
+            }
+            set {
+                this["GDEI_r3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_r3Exp {
+            get {
+                return ((decimal)(this["GDEI_r3Exp"]));
+            }
+            set {
+                this["GDEI_r3Exp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_d3 {
+            get {
+                return ((decimal)(this["GDEI_d3"]));
+            }
+            set {
+                this["GDEI_d3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_d3Exp {
+            get {
+                return ((decimal)(this["GDEI_d3Exp"]));
+            }
+            set {
+                this["GDEI_d3Exp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_dd3 {
+            get {
+                return ((decimal)(this["GDEI_dd3"]));
+            }
+            set {
+                this["GDEI_dd3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_dd3Exp {
+            get {
+                return ((decimal)(this["GDEI_dd3Exp"]));
+            }
+            set {
+                this["GDEI_dd3Exp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("exec_gdei.py")]
+        public string GDEIJob {
+            get {
+                return ((string)(this["GDEIJob"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("polarfilt.xml")]
+        public string PolarFiltersXmlFile {
+            get {
+                return ((string)(this["PolarFiltersXmlFile"]));
             }
         }
     }

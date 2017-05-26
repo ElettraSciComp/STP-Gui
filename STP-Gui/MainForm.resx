@@ -123,6 +123,19 @@
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="chkPostProc_PolarLock.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAWFJREFUOE+t
+        kctOwlAQhunSrSGgENCSApVLKSCUixWKbXragq9gXPgarHwKF76CO3e+BPERTFwZlybK9DhjTkiOmNCF
+        k3zp5J8vf5s09XtC30/Pg+BuEUXvl1EUE7h/LsLwAW/7Qvt7mOfuhcxfRcyHiDGYM/Y2D9gr7l+UYcEj
+        OorQt8e/mF0z1wWUXgLPsxBFYGD2gbc1Ohmhb487nSw9ZwrIrec4mzfRjtkz3dCpi3h7HHu8nNlna2Qp
+        op9xxiMFsxXd0Pm7wLb6yvnQupqMBk/4vLGt3uYLaMf8XtxUEf/zDDrt7rDThiSQa5mG/Df6rSZYLYPv
+        ot8yYnJ7RkMu6NZP4LRR40kgF5ELTL0Cbb3Ck2DqZTCrZbmgqZXA0Eo8CeQ2NVUuqKlFqKtHPAnk1o6L
+        ckG1kAO9kOdJqBbygL5cUM5lAYkRvgNy0D2QC+jflrLpGOE7iMnVDjNYkEp9A1jH40jK5ktzAAAAAElF
+        TkSuQmCC
+</value>
+  </data>
   <metadata name="zInputTIFFsBrowserDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>248, 17</value>
   </metadata>
@@ -171,7 +184,6 @@
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>45</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAUAEBAAAAAAIABoBAAAVgAAACAgAAAAACAAqBAAAL4EAAAwMAAAAAAgAKglAABmFQAAQEAAAAAA

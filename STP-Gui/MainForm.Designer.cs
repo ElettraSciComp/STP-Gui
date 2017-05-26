@@ -63,6 +63,9 @@ namespace SYRMEPTomoProject
             this.convertEDFsToEDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuTDF2TIFF = new System.Windows.Forms.ToolStripMenuItem();
+            this.extraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.projectionPreprocessingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generalizedDEIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
@@ -272,6 +275,21 @@ namespace SYRMEPTomoProject
             this.lblPostProcessingTab_LinearRescaleMin = new System.Windows.Forms.Label();
             this.cbxDegradationMethods = new System.Windows.Forms.ComboBox();
             this.label82 = new System.Windows.Forms.Label();
+            this.gbxPostProc_PolarFiltr = new System.Windows.Forms.GroupBox();
+            this.chkPostProc_PolarLock = new System.Windows.Forms.CheckBox();
+            this.nudPostProc_PolarFilt_OverSampl = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
+            this.nudPostProc_PolarCenterY = new System.Windows.Forms.NumericUpDown();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.nudPostProc_PolarFilter_Param2 = new System.Windows.Forms.NumericUpDown();
+            this.nudPostProc_PolarFilter_Param1 = new System.Windows.Forms.NumericUpDown();
+            this.lblPostProc_PolarFilt_Param1 = new System.Windows.Forms.Label();
+            this.lblPostProc_PolarFilt_Param2 = new System.Windows.Forms.Label();
+            this.nudPostProc_PolarCenterX = new System.Windows.Forms.NumericUpDown();
+            this.cbxPostProc_PolarFilt_Method = new System.Windows.Forms.ComboBox();
+            this.lblPostProc_PolarCenterX = new System.Windows.Forms.Label();
+            this.lblPostProc_PolarCenterY = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.zInputTIFFsBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.zInputTDFFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.zOutputPathBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -378,6 +396,13 @@ namespace SYRMEPTomoProject
             ((System.ComponentModel.ISupportInitialize)(this.nudConvertToTDF_CropBottom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudConvertToTDF_CropTop)).BeginInit();
             this.gbxPostProcessingTab_MethodSettings.SuspendLayout();
+            this.gbxPostProc_PolarFiltr.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPostProc_PolarFilt_OverSampl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPostProc_PolarCenterY)).BeginInit();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPostProc_PolarFilter_Param2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPostProc_PolarFilter_Param1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPostProc_PolarCenterX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -396,6 +421,7 @@ namespace SYRMEPTomoProject
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
+            //this.extraToolStripMenuItem,
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -477,6 +503,29 @@ namespace SYRMEPTomoProject
             this.menuTDF2TIFF.Text = "Convert TDF to TIFFs/RAWs...";
             this.menuTDF2TIFF.Click += new System.EventHandler(this.menuTDF2TIFF_Click);
             // 
+            // extraToolStripMenuItem
+            // 
+            this.extraToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.projectionPreprocessingToolStripMenuItem,
+            this.generalizedDEIToolStripMenuItem});
+            this.extraToolStripMenuItem.Name = "extraToolStripMenuItem";
+            this.extraToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.extraToolStripMenuItem.Text = "Extra";
+            // 
+            // projectionPreprocessingToolStripMenuItem
+            // 
+            this.projectionPreprocessingToolStripMenuItem.Name = "projectionPreprocessingToolStripMenuItem";
+            this.projectionPreprocessingToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
+            this.projectionPreprocessingToolStripMenuItem.Text = "Projection-domain preprocessing...";
+            this.projectionPreprocessingToolStripMenuItem.Click += new System.EventHandler(this.projectionPreprocessingToolStripMenuItem_Click);
+            // 
+            // generalizedDEIToolStripMenuItem
+            // 
+            this.generalizedDEIToolStripMenuItem.Name = "generalizedDEIToolStripMenuItem";
+            this.generalizedDEIToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
+            this.generalizedDEIToolStripMenuItem.Text = "Generalized DEI...";
+            this.generalizedDEIToolStripMenuItem.Click += new System.EventHandler(this.generalizedDEIToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -520,7 +569,7 @@ namespace SYRMEPTomoProject
             this.toolStripStatusLabel1,
             this.zTiming_ToolStripLbl,
             this.mStatusBarProgressBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 851);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 711);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1185, 22);
             this.statusStrip1.TabIndex = 2;
@@ -563,7 +612,7 @@ namespace SYRMEPTomoProject
             this.vNavPane1.Items.Add(this.vNavPaneItem8);
             this.vNavPane1.Location = new System.Drawing.Point(0, 24);
             this.vNavPane1.Name = "vNavPane1";
-            this.vNavPane1.Size = new System.Drawing.Size(454, 827);
+            this.vNavPane1.Size = new System.Drawing.Size(454, 687);
             this.vNavPane1.TabIndex = 3;
             this.vNavPane1.VIBlendTheme = VIBlend.Utilities.VIBLEND_THEME.VISTABLUE;
             // 
@@ -580,11 +629,11 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem1.ItemPanel.Controls.Add(this.gbxDatasetInfo_Metadata);
             this.vNavPaneItem1.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem1.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem1.ItemPanel.Size = new System.Drawing.Size(452, 0);
+            this.vNavPaneItem1.ItemPanel.Size = new System.Drawing.Size(452, 536);
             this.vNavPaneItem1.ItemPanel.TabIndex = 1;
             this.vNavPaneItem1.Location = new System.Drawing.Point(0, 0);
             this.vNavPaneItem1.Name = "vNavPaneItem1";
-            this.vNavPaneItem1.Size = new System.Drawing.Size(454, 30);
+            this.vNavPaneItem1.Size = new System.Drawing.Size(454, 567);
             this.vNavPaneItem1.TabIndex = 0;
             this.vNavPaneItem1.Text = "vProjectPaneItem";
             this.vNavPaneItem1.TooltipText = "Dataset";
@@ -880,7 +929,7 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem3.ItemPanel.Name = "ItemPanel";
             this.vNavPaneItem3.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem3.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem3.Location = new System.Drawing.Point(0, 30);
+            this.vNavPaneItem3.Location = new System.Drawing.Point(0, 567);
             this.vNavPaneItem3.Name = "vNavPaneItem3";
             this.vNavPaneItem3.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem3.TabIndex = 2;
@@ -1329,7 +1378,7 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem7.ItemPanel.Name = "ItemPanel";
             this.vNavPaneItem7.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem7.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem7.Location = new System.Drawing.Point(0, 60);
+            this.vNavPaneItem7.Location = new System.Drawing.Point(0, 597);
             this.vNavPaneItem7.Name = "vNavPaneItem7";
             this.vNavPaneItem7.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem7.TabIndex = 5;
@@ -1786,7 +1835,7 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem4.ItemPanel.Name = "ItemPanel";
             this.vNavPaneItem4.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem4.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem4.Location = new System.Drawing.Point(0, 90);
+            this.vNavPaneItem4.Location = new System.Drawing.Point(0, 627);
             this.vNavPaneItem4.Name = "vNavPaneItem4";
             this.vNavPaneItem4.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem4.TabIndex = 3;
@@ -2669,13 +2718,14 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem8.ItemPanel.Controls.Add(this.gbxPostProcessingTab_Preview);
             this.vNavPaneItem8.ItemPanel.Controls.Add(this.groupBox22);
             this.vNavPaneItem8.ItemPanel.Controls.Add(this.groupBox33);
+            this.vNavPaneItem8.ItemPanel.Controls.Add(this.gbxPostProc_PolarFiltr);
             this.vNavPaneItem8.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem8.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem8.ItemPanel.Size = new System.Drawing.Size(452, 676);
+            this.vNavPaneItem8.ItemPanel.Size = new System.Drawing.Size(452, 0);
             this.vNavPaneItem8.ItemPanel.TabIndex = 1;
-            this.vNavPaneItem8.Location = new System.Drawing.Point(0, 120);
+            this.vNavPaneItem8.Location = new System.Drawing.Point(0, 657);
             this.vNavPaneItem8.Name = "vNavPaneItem8";
-            this.vNavPaneItem8.Size = new System.Drawing.Size(454, 707);
+            this.vNavPaneItem8.Size = new System.Drawing.Size(454, 30);
             this.vNavPaneItem8.TabIndex = 6;
             this.vNavPaneItem8.Text = "vPostProcessingPaneItem";
             this.vNavPaneItem8.TooltipText = "Post-processing";
@@ -2692,7 +2742,7 @@ namespace SYRMEPTomoProject
             this.gbxPostProcessingTab_Execute.Controls.Add(this.lblPostProcessingTab_From);
             this.gbxPostProcessingTab_Execute.Controls.Add(this.btnPostProcessingTab_RunSubset);
             this.gbxPostProcessingTab_Execute.Enabled = false;
-            this.gbxPostProcessingTab_Execute.Location = new System.Drawing.Point(16, 290);
+            this.gbxPostProcessingTab_Execute.Location = new System.Drawing.Point(16, 398);
             this.gbxPostProcessingTab_Execute.Name = "gbxPostProcessingTab_Execute";
             this.gbxPostProcessingTab_Execute.Size = new System.Drawing.Size(404, 83);
             this.gbxPostProcessingTab_Execute.TabIndex = 26;
@@ -2802,7 +2852,7 @@ namespace SYRMEPTomoProject
             this.gbxPostProcessingTab_Preview.Controls.Add(this.nudPostProcessingTab_PreviewSlice);
             this.gbxPostProcessingTab_Preview.Controls.Add(this.label39);
             this.gbxPostProcessingTab_Preview.Enabled = false;
-            this.gbxPostProcessingTab_Preview.Location = new System.Drawing.Point(16, 232);
+            this.gbxPostProcessingTab_Preview.Location = new System.Drawing.Point(16, 342);
             this.gbxPostProcessingTab_Preview.Name = "gbxPostProcessingTab_Preview";
             this.gbxPostProcessingTab_Preview.Size = new System.Drawing.Size(404, 50);
             this.gbxPostProcessingTab_Preview.TabIndex = 25;
@@ -2887,7 +2937,7 @@ namespace SYRMEPTomoProject
             this.groupBox33.Controls.Add(this.gbxPostProcessingTab_MethodSettings);
             this.groupBox33.Controls.Add(this.cbxDegradationMethods);
             this.groupBox33.Controls.Add(this.label82);
-            this.groupBox33.Location = new System.Drawing.Point(15, 83);
+            this.groupBox33.Location = new System.Drawing.Point(15, 194);
             this.groupBox33.Name = "groupBox33";
             this.groupBox33.Size = new System.Drawing.Size(404, 142);
             this.groupBox33.TabIndex = 24;
@@ -3094,6 +3144,223 @@ namespace SYRMEPTomoProject
             this.label82.TabIndex = 10;
             this.label82.Text = ",";
             // 
+            // gbxPostProc_PolarFiltr
+            // 
+            //this.gbxPostProc_PolarFiltr.Controls.Add(this.chkPostProc_PolarLock);
+            //this.gbxPostProc_PolarFiltr.Controls.Add(this.nudPostProc_PolarFilt_OverSampl);
+            //this.gbxPostProc_PolarFiltr.Controls.Add(this.label16);
+            //this.gbxPostProc_PolarFiltr.Controls.Add(this.nudPostProc_PolarCenterY);
+            this.gbxPostProc_PolarFiltr.Controls.Add(this.groupBox6);
+            //this.gbxPostProc_PolarFiltr.Controls.Add(this.nudPostProc_PolarCenterX);
+            this.gbxPostProc_PolarFiltr.Controls.Add(this.cbxPostProc_PolarFilt_Method);
+            //this.gbxPostProc_PolarFiltr.Controls.Add(this.lblPostProc_PolarCenterX);
+            //this.gbxPostProc_PolarFiltr.Controls.Add(this.lblPostProc_PolarCenterY);
+            this.gbxPostProc_PolarFiltr.Controls.Add(this.label8);
+            this.gbxPostProc_PolarFiltr.Enabled = true;
+            this.gbxPostProc_PolarFiltr.Location = new System.Drawing.Point(15, 84);
+            this.gbxPostProc_PolarFiltr.Name = "gbxPostProc_PolarFiltr";
+            this.gbxPostProc_PolarFiltr.Size = new System.Drawing.Size(404, 105);
+            this.gbxPostProc_PolarFiltr.TabIndex = 27;
+            this.gbxPostProc_PolarFiltr.TabStop = false;
+            this.gbxPostProc_PolarFiltr.Text = "Polar transformed filtering";
+            // 
+            // chkPostProc_PolarLock
+            // 
+            this.chkPostProc_PolarLock.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkPostProc_PolarLock.AutoSize = true;
+            this.chkPostProc_PolarLock.Checked = true;
+            this.chkPostProc_PolarLock.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPostProc_PolarLock.Image = ((System.Drawing.Image)(resources.GetObject("chkPostProc_PolarLock.Image")));
+            this.chkPostProc_PolarLock.Location = new System.Drawing.Point(117, 60);
+            this.chkPostProc_PolarLock.Name = "chkPostProc_PolarLock";
+            this.chkPostProc_PolarLock.Size = new System.Drawing.Size(22, 22);
+            this.chkPostProc_PolarLock.TabIndex = 44;
+            this.chkPostProc_PolarLock.UseVisualStyleBackColor = true;
+            // 
+            // nudPostProc_PolarFilt_OverSampl
+            // 
+            this.nudPostProc_PolarFilt_OverSampl.DecimalPlaces = 1;
+            this.nudPostProc_PolarFilt_OverSampl.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nudPostProc_PolarFilt_OverSampl.Location = new System.Drawing.Point(223, 47);
+            this.nudPostProc_PolarFilt_OverSampl.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            65536});
+            this.nudPostProc_PolarFilt_OverSampl.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+            this.nudPostProc_PolarFilt_OverSampl.Name = "nudPostProc_PolarFilt_OverSampl";
+            this.nudPostProc_PolarFilt_OverSampl.Size = new System.Drawing.Size(40, 20);
+            this.nudPostProc_PolarFilt_OverSampl.TabIndex = 31;
+            this.nudPostProc_PolarFilt_OverSampl.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudPostProc_PolarFilt_OverSampl.Value = new decimal(new int[] {
+            12,
+            0,
+            0,
+            65536});
+            // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(140, 46);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(82, 20);
+            this.label16.TabIndex = 32;
+            this.label16.Text = "Oversampling:";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // nudPostProc_PolarCenterY
+            // 
+            this.nudPostProc_PolarCenterY.Enabled = false;
+            this.nudPostProc_PolarCenterY.Location = new System.Drawing.Point(62, 74);
+            this.nudPostProc_PolarCenterY.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.nudPostProc_PolarCenterY.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.nudPostProc_PolarCenterY.Name = "nudPostProc_PolarCenterY";
+            this.nudPostProc_PolarCenterY.Size = new System.Drawing.Size(50, 20);
+            this.nudPostProc_PolarCenterY.TabIndex = 28;
+            this.nudPostProc_PolarCenterY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudPostProc_PolarCenterY.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.nudPostProc_PolarFilter_Param2);
+            this.groupBox6.Controls.Add(this.nudPostProc_PolarFilter_Param1);
+            this.groupBox6.Controls.Add(this.lblPostProc_PolarFilt_Param1);
+            this.groupBox6.Controls.Add(this.lblPostProc_PolarFilt_Param2);
+            this.groupBox6.Location = new System.Drawing.Point(271, 12);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(122, 81);
+            this.groupBox6.TabIndex = 29;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Parameters";
+            // 
+            // nudPostProc_PolarFilter_Param2
+            // 
+            this.nudPostProc_PolarFilter_Param2.Location = new System.Drawing.Point(65, 48);
+            this.nudPostProc_PolarFilter_Param2.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.nudPostProc_PolarFilter_Param2.Name = "nudPostProc_PolarFilter_Param2";
+            this.nudPostProc_PolarFilter_Param2.Size = new System.Drawing.Size(50, 20);
+            this.nudPostProc_PolarFilter_Param2.TabIndex = 24;
+            this.nudPostProc_PolarFilter_Param2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // nudPostProc_PolarFilter_Param1
+            // 
+            this.nudPostProc_PolarFilter_Param1.Location = new System.Drawing.Point(65, 22);
+            this.nudPostProc_PolarFilter_Param1.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.nudPostProc_PolarFilter_Param1.Name = "nudPostProc_PolarFilter_Param1";
+            this.nudPostProc_PolarFilter_Param1.Size = new System.Drawing.Size(50, 20);
+            this.nudPostProc_PolarFilter_Param1.TabIndex = 23;
+            this.nudPostProc_PolarFilter_Param1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblPostProc_PolarFilt_Param1
+            // 
+            this.lblPostProc_PolarFilt_Param1.Location = new System.Drawing.Point(2, 25);
+            this.lblPostProc_PolarFilt_Param1.Name = "lblPostProc_PolarFilt_Param1";
+            this.lblPostProc_PolarFilt_Param1.Size = new System.Drawing.Size(63, 13);
+            this.lblPostProc_PolarFilt_Param1.TabIndex = 25;
+            this.lblPostProc_PolarFilt_Param1.Text = "Width:";
+            this.lblPostProc_PolarFilt_Param1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblPostProc_PolarFilt_Param2
+            // 
+            this.lblPostProc_PolarFilt_Param2.Location = new System.Drawing.Point(2, 51);
+            this.lblPostProc_PolarFilt_Param2.Name = "lblPostProc_PolarFilt_Param2";
+            this.lblPostProc_PolarFilt_Param2.Size = new System.Drawing.Size(63, 13);
+            this.lblPostProc_PolarFilt_Param2.TabIndex = 26;
+            this.lblPostProc_PolarFilt_Param2.Text = "Sigma:";
+            this.lblPostProc_PolarFilt_Param2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // nudPostProc_PolarCenterX
+            // 
+            this.nudPostProc_PolarCenterX.Enabled = false;
+            this.nudPostProc_PolarCenterX.Location = new System.Drawing.Point(62, 47);
+            this.nudPostProc_PolarCenterX.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.nudPostProc_PolarCenterX.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.nudPostProc_PolarCenterX.Name = "nudPostProc_PolarCenterX";
+            this.nudPostProc_PolarCenterX.Size = new System.Drawing.Size(50, 20);
+            this.nudPostProc_PolarCenterX.TabIndex = 27;
+            this.nudPostProc_PolarCenterX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudPostProc_PolarCenterX.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            // 
+            // cbxPostProc_PolarFilt_Method
+            // 
+            this.cbxPostProc_PolarFilt_Method.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxPostProc_PolarFilt_Method.FormattingEnabled = true;
+            this.cbxPostProc_PolarFilt_Method.Items.AddRange(new object[] {
+            "Flat fielding with air normalization"});
+            this.cbxPostProc_PolarFilt_Method.Location = new System.Drawing.Point(62, 19);
+            this.cbxPostProc_PolarFilt_Method.Name = "cbxPostProc_PolarFilt_Method";
+            this.cbxPostProc_PolarFilt_Method.Size = new System.Drawing.Size(201, 21);
+            this.cbxPostProc_PolarFilt_Method.TabIndex = 22;
+            this.cbxPostProc_PolarFilt_Method.SelectedIndexChanged += new System.EventHandler(this.cbxPostProc_PolarFilt_Method_SelectedIndexChanged);
+            // 
+            // lblPostProc_PolarCenterX
+            // 
+            this.lblPostProc_PolarCenterX.Enabled = false;
+            this.lblPostProc_PolarCenterX.Location = new System.Drawing.Point(5, 48);
+            this.lblPostProc_PolarCenterX.Name = "lblPostProc_PolarCenterX";
+            this.lblPostProc_PolarCenterX.Size = new System.Drawing.Size(54, 19);
+            this.lblPostProc_PolarCenterX.TabIndex = 29;
+            this.lblPostProc_PolarCenterX.Text = "Center X:";
+            this.lblPostProc_PolarCenterX.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblPostProc_PolarCenterY
+            // 
+            this.lblPostProc_PolarCenterY.Enabled = false;
+            this.lblPostProc_PolarCenterY.Location = new System.Drawing.Point(4, 76);
+            this.lblPostProc_PolarCenterY.Name = "lblPostProc_PolarCenterY";
+            this.lblPostProc_PolarCenterY.Size = new System.Drawing.Size(56, 16);
+            this.lblPostProc_PolarCenterY.TabIndex = 30;
+            this.lblPostProc_PolarCenterY.Text = "Center Y:";
+            this.lblPostProc_PolarCenterY.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(14, 23);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 13);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "Method:";
+            // 
             // zInputTIFFsBrowserDialog
             // 
             this.zInputTIFFsBrowserDialog.Description = "Browse for TIFF sequence:";
@@ -3128,8 +3395,8 @@ namespace SYRMEPTomoProject
             // 
             this.splitContainer1.Panel2.Controls.Add(this.vLogNavPane);
             this.splitContainer1.Panel2MinSize = 200;
-            this.splitContainer1.Size = new System.Drawing.Size(731, 827);
-            this.splitContainer1.SplitterDistance = 580;
+            this.splitContainer1.Size = new System.Drawing.Size(731, 687);
+            this.splitContainer1.SplitterDistance = 481;
             this.splitContainer1.TabIndex = 0;
             // 
             // vNavPaneImage
@@ -3139,7 +3406,7 @@ namespace SYRMEPTomoProject
             this.vNavPaneImage.Items.Add(this.vNavPaneItem2);
             this.vNavPaneImage.Location = new System.Drawing.Point(0, 0);
             this.vNavPaneImage.Name = "vNavPaneImage";
-            this.vNavPaneImage.Size = new System.Drawing.Size(731, 580);
+            this.vNavPaneImage.Size = new System.Drawing.Size(731, 481);
             this.vNavPaneImage.TabIndex = 0;
             this.vNavPaneImage.VIBlendTheme = VIBlend.Utilities.VIBLEND_THEME.VISTABLUE;
             // 
@@ -3154,11 +3421,11 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem2.ItemPanel.Controls.Add(this.kpImageViewer1);
             this.vNavPaneItem2.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem2.ItemPanel.Name = "ItemPanel";
-            this.vNavPaneItem2.ItemPanel.Size = new System.Drawing.Size(729, 549);
+            this.vNavPaneItem2.ItemPanel.Size = new System.Drawing.Size(729, 450);
             this.vNavPaneItem2.ItemPanel.TabIndex = 1;
             this.vNavPaneItem2.Location = new System.Drawing.Point(0, 0);
             this.vNavPaneItem2.Name = "vNavPaneItem2";
-            this.vNavPaneItem2.Size = new System.Drawing.Size(731, 580);
+            this.vNavPaneItem2.Size = new System.Drawing.Size(731, 481);
             this.vNavPaneItem2.TabIndex = 0;
             this.vNavPaneItem2.Text = "vNavPaneImage_ItemViewer";
             this.vNavPaneItem2.TooltipText = "Image Viewer";
@@ -3179,6 +3446,8 @@ namespace SYRMEPTomoProject
             this.kpImageViewer1.NavigationTextColor = System.Drawing.SystemColors.MenuText;
             this.kpImageViewer1.OpenButton = true;
             this.kpImageViewer1.Pix32 = ((System.Collections.Generic.List<float>)(resources.GetObject("kpImageViewer1.Pix32")));
+            this.kpImageViewer1.Pix32Max = 0F;
+            this.kpImageViewer1.Pix32Min = 0F;
             this.kpImageViewer1.Pix8 = ((System.Collections.Generic.List<byte>)(resources.GetObject("kpImageViewer1.Pix8")));
             this.kpImageViewer1.PreviewButton = false;
             this.kpImageViewer1.PreviewPanelColor = System.Drawing.Color.Transparent;
@@ -3187,7 +3456,7 @@ namespace SYRMEPTomoProject
             this.kpImageViewer1.Rotation = 0;
             this.kpImageViewer1.Scrollbars = false;
             this.kpImageViewer1.ShowPreview = true;
-            this.kpImageViewer1.Size = new System.Drawing.Size(729, 549);
+            this.kpImageViewer1.Size = new System.Drawing.Size(729, 450);
             this.kpImageViewer1.TabIndex = 0;
             this.kpImageViewer1.TextColor = System.Drawing.SystemColors.MenuText;
             this.kpImageViewer1.Zoom = 100D;
@@ -3199,7 +3468,7 @@ namespace SYRMEPTomoProject
             this.vLogNavPane.Items.Add(this.vNavPaneItem6);
             this.vLogNavPane.Location = new System.Drawing.Point(0, 0);
             this.vLogNavPane.Name = "vLogNavPane";
-            this.vLogNavPane.Size = new System.Drawing.Size(731, 243);
+            this.vLogNavPane.Size = new System.Drawing.Size(731, 202);
             this.vLogNavPane.TabIndex = 5;
             this.vLogNavPane.VIBlendTheme = VIBlend.Utilities.VIBLEND_THEME.VISTABLUE;
             // 
@@ -3215,11 +3484,11 @@ namespace SYRMEPTomoProject
             this.vNavPaneItem6.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vNavPaneItem6.ItemPanel.Name = "ItemPanel";
             this.vNavPaneItem6.ItemPanel.Padding = new System.Windows.Forms.Padding(10);
-            this.vNavPaneItem6.ItemPanel.Size = new System.Drawing.Size(729, 212);
+            this.vNavPaneItem6.ItemPanel.Size = new System.Drawing.Size(729, 171);
             this.vNavPaneItem6.ItemPanel.TabIndex = 1;
             this.vNavPaneItem6.Location = new System.Drawing.Point(0, 0);
             this.vNavPaneItem6.Name = "vNavPaneItem6";
-            this.vNavPaneItem6.Size = new System.Drawing.Size(731, 243);
+            this.vNavPaneItem6.Size = new System.Drawing.Size(731, 202);
             this.vNavPaneItem6.TabIndex = 0;
             this.vNavPaneItem6.Text = "Log";
             this.vNavPaneItem6.TooltipText = "Log";
@@ -3234,7 +3503,7 @@ namespace SYRMEPTomoProject
             this.zLogTxb.Name = "zLogTxb";
             this.zLogTxb.ReadOnly = true;
             this.zLogTxb.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.zLogTxb.Size = new System.Drawing.Size(709, 192);
+            this.zLogTxb.Size = new System.Drawing.Size(709, 151);
             this.zLogTxb.TabIndex = 0;
             // 
             // vImageNavPane
@@ -3243,7 +3512,7 @@ namespace SYRMEPTomoProject
             this.vImageNavPane.Dock = System.Windows.Forms.DockStyle.Fill;
             this.vImageNavPane.Location = new System.Drawing.Point(454, 24);
             this.vImageNavPane.Name = "vImageNavPane";
-            this.vImageNavPane.Size = new System.Drawing.Size(731, 827);
+            this.vImageNavPane.Size = new System.Drawing.Size(731, 687);
             this.vImageNavPane.TabIndex = 5;
             this.vImageNavPane.VIBlendTheme = VIBlend.Utilities.VIBLEND_THEME.VISTABLUE;
             // 
@@ -3304,7 +3573,7 @@ namespace SYRMEPTomoProject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1185, 873);
+            this.ClientSize = new System.Drawing.Size(1185, 733);
             this.Controls.Add(this.vImageNavPane);
             this.Controls.Add(this.vNavPane1);
             this.Controls.Add(this.statusStrip1);
@@ -3437,6 +3706,14 @@ namespace SYRMEPTomoProject
             ((System.ComponentModel.ISupportInitialize)(this.nudConvertToTDF_CropTop)).EndInit();
             this.gbxPostProcessingTab_MethodSettings.ResumeLayout(false);
             this.gbxPostProcessingTab_MethodSettings.PerformLayout();
+            this.gbxPostProc_PolarFiltr.ResumeLayout(false);
+            this.gbxPostProc_PolarFiltr.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPostProc_PolarFilt_OverSampl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPostProc_PolarCenterY)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudPostProc_PolarFilter_Param2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPostProc_PolarFilter_Param1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPostProc_PolarCenterX)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -3694,6 +3971,24 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.NumericUpDown nudLambdaBase;
         private System.Windows.Forms.NumericUpDown nudLambdaExp;
         private System.Windows.Forms.Label lblLambdaTenTo;
+        private System.Windows.Forms.GroupBox gbxPostProc_PolarFiltr;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.NumericUpDown nudPostProc_PolarFilter_Param2;
+        private System.Windows.Forms.NumericUpDown nudPostProc_PolarFilter_Param1;
+        private System.Windows.Forms.Label lblPostProc_PolarFilt_Param1;
+        private System.Windows.Forms.Label lblPostProc_PolarFilt_Param2;
+        private System.Windows.Forms.ComboBox cbxPostProc_PolarFilt_Method;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown nudPostProc_PolarFilt_OverSampl;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.NumericUpDown nudPostProc_PolarCenterY;
+        private System.Windows.Forms.NumericUpDown nudPostProc_PolarCenterX;
+        private System.Windows.Forms.Label lblPostProc_PolarCenterX;
+        private System.Windows.Forms.Label lblPostProc_PolarCenterY;
+        private System.Windows.Forms.CheckBox chkPostProc_PolarLock;
+        private System.Windows.Forms.ToolStripMenuItem extraToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem projectionPreprocessingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem generalizedDEIToolStripMenuItem;
     }
 }
 

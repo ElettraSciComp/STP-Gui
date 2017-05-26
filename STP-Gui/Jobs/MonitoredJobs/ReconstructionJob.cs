@@ -75,6 +75,7 @@ namespace SYRMEPTomoProject.Jobs
         private int mDecimateFactor;
         private int mDownscaleFactor;
         private bool mPostProcess;
+        private string mPostProcessPolarFilt;
         private string mPostProcessConvertArgs;
         private string mPostProcessCropArgs;
         private bool mDynamicFlatFielding;
@@ -163,6 +164,7 @@ namespace SYRMEPTomoProject.Jobs
             int decimateFactor,
             int downscaleFactor,
             bool postProcess,
+            string postProcessPolarFilt,
             string postProcessConvertArgs,
             string postProcessCropArgs,
             bool dynamicFlatFielding,
@@ -202,6 +204,7 @@ namespace SYRMEPTomoProject.Jobs
             mDecimateFactor = decimateFactor;
             mDownscaleFactor = downscaleFactor;
             mPostProcess = postProcess;
+            mPostProcessPolarFilt = postProcessPolarFilt;
             mPostProcessConvertArgs = postProcessConvertArgs;
             mPostProcessCropArgs = postProcessCropArgs;
             mDynamicFlatFielding = dynamicFlatFielding;
@@ -258,6 +261,7 @@ namespace SYRMEPTomoProject.Jobs
             int decimateFactor,
             int downscaleFactor,
             bool postProcess,
+            string postProcessPolarFilt,
             string postProcessConvertArgs,
             string postProcessCropArgs,
             bool dynamicFlatFielding,
@@ -268,7 +272,7 @@ namespace SYRMEPTomoProject.Jobs
             : this(inputFile, outputPath, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, extFOVOverlap, 
             extFOVNormalize, extFOVAverage, ringRemoval, angles, angles_ProjFrom, angles_ProjTo, center, reconFunc, reconParam1, scale, 
             overPadding, logTransform, circle, zeroneMode, correctionOffset, from, to, threads, decimateFactor, downscaleFactor,
-            postProcess, postProcessConvertArgs, postProcessCropArgs, dynamicFlatFielding, rolling, rollShift)         
+            postProcess, postProcessPolarFilt, postProcessConvertArgs, postProcessCropArgs, dynamicFlatFielding, rolling, rollShift)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.SessionID +
@@ -319,6 +323,7 @@ namespace SYRMEPTomoProject.Jobs
                 mDecimateFactor.ToString() + " " +
                 mDownscaleFactor.ToString() + " " +
                 mPostProcess.ToString() + " " +
+                mPostProcessPolarFilt + " " +
                 mPostProcessConvertArgs + " " +
                 mPostProcessCropArgs + " " +
                 mAngles_ProjFrom.ToString() + " " +

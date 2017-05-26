@@ -61,7 +61,6 @@ namespace SYRMEPTomoProject
         PerformanceCounter mRAMCounter = new PerformanceCounter("Memory", "Available MBytes");
 
         UserGuide mUserGuideForm;
-        bool mUserGuideFormShown = false;
 
         public MainForm()
         {
@@ -503,6 +502,38 @@ namespace SYRMEPTomoProject
             }
         }
 
+        private void InitializePolarFiltersDropDown()
+        {
+            int ct = 0;
+            string zFile;
+
+            zFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +
+                Path.DirectorySeparatorChar + Properties.Settings.Default.PolarFiltersXmlFile;
+            if (File.Exists(zFile))
+            {
+                XmlDocument zDoc = new XmlDocument();
+                zDoc.Load(zFile);
+
+                XmlNodeList zKeys = zDoc.SelectNodes("algorithms/algorithm/pyname");
+                XmlNodeList zValues = zDoc.SelectNodes("algorithms/algorithm/displayname");
+
+                Dictionary<string, string> zDict = new Dictionary<string, string>();
+                foreach (XmlNode zValue in zValues)
+                {
+                    zDict.Add(zKeys[ct++].InnerText, zValue.InnerText);
+                }
+
+                cbxPostProc_PolarFilt_Method.DataSource = new BindingSource(zDict, null);
+                cbxPostProc_PolarFilt_Method.DisplayMember = "Value";
+                cbxPostProc_PolarFilt_Method.ValueMember = "Key";
+
+                if (cbxPostProc_PolarFilt_Method.Items.Count > 0)
+                {
+                    cbxPostProc_PolarFilt_Method.SelectedIndex = 1;
+                }
+            }
+        }
+
         private void LoadPreviousValues()
         {
             // Phase Retrieval Tab:
@@ -529,6 +560,7 @@ namespace SYRMEPTomoProject
             InitializeNormalizationMethodsDropDown();
             InitializeRingRemovalMethodsDropDown();
             InitializeDegradationMethodsDropDown();
+            InitializePolarFiltersDropDown();
 
             // Load previously available values:
             LoadPreviousValues();
@@ -772,7 +804,9 @@ namespace SYRMEPTomoProject
                 zParam1 = Convert.ToInt32(this.nudAlgorithmParameterIterations.Value).ToString();
             }
 
-
+           string zPolarFiltString = ((KeyValuePair<string, string>)this.cbxPostProc_PolarFilt_Method.SelectedItem).Key + ":" +
+                Convert.ToDouble(this.nudPostProc_PolarFilter_Param1.Value).ToString() + ";" + (Convert.ToDouble(nudPostProc_PolarFilter_Param2.Value)).ToString(CultureInfo.InvariantCulture);
+                        
             // Create an instance for the reconstruction job:
             zJob = new ReconstructionJob(
                 // Get combobox selection (in handler)
@@ -808,6 +842,7 @@ namespace SYRMEPTomoProject
                 Convert.ToInt32(this.nudReconstructionTab_Decimate.Value),
                 Convert.ToInt32(this.nudReconstructionTab_Downscale.Value),
                 chkReconstructionTab_PostProcess.Checked,
+                zPolarFiltString,
                 zConvertTo8String,
                 zCropString,
                 zDynamicFlatFielding,
@@ -867,6 +902,9 @@ namespace SYRMEPTomoProject
 
             zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
                 nudRingRemParam1.Value.ToString() + ";" + nudRingRemParam2.Value.ToString();
+
+            string zPolarFiltString = ((KeyValuePair<string, string>)this.cbxPostProc_PolarFilt_Method.SelectedItem).Key + ":" +
+                Convert.ToDouble(this.nudPostProc_PolarFilter_Param1.Value).ToString() + ";" + (Convert.ToDouble(nudPostProc_PolarFilter_Param2.Value)).ToString(CultureInfo.InvariantCulture);
 
             zConvertTo8String = ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key + ":" +
                 (double.Parse(txbPostProcessingTab_LinearRescaleMin.Text, CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture) + ";" +
@@ -942,6 +980,7 @@ namespace SYRMEPTomoProject
                 Convert.ToInt32(this.nudReconstructionTab_Decimate.Value),
                 Convert.ToInt32(this.nudReconstructionTab_Downscale.Value),
                 chkReconstructionTab_PostProcess.Checked,
+                zPolarFiltString,
                 zConvertTo8String,
                 zCropString,
                 zDynamicFlatFielding,
@@ -2076,6 +2115,9 @@ namespace SYRMEPTomoProject
             zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
                 Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
 
+            string zPolarFiltString = ((KeyValuePair<string, string>)this.cbxPostProc_PolarFilt_Method.SelectedItem).Key + ":" +
+                Convert.ToDouble(this.nudPostProc_PolarFilter_Param1.Value).ToString() + ";" + (Convert.ToDouble(nudPostProc_PolarFilter_Param2.Value)).ToString(CultureInfo.InvariantCulture);
+
             zConvertTo8String = ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key + ":" +
                 (double.Parse(txbPostProcessingTab_LinearRescaleMin.Text, CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture) + ";" +
                 (double.Parse(txbPostProcessingTab_LinearRescaleMax.Text, CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture);
@@ -2145,6 +2187,7 @@ namespace SYRMEPTomoProject
                 Convert.ToInt32(this.nudReconstructionTab_Decimate.Value),
                 Convert.ToInt32(this.nudReconstructionTab_Downscale.Value),
                 this.chkReconstructionTab_PostProcess.Checked,
+                zPolarFiltString,
                 zConvertTo8String,
                 zCropString,
                 this.chkPhrtOnTheFly.Checked,
@@ -2475,6 +2518,10 @@ namespace SYRMEPTomoProject
             IJob zJob;
             JobExecuter zExecuter;
 
+            string zPolarFiltString = ((KeyValuePair<string, string>)this.cbxPostProc_PolarFilt_Method.SelectedItem).Key + ":" +
+                Convert.ToDouble(this.nudPostProc_PolarFilter_Param1.Value).ToString() + ";" + (Convert.ToDouble(nudPostProc_PolarFilter_Param2.Value)).ToString(CultureInfo.InvariantCulture);
+
+
             // Create an instance for the post processing job:
             zJob = new PostProcessingJob(
                 // Get combobox selection (in handler)
@@ -2482,6 +2529,7 @@ namespace SYRMEPTomoProject
                    txbPostProcessingTab_OutputPath.Text,
                    Convert.ToInt32(nudPostProcessingTab_ExecuteFrom.Value),
                    Convert.ToInt32(nudPostProcessingTab_ExecuteTo.Value),
+                   zPolarFiltString,
                    ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key,
                    Convert.ToDouble(txbPostProcessingTab_LinearRescaleMin.Text),
                    Convert.ToDouble(txbPostProcessingTab_LinearRescaleMax.Text),
@@ -2509,6 +2557,10 @@ namespace SYRMEPTomoProject
             IJob zJob;
             JobExecuter zExecuter;
 
+            string zPolarFiltString = ((KeyValuePair<string, string>)this.cbxPostProc_PolarFilt_Method.SelectedItem).Key + ":" +
+                Convert.ToDouble(this.nudPostProc_PolarFilter_Param1.Value).ToString() + ";" + (Convert.ToDouble(nudPostProc_PolarFilter_Param2.Value)).ToString(CultureInfo.InvariantCulture);
+
+
             // Create an instance for the post processing job:
             zJob = new PostProcessingJob(
                 // Get combobox selection (in handler)
@@ -2516,6 +2568,7 @@ namespace SYRMEPTomoProject
                    txbPostProcessingTab_OutputPath.Text,
                    Convert.ToInt32(nudPostProcessingTab_ExecuteFrom.Value),
                    Convert.ToInt32(nudPostProcessingTab_ExecuteTo.Value),
+                   zPolarFiltString,
                    ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key,
                    Convert.ToDouble(txbPostProcessingTab_LinearRescaleMin.Text),
                    Convert.ToDouble(txbPostProcessingTab_LinearRescaleMax.Text),
@@ -2548,12 +2601,14 @@ namespace SYRMEPTomoProject
                 gbxPostProcessingTab_Preview.Enabled = false;
                 gbxPostProcessingTab_Execute.Enabled = false;
                 gbxPostProcessingTab_MethodSettings.Enabled = false;
+                //gbxPostProc_PolarFiltr.Enabled = false;
             }
             else
             {
                 gbxPostProcessingTab_Preview.Enabled = true;
                 gbxPostProcessingTab_Execute.Enabled = true;
                 gbxPostProcessingTab_MethodSettings.Enabled = true;
+                //gbxPostProc_PolarFiltr.Enabled = true;
 
                 // Get the number of projection files:
                 zFilter = Properties.Settings.Default.FormSettings_OutputPrefix + "*" + Properties.Settings.Default.TIFFFileFormatExtension + "*";
@@ -2590,14 +2645,18 @@ namespace SYRMEPTomoProject
             zTempFile = Properties.Settings.Default.FormSettings_TemporaryPath + Path.DirectorySeparatorChar +
                 Properties.Settings.Default.SessionID + Path.DirectorySeparatorChar +
                 Program.GetTimestamp(DateTime.Now);
-
+            
+            string zPolarFiltString = ((KeyValuePair<string, string>)this.cbxPostProc_PolarFilt_Method.SelectedItem).Key + ":" +
+            Convert.ToDouble(this.nudPostProc_PolarFilter_Param1.Value).ToString() + ";" + (Convert.ToDouble(nudPostProc_PolarFilter_Param2.Value)).ToString(CultureInfo.InvariantCulture);
+            
 
             // Create an instance for the phase retrieval job:
             zJob = new PostProcessingPreviewJob(
                     Convert.ToInt32(this.nudPostProcessingTab_PreviewSlice.Value),
                     txbPostProcessingTab_InputFolder.Text,
                     zTempFile,
-                    ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key,
+                     zPolarFiltString,
+                    ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key,                   
                     Convert.ToDouble(txbPostProcessingTab_LinearRescaleMin.Text),
                     Convert.ToDouble(txbPostProcessingTab_LinearRescaleMax.Text),
                     Convert.ToInt32(nudConvertToTDF_CropLeft.Value),
@@ -3150,5 +3209,89 @@ namespace SYRMEPTomoProject
             this.nudReconstructionTab_ExecuteFrom.Maximum = this.nudReconstructionTab_ExecuteTo.Value;
         }
 
+        private void projectionPreprocessingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Open Projection domain pre-processing:
+
+
+        }
+
+        private void generalizedDEIToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string zRingRemString;
+            bool zDynamicFlatFielding;
+
+            zDynamicFlatFielding = !(this.cbxFlatField.SelectedIndex == 0);
+            
+            zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
+               Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
+
+            // Open GDEI form with current settings for preprocessing from Mainform :
+            GDEI zForm = new GDEI(
+                Convert.ToInt32(this.nudNormSx.Value),
+                Convert.ToInt32(this.nudNormDx.Value),
+                chkDarkFlatEnd.Checked, // use flat at the end
+                chkHalfHalfMode.Checked,
+                Convert.ToInt32(this.nudHalfHalfMode.Value),
+                chkExtendedFOV.Checked,
+                chkExtFOV_AirRight.Checked,
+                Convert.ToInt32(nudExtendedFOVOverlap.Value),
+                chkExtFOVNormalize.Checked,
+                chkExtFOVAverage.Checked,
+                zRingRemString,
+                zDynamicFlatFielding
+                );
+            zForm.Show(this);
+        }
+
+
+        private void cbxPostProc_PolarFilt_Method_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int zIndex = this.cbxPostProc_PolarFilt_Method.SelectedIndex + 1;
+                XmlDocument zDoc = new XmlDocument();
+
+                // Load the XML configuration file for ring removal filters:
+                zDoc.Load(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +
+                    Path.DirectorySeparatorChar + Properties.Settings.Default.PolarFiltersXmlFile);
+
+                // Hide UI elements:
+                this.lblPostProc_PolarFilt_Param1.Visible = false;
+                this.nudPostProc_PolarFilter_Param1.Visible = false;
+
+                this.lblPostProc_PolarFilt_Param2.Visible = false;
+                this.nudPostProc_PolarFilter_Param2.Visible = false;
+
+                // Configure parameter 1:                
+                XmlNode zParameterNode = zDoc.SelectSingleNode("/algorithms/algorithm[" + zIndex.ToString() + "]/parameters/parameter[1]");
+                this.lblPostProc_PolarFilt_Param1.Text = zParameterNode.InnerText + ":";
+                this.nudPostProc_PolarFilter_Param1.Minimum = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("min").Value);
+                this.nudPostProc_PolarFilter_Param1.Maximum = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("max").Value);
+                this.nudPostProc_PolarFilter_Param1.DecimalPlaces = Convert.ToInt32(zParameterNode.Attributes.GetNamedItem("decimalplaces").Value);
+                this.nudPostProc_PolarFilter_Param1.Increment = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("increment").Value);
+                this.nudPostProc_PolarFilter_Param1.Value = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("default").Value);
+
+                this.lblPostProc_PolarFilt_Param1.Visible = true;
+                this.nudPostProc_PolarFilter_Param1.Visible = true;
+
+                // Configure parameter 1:                
+                zParameterNode = zDoc.SelectSingleNode("/algorithms/algorithm[" + zIndex.ToString() + "]/parameters/parameter[2]");
+                this.lblPostProc_PolarFilt_Param2.Text = zParameterNode.InnerText + ":";
+                this.nudPostProc_PolarFilter_Param2.Minimum = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("min").Value);
+                this.nudPostProc_PolarFilter_Param2.Maximum = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("max").Value);
+                this.nudPostProc_PolarFilter_Param2.DecimalPlaces = Convert.ToInt32(zParameterNode.Attributes.GetNamedItem("decimalplaces").Value);
+                this.nudPostProc_PolarFilter_Param2.Increment = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("increment").Value);
+                this.nudPostProc_PolarFilter_Param2.Value = Convert.ToDecimal(zParameterNode.Attributes.GetNamedItem("default").Value);
+
+                this.lblPostProc_PolarFilt_Param2.Visible = true;
+                this.nudPostProc_PolarFilter_Param2.Visible = true;
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
     }
 }

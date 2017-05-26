@@ -73,6 +73,7 @@ namespace SYRMEPTomoProject.Jobs
         private int mDecimateFactor;
         private int mDownscaleFactor;
         private bool mPostProcess;
+        private string mPostProcessPolarFilt;
         private string mPostProcessConvertArgs;
         private string mPostProcessCropArgs;
         private bool mPhaseRetrieval = false;
@@ -134,6 +135,7 @@ namespace SYRMEPTomoProject.Jobs
             int decimateFactor,
             int downscaleFactor,
             bool postProcess,
+            string postProcessPolarFilt,
             string postProcessConvertArgs,
             string postProcessCropArgs,
             bool phaseRetrieval,
@@ -179,6 +181,7 @@ namespace SYRMEPTomoProject.Jobs
             mDecimateFactor = decimateFactor;
             mDownscaleFactor = downscaleFactor;
             mPostProcess = postProcess;
+            mPostProcessPolarFilt = postProcessPolarFilt;
             mPostProcessConvertArgs = postProcessConvertArgs;
             mPostProcessCropArgs = postProcessCropArgs;
             mPhaseRetrieval = phaseRetrieval;
@@ -228,6 +231,7 @@ namespace SYRMEPTomoProject.Jobs
             int decimateFactor,
             int downscaleFactor,
             bool postProcess,
+            string postProcessPolarFilt,
             string postProcessConvertArgs,
             string postProcessCropArgs,
             bool phaseRetrieval,
@@ -246,7 +250,7 @@ namespace SYRMEPTomoProject.Jobs
             : this(imageIndex, inputFile, previewFile, preProcess, airSx, airDx, flatEnd, halfHalf, halfHalfLine, extFOV, extFOVRight, 
                 extFOVOverlap, extFOVNormalize, extFOVAverage, ringRemoval, angles, angles_ProjFrom, angles_ProjTo, center, reconFunc, 
                 reconParam1, scale, overPadding, logTransform, circle, zeroneMode, correctionOffset, decimateFactor, downscaleFactor, 
-                postProcess, postProcessConvertArgs, postProcessCropArgs, phaseRetrieval, phrtMethod, param1, param2, distance, energy, 
+                postProcess, postProcessPolarFilt, postProcessConvertArgs, postProcessCropArgs, phaseRetrieval, phrtMethod, param1, param2, distance, energy, 
                 pixelsize, phrtPad, dynamicFlatFielding, rolling, rollShift)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
@@ -298,6 +302,7 @@ namespace SYRMEPTomoProject.Jobs
                 mDecimateFactor.ToString() + " " +
                 mDownscaleFactor.ToString() + " " +
                 mPostProcess.ToString() + " " +
+                mPostProcessPolarFilt + " " +
                 mPostProcessConvertArgs + " " +
                 mPostProcessCropArgs + " " +
                 mPhaseRetrieval.ToString() + " " +

@@ -46,6 +46,7 @@ namespace SYRMEPTomoProject.Jobs
         private int mImageIndex;
         private string mInputPath;
         private string mPreviewFile;
+        private string mPolarFiltString;
         private string mConvertTo8Method;
         private double mConvertTo8Min;
         private double mConvertTo8Max;        
@@ -80,6 +81,7 @@ namespace SYRMEPTomoProject.Jobs
             int imageIndex,
             string inputPath,      
             string outputFile,
+            string polarFiltString,
             string convertTo8Method,
             double convertTo8Min,
             double convertTo8Max,        
@@ -93,6 +95,7 @@ namespace SYRMEPTomoProject.Jobs
             mImageIndex = imageIndex;
             mInputPath = inputPath;
             mPreviewFile = outputFile;
+            mPolarFiltString = polarFiltString;
             mConvertTo8Method = convertTo8Method;
             mConvertTo8Min = convertTo8Min;
             mConvertTo8Max = convertTo8Max;
@@ -110,6 +113,7 @@ namespace SYRMEPTomoProject.Jobs
             int imageIndex,
             string inputPath,
             string outputFile,
+            string polarFiltString,
             string convertTo8Method,
             double convertTo8Min,
             double convertTo8Max,        
@@ -120,7 +124,7 @@ namespace SYRMEPTomoProject.Jobs
             string outPrefix,
             string logFile
             )
-            : this(imageIndex, inputPath, outputFile, convertTo8Method, convertTo8Min, convertTo8Max, 
+            : this(imageIndex, inputPath, outputFile, polarFiltString, convertTo8Method, convertTo8Min, convertTo8Max, 
                     cropLeft, cropRight, cropTop, cropBottom, outPrefix)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
@@ -143,7 +147,8 @@ namespace SYRMEPTomoProject.Jobs
                 + Properties.Settings.Default.PythonPath + Path.DirectorySeparatorChar + Properties.Settings.Default.PostProcessingPreviewJob + "\" " +
                 mImageIndex.ToString() + " \"" +
                 mInputPath + "\" \"" +
-                mPreviewFile + "\" " +             
+                mPreviewFile + "\" " +    
+                mPolarFiltString + " " +
                 zConvertTo8Args + " " +
                 zCropArgs + " \"" +
                 mOutPrefix + "\" \"" +

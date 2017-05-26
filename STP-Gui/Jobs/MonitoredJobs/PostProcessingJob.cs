@@ -47,6 +47,7 @@ namespace SYRMEPTomoProject.Jobs
         private string mOutputPath;
         private int mFrom; 
         private int mTo;
+        private string mPolarFiltString;
         private string mConvertTo8Method;
         private double mConvertTo8Min;
         private double mConvertTo8Max;        
@@ -100,6 +101,7 @@ namespace SYRMEPTomoProject.Jobs
             string outputPath,
             int from,
             int to,
+            string polarFiltString,
             string convertTo8Method,
             double convertTo8Min,
             double convertTo8Max,        
@@ -115,6 +117,7 @@ namespace SYRMEPTomoProject.Jobs
             mOutputPath = outputPath;
             mFrom = from;
             mTo = to;
+            mPolarFiltString = polarFiltString;
             mConvertTo8Method = convertTo8Method;
             mConvertTo8Min = convertTo8Min;
             mConvertTo8Max = convertTo8Max;
@@ -140,6 +143,7 @@ namespace SYRMEPTomoProject.Jobs
             string outputPath,
             int from,
             int to,
+            string polarFiltString,
             string convertTo8Method,
             double convertTo8Min,
             double convertTo8Max,        
@@ -151,7 +155,7 @@ namespace SYRMEPTomoProject.Jobs
             int threads,
             string logFile
             )
-            : this(inputPath, outputPath, from, to, convertTo8Method, convertTo8Min, convertTo8Max, 
+            : this(inputPath, outputPath, from, to, polarFiltString, convertTo8Method, convertTo8Min, convertTo8Max, 
                     cropLeft, cropRight, cropTop, cropBottom, outPrefix, threads)         
         {
             mLogFile = Properties.Settings.Default.FormSettings_TemporaryPath +
@@ -172,13 +176,15 @@ namespace SYRMEPTomoProject.Jobs
 
             string zConvertTo8Args = "\"" + mConvertTo8Method + ":" + mConvertTo8Min.ToString(CultureInfo.InvariantCulture) + ";" + mConvertTo8Max.ToString(CultureInfo.InvariantCulture) + "\"";
             string zCropArgs = "\"" + mCropTop.ToString() + ":" + mCropBottom.ToString() + ":" + mCropLeft.ToString() + ":" + mCropRight.ToString() + "\"";
+            //string zPolartFiltArgs = "\"" + mPolarFiltCenterX.ToString() + ":" + mPolarFiltCenterY.ToString() + ":" + mPolarFiltPrecision.ToString() + ":" + mCropRight.ToString() + "\"";
 
             zString = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar
                 + Properties.Settings.Default.PythonPath + Path.DirectorySeparatorChar + Properties.Settings.Default.PostProcessJob + "\" " +
                 mFrom.ToString() + " " +
                 mTo.ToString() + " \"" + 
                 mInputPath + "\" \"" + 
-                mOutputPath + "\" " +             
+                mOutputPath + "\" " +
+                mPolarFiltString + " " +
                 zConvertTo8Args + " " +
                 zCropArgs + " " +
                 mOutPrefix + " " +

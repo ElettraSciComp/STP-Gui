@@ -57,8 +57,8 @@ namespace SYRMEPTomoProject
         private JobMonitor mJobMonitor;
         private bool mFirstRun = false;
 
-        PerformanceCounter mCPUCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-        PerformanceCounter mRAMCounter = new PerformanceCounter("Memory", "Available MBytes");
+        PerformanceCounter mCPUCounter;
+        PerformanceCounter mRAMCounter;
 
         UserGuide mUserGuideForm;
 
@@ -74,7 +74,19 @@ namespace SYRMEPTomoProject
             mJobMonitor.JobStep += new JobStepEventHandler(mJobMonitor_JobStep);
 
             // Start the JobMonitor with the background worker:
-            mJobMonitorBgw.RunWorkerAsync();          
+            mJobMonitorBgw.RunWorkerAsync();
+
+            // Start the counters (sometimes you get exception);
+            try
+            {
+                mCPUCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+                mRAMCounter = new PerformanceCounter("Memory", "Available MBytes");
+            }
+            catch (Exception ex)
+            {
+                mCPUCounter = null;
+                mRAMCounter = null;
+            }
         }
 
         #region Monitoring
@@ -85,7 +97,7 @@ namespace SYRMEPTomoProject
             {
                 IMonitoredJob zJob = ((JobMonitor)sender).MonitoredJob;
                 TimeSpan zElapsedTime, zRemainingTime;
-                ulong zFreeSpace;               
+                ulong zFreeSpace;
 
                 // Thread safe (it runs on UI thread):
                 if (!e.Line.Equals(Environment.NewLine))
@@ -109,8 +121,14 @@ namespace SYRMEPTomoProject
                             }
 
                             mStatusBarProgressBar.Value = Math.Min((int)(Math.Round(e.Step * 100.0)), 100);
-                            toolStripStatusLabel1.Text = "Busy (Available RAM: " + (mRAMCounter.NextValue() / 1000).ToString("0.00") + " GB";
-
+                            if (mRAMCounter != null)
+                            {
+                                toolStripStatusLabel1.Text = "Busy (Available RAM: " + (mRAMCounter.NextValue() / 1000).ToString("0.00") + " GB - ";
+                            }
+                            else
+                            {
+                                toolStripStatusLabel1.Text = "Busy (";
+                            }
                             if ((zJob.GetType() == typeof(PreProcessingJob)) || (zJob.GetType() == typeof(PhaseRetrievalJob)))
                             {
                                 // Add memory usage and free space on temporary folder:
@@ -119,12 +137,12 @@ namespace SYRMEPTomoProject
                                     double zVal = ((double)(zFreeSpace) / (1024.0 * 1024.0 * 1024.0));
                                     if (zVal > 1024.0)
                                     {
-                                        toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + " - Free space on working path: " +
+                                        toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + "Free space on working path: " +
                                             (zVal / (1024.0)).ToString("0.0") + " TB)";
                                     }
                                     else
                                     {
-                                        toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + " - Free space on working path: " +
+                                        toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + "Free space on working path: " +
                                             zVal.ToString("0.0") + " GB)";
                                     }
                                 }
@@ -141,12 +159,12 @@ namespace SYRMEPTomoProject
                                     double zVal = ((double)(zFreeSpace) / (1024.0 * 1024.0 * 1024.0));
                                     if (zVal > 1024.0)
                                     {
-                                        toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + " - Free space on output path: " +
+                                        toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + "Free space on output path: " +
                                             (zVal / (1024.0)).ToString("0.0") + " TB)";
                                     }
                                     else
                                     {
-                                        toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + " - Free space on output path: " +
+                                        toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + "Free space on output path: " +
                                             zVal.ToString("0.0") + " GB)";
                                     }
                                 }
@@ -198,7 +216,7 @@ namespace SYRMEPTomoProject
                         btnReconstructionTab_ExecuteRunAll.Enabled = true;
                         btnPostProcessingTab_RunSubset.Enabled = true;
                         btnPostProcessingTab_RunAll.Enabled = true;
-                       
+
                     }
                     catch (Exception ex)
                     {
@@ -442,7 +460,7 @@ namespace SYRMEPTomoProject
         {
             int ct = 0;
             string zFile;
-            
+
             zFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +
                 Path.DirectorySeparatorChar + Properties.Settings.Default.FlatFieldAlgsXmlFile;
             if (File.Exists(zFile))
@@ -611,7 +629,7 @@ namespace SYRMEPTomoProject
             else
             {
                 InitializeReconstructionAlgorithmsDropDown(true);
-            }           
+            }
         }
 
         #endregion
@@ -640,7 +658,7 @@ namespace SYRMEPTomoProject
                    chkHalfHalfMode.Checked,
                    Convert.ToInt32(this.nudHalfHalfMode.Value),
                    chkExtendedFOV.Checked,
-                   chkExtFOV_AirRight.Checked,                   
+                   chkExtFOV_AirRight.Checked,
                    Convert.ToInt32(nudExtendedFOVOverlap.Value),
                    chkExtFOVNormalize.Checked,
                    chkExtFOVAverage.Checked,
@@ -804,9 +822,9 @@ namespace SYRMEPTomoProject
                 zParam1 = Convert.ToInt32(this.nudAlgorithmParameterIterations.Value).ToString();
             }
 
-           string zPolarFiltString = ((KeyValuePair<string, string>)this.cbxPostProc_PolarFilt_Method.SelectedItem).Key + ":" +
-                Convert.ToDouble(this.nudPostProc_PolarFilter_Param1.Value).ToString() + ";" + (Convert.ToDouble(nudPostProc_PolarFilter_Param2.Value)).ToString(CultureInfo.InvariantCulture);
-                        
+            string zPolarFiltString = ((KeyValuePair<string, string>)this.cbxPostProc_PolarFilt_Method.SelectedItem).Key + ":" +
+                 Convert.ToDouble(this.nudPostProc_PolarFilter_Param1.Value).ToString() + ";" + (Convert.ToDouble(nudPostProc_PolarFilter_Param2.Value)).ToString(CultureInfo.InvariantCulture);
+
             // Create an instance for the reconstruction job:
             zJob = new ReconstructionJob(
                 // Get combobox selection (in handler)
@@ -847,7 +865,7 @@ namespace SYRMEPTomoProject
                 zCropString,
                 zDynamicFlatFielding,
                 this.gbxRolling.Enabled,
-                Convert.ToInt32(this.nudRollShift.Value)            
+                Convert.ToInt32(this.nudRollShift.Value)
                 );
 
 
@@ -985,7 +1003,7 @@ namespace SYRMEPTomoProject
                 zCropString,
                 zDynamicFlatFielding,
                 this.gbxRolling.Enabled,
-                Convert.ToInt32(this.nudRollShift.Value)  
+                Convert.ToInt32(this.nudRollShift.Value)
                 );
 
             // Create an instance of JobExecuter with the reconstruction job 
@@ -1659,7 +1677,7 @@ namespace SYRMEPTomoProject
 
             // Add the Bitmap to the image viewer:
             this.kpImageViewer1.ResetValues();
-            this.kpImageViewer1.Image = zBitmap;            
+            this.kpImageViewer1.Image = zBitmap;
 
 
             // Delete temporary file:
@@ -1960,7 +1978,7 @@ namespace SYRMEPTomoProject
                 this.nudReconstructionTab_Slice.Maximum = TDFReader.GetNumberOfSlices(zString) - 1;
                 this.nudReconstructionTab_Slice.Value = Convert.ToDecimal(TDFReader.GetNumberOfSlices(zString) / 2);
 
-                this.nudRollShift.Maximum = Convert.ToDecimal(TDFReader.GetNumberOfProjections(zString) -1);
+                this.nudRollShift.Maximum = Convert.ToDecimal(TDFReader.GetNumberOfProjections(zString) - 1);
 
 
                 this.lblReconstructionTab_ExecuteFrom.Enabled = true;
@@ -2200,7 +2218,7 @@ namespace SYRMEPTomoProject
                 this.chkPhaseRetrievalTab_OverPadding.Checked,
                 zDynamicFlatFielding,
                 this.gbxRolling.Enabled,
-                Convert.ToInt32(this.nudRollShift.Value)  
+                Convert.ToInt32(this.nudRollShift.Value)
             );
 
             // Create an instance of JobExecuter with the job:
@@ -2645,10 +2663,10 @@ namespace SYRMEPTomoProject
             zTempFile = Properties.Settings.Default.FormSettings_TemporaryPath + Path.DirectorySeparatorChar +
                 Properties.Settings.Default.SessionID + Path.DirectorySeparatorChar +
                 Program.GetTimestamp(DateTime.Now);
-            
+
             string zPolarFiltString = ((KeyValuePair<string, string>)this.cbxPostProc_PolarFilt_Method.SelectedItem).Key + ":" +
             Convert.ToDouble(this.nudPostProc_PolarFilter_Param1.Value).ToString() + ";" + (Convert.ToDouble(nudPostProc_PolarFilter_Param2.Value)).ToString(CultureInfo.InvariantCulture);
-            
+
 
             // Create an instance for the phase retrieval job:
             zJob = new PostProcessingPreviewJob(
@@ -2656,7 +2674,7 @@ namespace SYRMEPTomoProject
                     txbPostProcessingTab_InputFolder.Text,
                     zTempFile,
                      zPolarFiltString,
-                    ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key,                   
+                    ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key,
                     Convert.ToDouble(txbPostProcessingTab_LinearRescaleMin.Text),
                     Convert.ToDouble(txbPostProcessingTab_LinearRescaleMax.Text),
                     Convert.ToInt32(nudConvertToTDF_CropLeft.Value),
@@ -2933,7 +2951,7 @@ namespace SYRMEPTomoProject
         private void openSourceLicensesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenSourceAboutBox zAboutBox = new OpenSourceAboutBox();
-            
+
             zAboutBox.ShowDialog(this);
         }
 
@@ -3016,7 +3034,7 @@ namespace SYRMEPTomoProject
                     // Dynamic flat fielding:                 
                     this.chkDarkFlatEnd.Visible = false;
                     this.chkHalfHalfMode.Visible = false;
-                    this.nudHalfHalfMode.Visible = false;                  
+                    this.nudHalfHalfMode.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -3127,7 +3145,7 @@ namespace SYRMEPTomoProject
         {
             double zVal = Convert.ToDouble(this.nudRollShift.Value) / Convert.ToDouble(this.nudRollShift.Maximum) * Convert.ToDouble(this.nudAngles.Value);
 
-            this.lblRollShift.Text = "projections (i.e. " + zVal.ToString("0.0")  + " deg counterclockwise rotation)";
+            this.lblRollShift.Text = "projections (i.e. " + zVal.ToString("0.0") + " deg counterclockwise rotation)";
         }
 
         private void nudAngles_ValueChanged(object sender, EventArgs e)
@@ -3180,15 +3198,15 @@ namespace SYRMEPTomoProject
             this.nudAnglesProjTo.Value = this.nudAnglesProjTo.Value / this.nudReconstructionTab_Downscale.Value;
             this.nudAnglesProjTo.Maximum = TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value;*/
 
-            this.nudReconstructionTab_Slice.Maximum = Math.Max(TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value - 1,1);
+            this.nudReconstructionTab_Slice.Maximum = Math.Max(TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value - 1, 1);
             this.nudReconstructionTab_Slice.Value = (TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value) / 2;
 
-            this.nudReconstructionTab_ExecuteFrom.Maximum = Math.Max(TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value - 1,1);
+            this.nudReconstructionTab_ExecuteFrom.Maximum = Math.Max(TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value - 1, 1);
             this.nudReconstructionTab_ExecuteFrom.Value = 0;
 
-            this.nudReconstructionTab_ExecuteTo.Maximum = Math.Max(TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value - 1,1);
-            this.nudReconstructionTab_ExecuteTo.Value = TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value - 1;        
-            
+            this.nudReconstructionTab_ExecuteTo.Maximum = Math.Max(TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value - 1, 1);
+            this.nudReconstructionTab_ExecuteTo.Value = TDFReader.GetNumberOfSlices(zString) / this.nudReconstructionTab_Downscale.Value - 1;
+
         }
 
         private void nudReconstructionTab_ExecuteFrom_ValueChanged(object sender, EventArgs e)
@@ -3222,7 +3240,7 @@ namespace SYRMEPTomoProject
             bool zDynamicFlatFielding;
 
             zDynamicFlatFielding = !(this.cbxFlatField.SelectedIndex == 0);
-            
+
             zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
                Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
 

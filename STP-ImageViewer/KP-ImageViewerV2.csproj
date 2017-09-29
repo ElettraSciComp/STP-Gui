@@ -87,6 +87,9 @@
     <EmbeddedResource Include="KP-ImageViewerV2.resx">
       <DependentUpon>KP-ImageViewerV2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PanelDoubleBuffered.resx">
+      <DependentUpon>PanelDoubleBuffered.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

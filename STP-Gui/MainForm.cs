@@ -79,12 +79,10 @@ namespace SYRMEPTomoProject
             // Start the counters (sometimes you get exception);
             try
             {
-                mCPUCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
                 mRAMCounter = new PerformanceCounter("Memory", "Available MBytes");
             }
             catch (Exception ex)
             {
-                mCPUCounter = null;
                 mRAMCounter = null;
             }
         }

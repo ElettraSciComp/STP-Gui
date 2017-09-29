@@ -942,6 +942,12 @@ namespace KaiwaProjects
 
         private void pbFull_MouseMove(object sender, MouseEventArgs e)
         {
+            /*Point pt = this.AutoScrollPosition;      
+            int zPtX = Convert.ToInt32((e.X - pt.X) / drawing.Zoom);
+            int zPtY = Convert.ToInt32((e.Y - pt.Y) / drawing.Zoom);
+
+            MessageBox.Show(pt.X.ToString() + " - " + pt.Y.ToString() + " " + drawing.BoundingBox.Size.ToString());*/
+
             // Am I dragging or selecting?
             if (shiftSelecting == true)
             {
@@ -953,10 +959,11 @@ namespace KaiwaProjects
 
                 // Am I still selecting within my panel?
                 if (pbFullRect.Contains(new Point(e.X, e.Y)))
-                {
+                {             
+
                     // If so, draw my Rubber Band Rectangle!
                     Rectangle rect = CalculateReversibleRectangle(ptSelectionStart, ptSelectionEnd);
-                    DrawReversibleRectangle(rect);
+                    DrawReversibleRectangle(rect);                    
                 }
             }
             else

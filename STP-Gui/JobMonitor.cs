@@ -77,7 +77,7 @@ namespace SYRMEPTomoProject
     class JobMonitor
     {
         private bool mMonitorStarted = false;
-        private JobExecuter mJobExecuter = null;
+        private IJobExecuter mJobExecuter = null;
         private string mStrToMonitor = string.Empty;
         private int mNrOfLinesToMonitor;
 
@@ -342,7 +342,7 @@ namespace SYRMEPTomoProject
         /// Run the actual monitoring.
         /// </summary>
         /// <param name="jobExecuter">The JobExecutor instance to monitor.</param>
-        public void Run(JobExecuter jobExecuter, string strToMonitor, int nrOfLinesToMonitor)
+        public void Run(IJobExecuter jobExecuter, string strToMonitor, int nrOfLinesToMonitor)
         {
             mJobExecuter = jobExecuter;
             mStrToMonitor = strToMonitor;
@@ -353,7 +353,7 @@ namespace SYRMEPTomoProject
         /// Run the actual monitoring.
         /// </summary>
         /// <param name="jobExecuter">The JobExecutor instance to monitor.</param>
-        public void Run(JobExecuter jobExecuter, string strToMonitor)
+        public void Run(IJobExecuter jobExecuter, string strToMonitor)
         {
             mJobExecuter = jobExecuter;
             mStrToMonitor = strToMonitor;
@@ -365,7 +365,7 @@ namespace SYRMEPTomoProject
         /// Stop the monitoring.
         /// </summary>
         /// <param name="jobExecuter">The JobExecutor instance to monitor.</param>
-        public void Stop(JobExecuter jobExecuter)
+        public void Stop(IJobExecuter jobExecuter)
         {
             mJobExecuter = jobExecuter;
         }

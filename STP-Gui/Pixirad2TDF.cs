@@ -43,7 +43,7 @@ using KaiwaProjects;
 
 namespace SYRMEPTomoProject
 {
-    public partial class GDEI : Form
+    public partial class PixiradToTDF : Form
     {
         private DateTime mDt;
 
@@ -51,11 +51,10 @@ namespace SYRMEPTomoProject
         private bool mFirstRun = false;
         private bool mRunning = false;
 
-        private string mInputPath = string.Empty;
         private string mTempOutputName = string.Empty;
         private int mNrOfProjections = 0;
 
-        public GDEI()
+        public PixiradToTDF()
         {
             InitializeComponent();
 
@@ -145,11 +144,13 @@ namespace SYRMEPTomoProject
         {
             mRunning = false;
 
+
             // Thread safe (it runs on UI thread):           
             this.Invoke((MethodInvoker)delegate
             {
                 try
                 {
+
                     zLogTxb.AppendText(e.Line);
 
                     // Update status bar:
@@ -165,16 +166,15 @@ namespace SYRMEPTomoProject
                     // Rename file:
                     if (File.Exists(this.mTempOutputName))
                     {
-                        /*FileStream zFS = Program.WaitForFile(this.mTempOutputName);
+                        FileStream zFS = Program.WaitForFile(this.mTempOutputName);
                         zFS.Close();
                         File.Move(this.mTempOutputName, Properties.Settings.Default.FormSettings_WorkingPath + Path.DirectorySeparatorChar +
-                            Path.GetFileNameWithoutExtension(txbOutputTDF.Text) + ".tdf");*/
+                            Path.GetFileNameWithoutExtension(txbOutputTDF.Text) + Properties.Settings.Default.TomoDataFormatExtension);
                     }
                 }
                 catch (Exception)
                 {
                 }
-
             });
         }
 
@@ -215,109 +215,59 @@ namespace SYRMEPTomoProject
 
         #endregion
 
-        /// <summary>
-        /// To be called by the tbxProjectionPrefix_TextChanged and zProject_InputPathTxb_TextChanged events.
-        /// </summary>
-        private void UpdateValues()
-        {
-           /* if (Directory.Exists(mInputPath))
-            {
-                // Get the number of projection files:
-                string zFilter;
-
-                // Get the number of projection files:
-                zFilter = tbxProjectionPrefix.Text + "*" + Properties.Settings.Default.TIFFFileFormatExtension + "*";
-                mNrOfProjections = (int)(Directory.GetFiles(mInputPath, zFilter, SearchOption.TopDirectoryOnly).Length);
-
-                if ((mNrOfProjections > 0) && (tbxProjectionPrefix.Text != string.Empty))
-                {
-                    nudConvertToTDFFrom.Maximum = mNrOfProjections - 1;
-                    nudConvertToTDFTo.Maximum = mNrOfProjections - 1;
-
-                    // Set the default name for the dataset as folder name:
-                    string fullPath = Path.GetFullPath(mInputPath).TrimEnd(Path.DirectorySeparatorChar);
-                    string projectName = Path.GetFileName(fullPath);
-                    this.txbOutputTDF.Text = projectName + Properties.Settings.Default.TomoDataFormatExtension;
-
-                    btnConvert.Enabled = true;
-                    gbxOutput.Enabled = true;
-                    gbxCrop.Enabled = true;
-                    gbxSubset.Enabled = true;
-                    gbxFormat.Enabled = true;
-                    this.toolStripStatusLabel1.Text = mNrOfProjections.ToString() + " files found.";
-                }
-                else
-                {
-                    btnConvert.Enabled = false;
-                    gbxOutput.Enabled = false;
-                    gbxCrop.Enabled = false;
-                    gbxSubset.Enabled = false;
-                    gbxFormat.Enabled = false;
-                    this.toolStripStatusLabel1.Text = "Files not found. Check folder and prefixes.";
-                }
-            }
-            else
-            {
-                btnConvert.Enabled = false;
-                gbxOutput.Enabled = false;
-                gbxCrop.Enabled = false;
-                gbxSubset.Enabled = false;
-                gbxFormat.Enabled = false;
-                this.toolStripStatusLabel1.Text = "Invalid folder.";
-            }*/
-        }
-
-        /// <summary>
-        /// To be called by btnBrowseTIFFs_Click event by loading the first image.
-        /// </summary>
-        private void UpdateCropSizes()
-        {
-        }
-
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btnBrowseTIFFs_Click(object sender, EventArgs e)
+        private void btnBrowseProjectionHIS_Click(object sender, EventArgs e)
         {
-            // Load previous setting:
-            /*if (Directory.Exists(Properties.Settings.Default.TIFF2TDF_LastPath))
+            if (ofdHISProjections.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                zInputTIFFsBrowserDialog.SelectedPath = Properties.Settings.Default.TIFF2TDF_LastPath;
+                txbProjection.Text = String.Empty;
+                txbProjection.Text = ofdHISProjections.FileName;
             }
-
-            if (zInputTIFFsBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                zProject_InputPathTxb.Text = zInputTIFFsBrowserDialog.SelectedPath;
-                Properties.Settings.Default.TIFF2TDF_LastPath = zInputTIFFsBrowserDialog.SelectedPath;
-            }*/
         }
+
+
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
             // Run Job Convert To TDF:
-            /*IJob zJob;
+            IMonitoredJob zJob;
+
+            // Check output file:
+            if (File.Exists(Properties.Settings.Default.FormSettings_WorkingPath + Path.DirectorySeparatorChar +
+                        Path.GetFileNameWithoutExtension(txbOutputTDF.Text) + Properties.Settings.Default.TomoDataFormatExtension))
+            {
+                if (MessageBox.Show("The specified TDF file already exists. Overwrite it?", "SYRMEP Tomo Project",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    File.Delete(Properties.Settings.Default.FormSettings_WorkingPath + Path.DirectorySeparatorChar +
+                        Path.GetFileNameWithoutExtension(txbOutputTDF.Text) + Properties.Settings.Default.TomoDataFormatExtension);
+                }
+                else
+                {
+                    return;
+                }
+            } 
 
             //mTempOutputName = Properties.Settings.Default.FormSettings_WorkingPath + Path.DirectorySeparatorChar + "_" + Program.GetTimestamp(DateTime.Now) + ".tmp";
             mTempOutputName = Properties.Settings.Default.FormSettings_WorkingPath + Path.DirectorySeparatorChar + txbOutputTDF.Text;
 
             // Create an instance for the phase retrieval job:
-            zJob = new TIFF2TDFJob(
-                    mInputPath,
+            zJob = new Pixirad2TDFJob(
+                    this.txbProjection.Text,
+                    this.txbFlat.Text,
                     mTempOutputName,
                     (this.chkConsiderSubset.Checked) ? Convert.ToInt32(this.nudConvertToTDFFrom.Value) : 0,
                     (this.chkConsiderSubset.Checked) ? Convert.ToInt32(this.nudConvertToTDFTo.Value) : Convert.ToInt32(this.nudConvertToTDFTo.Maximum),
                     Convert.ToInt32(this.nudConvertToTDF_CropLeft.Value),
                     Convert.ToInt32(this.nudConvertToTDF_CropRight.Value),
                     Convert.ToInt32(this.nudConvertToTDF_CropTop.Value),
-                    Convert.ToInt32(this.nudConvertToTDF_CropBottom.Value),
-                    tbxProjectionPrefix.Text,
-                    tbxFlatPrefix.Text,
-                    tbxDarkPrefix.Text,
-                    (this.rbtInputSinograms.Checked) ? false : true,
-                    Convert.ToInt32(this.nudOutputCompression.Value),
-                    Convert.ToInt32(Properties.Settings.Default.FormSettings_NrOfProcesses)
+                    Convert.ToInt32(this.nudConvertToTDF_CropBottom.Value),                  
+                    true,
+                    Convert.ToInt32(this.nudOutputCompression.Value)
                     );
 
             // Create an instance of JobExecuter with the Phase Retrieval job 
@@ -326,37 +276,42 @@ namespace SYRMEPTomoProject
 
             // Execute the job: 
             zExecuter.Run();
-
+         
             // Start the monitoring of the job:
-            mJobMonitor.Run(zExecuter, this.tbxProjectionPrefix.Text);
-
-            // Reset status bar:
-            this.toolStripStatusLabel1.Text = string.Empty;*/
+            mJobMonitor.Run(zExecuter, Properties.Settings.Default.FormSettings_ProjectionPrefix);          
         }
 
-        private void TIFFToTDF_Load(object sender, EventArgs e)
+        private void chkConsiderSubset_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.chkConsiderSubset.Checked)
+            {
+                this.nudConvertToTDFFrom.Enabled = true;
+                this.nudConvertToTDFTo.Enabled = true;
+            }
+            else
+            {
+                this.nudConvertToTDFFrom.Enabled = false;
+                this.nudConvertToTDFTo.Enabled = false;
+            }
+
+        }
+
+        private void HISToTDF_Load(object sender, EventArgs e)
         {
             // Center parent:
-            /*if (Owner != null)
+            if (Owner != null)
                 Location = new Point(Owner.Location.X + Owner.Width / 2 - Width / 2,
                     Owner.Location.Y + Owner.Height / 2 - Height / 2);
 
             // Load settings:
-            this.nudConvertToTDF_CropTop.Value = Properties.Settings.Default.TIFF2TDF_CropTop;
-            this.nudConvertToTDF_CropBottom.Value = Properties.Settings.Default.TIFF2TDF_CropBottom;
-            this.nudConvertToTDF_CropLeft.Value = Properties.Settings.Default.TIFF2TDF_CropLeft;
-            this.nudConvertToTDF_CropRight.Value = Properties.Settings.Default.TIFF2TDF_CropRight;
-            this.nudOutputCompression.Value = Properties.Settings.Default.TIFF2TDF_gZipCompression;
-
-            this.tbxProjectionPrefix.Text = Properties.Settings.Default.TIFF2TDF_FilePrefixProjection;
-            this.tbxDarkPrefix.Text = Properties.Settings.Default.TIFF2TDF_FilePrefixDark;
-            this.tbxFlatPrefix.Text = Properties.Settings.Default.TIFF2TDF_FilePrefixFlat;
-
-            this.rbtInputProjections.Checked = Properties.Settings.Default.TIFF2TDF_TiffProjectionChecked;
-            this.rbtInputSinograms.Checked = !Properties.Settings.Default.TIFF2TDF_TiffProjectionChecked;*/
+            this.nudConvertToTDF_CropTop.Value = Properties.Settings.Default.HIS2TDF_CropTop;
+            this.nudConvertToTDF_CropBottom.Value = Properties.Settings.Default.HIS2TDF_CropBottom;
+            this.nudConvertToTDF_CropLeft.Value = Properties.Settings.Default.HIS2TDF_CropLeft;
+            this.nudConvertToTDF_CropRight.Value = Properties.Settings.Default.HIS2TDF_CropRight;
+            this.nudOutputCompression.Value = Properties.Settings.Default.HIS2TDF_gZipCompression;
         }
 
-        private void TIFFToTDF_FormClosing(object sender, FormClosingEventArgs e)
+        private void HIS2TDF_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (mRunning)
             {
@@ -367,18 +322,86 @@ namespace SYRMEPTomoProject
             // Serialize settings:
             if (!e.Cancel)
             {
-                /*Properties.Settings.Default["TIFF2TDF_CropTop"] = this.nudConvertToTDF_CropTop.Value;
-                Properties.Settings.Default["TIFF2TDF_CropBottom"] = this.nudConvertToTDF_CropBottom.Value;
-                Properties.Settings.Default["TIFF2TDF_CropLeft"] = this.nudConvertToTDF_CropLeft.Value;
-                Properties.Settings.Default["TIFF2TDF_CropRight"] = this.nudConvertToTDF_CropRight.Value;
-                Properties.Settings.Default["TIFF2TDF_gZipCompression"] = this.nudOutputCompression.Value;
-
-                Properties.Settings.Default["TIFF2TDF_FilePrefixProjection"] = this.tbxProjectionPrefix.Text;
-                Properties.Settings.Default["TIFF2TDF_FilePrefixDark"] = this.tbxDarkPrefix.Text;
-                Properties.Settings.Default["TIFF2TDF_FilePrefixFlat"] = this.tbxFlatPrefix.Text;
-                Properties.Settings.Default["TIFF2TDF_TiffProjectionChecked"] = this.rbtInputProjections.Checked;*/
+                Properties.Settings.Default["HIS2TDF_CropTop"]    = this.nudConvertToTDF_CropTop.Value;
+                Properties.Settings.Default["HIS2TDF_CropBottom"] = this.nudConvertToTDF_CropBottom.Value;
+                Properties.Settings.Default["HIS2TDF_CropLeft"]   = this.nudConvertToTDF_CropLeft.Value;
+                Properties.Settings.Default["HIS2TDF_CropRight"]  = this.nudConvertToTDF_CropRight.Value;
+                Properties.Settings.Default["HIS2TDF_gZipCompression"] = this.nudOutputCompression.Value;
 
                 Properties.Settings.Default.Save();
+            }
+        }
+
+        private void chkLock_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.chkLock.Checked)
+            {
+                this.chkLock.Image = Properties.Resources.LockIcon;
+
+                this.lblFlat.Enabled = false;
+                this.txbFlat.Enabled = false;
+
+                this.btnBrowseFlat.Enabled = false;
+            }
+            else
+            {
+                this.chkLock.Image = Properties.Resources.UnLockIcon;
+
+                this.lblFlat.Enabled = true;
+                this.txbFlat.Enabled = true;
+             
+                this.btnBrowseFlat.Enabled = true;
+             
+            }
+        }
+
+        private void txbProjectionHIS_TextChanged(object sender, EventArgs e)
+        {
+
+            if (File.Exists(txbProjection.Text))
+            {
+                btnConvert.Enabled = true;
+                mNrOfProjections = HISReader.GetNumberOfProjections(txbProjection.Text);
+                if (mNrOfProjections > 0)
+                {
+                    this.nudConvertToTDFTo.Maximum = mNrOfProjections - 1;
+                    this.nudConvertToTDFFrom.Maximum = mNrOfProjections - 1;
+                    this.nudConvertToTDFTo.Value = mNrOfProjections - 1;
+                }
+                else
+                {
+                    this.nudConvertToTDFTo.Maximum = 9999;
+                    this.nudConvertToTDFFrom.Maximum = 9999;
+                    this.nudConvertToTDFTo.Value = 0;
+                }
+
+                if (this.chkLock.Checked)
+                {
+                    // Get extension:
+                    string zExt = Path.GetExtension(txbProjection.Text);
+                    string zFileName = Path.GetFileNameWithoutExtension(txbProjection.Text);
+                    string zPath = Path.GetDirectoryName(txbProjection.Text);
+
+                    if (zPath.EndsWith((Path.DirectorySeparatorChar).ToString()))
+                        zPath = zPath.Remove(zPath.Length - 1);
+
+                    txbFlat.Text = zPath + Path.DirectorySeparatorChar + zFileName + "_flat" + zExt;
+             
+                    txbOutputTDF.Text = zFileName + Properties.Settings.Default.TomoDataFormatExtension;
+                }
+            }
+            else
+            {
+                btnConvert.Enabled = false;
+            }
+
+        }
+
+        private void btnBrowseFlat_Click(object sender, EventArgs e)
+        {
+            if (ofdHISProjections.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txbFlat.Text = ofdHISProjections.FileName;
             }
         }
     }

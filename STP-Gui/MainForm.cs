@@ -570,7 +570,17 @@ namespace SYRMEPTomoProject
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Text = Properties.Settings.Default.ProgramName + " v. " + Properties.Settings.Default.Version;
+            if (Properties.Settings.Default.SYRMEP_Version)
+            {
+                this.Text = Properties.Settings.Default.ProgramName + " v. " + Properties.Settings.Default.Version + " (Beamline edition)";
+                this.runRemoteToolStripMenuItem.Visible = true;
+            }
+            else
+            {
+                this.Text = Properties.Settings.Default.ProgramName + " v. " + Properties.Settings.Default.Version;
+                this.runRemoteToolStripMenuItem.Visible = false;
+            }
+
 
             InitializePhaseRetrievalAlgorithmsDropDown();
             InitializeNormalizationMethodsDropDown();
@@ -793,9 +803,9 @@ namespace SYRMEPTomoProject
             if (this.chkCorrectionOffset.Checked)
                 zCorrectionOffset = Convert.ToDouble(this.nudCorrectionOffset.Value);
 
-            double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
+            /*double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
             if ((Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
-                zScale = 2.0;
+                zScale = 2.0;*/
 
             // Get algorithm-specific parameters:
             if ((((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FBP_CUDA") ||
@@ -934,9 +944,9 @@ namespace SYRMEPTomoProject
             if (this.chkCorrectionOffset.Checked)
                 zCorrectionOffset = Convert.ToDouble(this.nudCorrectionOffset.Value);
 
-            double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
+            /*double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
             if ((Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
-                zScale = 2.0;
+                zScale = 2.0;*/
 
             // Get algorithm-specific parameters:
             if ((((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FBP_CUDA") ||
@@ -1033,6 +1043,8 @@ namespace SYRMEPTomoProject
             if ((((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FBP_CUDA") ||
                   (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "SCIKIT-FBP"))
             {
+                this.nudCenter_Middle.DecimalPlaces = 1;
+
                 this.lblAlgorithmParameter.Text = "Filter:";
                 this.lblAlgorithmParameter.Visible = true;
                 this.lblAlgorithmParameter.Location = new Point(7, 25);
@@ -1053,6 +1065,8 @@ namespace SYRMEPTomoProject
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "GRIDREC")
             {
+                this.nudCenter_Middle.DecimalPlaces = 0;
+
                 this.lblAlgorithmParameter.Text = "Oversampling:";
                 this.lblAlgorithmParameter.Visible = true;
                 this.lblAlgorithmParameter.Location = new Point(5, 25);
@@ -1073,6 +1087,8 @@ namespace SYRMEPTomoProject
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "MR-FBP_CUDA")
             {
+                this.nudCenter_Middle.DecimalPlaces = 0;
+
                 this.lblAlgorithmParameter.Visible = false;
 
                 this.nudAlgorithmParameterIterations.Visible = false;
@@ -1090,6 +1106,8 @@ namespace SYRMEPTomoProject
             }
             else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FISTA-TV_CUDA")
             {
+                this.nudCenter_Middle.DecimalPlaces = 0;
+
                 this.lblAlgorithmParameter.Text = "Lambda:";
                 this.lblAlgorithmParameter.Visible = true;
                 this.lblAlgorithmParameter.Location = new Point(7, 24);
@@ -1112,6 +1130,8 @@ namespace SYRMEPTomoProject
             }
             else
             {
+                this.nudCenter_Middle.DecimalPlaces = 1;
+
                 // Iterative algorithms:
                 this.lblAlgorithmParameter.Text = "Iterations:";
                 this.lblAlgorithmParameter.Visible = true;
@@ -1132,20 +1152,7 @@ namespace SYRMEPTomoProject
                 this.lblFISTAReconIter.Visible = false;
             }
         }
-
-        private void btnAlgorithmSettings_Click(object sender, EventArgs e)
-        {
-            string zString;
-
-            zString = ((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key;
-            //zString = zString.Remove(0, 6);
-            zString = zString.ToUpper();
-            zString = "BrunTomoProject.AlgorithmSettings." + zString + "_Settings";
-
-            Form zForm = (Form)Activator.CreateInstance(Type.GetType(zString));
-            zForm.ShowDialog(this);
-        }
-
+        
         private void button5_Click_1(object sender, EventArgs e)
         {
             IJob zJob;
@@ -2143,9 +2150,9 @@ namespace SYRMEPTomoProject
                           Convert.ToInt32(nudConvertToTDF_CropLeft.Value).ToString() + ":" +
                           Convert.ToInt32(nudConvertToTDF_CropRight.Value).ToString();
 
-            double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
+            /*double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
             if ((Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
-                zScale = 2.0;
+                zScale = 2.0;*/
 
             if (this.chkCorrectionOffset.Checked)
                 zCorrectionOffset = Convert.ToDouble(this.nudCorrectionOffset.Value);
@@ -2738,6 +2745,12 @@ namespace SYRMEPTomoProject
             zForm.Show(this);
         }
 
+        private void convertPixiradToEDFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PixiradToTDF zForm = new PixiradToTDF();
+            zForm.Show(this);
+        }
+
         private void UpdateDeltaBetaLbl()
         {
             double zVal, zDelta, zBeta;
@@ -2851,6 +2864,228 @@ namespace SYRMEPTomoProject
             zForm.Show(this);
         }
 
+
+
+        private void runRemoteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string zRingRemString;
+            bool zDynamicFlatFielding;
+
+            zDynamicFlatFielding = !(this.cbxFlatField.SelectedIndex == 0);
+
+            zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
+               Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
+
+
+            double zScale = 1.0;
+            string zConvertTo8String;
+            string zCropString;
+            double zCorrectionOffset = 0.0;
+            string zParam1 = "-";
+
+            zConvertTo8String = ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key + ":" +
+                (double.Parse(txbPostProcessingTab_LinearRescaleMin.Text, CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture) + ";" +
+                (double.Parse(txbPostProcessingTab_LinearRescaleMax.Text, CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture);
+
+            zCropString = Convert.ToInt32(nudConvertToTDF_CropTop.Value).ToString() + ":" +
+                          Convert.ToInt32(nudConvertToTDF_CropBottom.Value).ToString() + ":" +
+                          Convert.ToInt32(nudConvertToTDF_CropLeft.Value).ToString() + ":" +
+                          Convert.ToInt32(nudConvertToTDF_CropRight.Value).ToString();
+
+            if (this.chkCorrectionOffset.Checked)
+                zCorrectionOffset = Convert.ToDouble(this.nudCorrectionOffset.Value);
+
+            /*double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
+            if ((Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
+                zScale = 2.0;*/
+
+            // Get algorithm-specific parameters:
+            if ((((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FBP_CUDA") ||
+                 (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "SCIKIT-FBP"))
+            {
+                zParam1 = ((KeyValuePair<string, string>)this.cbxAlgorithmParameterFilter.SelectedItem).Key.ToString();
+            }
+            else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "GRIDREC")
+            {
+                zParam1 = Convert.ToDouble(this.nudGridRec.Value).ToString();
+            }
+            else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FISTA-TV_CUDA")
+            {
+                double zLambda = Convert.ToDouble(this.nudLambdaBase.Value) * Math.Pow(10, Convert.ToDouble(this.nudLambdaExp.Value));
+                string zFGPIters = Convert.ToInt32(this.nudFISTAFGPIter.Value).ToString();
+                string zReconIters = Convert.ToInt32(this.nudFISTAReconIter.Value).ToString();
+                zParam1 = zLambda.ToString() + ":" + zFGPIters + ":" + zReconIters;
+            }
+            else
+            {
+                // Iterative algorithms:
+                zParam1 = Convert.ToInt32(this.nudAlgorithmParameterIterations.Value).ToString();
+            }
+
+            string zPolarFiltString = ((KeyValuePair<string, string>)this.cbxPostProc_PolarFilt_Method.SelectedItem).Key + ":" +
+                 Convert.ToDouble(this.nudPostProc_PolarFilter_Param1.Value).ToString() + ";" + (Convert.ToDouble(nudPostProc_PolarFilter_Param2.Value)).ToString(CultureInfo.InvariantCulture);
+
+
+
+            RemoteReconstruction zForm = new RemoteReconstruction(
+                // Pre-processing:
+                Convert.ToInt32(this.nudNormSx.Value),
+                Convert.ToInt32(this.nudNormDx.Value),
+                chkDarkFlatEnd.Checked, // use flat at the end
+                chkHalfHalfMode.Checked,
+                Convert.ToInt32(this.nudHalfHalfMode.Value),
+                chkExtendedFOV.Checked,
+                chkExtFOV_AirRight.Checked,
+                Convert.ToInt32(nudExtendedFOVOverlap.Value),
+                chkExtFOVNormalize.Checked,
+                chkExtFOVAverage.Checked,
+                zRingRemString,
+                zDynamicFlatFielding,
+
+                // Phase retrieval:
+                Convert.ToInt32(((KeyValuePair<string, string>)this.cbxPhaseRetrievalTab_Algorithms.SelectedItem).Key),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Beta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_BetaExp.Value)),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Delta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_DeltaExp.Value)),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Energy.Value),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_PixelSize.Value),
+                this.chkPhaseRetrievalTab_OverPadding.Checked,
+
+                // Reconstruction:             
+                Convert.ToDouble(this.nudAngles.Value) * Math.PI / 180.0,
+                Convert.ToInt32(this.nudAnglesProjFrom.Value),
+                Convert.ToInt32(this.nudAnglesProjTo.Value),
+                Convert.ToDouble(this.nudCenter_Middle.Value),
+                ((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key,
+                zParam1,
+                zScale,
+                chkOverPadding.Checked,
+                chkLogTransform.Checked,
+                chkCircleMask.Checked,
+                (chkZeroneMode.Checked) && (!chkApplyPreProcessing.Checked),
+                zCorrectionOffset,
+                Convert.ToInt32(this.nudReconstructionTab_Decimate.Value),
+                Convert.ToInt32(this.nudReconstructionTab_Downscale.Value),
+                chkReconstructionTab_PostProcess.Checked,
+                zPolarFiltString,
+                zConvertTo8String,
+                zCropString,
+                this.gbxRolling.Enabled,
+                Convert.ToInt32(this.nudRollShift.Value)
+            );
+            zForm.Show(this);
+        }
+
+        private void runBatchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string zRingRemString;
+            bool zDynamicFlatFielding;
+
+            zDynamicFlatFielding = !(this.cbxFlatField.SelectedIndex == 0);
+
+            zRingRemString = ((KeyValuePair<string, string>)this.cbxRingRem.SelectedItem).Key + ":" +
+               Convert.ToInt32(nudRingRemParam1.Value).ToString() + ";" + (Convert.ToDouble(nudRingRemParam2.Value)).ToString(CultureInfo.InvariantCulture);
+
+
+            double zScale = 1.0;
+            string zConvertTo8String;
+            string zCropString;
+            double zCorrectionOffset = 0.0;
+            string zParam1 = "-";
+        
+            zConvertTo8String = ((KeyValuePair<string, string>)this.cbxDegradationMethods.SelectedItem).Key + ":" +
+                (double.Parse(txbPostProcessingTab_LinearRescaleMin.Text, CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture) + ";" +
+                (double.Parse(txbPostProcessingTab_LinearRescaleMax.Text, CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture);
+
+            zCropString = Convert.ToInt32(nudConvertToTDF_CropTop.Value).ToString() + ":" +
+                          Convert.ToInt32(nudConvertToTDF_CropBottom.Value).ToString() + ":" +
+                          Convert.ToInt32(nudConvertToTDF_CropLeft.Value).ToString() + ":" +
+                          Convert.ToInt32(nudConvertToTDF_CropRight.Value).ToString();
+
+            if (this.chkCorrectionOffset.Checked)
+                zCorrectionOffset = Convert.ToDouble(this.nudCorrectionOffset.Value);
+
+            /*double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
+            if ((Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
+                zScale = 2.0;*/
+
+            // Get algorithm-specific parameters:
+            if ((((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FBP_CUDA") ||
+                 (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "SCIKIT-FBP"))
+            {
+                zParam1 = ((KeyValuePair<string, string>)this.cbxAlgorithmParameterFilter.SelectedItem).Key.ToString();
+            }
+            else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "GRIDREC")
+            {
+                zParam1 = Convert.ToDouble(this.nudGridRec.Value).ToString();
+            }
+            else if (((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key == "FISTA-TV_CUDA")
+            {
+                double zLambda = Convert.ToDouble(this.nudLambdaBase.Value) * Math.Pow(10, Convert.ToDouble(this.nudLambdaExp.Value));
+                string zFGPIters = Convert.ToInt32(this.nudFISTAFGPIter.Value).ToString();
+                string zReconIters = Convert.ToInt32(this.nudFISTAReconIter.Value).ToString();
+                zParam1 = zLambda.ToString() + ":" + zFGPIters + ":" + zReconIters;
+            }
+            else
+            {
+                // Iterative algorithms:
+                zParam1 = Convert.ToInt32(this.nudAlgorithmParameterIterations.Value).ToString();
+            }
+
+            string zPolarFiltString = ((KeyValuePair<string, string>)this.cbxPostProc_PolarFilt_Method.SelectedItem).Key + ":" +
+                 Convert.ToDouble(this.nudPostProc_PolarFilter_Param1.Value).ToString() + ";" + (Convert.ToDouble(nudPostProc_PolarFilter_Param2.Value)).ToString(CultureInfo.InvariantCulture);
+
+           
+
+            FullReconstruction zForm = new FullReconstruction(
+                // Pre-processing:
+                Convert.ToInt32(this.nudNormSx.Value),
+                Convert.ToInt32(this.nudNormDx.Value),
+                chkDarkFlatEnd.Checked, // use flat at the end
+                chkHalfHalfMode.Checked,
+                Convert.ToInt32(this.nudHalfHalfMode.Value),
+                chkExtendedFOV.Checked,
+                chkExtFOV_AirRight.Checked,
+                Convert.ToInt32(nudExtendedFOVOverlap.Value),
+                chkExtFOVNormalize.Checked,
+                chkExtFOVAverage.Checked,
+                zRingRemString,
+                zDynamicFlatFielding,
+                
+                // Phase retrieval:
+                Convert.ToInt32(((KeyValuePair<string, string>)this.cbxPhaseRetrievalTab_Algorithms.SelectedItem).Key),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Beta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_BetaExp.Value)),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Delta.Value) * Math.Pow(10, Convert.ToDouble(this.nudPhaseRetrievalTab_DeltaExp.Value)),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Distance.Value),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_Energy.Value),
+                Convert.ToDouble(this.nudPhaseRetrievalTab_PixelSize.Value),
+                this.chkPhaseRetrievalTab_OverPadding.Checked,
+                
+                // Reconstruction:             
+                Convert.ToDouble(this.nudAngles.Value) * Math.PI / 180.0,
+                Convert.ToInt32(this.nudAnglesProjFrom.Value),
+                Convert.ToInt32(this.nudAnglesProjTo.Value),
+                Convert.ToDouble(this.nudCenter_Middle.Value),
+                ((KeyValuePair<string, string>)this.cbxAlgorithm.SelectedItem).Key,
+                zParam1,
+                zScale,
+                chkOverPadding.Checked,
+                chkLogTransform.Checked,
+                chkCircleMask.Checked,
+                (chkZeroneMode.Checked) && (!chkApplyPreProcessing.Checked),
+                zCorrectionOffset,
+                Convert.ToInt32(this.nudReconstructionTab_Decimate.Value),
+                Convert.ToInt32(this.nudReconstructionTab_Downscale.Value),
+                chkReconstructionTab_PostProcess.Checked,
+                zPolarFiltString,
+                zConvertTo8String,
+                zCropString,
+                this.gbxRolling.Enabled,
+                Convert.ToInt32(this.nudRollShift.Value)
+            );
+            zForm.Show(this);
+        }
+
         private void btnMultipleCenters_Click(object sender, EventArgs e)
         {
             double zScale = 1.0;
@@ -2872,9 +3107,9 @@ namespace SYRMEPTomoProject
                           Convert.ToInt32(nudConvertToTDF_CropLeft.Value).ToString() + ":" +
                           Convert.ToInt32(nudConvertToTDF_CropRight.Value).ToString();
 
-            double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
+            /*double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
             if ((Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
-                zScale = 2.0;
+                zScale = 2.0;*/
 
             if (this.chkCorrectionOffset.Checked)
                 zCorrectionOffset = Convert.ToDouble(this.nudCorrectionOffset.Value);
@@ -2955,7 +3190,7 @@ namespace SYRMEPTomoProject
 
         private void cbxPhaseRetrievalTab_Algorithms_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.cbxPhaseRetrievalTab_Algorithms.SelectedIndex == 0)
+            if (this.cbxPhaseRetrievalTab_Algorithms.SelectedIndex <= 1)
             {
                 // Paganin's:             
                 this.label9.Visible = true;
@@ -3065,9 +3300,9 @@ namespace SYRMEPTomoProject
                           Convert.ToInt32(nudConvertToTDF_CropLeft.Value).ToString() + ":" +
                           Convert.ToInt32(nudConvertToTDF_CropRight.Value).ToString();
 
-            double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
+            /*double zVal = Convert.ToDouble(this.nudCenter_Middle.Value);
             if ((Math.Abs(zVal - Math.Floor(zVal))) > Double.Epsilon)
-                zScale = 2.0;
+                zScale = 2.0;*/
 
             if (this.chkCorrectionOffset.Checked)
                 zCorrectionOffset = Convert.ToDouble(this.nudCorrectionOffset.Value);

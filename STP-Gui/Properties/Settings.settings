@@ -270,7 +270,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Version" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">1.2.5</Value>
+      <Value Profile="(Default)">1.5 beta</Value>
     </Setting>
     <Setting Name="TIFF2TDF_LastPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -367,6 +367,60 @@
     </Setting>
     <Setting Name="PolarFiltersXmlFile" Type="System.String" Scope="Application">
       <Value Profile="(Default)">polarfilt.xml</Value>
+    </Setting>
+    <Setting Name="ConvertPixirad2TDFJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">exec_pixirad2tdf.py</Value>
+    </Setting>
+    <Setting Name="GDEI_Rolling1" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="GDEI_Rolling2" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="GDEI_Rolling3" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="SYRMEP_Version" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SYRMEP_HPC_Address" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">127.0.0.1</Value>
+    </Setting>
+    <Setting Name="SYRMEP_HPC_User" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">franz</Value>
+    </Setting>
+    <Setting Name="SYRMEP_HPC_Password" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AkFLR99_i</Value>
+    </Setting>
+    <Setting Name="SYRMEP_HPC_InputPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/media/sf_Shared_VM</Value>
+    </Setting>
+    <Setting Name="SYRMEP_HPC_TempPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/media/sf_Shared_VM</Value>
+    </Setting>
+    <Setting Name="SYRMEP_HPC_OutputPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/media/sf_Shared_VM</Value>
+    </Setting>
+    <Setting Name="SYRMEP_HPC_Processes" Type="System.Decimal" Scope="Application">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="SYRMEP_HPC_SourcePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/home/franz/Documents/STP-Core1.4</Value>
+    </Setting>
+    <Setting Name="SYRMEP_HPC_PythonPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/home/franz/anaconda2/bin</Value>
+    </Setting>
+    <Setting Name="SYRMEP_HPC_Port" Type="System.Decimal" Scope="Application">
+      <Value Profile="(Default)">2222</Value>
+    </Setting>
+    <Setting Name="SYRMEP_HPC_MappedInputPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Temp\Shared_VM</Value>
+    </Setting>
+    <Setting Name="SYRMEP_HPC_MappedTempPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Temp\Shared_VM</Value>
+    </Setting>
+    <Setting Name="SYRMEP_HPC_MappedOutputPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Temp\Shared_VM</Value>
     </Setting>
   </Settings>
 </SettingsFile>

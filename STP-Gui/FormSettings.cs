@@ -80,9 +80,54 @@ namespace SYRMEPTomoProject
             DirectoryInfo zDirInfoWorkingPath = new DirectoryInfo(this.txbWorkingPath.Text);
             DirectoryInfo zDirInfoTempPath = new DirectoryInfo(this.txbTemporaryPath.Text);
 
+            DirectoryInfo zDirInfoSYRMEP_HPC_Input_LocallyMappedPath = new DirectoryInfo(this.txbSYRMEP_HPC_Input_LocallyMapped.Text);
+            DirectoryInfo zDirInfoSYRMEP_HPC_Temp_LocallyMappedPath = new DirectoryInfo(this.txbSYRMEP_HPC_Temp_LocallyMapped.Text);
+            DirectoryInfo zDirInfoSYRMEP_HPC_Output_LocallyMappedPath = new DirectoryInfo(this.txbSYRMEP_HPC_Output_LocallyMapped.Text);
+
             //
             // Validate fields:
             //
+
+            if (Properties.Settings.Default.SYRMEP_Version)
+            {
+
+                // Check if path exists:
+                if (!Directory.Exists(this.txbSYRMEP_HPC_Input_LocallyMapped.Text))
+                {
+                    MessageBox.Show("The specified locally mapped SYRMEP HPC input path does not exist!", Properties.Settings.Default.ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (!Directory.Exists(this.txbSYRMEP_HPC_Temp_LocallyMapped.Text))
+                {
+                    MessageBox.Show("The specified locally mapped SYRMEP HPC temporary path does not exist!", Properties.Settings.Default.ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (!Directory.Exists(this.txbSYRMEP_HPC_Output_LocallyMapped.Text))
+                {
+                    MessageBox.Show("The specified locally mapped SYRMEP HPC output path does not exist!", Properties.Settings.Default.ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
+                // Check if path is not root:
+                else if (zDirInfoSYRMEP_HPC_Input_LocallyMappedPath.Parent == null)
+                {
+                    MessageBox.Show("The specified locally mapped SYRMEP HPC input path can not be root (e.g. it can not be \"C:\\\")!", Properties.Settings.Default.ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (zDirInfoSYRMEP_HPC_Temp_LocallyMappedPath.Parent == null)
+                {
+                    MessageBox.Show("The specified locally mapped SYRMEP HPC temporary path can not be root (e.g. it can not be \"C:\\\")!", Properties.Settings.Default.ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (zDirInfoSYRMEP_HPC_Output_LocallyMappedPath.Parent == null)
+                {
+                    MessageBox.Show("The specified locally mapped SYRMEP HPC output path can not be root (e.g. it can not be \"C:\\\")!", Properties.Settings.Default.ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    // Raise closing event:
+                    this.Close();
+                }
+
+                return;
+            }
+
 
             // Check if path exists:
             if (!Directory.Exists(this.txbWorkingPath.Text))
@@ -93,6 +138,8 @@ namespace SYRMEPTomoProject
             {
                 MessageBox.Show("The specified temporary path does not exist!", Properties.Settings.Default.ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Error);               
             }
+
+
             // Check if path is not root:
             else if (zDirInfoWorkingPath.Parent == null)
             {
@@ -102,6 +149,8 @@ namespace SYRMEPTomoProject
             {
                 MessageBox.Show("The specified temporary path can not be root (e.g. it can not be \"C:\\\")!", Properties.Settings.Default.ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+
             // Check for write permissions:
             else if (!(Program.CheckDirectoryAccess(txbWorkingPath.Text)))
             {
@@ -111,10 +160,12 @@ namespace SYRMEPTomoProject
             {
                 MessageBox.Show("You do not have write permissions to the specified temporary path!", Properties.Settings.Default.ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
             /*else if ( (Properties.Settings.Default.FormSettings_OpenOnce == false) && (!(Program.IsDirectoryEmpty(txbTemporaryPath.Text))))
             {
                 MessageBox.Show("The specified temporary path should be an empty folder!", Properties.Settings.Default.ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Error);                
             }*/
+
 
             // Check if path exists:
             else if (!Directory.Exists(txbOutputPath.Text))
@@ -128,13 +179,6 @@ namespace SYRMEPTomoProject
             }
             else            
             {
-                // Check if paths end with path separator:
-                if (this.txbOutputPath.Text.EndsWith(Path.DirectorySeparatorChar.ToString()))                
-                    this.txbOutputPath.Text = this.txbOutputPath.Text.Remove(this.txbOutputPath.Text.Length - 1);
-                if (this.txbWorkingPath.Text.EndsWith(Path.DirectorySeparatorChar.ToString()))
-                    this.txbWorkingPath.Text = this.txbWorkingPath.Text.Remove(this.txbWorkingPath.Text.Length - 1);
-                if (this.txbTemporaryPath.Text.EndsWith(Path.DirectorySeparatorChar.ToString()))
-                    this.txbTemporaryPath.Text = this.txbTemporaryPath.Text.Remove(this.txbTemporaryPath.Text.Length - 1);
 
                 // Raise closing event:
                 this.Close();
@@ -150,6 +194,7 @@ namespace SYRMEPTomoProject
         /// <param name="e"></param>
         private void FormSettings_Load(object sender, EventArgs e)
         {  
+
             this.txbWorkingPath.Text = Properties.Settings.Default.FormSettings_WorkingPath;
             this.txbTemporaryPath.Text = Properties.Settings.Default.FormSettings_TemporaryPath;
             this.txbOutputPath.Text = Properties.Settings.Default.FormSettings_OutputPath;
@@ -160,7 +205,67 @@ namespace SYRMEPTomoProject
 
             this.nudSettings_Processes.Value = Properties.Settings.Default.FormSettings_NrOfProcesses;
             this.nudSettings_ChunkSize.Value = Properties.Settings.Default.FormSettings_ChunkSize;
-        }   
+
+            this.txbSYRMEP_HPC_Input.Text = Properties.Settings.Default.SYRMEP_HPC_InputPath;
+            this.txbSYRMEP_HPC_Temp.Text = Properties.Settings.Default.SYRMEP_HPC_TempPath;
+            this.txbSYRMEP_HPC_Output.Text = Properties.Settings.Default.SYRMEP_HPC_OutputPath;
+
+            this.txbSYRMEP_HPC_Input_LocallyMapped.Text = Properties.Settings.Default.SYRMEP_HPC_MappedInputPath;
+            this.txbSYRMEP_HPC_Temp_LocallyMapped.Text = Properties.Settings.Default.SYRMEP_HPC_MappedTempPath;
+            this.txbSYRMEP_HPC_Output_LocallyMapped.Text = Properties.Settings.Default.SYRMEP_HPC_MappedOutputPath;
+
+            // Only if SYRMEP Version:
+            if (Properties.Settings.Default.SYRMEP_Version == false)
+            {
+                this.tabControl1.TabPages.Remove(this.tabSYRMEP_HPC);
+            }           
+
+        }
+
+
+        private string RemoveBackslashWinPath(string path)
+        {
+            // They're always one character but EndsWith is shorter than
+            // array style access to last path character. Change this
+            // if performance are a (measured) issue.
+            string separator1 = Path.DirectorySeparatorChar.ToString();
+            string separator2 = Path.AltDirectorySeparatorChar.ToString();
+
+            // Trailing white spaces are always ignored but folders may have
+            // leading spaces. It's unusual but it may happen. If it's an issue
+            // then just replace TrimEnd() with Trim(). Tnx Paul Groke to point this out.
+            path = path.TrimEnd();
+
+            // Argument is always a directory name then if there is one
+            // of allowed separators then I have nothing to do.
+            if (path.EndsWith(separator1) || path.EndsWith(separator2))
+                path = path.Remove(path.Length - 1);
+            
+            return path;
+
+        }
+
+        private string RemoveBackslashUnixPath(string path)
+        {
+            // They're always one character but EndsWith is shorter than
+            // array style access to last path character. Change this
+            // if performance are a (measured) issue.
+            string separator = "/";
+
+            // Trailing white spaces are always ignored but folders may have
+            // leading spaces. It's unusual but it may happen. If it's an issue
+            // then just replace TrimEnd() with Trim(). Tnx Paul Groke to point this out.
+            path = path.TrimEnd();
+
+            // Argument is always a directory name then if there is one
+            // of allowed separators then I have nothing to do.
+            if (path.EndsWith(separator))
+                path = path.Remove(path.Length - 1);
+           
+            return path;
+
+        }
+
 
         /// <summary>
         /// Things performed before closing the form (i.e. serializing settings).
@@ -171,9 +276,12 @@ namespace SYRMEPTomoProject
         {
             if (!e.Cancel)
             {
-                Properties.Settings.Default["FormSettings_WorkingPath"] = this.txbWorkingPath.Text;
-                Properties.Settings.Default["FormSettings_TemporaryPath"] = this.txbTemporaryPath.Text;
-                Properties.Settings.Default["FormSettings_OutputPath"] = this.txbOutputPath.Text;
+                // Validate path by removing trailing slash:
+
+
+                Properties.Settings.Default["FormSettings_WorkingPath"] = RemoveBackslashWinPath(this.txbWorkingPath.Text);
+                Properties.Settings.Default["FormSettings_TemporaryPath"] = RemoveBackslashWinPath(this.txbTemporaryPath.Text);
+                Properties.Settings.Default["FormSettings_OutputPath"] = RemoveBackslashWinPath(this.txbOutputPath.Text);
 
                 Properties.Settings.Default["FormSettings_OutputPrefix"] = this.txbReconstructedPrefix.Text;
                 Properties.Settings.Default["FormSettings_ProjectionPrefix"] = this.txbProjectionPrefix.Text;
@@ -182,6 +290,14 @@ namespace SYRMEPTomoProject
                 Properties.Settings.Default["FormSettings_NrOfProcesses"] = this.nudSettings_Processes.Value;
                 Properties.Settings.Default["FormSettings_ChunkSize"] = this.nudSettings_ChunkSize.Value;
                 //Properties.Settings.Default["FormSettings_OpenOnce"] = true;
+
+                Properties.Settings.Default["SYRMEP_HPC_InputPath"] = RemoveBackslashUnixPath(this.txbSYRMEP_HPC_Input.Text);
+                Properties.Settings.Default["SYRMEP_HPC_TempPath"] = RemoveBackslashUnixPath(this.txbSYRMEP_HPC_Temp.Text);
+                Properties.Settings.Default["SYRMEP_HPC_OutputPath"] = RemoveBackslashUnixPath(this.txbSYRMEP_HPC_Output.Text);
+
+                Properties.Settings.Default["SYRMEP_HPC_MappedInputPath"] = RemoveBackslashWinPath(this.txbSYRMEP_HPC_Input_LocallyMapped.Text);
+                Properties.Settings.Default["SYRMEP_HPC_MappedTempPath"] = RemoveBackslashWinPath(this.txbSYRMEP_HPC_Temp_LocallyMapped.Text);
+                Properties.Settings.Default["SYRMEP_HPC_MappedOutputPath"] = RemoveBackslashWinPath(this.txbSYRMEP_HPC_Output_LocallyMapped.Text);
 
                 Properties.Settings.Default.Save();
 

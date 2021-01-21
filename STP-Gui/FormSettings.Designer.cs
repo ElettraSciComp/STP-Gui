@@ -76,12 +76,30 @@ namespace SYRMEPTomoProject
             this.txbWorkingPath = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.tabSYRMEP_HPC = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txbSYRMEP_HPC_Output = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txbSYRMEP_HPC_Temp = new System.Windows.Forms.TextBox();
+            this.txbSYRMEP_HPC_Input = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.mButtonOk = new System.Windows.Forms.Button();
             this.mButtonCancel = new System.Windows.Forms.Button();
             this.zWorkingPathBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.zTestPathBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.zOutputPathBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.mToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.txbSYRMEP_HPC_Output_LocallyMapped = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.txbSYRMEP_HPC_Temp_LocallyMapped = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.txbSYRMEP_HPC_Input_LocallyMapped = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -89,11 +107,15 @@ namespace SYRMEPTomoProject
             ((System.ComponentModel.ISupportInitialize)(this.nudSettings_Processes)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.tabSYRMEP_HPC.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabSYRMEP_HPC);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -359,6 +381,89 @@ namespace SYRMEPTomoProject
             this.label15.Text = "Working path:";
             this.mToolTip.SetToolTip(this.label15, "Input and temporary TDFs go here. Fast SSD suggested.");
             // 
+            // tabSYRMEP_HPC
+            // 
+            this.tabSYRMEP_HPC.Controls.Add(this.groupBox2);
+            this.tabSYRMEP_HPC.Controls.Add(this.groupBox3);
+            this.tabSYRMEP_HPC.Location = new System.Drawing.Point(4, 22);
+            this.tabSYRMEP_HPC.Name = "tabSYRMEP_HPC";
+            this.tabSYRMEP_HPC.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSYRMEP_HPC.Size = new System.Drawing.Size(435, 244);
+            this.tabSYRMEP_HPC.TabIndex = 1;
+            this.tabSYRMEP_HPC.Text = "SYRMEP HPC";
+            this.tabSYRMEP_HPC.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.txbSYRMEP_HPC_Output);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.txbSYRMEP_HPC_Temp);
+            this.groupBox3.Controls.Add(this.txbSYRMEP_HPC_Input);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Location = new System.Drawing.Point(15, 15);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(405, 106);
+            this.groupBox3.TabIndex = 31;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Path on HPC (Unix/Linux format)";
+            // 
+            // txbSYRMEP_HPC_Output
+            // 
+            this.txbSYRMEP_HPC_Output.Location = new System.Drawing.Point(89, 75);
+            this.txbSYRMEP_HPC_Output.Name = "txbSYRMEP_HPC_Output";
+            this.txbSYRMEP_HPC_Output.Size = new System.Drawing.Size(310, 20);
+            this.txbSYRMEP_HPC_Output.TabIndex = 25;
+            this.mToolTip.SetToolTip(this.txbSYRMEP_HPC_Output, "Reconstructed images will be written here. Usually this refers to user\'s external" +
+        " hard drive (USB3 or eSATA suggested).");
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(21, 78);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(66, 13);
+            this.label7.TabIndex = 27;
+            this.label7.Text = "Output path:";
+            this.mToolTip.SetToolTip(this.label7, "Reconstructed images will be written here. Usually this refers to user\'s external" +
+        " hard drive (USB3 or eSATA suggested).");
+            // 
+            // txbSYRMEP_HPC_Temp
+            // 
+            this.txbSYRMEP_HPC_Temp.Location = new System.Drawing.Point(89, 48);
+            this.txbSYRMEP_HPC_Temp.Name = "txbSYRMEP_HPC_Temp";
+            this.txbSYRMEP_HPC_Temp.Size = new System.Drawing.Size(310, 20);
+            this.txbSYRMEP_HPC_Temp.TabIndex = 4;
+            this.mToolTip.SetToolTip(this.txbSYRMEP_HPC_Temp, "Log files will be written here. Fast (and small) RAMDrive or SSD suggested.");
+            // 
+            // txbSYRMEP_HPC_Input
+            // 
+            this.txbSYRMEP_HPC_Input.Location = new System.Drawing.Point(89, 21);
+            this.txbSYRMEP_HPC_Input.Name = "txbSYRMEP_HPC_Input";
+            this.txbSYRMEP_HPC_Input.Size = new System.Drawing.Size(310, 20);
+            this.txbSYRMEP_HPC_Input.TabIndex = 2;
+            this.mToolTip.SetToolTip(this.txbSYRMEP_HPC_Input, "Input and temporary TDFs go here. Fast SSD suggested.");
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(4, 51);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(84, 13);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Temporary path:";
+            this.mToolTip.SetToolTip(this.label8, "Log files will be written here. Fast (and small) RAMDrive or SSD suggested.");
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(29, 24);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(58, 13);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Input path:";
+            this.mToolTip.SetToolTip(this.label9, "Input and temporary TDFs go here. Fast SSD suggested.");
+            // 
             // mButtonOk
             // 
             this.mButtonOk.Location = new System.Drawing.Point(296, 288);
@@ -391,6 +496,107 @@ namespace SYRMEPTomoProject
             // 
             this.zOutputPathBrowserDialog.Description = "Select output folder:";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.txbSYRMEP_HPC_Output_LocallyMapped);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.txbSYRMEP_HPC_Temp_LocallyMapped);
+            this.groupBox2.Controls.Add(this.button3);
+            this.groupBox2.Controls.Add(this.txbSYRMEP_HPC_Input_LocallyMapped);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Location = new System.Drawing.Point(15, 127);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(405, 106);
+            this.groupBox2.TabIndex = 32;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Locally mapped path (Windows format)";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(316, 74);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(74, 23);
+            this.button1.TabIndex = 26;
+            this.button1.Text = "Browse...";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // txbSYRMEP_HPC_Output_LocallyMapped
+            // 
+            this.txbSYRMEP_HPC_Output_LocallyMapped.Location = new System.Drawing.Point(89, 75);
+            this.txbSYRMEP_HPC_Output_LocallyMapped.Name = "txbSYRMEP_HPC_Output_LocallyMapped";
+            this.txbSYRMEP_HPC_Output_LocallyMapped.Size = new System.Drawing.Size(221, 20);
+            this.txbSYRMEP_HPC_Output_LocallyMapped.TabIndex = 25;
+            this.mToolTip.SetToolTip(this.txbSYRMEP_HPC_Output_LocallyMapped, "Reconstructed images will be written here. Usually this refers to user\'s external" +
+        " hard drive (USB3 or eSATA suggested).");
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(21, 78);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(66, 13);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Output path:";
+            this.mToolTip.SetToolTip(this.label4, "Reconstructed images will be written here. Usually this refers to user\'s external" +
+        " hard drive (USB3 or eSATA suggested).");
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(315, 46);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Browse...";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // txbSYRMEP_HPC_Temp_LocallyMapped
+            // 
+            this.txbSYRMEP_HPC_Temp_LocallyMapped.Location = new System.Drawing.Point(89, 48);
+            this.txbSYRMEP_HPC_Temp_LocallyMapped.Name = "txbSYRMEP_HPC_Temp_LocallyMapped";
+            this.txbSYRMEP_HPC_Temp_LocallyMapped.Size = new System.Drawing.Size(220, 20);
+            this.txbSYRMEP_HPC_Temp_LocallyMapped.TabIndex = 4;
+            this.mToolTip.SetToolTip(this.txbSYRMEP_HPC_Temp_LocallyMapped, "Log files will be written here. Fast (and small) RAMDrive or SSD suggested.");
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(315, 19);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "Browse...";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // txbSYRMEP_HPC_Input_LocallyMapped
+            // 
+            this.txbSYRMEP_HPC_Input_LocallyMapped.Location = new System.Drawing.Point(89, 21);
+            this.txbSYRMEP_HPC_Input_LocallyMapped.Name = "txbSYRMEP_HPC_Input_LocallyMapped";
+            this.txbSYRMEP_HPC_Input_LocallyMapped.Size = new System.Drawing.Size(220, 20);
+            this.txbSYRMEP_HPC_Input_LocallyMapped.TabIndex = 2;
+            this.mToolTip.SetToolTip(this.txbSYRMEP_HPC_Input_LocallyMapped, "Input and temporary TDFs go here. Fast SSD suggested.");
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(4, 51);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(84, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Temporary path:";
+            this.mToolTip.SetToolTip(this.label5, "Log files will be written here. Fast (and small) RAMDrive or SSD suggested.");
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(29, 24);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(58, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Input path:";
+            this.mToolTip.SetToolTip(this.label6, "Input and temporary TDFs go here. Fast SSD suggested.");
+            // 
             // FormSettings
             // 
             this.AcceptButton = this.mButtonOk;
@@ -421,6 +627,11 @@ namespace SYRMEPTomoProject
             this.groupBox6.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.tabSYRMEP_HPC.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -457,6 +668,24 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown nudSettings_ChunkSize;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TabPage tabSYRMEP_HPC;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox txbSYRMEP_HPC_Output;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txbSYRMEP_HPC_Temp;
+        private System.Windows.Forms.TextBox txbSYRMEP_HPC_Input;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txbSYRMEP_HPC_Output_LocallyMapped;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox txbSYRMEP_HPC_Temp_LocallyMapped;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox txbSYRMEP_HPC_Input_LocallyMapped;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
 
     }
 }

@@ -23,7 +23,7 @@
 
 //
 // Author: Francesco Brun
-// Last modified: July, 8th 2016
+// Last modified: November, 21st 2019
 //
 
 
@@ -38,6 +38,7 @@ using System.Reflection;
 using System.Management;
 using System.Globalization;
 using Microsoft.Win32;
+
 
 namespace SYRMEPTomoProject
 {
@@ -100,7 +101,7 @@ namespace SYRMEPTomoProject
             ProcessStartInfo aProcessStartInfo = new ProcessStartInfo();
 
             aProcessStartInfo.Arguments = args;
-            aProcessStartInfo.FileName = process;            
+            aProcessStartInfo.FileName = process;
             aProcessStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             aProcessStartInfo.UseShellExecute = false;
             aProcessStartInfo.RedirectStandardInput = true;
@@ -179,7 +180,7 @@ namespace SYRMEPTomoProject
                 {
                     if (property.Name == "Description")
                     {
-                        zStringList.Add(property.Value.ToString());                        
+                        zStringList.Add(property.Value.ToString());
                     }
                 }
             }
@@ -215,7 +216,7 @@ namespace SYRMEPTomoProject
 
             try
             {
-                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(regkey,false))
+                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(regkey, false))
                 {
                     if (key != null)
                     {
@@ -223,12 +224,14 @@ namespace SYRMEPTomoProject
                     }
                 }
             }
-            catch (Exception)  
+            catch (Exception)
             {
             }
 
             return zVal;
         }
+
+
 
         /// <summary>
         /// The main entry point for the application.
@@ -261,7 +264,7 @@ namespace SYRMEPTomoProject
                 //System.Threading.Thread.Sleep(1900);
                 mSplashSchreen.SetStatus(Properties.Resources.Splash, "");
 
-                
+
                 if (Program.CheckVCRedistributable(@"SOFTWARE\Classes\Installer\Products\67D6ECF5CD5FBA732B8B22BAC8DE1B4D") == false)
                 {
 
@@ -276,7 +279,7 @@ namespace SYRMEPTomoProject
                         // Run VC++ 2010 Redistributable x64:
                         /*Program.StartProcess("\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar +
                         Properties.Settings.Default.DependenciesPath + Path.DirectorySeparatorChar + Properties.Settings.Default.VC2008Redistributable_x64 + "\"", "");*/
-                    
+
                         Application.Exit();
                         return;
                     }
@@ -295,13 +298,14 @@ namespace SYRMEPTomoProject
                         // Run VC++ 2010 Redistributable x64:
                         /*Program.StartProcess("\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar +
                         Properties.Settings.Default.DependenciesPath + Path.DirectorySeparatorChar + Properties.Settings.Default.VC2010Redistributable_x64 + "\"", "");*/
-                    
+
 
                         Application.Exit();
                         return;
                     }
                 }
-                if (Program.CheckVCRedistributable(@"SOFTWARE\Classes\Installer\Dependencies\{d992c12e-cab2-426f-bde3-fb8c53950b0d}") == false)
+                if ((Program.CheckVCRedistributable(@"SOFTWARE\Classes\Installer\Dependencies\{d992c12e-cab2-426f-bde3-fb8c53950b0d}") == false) &
+                    (Program.CheckVCRedistributable(@"SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64") == false))
                 {
 
                     // Show a message:
@@ -321,9 +325,56 @@ namespace SYRMEPTomoProject
                         return;
                     }
                 }
-                
+
+                if (Properties.Settings.Default.SYRMEP_Version)
+                {
+
+                    try
+                    {
+                        string text = SYRMEP_HPC.Execute("echo 'hello'"); 
+                    }
+                    catch (Exception ex)
+                    {
+                        // Show a message:
+                        SplashScreen.CloseForm();
+                        DialogResult zResult = MessageBox.Show("Error while connecting to SYRMEP HPC: " + ex.Message +"\n\nContinue anyway?",
+                            Properties.Settings.Default.ProgramName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (zResult == DialogResult.No)
+                        {
+                            Application.Exit();
+                            return;
+                        }
+
+
+                        // Get reference to the dialog type.
+                        /*var dialogTypeName = "System.Windows.Forms.PropertyGridInternal.GridErrorDlg";
+                        var dialogType = typeof(Form).Assembly.GetType(dialogTypeName);
+
+                        // Create dialog instance.
+                        var dialog = (Form)Activator.CreateInstance(dialogType, new PropertyGrid());
+
+                        // Populate relevant properties on the dialog instance.
+                        dialog.Text = Properties.Settings.Default.ProgramName;
+                        dialogType.GetProperty("Details").SetValue(dialog, ex.Message, null);
+                        dialogType.GetProperty("Message").SetValue(dialog, "Error while connecting to SYRMEP HPC. Continue anyway?", null);
+
+                        // Display dialog.
+                        var zResult = dialog.ShowDialog();
+                        if (zResult == DialogResult.Cancel)
+                        {
+                            Application.Exit();
+                            return;
+                        }*/
+                        
+                    }
+                }
+
+
+
+
                 // Open the main form:
-                Application.Run(new MainForm());               
+                Application.Run(new MainForm());
             }
             catch (Exception ex)
             {

@@ -985,7 +985,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.2.5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.5 beta")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -1358,6 +1358,195 @@ namespace SYRMEPTomoProject.Properties {
         public string PolarFiltersXmlFile {
             get {
                 return ((string)(this["PolarFiltersXmlFile"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("exec_pixirad2tdf.py")]
+        public string ConvertPixirad2TDFJob {
+            get {
+                return ((string)(this["ConvertPixirad2TDFJob"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_Rolling1 {
+            get {
+                return ((decimal)(this["GDEI_Rolling1"]));
+            }
+            set {
+                this["GDEI_Rolling1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_Rolling2 {
+            get {
+                return ((decimal)(this["GDEI_Rolling2"]));
+            }
+            set {
+                this["GDEI_Rolling2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal GDEI_Rolling3 {
+            get {
+                return ((decimal)(this["GDEI_Rolling3"]));
+            }
+            set {
+                this["GDEI_Rolling3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SYRMEP_Version {
+            get {
+                return ((bool)(this["SYRMEP_Version"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
+        public string SYRMEP_HPC_Address {
+            get {
+                return ((string)(this["SYRMEP_HPC_Address"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("franz")]
+        public string SYRMEP_HPC_User {
+            get {
+                return ((string)(this["SYRMEP_HPC_User"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("AkFLR99_i")]
+        public string SYRMEP_HPC_Password {
+            get {
+                return ((string)(this["SYRMEP_HPC_Password"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/media/sf_Shared_VM")]
+        public string SYRMEP_HPC_InputPath {
+            get {
+                return ((string)(this["SYRMEP_HPC_InputPath"]));
+            }
+            set {
+                this["SYRMEP_HPC_InputPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/media/sf_Shared_VM")]
+        public string SYRMEP_HPC_TempPath {
+            get {
+                return ((string)(this["SYRMEP_HPC_TempPath"]));
+            }
+            set {
+                this["SYRMEP_HPC_TempPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/media/sf_Shared_VM")]
+        public string SYRMEP_HPC_OutputPath {
+            get {
+                return ((string)(this["SYRMEP_HPC_OutputPath"]));
+            }
+            set {
+                this["SYRMEP_HPC_OutputPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal SYRMEP_HPC_Processes {
+            get {
+                return ((decimal)(this["SYRMEP_HPC_Processes"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/home/franz/Documents/STP-Core1.4")]
+        public string SYRMEP_HPC_SourcePath {
+            get {
+                return ((string)(this["SYRMEP_HPC_SourcePath"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/home/franz/anaconda2/bin")]
+        public string SYRMEP_HPC_PythonPath {
+            get {
+                return ((string)(this["SYRMEP_HPC_PythonPath"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2222")]
+        public decimal SYRMEP_HPC_Port {
+            get {
+                return ((decimal)(this["SYRMEP_HPC_Port"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Temp\\Shared_VM")]
+        public string SYRMEP_HPC_MappedInputPath {
+            get {
+                return ((string)(this["SYRMEP_HPC_MappedInputPath"]));
+            }
+            set {
+                this["SYRMEP_HPC_MappedInputPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Temp\\Shared_VM")]
+        public string SYRMEP_HPC_MappedTempPath {
+            get {
+                return ((string)(this["SYRMEP_HPC_MappedTempPath"]));
+            }
+            set {
+                this["SYRMEP_HPC_MappedTempPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Temp\\Shared_VM")]
+        public string SYRMEP_HPC_MappedOutputPath {
+            get {
+                return ((string)(this["SYRMEP_HPC_MappedOutputPath"]));
+            }
+            set {
+                this["SYRMEP_HPC_MappedOutputPath"] = value;
             }
         }
     }

@@ -61,7 +61,10 @@ namespace SYRMEPTomoProject
             this.menuTIFF2TDF = new System.Windows.Forms.ToolStripMenuItem();
             this.convertHISToTDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertEDFsToEDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runRemoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem33 = new System.Windows.Forms.ToolStripSeparator();
             this.menuTDF2TIFF = new System.Windows.Forms.ToolStripMenuItem();
             this.extraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projectionPreprocessingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -421,7 +424,7 @@ namespace SYRMEPTomoProject
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
-            //this.extraToolStripMenuItem,
+            this.extraToolStripMenuItem,
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -463,9 +466,13 @@ namespace SYRMEPTomoProject
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuTIFF2TDF,
             this.convertHISToTDFToolStripMenuItem,
-            this.convertEDFsToEDFToolStripMenuItem,
+            this.convertEDFsToEDFToolStripMenuItem,            
             this.toolStripMenuItem3,
-            this.menuTDF2TIFF});
+            this.menuTDF2TIFF,
+            this.toolStripMenuItem33,
+            this.runBatchToolStripMenuItem,
+            this.runRemoteToolStripMenuItem
+            });
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -491,10 +498,29 @@ namespace SYRMEPTomoProject
             this.convertEDFsToEDFToolStripMenuItem.Text = "Convert EDFs to TDF...";
             this.convertEDFsToEDFToolStripMenuItem.Click += new System.EventHandler(this.convertEDFsToEDFToolStripMenuItem_Click);
             // 
+            // runBatchToolStripMenuItem
+            // 
+            this.runBatchToolStripMenuItem.Name = "runBatchToolStripMenuItem";
+            this.runBatchToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.runBatchToolStripMenuItem.Text = "Run Complete Reconstruction...";
+            this.runBatchToolStripMenuItem.Click += new System.EventHandler(this.runBatchToolStripMenuItem_Click);
+            // 
+            // runRemoteToolStripMenuItem
+            // 
+            this.runRemoteToolStripMenuItem.Name = "runRemoteToolStripMenuItem";
+            this.runRemoteToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.runRemoteToolStripMenuItem.Text = "Run Reconstruction on SYRMEP HPC...";
+            this.runRemoteToolStripMenuItem.Click += new System.EventHandler(this.runRemoteToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(225, 6);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem33.Name = "toolStripMenuItem33";
+            this.toolStripMenuItem33.Size = new System.Drawing.Size(225, 6);
             // 
             // menuTDF2TIFF
             // 
@@ -506,7 +532,7 @@ namespace SYRMEPTomoProject
             // extraToolStripMenuItem
             // 
             this.extraToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.projectionPreprocessingToolStripMenuItem,
+            //this.projectionPreprocessingToolStripMenuItem,
             this.generalizedDEIToolStripMenuItem});
             this.extraToolStripMenuItem.Name = "extraToolStripMenuItem";
             this.extraToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -514,10 +540,10 @@ namespace SYRMEPTomoProject
             // 
             // projectionPreprocessingToolStripMenuItem
             // 
-            this.projectionPreprocessingToolStripMenuItem.Name = "projectionPreprocessingToolStripMenuItem";
+            /*this.projectionPreprocessingToolStripMenuItem.Name = "projectionPreprocessingToolStripMenuItem";
             this.projectionPreprocessingToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
             this.projectionPreprocessingToolStripMenuItem.Text = "Projection-domain preprocessing...";
-            this.projectionPreprocessingToolStripMenuItem.Click += new System.EventHandler(this.projectionPreprocessingToolStripMenuItem_Click);
+            this.projectionPreprocessingToolStripMenuItem.Click += new System.EventHandler(this.projectionPreprocessingToolStripMenuItem_Click);*/
             // 
             // generalizedDEIToolStripMenuItem
             // 
@@ -2176,6 +2202,7 @@ namespace SYRMEPTomoProject
             // 
             // nudCenter_Middle
             // 
+            this.nudCenter_Middle.DecimalPlaces = 1;
             this.nudCenter_Middle.Location = new System.Drawing.Point(60, 33);
             this.nudCenter_Middle.Maximum = new decimal(new int[] {
             500,
@@ -3928,6 +3955,7 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ToolStripMenuItem convertHISToTDFToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem33;
         private System.Windows.Forms.Label lblDeltaBetaRatio;
         private System.Windows.Forms.CheckBox chkPhrtOnTheFly;
         private System.Windows.Forms.NumericUpDown nudGridRec;
@@ -3989,6 +4017,10 @@ namespace SYRMEPTomoProject
         private System.Windows.Forms.ToolStripMenuItem extraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem projectionPreprocessingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generalizedDEIToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runBatchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runRemoteToolStripMenuItem;
+
+        
     }
 }
 

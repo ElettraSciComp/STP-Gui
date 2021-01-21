@@ -98,6 +98,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\x64\Debug\KP-ImageViewerV2.dll</HintPath>
     </Reference>
+    <Reference Include="Renci.SshNet, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x64\Release\Renci.SshNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -128,6 +132,30 @@
     </Compile>
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IJobExecuter.cs" />
+    <Compile Include="Jobs\MonitoredJobs\RemoteReconstructionJob.cs" />
+    <Compile Include="Jobs\MonitoredJobs\RemotePhaseRetrievalJob.cs" />
+    <Compile Include="RemoteJobExecuter.cs" />
+    <Compile Include="Jobs\MonitoredJobs\RemotePreProcessingJob.cs" />
+    <Compile Include="RemoteReconstruction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RemoteReconstruction.Designer.cs">
+      <DependentUpon>RemoteReconstruction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FullReconstruction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FullReconstruction.Designer.cs">
+      <DependentUpon>FullReconstruction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Jobs\MonitoredJobs\Pixirad2TDFJob.cs" />
+    <Compile Include="Pixirad2TDF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pixirad2TDF.Designer.cs">
+      <DependentUpon>Pixirad2TDF.cs</DependentUpon>
     </Compile>
     <Compile Include="GDEI.cs">
       <SubType>Form</SubType>
@@ -192,6 +220,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="SYRMEP_HPC.cs" />
     <Compile Include="TDF2TIFF.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,6 +280,18 @@
     </Compile>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RemoteReconstruction.resx">
+      <DependentUpon>RemoteReconstruction.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FullReconstruction.resx">
+      <DependentUpon>FullReconstruction.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pixirad2TDF.resx">
+      <DependentUpon>Pixirad2TDF.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GDEI.resx">

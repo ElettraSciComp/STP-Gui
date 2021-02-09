@@ -985,7 +985,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.5 beta")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.6")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -1435,7 +1435,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("AkFLR99_i")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Pippero22")]
         public string SYRMEP_HPC_Password {
             get {
                 return ((string)(this["SYRMEP_HPC_Password"]));
@@ -1444,7 +1444,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/media/sf_Shared_VM")]
+        [global::System.Configuration.DefaultSettingValueAttribute("/media/sf_Shared_VM/in")]
         public string SYRMEP_HPC_InputPath {
             get {
                 return ((string)(this["SYRMEP_HPC_InputPath"]));
@@ -1456,7 +1456,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/media/sf_Shared_VM")]
+        [global::System.Configuration.DefaultSettingValueAttribute("/media/sf_Shared_VM/tmp")]
         public string SYRMEP_HPC_TempPath {
             get {
                 return ((string)(this["SYRMEP_HPC_TempPath"]));
@@ -1468,7 +1468,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/media/sf_Shared_VM")]
+        [global::System.Configuration.DefaultSettingValueAttribute("/media/sf_Shared_VM/out")]
         public string SYRMEP_HPC_OutputPath {
             get {
                 return ((string)(this["SYRMEP_HPC_OutputPath"]));
@@ -1480,7 +1480,7 @@ namespace SYRMEPTomoProject.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public decimal SYRMEP_HPC_Processes {
             get {
                 return ((decimal)(this["SYRMEP_HPC_Processes"]));
@@ -1514,39 +1514,30 @@ namespace SYRMEPTomoProject.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Temp\\Shared_VM")]
-        public string SYRMEP_HPC_MappedInputPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int LocalLogRefreshRateMilliseconds {
             get {
-                return ((string)(this["SYRMEP_HPC_MappedInputPath"]));
-            }
-            set {
-                this["SYRMEP_HPC_MappedInputPath"] = value;
+                return ((int)(this["LocalLogRefreshRateMilliseconds"]));
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Temp\\Shared_VM")]
-        public string SYRMEP_HPC_MappedTempPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        public int RemoteLogRefreshRateMilliseconds {
             get {
-                return ((string)(this["SYRMEP_HPC_MappedTempPath"]));
-            }
-            set {
-                this["SYRMEP_HPC_MappedTempPath"] = value;
+                return ((int)(this["RemoteLogRefreshRateMilliseconds"]));
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Temp\\Shared_VM")]
-        public string SYRMEP_HPC_MappedOutputPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("tools_tdfdims.py")]
+        public string GetTDFDimensionJob {
             get {
-                return ((string)(this["SYRMEP_HPC_MappedOutputPath"]));
-            }
-            set {
-                this["SYRMEP_HPC_MappedOutputPath"] = value;
+                return ((string)(this["GetTDFDimensionJob"]));
             }
         }
     }

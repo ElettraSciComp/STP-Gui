@@ -46,7 +46,7 @@ namespace SYRMEPTomoProject
     public partial class MultiOffset : Form
     {
         private DateTime mDt;
-        private JobMonitor mJobMonitor;
+        private IJobMonitor mJobMonitor;
         private bool mFirstRun = false;
         private bool mRunning = false;
         private string mSlicePrefix;
@@ -178,14 +178,14 @@ namespace SYRMEPTomoProject
             mAnglesProjFrom = anglesProjFrom;
             mAnglesProjTo = anglesProjTo;
 
-            // Settings for the JobMonitor instance:
-            mJobMonitor = new JobMonitor();
+            // Settings for the LocalJobMonitor instance:
+            mJobMonitor = new LocalJobMonitor();
             mJobMonitor.JobStarted += new JobStartedEventHandler(mJobMonitor_JobStarted);
             mJobMonitor.JobCompleted += new JobCompletedEventHandler(mJobMonitor_JobCompleted);
             mJobMonitor.JobError += new JobErrorEventHandler(mJobMonitor_JobError);
             mJobMonitor.JobStep += new JobStepEventHandler(mJobMonitor_JobStep);
 
-            // Start the JobMonitor with the background worker:
+            // Start the LocalJobMonitor with the background worker:
             mJobMonitorBgw.RunWorkerAsync();
 
 

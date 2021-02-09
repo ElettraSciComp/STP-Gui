@@ -47,7 +47,7 @@ namespace SYRMEPTomoProject
     {
         private DateTime mDt;
 
-        private JobMonitor mJobMonitor;
+        private IJobMonitor mJobMonitor;
         private bool mFirstRun = false;
         private bool mRunning = false;
 
@@ -100,7 +100,7 @@ namespace SYRMEPTomoProject
             mDynamicFlatFielding = dynamicFlatFielding;
 
             // Settings for the JobMonitor instance:
-            mJobMonitor = new JobMonitor();
+            mJobMonitor = new LocalJobMonitor();
             mJobMonitor.JobStarted += new JobStartedEventHandler(mJobMonitor_JobStarted);
             mJobMonitor.JobCompleted += new JobCompletedEventHandler(mJobMonitor_JobCompleted);
             mJobMonitor.JobError += new JobErrorEventHandler(mJobMonitor_JobError);

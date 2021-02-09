@@ -41,7 +41,7 @@ namespace SYRMEPTomoProject.Jobs
     /// <summary>
     /// 
     /// </summary>
-    public class RemoteReconstructionJob : IMonitoredJob
+    public class RemoteReconstructionJob : IRemoteMonitoredJob
     {
         private bool mPreProcess = false;
         private int mAirSx = 0;
@@ -210,7 +210,12 @@ namespace SYRMEPTomoProject.Jobs
             mRollShift = rollShift;
 
             // Windows style path:
-            mLogFile = Properties.Settings.Default.SYRMEP_HPC_MappedTempPath + Path.DirectorySeparatorChar + inputFile.Remove(inputFile.Length - 4) + "_rec_00.txt"; // It should be "*_00.txt"
+            //mLogFile = Properties.Settings.Default.SYRMEP_HPC_MappedTempPath + Path.DirectorySeparatorChar + inputFile.Remove(inputFile.Length - 4) + "_rec_00.txt"; // It should be "*_00.txt"
+
+
+            // Unix style:
+            //mLogFile = Properties.Settings.Default.SYRMEP_HPC_TempPath + '/' + mInputFile.Remove(mInputFile.Length - 4) + "_rec_00.txt";
+            mLogFile = Properties.Settings.Default.SYRMEP_HPC_TempPath + "/" + Program.GetTimestamp(DateTime.Now) + "_" + mInputFile.Remove(mInputFile.Length - 4) + ".log"; 
         }
 
         /// <summary>
@@ -309,7 +314,7 @@ namespace SYRMEPTomoProject.Jobs
 
                 Properties.Settings.Default.SYRMEP_HPC_TempPath + "/" + mInputFile + " " +
                 mOutputPath + " " +
- 
+
                 mAngles.ToString(CultureInfo.InvariantCulture) + " " +
                 mCenter.ToString(CultureInfo.InvariantCulture) + " " +
                 mReconParam1.ToString() + " " +
@@ -318,15 +323,15 @@ namespace SYRMEPTomoProject.Jobs
                 mLogTransform.ToString() + " " +
                 mCircle.ToString() + " " +
                 Properties.Settings.Default.FormSettings_OutputPrefix + " " +
-                mPreProcess.ToString() + " " +                 
+                mPreProcess.ToString() + " " +
                 mFlatEnd.ToString() + " " + mHalfHalf.ToString() + " " +
                 mHalfHalfLine.ToString() + " " +
                 mExtFOV.ToString() + " " + mExtFOVRight.ToString() + " " +
                 mExtFOVOverlap.ToString() + " " +
                 mExtFOVNormalize.ToString() + " " +
-                mExtFOVAverage.ToString() + " " + 
-                mAirSx.ToString() + " " + 
-                mAirDx.ToString() + 
+                mExtFOVAverage.ToString() + " " +
+                mAirSx.ToString() + " " +
+                mAirDx.ToString() +
                 " False \"" +  // This has to be modified...
                 mRingRemoval + "\" " +
                 mZeroneMode.ToString() + " " +
@@ -346,7 +351,9 @@ namespace SYRMEPTomoProject.Jobs
                 mThreads.ToString() + " " +
 
                 // Unix style:
-                Properties.Settings.Default.SYRMEP_HPC_TempPath + '/' + mInputFile.Remove(mInputFile.Length - 4) + "_rec_00.txt"; // It should be "*_00.txt"
+                //Properties.Settings.Default.SYRMEP_HPC_TempPath + '/' + mInputFile.Remove(mInputFile.Length - 4) + "_rec_00.txt"; // It should be "*_00.txt"
+
+                mLogFile;
 
             return zString;
         }

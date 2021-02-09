@@ -80,9 +80,9 @@ namespace SYRMEPTomoProject
             DirectoryInfo zDirInfoWorkingPath = new DirectoryInfo(this.txbWorkingPath.Text);
             DirectoryInfo zDirInfoTempPath = new DirectoryInfo(this.txbTemporaryPath.Text);
 
-            DirectoryInfo zDirInfoSYRMEP_HPC_Input_LocallyMappedPath = new DirectoryInfo(this.txbSYRMEP_HPC_Input_LocallyMapped.Text);
+            /*DirectoryInfo zDirInfoSYRMEP_HPC_Input_LocallyMappedPath = new DirectoryInfo(this.txbSYRMEP_HPC_Input_LocallyMapped.Text);
             DirectoryInfo zDirInfoSYRMEP_HPC_Temp_LocallyMappedPath = new DirectoryInfo(this.txbSYRMEP_HPC_Temp_LocallyMapped.Text);
-            DirectoryInfo zDirInfoSYRMEP_HPC_Output_LocallyMappedPath = new DirectoryInfo(this.txbSYRMEP_HPC_Output_LocallyMapped.Text);
+            DirectoryInfo zDirInfoSYRMEP_HPC_Output_LocallyMappedPath = new DirectoryInfo(this.txbSYRMEP_HPC_Output_LocallyMapped.Text);*/
 
             //
             // Validate fields:
@@ -92,7 +92,7 @@ namespace SYRMEPTomoProject
             {
 
                 // Check if path exists:
-                if (!Directory.Exists(this.txbSYRMEP_HPC_Input_LocallyMapped.Text))
+                /*if (!Directory.Exists(this.txbSYRMEP_HPC_Input_LocallyMapped.Text))
                 {
                     MessageBox.Show("The specified locally mapped SYRMEP HPC input path does not exist!", Properties.Settings.Default.ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -123,9 +123,7 @@ namespace SYRMEPTomoProject
                 {
                     // Raise closing event:
                     this.Close();
-                }
-
-                return;
+                }*/
             }
 
 
@@ -210,9 +208,9 @@ namespace SYRMEPTomoProject
             this.txbSYRMEP_HPC_Temp.Text = Properties.Settings.Default.SYRMEP_HPC_TempPath;
             this.txbSYRMEP_HPC_Output.Text = Properties.Settings.Default.SYRMEP_HPC_OutputPath;
 
-            this.txbSYRMEP_HPC_Input_LocallyMapped.Text = Properties.Settings.Default.SYRMEP_HPC_MappedInputPath;
+            /*this.txbSYRMEP_HPC_Input_LocallyMapped.Text = Properties.Settings.Default.SYRMEP_HPC_MappedInputPath;
             this.txbSYRMEP_HPC_Temp_LocallyMapped.Text = Properties.Settings.Default.SYRMEP_HPC_MappedTempPath;
-            this.txbSYRMEP_HPC_Output_LocallyMapped.Text = Properties.Settings.Default.SYRMEP_HPC_MappedOutputPath;
+            this.txbSYRMEP_HPC_Output_LocallyMapped.Text = Properties.Settings.Default.SYRMEP_HPC_MappedOutputPath;*/
 
             // Only if SYRMEP Version:
             if (Properties.Settings.Default.SYRMEP_Version == false)
@@ -295,9 +293,9 @@ namespace SYRMEPTomoProject
                 Properties.Settings.Default["SYRMEP_HPC_TempPath"] = RemoveBackslashUnixPath(this.txbSYRMEP_HPC_Temp.Text);
                 Properties.Settings.Default["SYRMEP_HPC_OutputPath"] = RemoveBackslashUnixPath(this.txbSYRMEP_HPC_Output.Text);
 
-                Properties.Settings.Default["SYRMEP_HPC_MappedInputPath"] = RemoveBackslashWinPath(this.txbSYRMEP_HPC_Input_LocallyMapped.Text);
+                /*Properties.Settings.Default["SYRMEP_HPC_MappedInputPath"] = RemoveBackslashWinPath(this.txbSYRMEP_HPC_Input_LocallyMapped.Text);
                 Properties.Settings.Default["SYRMEP_HPC_MappedTempPath"] = RemoveBackslashWinPath(this.txbSYRMEP_HPC_Temp_LocallyMapped.Text);
-                Properties.Settings.Default["SYRMEP_HPC_MappedOutputPath"] = RemoveBackslashWinPath(this.txbSYRMEP_HPC_Output_LocallyMapped.Text);
+                Properties.Settings.Default["SYRMEP_HPC_MappedOutputPath"] = RemoveBackslashWinPath(this.txbSYRMEP_HPC_Output_LocallyMapped.Text);*/
 
                 Properties.Settings.Default.Save();
 

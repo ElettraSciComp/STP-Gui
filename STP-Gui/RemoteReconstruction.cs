@@ -53,7 +53,7 @@ namespace SYRMEPTomoProject
         private DateTime mDt;
         private MainForm mMainForm;
 
-        private JobMonitor mJobMonitor;
+        private IJobMonitor mJobMonitor;
         private bool mFirstRun = false;
         private bool mRunning = false;
 
@@ -209,7 +209,7 @@ namespace SYRMEPTomoProject
             InitializeComponent();
 
             // Settings for the JobMonitor instance:
-            mJobMonitor = new JobMonitor();
+            mJobMonitor = new RemoteJobMonitor();
             mJobMonitor.JobStarted += new JobStartedEventHandler(mJobMonitor_JobStarted);
             mJobMonitor.JobCompleted += new JobCompletedEventHandler(mJobMonitor_JobCompleted);
             mJobMonitor.JobError += new JobErrorEventHandler(mJobMonitor_JobError);
@@ -480,8 +480,14 @@ namespace SYRMEPTomoProject
             // Populate the list:
             this.SuspendLayout();
 
-            string zFilter = "*" + Properties.Settings.Default.TomoDataFormatExtension;
-            string[] fileEntries = Directory.GetFiles(Properties.Settings.Default.SYRMEP_HPC_MappedInputPath, zFilter, SearchOption.TopDirectoryOnly);
+            //string zFilter = "*" + Properties.Settings.Default.TomoDataFormatExtension;
+            //string[] fileEntries = Directory.GetFiles(Properties.Settings.Default.SYRMEP_HPC_MappedInputPath, zFilter, SearchOption.TopDirectoryOnly);
+
+
+            string zResult = SYRMEP_HPC.Execute("ls " + Properties.Settings.Default.SYRMEP_HPC_InputPath + "/*" + Properties.Settings.Default.TomoDataFormatExtension);
+            string[] fileEntries = zResult.Split('\n');
+            fileEntries = fileEntries.Take(fileEntries.Length - 1).ToArray();
+            
             Dictionary<string, string> zDict = new Dictionary<string, string>();
             if (fileEntries.Length == 0)
                 zDict.Add("<none>", "<none>");
@@ -526,7 +532,22 @@ namespace SYRMEPTomoProject
             IJob zJob;
 
             string zFileName = Path.GetFileName(mInputTDF);
-            int zTo = TDFReader.GetNumberOfSlices(Properties.Settings.Default.SYRMEP_HPC_MappedInputPath + Path.DirectorySeparatorChar + zFileName);
+
+
+            string zString = string.Empty;
+            string pythoncmd = (string.IsNullOrEmpty(Properties.Settings.Default.SYRMEP_HPC_PythonPath)) ? "python " : Properties.Settings.Default.SYRMEP_HPC_PythonPath + "/python ";
+
+            // Unix-like command line:
+            zString = pythoncmd + Properties.Settings.Default.SYRMEP_HPC_SourcePath + '/' + Properties.Settings.Default.GetTDFDimensionJob + " " + mInputTDF;
+            string zResult = SYRMEP_HPC.Execute(zString);
+
+            string[] zLines = zResult.Split('\n');
+            int zProjections = Int32.Parse((zLines[0].Split(' '))[1]);
+            int zSlices = Int32.Parse((zLines[1].Split(' '))[1]);
+            
+            int zTo = zSlices - 1;
+ 
+
             int zThreads = Convert.ToInt32(Properties.Settings.Default.SYRMEP_HPC_Processes);
                           
             // Execute with conventional flat fielding:
@@ -535,7 +556,7 @@ namespace SYRMEPTomoProject
                    zFileName,
                    zFileName.Remove(zFileName.Length - 4) + "_corr.tdf",
                    0,
-                   zTo - 1,
+                   zTo,
                    mAirSx,
                    mAirDx,
                    this.mFlatEnd, // use flat at the end
@@ -591,7 +612,23 @@ namespace SYRMEPTomoProject
 
             string zFileName = Path.GetFileName(mInputTDF);
             zFileName = zFileName.Remove(zFileName.Length - 4) + "_corr.tdf";
-            int zTo = TDFReader.GetNumberOfProjections(Properties.Settings.Default.SYRMEP_HPC_MappedInputPath + Path.DirectorySeparatorChar + zFileName);
+
+
+
+            string zString = string.Empty;
+            string pythoncmd = (string.IsNullOrEmpty(Properties.Settings.Default.SYRMEP_HPC_PythonPath)) ? "python " : Properties.Settings.Default.SYRMEP_HPC_PythonPath + "/python ";
+
+            // Unix-like command line:
+            zString = pythoncmd + Properties.Settings.Default.SYRMEP_HPC_SourcePath + '/' + Properties.Settings.Default.GetTDFDimensionJob + " " + mInputTDF;
+            string zResult = SYRMEP_HPC.Execute(zString);
+
+            string[] zLines = zResult.Split('\n');
+            int zProjections = Int32.Parse((zLines[0].Split(' '))[1]);
+            int zSlices = Int32.Parse((zLines[1].Split(' '))[1]);
+
+
+            int zTo = zProjections - 1;
+                        
             int zThreads = Convert.ToInt32(Properties.Settings.Default.SYRMEP_HPC_Processes);
           
             zJob = new RemotePhaseRetrievalJob(
@@ -599,7 +636,7 @@ namespace SYRMEPTomoProject
                   zFileName.Remove(zFileName.Length - 4) + "_phrt.tdf",
                   this.mMethod,
                   0,
-                  zTo - 1,
+                  zTo,
                   this.mParam1,
                   this.mParam2,
                   this.mDistance,
@@ -636,14 +673,28 @@ namespace SYRMEPTomoProject
 
             string zFileName = Path.GetFileName(mInputTDF);
             zFileName = zFileName.Remove(zFileName.Length - 4) + "_corr_phrt.tdf";
-            int zTo = TDFReader.GetNumberOfSlices(Properties.Settings.Default.SYRMEP_HPC_MappedInputPath + Path.DirectorySeparatorChar + zFileName) - 1;
+
+            string zString = string.Empty; 
+            string pythoncmd = (string.IsNullOrEmpty(Properties.Settings.Default.SYRMEP_HPC_PythonPath)) ? "python " : Properties.Settings.Default.SYRMEP_HPC_PythonPath + "/python ";
+
+            // Unix-like command line:
+            zString = pythoncmd + Properties.Settings.Default.SYRMEP_HPC_SourcePath + '/' + Properties.Settings.Default.GetTDFDimensionJob + " " + mInputTDF;
+            string zResult = SYRMEP_HPC.Execute(zString);
+
+            string[] zLines = zResult.Split('\n');
+            int zProjections = Int32.Parse((zLines[0].Split(' '))[1]);
+            int zSlices = Int32.Parse((zLines[1].Split(' '))[1]);
+
+
+            int zTo = zSlices - 1;
+            
             int zThreads = Convert.ToInt32(Properties.Settings.Default.SYRMEP_HPC_Processes);
 
             // Unix-style:
             string zOutputPath = Properties.Settings.Default.SYRMEP_HPC_OutputPath + '/' + Path.GetFileNameWithoutExtension(mInputTDF) + '/' + @"slices" + '/';
 
             if (mAngles_ProjTo == 0)
-                mAngles_ProjTo = TDFReader.GetNumberOfProjections(Properties.Settings.Default.SYRMEP_HPC_MappedInputPath + Path.DirectorySeparatorChar + zFileName) - 1;
+                mAngles_ProjTo = zProjections - 1;
        
 
             
@@ -706,49 +757,6 @@ namespace SYRMEPTomoProject
 
             // Reset status bar:
             this.toolStripStatusLabel1.Text = string.Empty;
-        }
-
-        private void btnRemoteSubmit_Click(object sender, EventArgs e)
-        {
-
-            string zHost = Properties.Settings.Default.SYRMEP_HPC_Address;
-            int zPort = Convert.ToInt32(Properties.Settings.Default.SYRMEP_HPC_Port);
-            string zUser = Properties.Settings.Default.SYRMEP_HPC_User;
-            string zPassword = Properties.Settings.Default.SYRMEP_HPC_Password;
-
-                     
-            string zCommand;
-            string zInputTDF = Path.GetFileName(this.mInputTDF);
-
-
-            // Prepare preprocessing:
-            string zPreProcString = Properties.Settings.Default.SYRMEP_HPC_PythonPath + "/python " + 
-                    Properties.Settings.Default.SYRMEP_HPC_SourcePath + "/" + Properties.Settings.Default.PreProcessingJob + " "
-                    + " 0 " +
-                    (TDFReader.GetNumberOfSlices(mInputTDF) - 1).ToString() + " " +
-                    Properties.Settings.Default.SYRMEP_HPC_InputPath + "/" + zInputTDF + " " +
-                    Properties.Settings.Default.SYRMEP_HPC_TempPath + "/" + zInputTDF.Remove(zInputTDF.Length - 4) + "_corr.tdf" + " " +
-                    mAirSx.ToString() + " " +
-                    mAirDx.ToString() + " " +
-                    mFlatEnd.ToString() + " " +
-                    mHalfHalf.ToString() + " " +
-                    mHalfHalfLine.ToString() + " " +
-                    mExtFOV.ToString() + " " +
-                    mExtFOVRight.ToString() + " " +
-                    mExtFOVOverlap.ToString() + " " +
-                    mExtFOVNormalize.ToString() + " " +
-                    mExtFOVAverage.ToString() + " \"" +
-                    mRingRemoval + "\" " +
-                    mDynamicFlatFielding.ToString() + " " +
-                    (Convert.ToInt32(Properties.Settings.Default.SYRMEP_HPC_Processes)).ToString() + " " +
-                    Properties.Settings.Default.SYRMEP_HPC_TempPath + "/" + zInputTDF.Remove(zInputTDF.Length - 4) + "_preprocessing.log";
-
- 
-
-
-
-          
-
         }
 
     }

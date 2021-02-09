@@ -133,7 +133,10 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="RemoteJobMonitor.cs" />
     <Compile Include="IJobExecuter.cs" />
+    <Compile Include="IJobMonitor.cs" />
+    <Compile Include="Jobs\MonitoredJobs\IRemoteMonitoredJob.cs" />
     <Compile Include="Jobs\MonitoredJobs\RemoteReconstructionJob.cs" />
     <Compile Include="Jobs\MonitoredJobs\RemotePhaseRetrievalJob.cs" />
     <Compile Include="RemoteJobExecuter.cs" />
@@ -192,7 +195,7 @@
       <DependentUpon>HIS2TDF.cs</DependentUpon>
     </Compile>
     <Compile Include="HISReader.cs" />
-    <Compile Include="JobMonitor.cs">
+    <Compile Include="LocalJobMonitor.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Jobs\GuessLimitJob.cs" />

@@ -54,7 +54,7 @@ namespace SYRMEPTomoProject
         private bool m_bLayoutCalled = false;
         private DateTime mDt;
 
-        private JobMonitor mJobMonitor;
+        private IJobMonitor mJobMonitor;
         private bool mFirstRun = false;
 
         PerformanceCounter mCPUCounter;
@@ -67,7 +67,7 @@ namespace SYRMEPTomoProject
             InitializeComponent();
 
             // Settings for the JobMonitor instance:
-            mJobMonitor = new JobMonitor();
+            mJobMonitor = new LocalJobMonitor();
             mJobMonitor.JobStarted += new JobStartedEventHandler(mJobMonitor_JobStarted);
             mJobMonitor.JobCompleted += new JobCompletedEventHandler(mJobMonitor_JobCompleted);
             mJobMonitor.JobError += new JobErrorEventHandler(mJobMonitor_JobError);
@@ -93,7 +93,7 @@ namespace SYRMEPTomoProject
         {
             try
             {
-                IMonitoredJob zJob = ((JobMonitor)sender).MonitoredJob;
+                IMonitoredJob zJob = ((LocalJobMonitor)sender).MonitoredJob;
                 TimeSpan zElapsedTime, zRemainingTime;
                 ulong zFreeSpace;
 
@@ -417,7 +417,7 @@ namespace SYRMEPTomoProject
 
                 if (cbxDegradationMethods.Items.Count > 0)
                 {
-                    cbxDegradationMethods.SelectedIndex = 1;
+                    cbxDegradationMethods.SelectedIndex = 0; // Default: no degradation
                 }
             }
         }
@@ -545,7 +545,7 @@ namespace SYRMEPTomoProject
 
                 if (cbxPostProc_PolarFilt_Method.Items.Count > 0)
                 {
-                    cbxPostProc_PolarFilt_Method.SelectedIndex = 1;
+                    cbxPostProc_PolarFilt_Method.SelectedIndex = 0; // Default: no filtering
                 }
             }
         }
@@ -2612,6 +2612,7 @@ namespace SYRMEPTomoProject
 
             // Start the monitoring of the job:
             mJobMonitor.Run(zExecuter, Properties.Settings.Default.FormSettings_OutputPrefix);
+
         }
 
         private void txbPostProcessingTab_InputFolder_TextChanged(object sender, EventArgs e)
@@ -2802,7 +2803,7 @@ namespace SYRMEPTomoProject
             this.bgwAutoLimit.RunWorkerAsync(zJob.LogFile);
             //mJobMonitor.Run(zExecuter, BTPSettings.TomoPrefix);
 
-            mWaitDialog = new UIWaitDialog(Properties.Settings.Default.ProgramName, "Determining limits...");
+            mWaitDialog = new UIWaitDialog(Properties.Settings.Default.ProgramName, "Assessing limits...");
             mWaitDialog.ShowDialog();
 
         }

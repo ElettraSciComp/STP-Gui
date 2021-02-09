@@ -270,7 +270,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Version" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">1.5 beta</Value>
+      <Value Profile="(Default)">1.6</Value>
     </Setting>
     <Setting Name="TIFF2TDF_LastPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -390,19 +390,19 @@
       <Value Profile="(Default)">franz</Value>
     </Setting>
     <Setting Name="SYRMEP_HPC_Password" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">AkFLR99_i</Value>
+      <Value Profile="(Default)">Pippero22</Value>
     </Setting>
     <Setting Name="SYRMEP_HPC_InputPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">/media/sf_Shared_VM</Value>
+      <Value Profile="(Default)">/media/sf_Shared_VM/in</Value>
     </Setting>
     <Setting Name="SYRMEP_HPC_TempPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">/media/sf_Shared_VM</Value>
+      <Value Profile="(Default)">/media/sf_Shared_VM/tmp</Value>
     </Setting>
     <Setting Name="SYRMEP_HPC_OutputPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">/media/sf_Shared_VM</Value>
+      <Value Profile="(Default)">/media/sf_Shared_VM/out</Value>
     </Setting>
     <Setting Name="SYRMEP_HPC_Processes" Type="System.Decimal" Scope="Application">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="SYRMEP_HPC_SourcePath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">/home/franz/Documents/STP-Core1.4</Value>
@@ -413,14 +413,14 @@
     <Setting Name="SYRMEP_HPC_Port" Type="System.Decimal" Scope="Application">
       <Value Profile="(Default)">2222</Value>
     </Setting>
-    <Setting Name="SYRMEP_HPC_MappedInputPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Temp\Shared_VM</Value>
+    <Setting Name="LocalLogRefreshRateMilliseconds" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">500</Value>
     </Setting>
-    <Setting Name="SYRMEP_HPC_MappedTempPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Temp\Shared_VM</Value>
+    <Setting Name="RemoteLogRefreshRateMilliseconds" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">5000</Value>
     </Setting>
-    <Setting Name="SYRMEP_HPC_MappedOutputPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Temp\Shared_VM</Value>
+    <Setting Name="GetTDFDimensionJob" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">tools_tdfdims.py</Value>
     </Setting>
   </Settings>
 </SettingsFile>

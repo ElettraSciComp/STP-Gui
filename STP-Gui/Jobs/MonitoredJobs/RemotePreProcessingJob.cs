@@ -40,7 +40,7 @@ namespace SYRMEPTomoProject.Jobs
     /// <summary>
     /// 
     /// </summary>
-    public class RemotePreProcessingJob : IMonitoredJob
+    public class RemotePreProcessingJob : IRemoteMonitoredJob
     {
         private string mInputFile;
         private string mOutputFile;
@@ -141,7 +141,14 @@ namespace SYRMEPTomoProject.Jobs
             mPreviewModeOutFile = previewModeOutFile;
 
             // Windows style path:
-            mLogFile = Properties.Settings.Default.SYRMEP_HPC_MappedTempPath + Path.DirectorySeparatorChar + inputFile.Remove(inputFile.Length - 4) + "_corr_00.txt"; // It should be "*_00.txt"
+            //mLogFile = Properties.Settings.Default.SYRMEP_HPC_MappedTempPath + Path.DirectorySeparatorChar + inputFile.Remove(inputFile.Length - 4) + "_corr_00.txt"; // It should be "*_00.txt"
+
+            // Unix monitoring:
+            //mLogFile = Properties.Settings.Default.SYRMEP_HPC_TempPath + '/' + mInputFile.Remove(mInputFile.Length - 4) + "_corr_00.txt"; 
+            mLogFile = Properties.Settings.Default.SYRMEP_HPC_TempPath + "/" + Program.GetTimestamp(DateTime.Now) + "_" + mInputFile.Remove(mInputFile.Length - 4) + ".log"; 
+            
+
+
         }
 
         /// <summary>
@@ -213,7 +220,7 @@ namespace SYRMEPTomoProject.Jobs
                     mDynamicFlatFielding.ToString() + " " +
                     mThreads.ToString() + " " +
                     // Unix style:
-                    Properties.Settings.Default.SYRMEP_HPC_TempPath + '/' + mInputFile.Remove(mInputFile.Length - 4) + "_corr_00.txt"; // It should be "*_00.txt"
+                    mLogFile; // It should be "*_00.txt"
           
             return zString;
         }

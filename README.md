@@ -17,8 +17,8 @@ No installation required. The software is portable. Decompress the .zip file and
 In most of the machines, the software runs without performing additional installations. In case of issues, consider that the following tools have to be installed in the user machine to correctly run the software:
 
 * .NET Framework 4.0 (https://www.microsoft.com/en-us/download/details.aspx?id=17851)
-* VC++ 2008 Redistributable x64 (https://www.microsoft.com/en-us/download/details.aspx?id=15336)
-* VC++ 2010 Redistributable x64 (https://www.microsoft.com/en-us/download/details.aspx?id=14632) 
+* VC++ 2008 Redistributable x64 (https://www.microsoft.com/en-us/download/details.aspx?id=26368)
+* VC++ 2010 Redistributable x64 (https://www.microsoft.com/en-us/download/details.aspx?id=26999)
 * VC++ 2015 Redistributable x64 (https://www.microsoft.com/en-us/download/details.aspx?id=53840)
 
 The installer for each of these tools is included into the "depend" folder within the .zip file of the SYRMEP Tomo Project.
